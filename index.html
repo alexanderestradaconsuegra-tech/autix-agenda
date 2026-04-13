@@ -3,336 +3,378 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Autix Agenda — Panel de gestión</title>
+<title>Autix Agenda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,wght@0,700;1,400;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#07090f;--sidebar:#0c0f1a;--surface:#111520;--surface2:#181d2e;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
-  --text:#eef0f8;--muted:#6b7299;--faint:#2e3454;
-  --accent:#4f7eff;--accent-g:rgba(79,126,255,0.12);
-  --green:#00c97a;--green-g:rgba(0,201,122,0.1);
-  --amber:#f59e0b;--amber-g:rgba(245,158,11,0.1);
-  --red:#f43f5e;--red-g:rgba(244,63,94,0.1);
-  --purple:#8b5cf6;
-  --sidebar-w:220px;--r:10px;--r-lg:16px;
+  --ink:    #023337;
+  --ink2:   #03484e;
+  --ink3:   #055b63;
+  --mid:    #4ea674;
+  --mid2:   #3d8560;
+  --light:  #c0e6b9;
+  --pale:   #e9f8e7;
+  --pale2:  #d4f0ce;
+  --white:  #f5fdf4;
+  --border: rgba(78,166,116,0.18);
+  --border2:rgba(78,166,116,0.32);
+  --glow:   rgba(78,166,116,0.12);
+  --r:9px;--r-lg:16px;--r-xl:24px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;overflow:hidden;height:100vh}
+html{height:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--pale);height:100vh;overflow:hidden;display:flex;font-size:13px}
+
+/* DOT GRID BG */
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(78,166,116,0.15) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
 
 /* LOGIN */
-.login-wrap{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999}
-.login-box{background:var(--surface);border:0.5px solid var(--border2);border-radius:24px;padding:40px;width:380px;position:relative;overflow:hidden}
-.login-box::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-.login-logo{display:flex;align-items:center;gap:10px;margin-bottom:32px;justify-content:center}
-.login-mark{width:36px;height:36px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff}
-.login-name{font-size:20px;font-weight:800;letter-spacing:-0.4px}
-.login-name span{color:var(--accent)}
-.login-title{font-size:13px;color:var(--muted);text-align:center;margin-bottom:28px}
-.login-field{margin-bottom:14px}
-.login-field label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.login-field input{width:100%;background:var(--surface2);border:0.5px solid var(--border2);border-radius:var(--r);padding:11px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color 0.2s}
-.login-field input:focus{border-color:rgba(79,126,255,0.5)}
-.login-btn{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:100px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;transition:all 0.2s}
-.login-btn:hover{opacity:0.9;transform:translateY(-1px)}
-.login-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-.login-error{font-size:12px;color:var(--red);text-align:center;margin-top:10px;min-height:18px}
-.login-demo{text-align:center;margin-top:16px;font-size:12px;color:var(--faint)}
-.login-demo a{color:var(--accent);cursor:pointer;font-weight:600}
+.login-wrap{position:fixed;inset:0;background:var(--ink);z-index:999;display:flex;align-items:center;justify-content:center}
+.login-panel{position:relative;z-index:1;width:400px}
+.login-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(78,166,116,0.2),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.login-box{background:var(--ink2);border:0.5px solid var(--border2);border-radius:var(--r-xl);padding:44px;position:relative;overflow:hidden}
+.login-box::before{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,var(--mid),transparent)}
+.l-logo{text-align:center;margin-bottom:36px}
+.l-mark{display:inline-flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:26px;font-style:italic;color:var(--pale)}
+.l-mark-icon{width:38px;height:38px;background:var(--mid);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-style:normal;font-size:15px;font-weight:500;color:var(--ink)}
+.l-sub{font-size:12px;color:var(--light);opacity:0.6;text-align:center;margin-top:6px;font-family:'DM Mono',monospace;letter-spacing:1px}
+.lf{margin-bottom:16px}
+.lf label{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);opacity:0.6;margin-bottom:7px}
+.lf input{width:100%;background:var(--ink);border:0.5px solid var(--border2);border-radius:var(--r);padding:11px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--pale);outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.lf input:focus{border-color:var(--mid);box-shadow:0 0 0 3px rgba(78,166,116,0.1)}
+.l-btn{width:100%;padding:13px;background:var(--mid);color:var(--ink);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;transition:all 0.2s;letter-spacing:0.2px}
+.l-btn:hover{background:var(--light);transform:translateY(-1px)}
+.l-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.l-err{font-size:11px;color:#ff6b6b;text-align:center;margin-top:10px;min-height:16px;font-family:'DM Mono',monospace}
+.l-demo{text-align:center;margin-top:18px;font-family:'DM Mono',monospace;font-size:11px;color:var(--light);opacity:0.45}
+.l-demo a{color:var(--mid);cursor:pointer;opacity:1}
 
-/* APP */
-.app{display:flex;height:100vh;overflow:hidden}
-
-/* SIDEBAR */
-.sidebar{width:var(--sidebar-w);background:var(--sidebar);border-right:0.5px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto}
-.sb-logo{padding:18px 16px 14px;display:flex;align-items:center;gap:10px;border-bottom:0.5px solid var(--border)}
-.sb-mark{width:28px;height:28px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;flex-shrink:0}
-.sb-name{font-size:14px;font-weight:800;letter-spacing:-0.3px}
-.sb-name span{color:var(--accent)}
-.sb-negocio{font-size:10px;color:var(--muted);font-weight:500;padding:8px 16px;border-bottom:0.5px solid var(--border);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sb-sec{padding:8px 10px 4px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-top:10px}
-.sb-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r);margin:1px 8px;cursor:pointer;transition:all 0.15s;color:var(--muted);font-size:13px;font-weight:500;position:relative}
-.sb-item:hover{background:rgba(255,255,255,0.04);color:var(--text)}
-.sb-item.active{background:var(--accent-g);color:var(--accent);font-weight:600}
-.sb-item.active::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--accent);border-radius:0 3px 3px 0}
-.sb-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
-.sb-badge{margin-left:auto;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px}
-.sb-bottom{margin-top:auto;padding:12px 8px;border-top:0.5px solid var(--border)}
-.sb-user{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--r);cursor:pointer;transition:background 0.15s}
-.sb-user:hover{background:rgba(255,255,255,0.04)}
-.sb-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
-.sb-uname{font-size:12px;font-weight:600}
-.sb-uplan{font-size:10px;color:var(--accent);font-weight:600}
+/* SIDEBAR — icon only */
+.sidebar{width:64px;background:var(--ink2);border-right:0.5px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:16px 0;flex-shrink:0;position:relative;z-index:2;gap:4px}
+.sb-logo{width:36px;height:36px;background:var(--mid);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--ink);margin-bottom:24px;flex-shrink:0}
+.sb-sep{width:32px;height:0.5px;background:var(--border);margin:8px 0}
+.sb-btn{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.15s;color:var(--light);opacity:0.4;font-size:17px;position:relative;flex-shrink:0}
+.sb-btn:hover{background:var(--glow);opacity:0.8}
+.sb-btn.active{background:rgba(78,166,116,0.15);color:var(--mid);opacity:1}
+.sb-btn.active::before{content:'';position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--mid);border-radius:0 3px 3px 0}
+.sb-tip{position:absolute;left:56px;background:var(--ink2);border:0.5px solid var(--border2);border-radius:8px;padding:5px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--pale);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.15s;z-index:100}
+.sb-btn:hover .sb-tip{opacity:1}
+.sb-bottom{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:8px}
+.sb-av{width:34px;height:34px;border-radius:50%;background:var(--ink3);border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--mid);cursor:pointer}
 
 /* MAIN */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{height:54px;background:var(--sidebar);border-bottom:0.5px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:14px;flex-shrink:0}
-.topbar-title{font-size:15px;font-weight:700;flex:1}
-.topbar-link{background:var(--accent-g);border:0.5px solid rgba(79,126,255,0.25);color:var(--accent);font-size:11px;font-weight:600;padding:6px 12px;border-radius:100px;cursor:pointer;white-space:nowrap}
-.topbar-link:hover{background:rgba(79,126,255,0.2)}
-.topbar-logout{font-size:11px;color:var(--muted);cursor:pointer;padding:6px 10px;border-radius:100px;transition:all 0.15s}
-.topbar-logout:hover{color:var(--red)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative;z-index:1}
 
-.content{flex:1;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:18px}
-.content::-webkit-scrollbar{width:4px}
-.content::-webkit-scrollbar-thumb{background:var(--faint);border-radius:4px}
+/* TOPBAR */
+.topbar{height:52px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;flex-shrink:0;background:rgba(2,51,55,0.6);backdrop-filter:blur(10px)}
+.topbar-breadcrumb{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--light);opacity:0.5}
+.topbar-breadcrumb span{color:var(--mid);opacity:1;font-weight:500}
+.topbar-title{font-family:'Fraunces',serif;font-size:17px;font-style:italic;color:var(--pale);flex:1}
+.topbar-pulse{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);letter-spacing:0.5px}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--mid);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(78,166,116,0.4)}50%{opacity:0.6;box-shadow:0 0 0 4px rgba(78,166,116,0)}}
+.topbar-link{font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);background:rgba(78,166,116,0.08);border:0.5px solid var(--border2);padding:5px 12px;border-radius:100px;cursor:pointer;letter-spacing:0.5px;transition:all 0.15s}
+.topbar-link:hover{background:rgba(78,166,116,0.15)}
+.topbar-logout{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);opacity:0.4;cursor:pointer;transition:opacity 0.15s;letter-spacing:0.5px}
+.topbar-logout:hover{opacity:0.8;color:#ff6b6b}
 
-/* PANELS */
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:16px}
+.content::-webkit-scrollbar{width:3px}
+.content::-webkit-scrollbar-thumb{background:var(--ink3);border-radius:3px}
 .panel{display:none}
-.panel.active{display:flex;flex-direction:column;gap:18px}
+.panel.active{display:flex;flex-direction:column;gap:16px}
 
-/* LOADING */
-.loading-overlay{position:fixed;inset:0;background:rgba(7,9,15,0.8);z-index:200;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
-.loading-overlay.show{display:flex}
-.spinner{width:36px;height:36px;border:3px solid var(--faint);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-size:13px;color:var(--muted)}
-
-/* METRICS */
+/* METRIC CARDS */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.mc{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r-lg);padding:18px}
-.mc-label{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.mc-icon{font-size:16px}
-.mc-val{font-size:26px;font-weight:800;letter-spacing:-0.8px;line-height:1;margin-bottom:8px}
-.mc-sub{font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:4px;padding:3px 7px;border-radius:100px}
-.mc-up{background:var(--green-g);color:var(--green)}
-.mc-neutral{background:rgba(255,255,255,0.05);color:var(--muted)}
-
-/* CARD */
-.card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
-.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.card-title{font-size:13px;font-weight:700}
-.card-action{font-size:11px;color:var(--accent);cursor:pointer;font-weight:600;background:none;border:none;font-family:'Plus Jakarta Sans',sans-serif}
-.card-body{padding:16px 18px}
+.mc{background:var(--ink2);border:0.5px solid var(--border);border-radius:var(--r-lg);padding:20px;position:relative;overflow:hidden;transition:border-color 0.2s}
+.mc:hover{border-color:var(--border2)}
+.mc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--mid),transparent);opacity:0.3}
+.mc-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);opacity:0.5;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.mc-icon{font-size:14px;opacity:0.7}
+.mc-val{font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--pale);line-height:1;margin-bottom:10px;letter-spacing:-1px}
+.mc-val.green{color:var(--mid)}
+.mc-foot{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);opacity:0.45;display:flex;align-items:center;gap:6px}
+.mc-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px}
+.badge-up{background:rgba(78,166,116,0.15);color:var(--mid)}
+.badge-n{background:rgba(192,230,185,0.1);color:var(--light);opacity:0.6}
 
 /* GRID */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid3{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:3fr 2fr;gap:12px}
+.g4{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+
+/* CARD */
+.card{background:var(--ink2);border:0.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.card-head{padding:14px 18px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);opacity:0.6}
+.card-action{font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace;opacity:0.8;transition:opacity 0.15s;letter-spacing:0.5px}
+.card-action:hover{opacity:1}
+.card-body{padding:16px 18px}
+
+/* CHART AREA */
+.area-chart{width:100%;height:100px;position:relative;overflow:hidden}
+.area-chart svg{width:100%;height:100%}
+.chart-x{display:flex;justify-content:space-between;padding:4px 2px 0;font-family:'DM Mono',monospace;font-size:9px;color:var(--light);opacity:0.35}
 
 /* TABLE */
 table{width:100%;border-collapse:collapse}
-th{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted);padding:8px 14px;text-align:left;border-bottom:0.5px solid var(--border)}
-td{padding:10px 14px;font-size:12px;border-bottom:0.5px solid var(--border);vertical-align:middle}
+th{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--light);opacity:0.4;padding:8px 14px;text-align:left;border-bottom:0.5px solid var(--border)}
+td{padding:10px 14px;font-size:12px;border-bottom:0.5px solid rgba(78,166,116,0.07);vertical-align:middle;color:var(--pale2)}
 tr:last-child td{border:none}
-tr:hover td{background:rgba(255,255,255,0.015)}
-.status{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px}
-.s-confirmada{background:var(--green-g);color:var(--green)}
-.s-pendiente{background:var(--amber-g);color:var(--amber)}
-.s-cancelada{background:var(--red-g);color:var(--red)}
-.s-completada{background:rgba(139,92,246,0.1);color:var(--purple)}
-.av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+tr:hover td{background:rgba(78,166,116,0.04)}
+.status{display:inline-flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;padding:3px 8px;border-radius:100px;letter-spacing:0.5px}
+.s-confirmada{background:rgba(78,166,116,0.12);color:var(--mid)}
+.s-pendiente{background:rgba(245,158,11,0.1);color:#f59e0b}
+.s-cancelada{background:rgba(255,107,107,0.1);color:#ff6b6b}
+.s-completada{background:rgba(192,230,185,0.1);color:var(--light)}
+.av{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--ink);flex-shrink:0}
+.time-mono{font-family:'DM Mono',monospace;font-size:11px;color:var(--mid)}
+
+/* FEED */
+.feed-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:0.5px solid rgba(78,166,116,0.06)}
+.feed-item:last-child{border:none}
+.feed-line{width:1px;background:var(--border);flex-shrink:0;align-self:stretch;margin-left:5px}
+.feed-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;border:1.5px solid}
+.feed-text{font-size:12px;color:var(--pale2);line-height:1.5;flex:1}
+.feed-text strong{color:var(--pale);font-weight:600}
+.feed-time{font-family:'DM Mono',monospace;font-size:9px;color:var(--light);opacity:0.4;flex-shrink:0;margin-top:2px}
 
 /* FORM */
 .fg{margin-bottom:14px}
-.fg label{display:block;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.fg input,.fg select,.fg textarea{width:100%;background:var(--surface2);border:0.5px solid var(--border2);border-radius:var(--r);padding:10px 12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color 0.2s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(79,126,255,0.5)}
-.fg select option{background:var(--surface2)}
+.fg label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);opacity:0.5;margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--ink);border:0.5px solid var(--border2);border-radius:var(--r);padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--pale);outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--mid);box-shadow:0 0 0 3px rgba(78,166,116,0.08)}
+.fg select option{background:var(--ink2)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 /* BTN */
-.btn{padding:9px 18px;border-radius:100px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{opacity:0.9;transform:translateY(-1px)}
-.btn-secondary{background:var(--surface2);color:var(--muted);border:0.5px solid var(--border2)}
-.btn-secondary:hover{color:var(--text)}
-.btn-xs{font-size:10px;font-weight:600;padding:4px 10px;border-radius:100px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.15s}
-.btn-xs-ok{background:var(--green-g);color:var(--green)}
-.btn-xs-ok:hover{background:var(--green);color:#fff}
-.btn-xs-del{background:var(--red-g);color:var(--red)}
-.btn-xs-del:hover{background:var(--red);color:#fff}
+.btn{padding:9px 18px;border-radius:100px;font-size:12px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;letter-spacing:0.2px}
+.btn-p{background:var(--mid);color:var(--ink)}
+.btn-p:hover{background:var(--light)}
+.btn-s{background:rgba(78,166,116,0.08);color:var(--light);border:0.5px solid var(--border2)}
+.btn-s:hover{background:rgba(78,166,116,0.15);color:var(--pale)}
+.btn-xs{font-size:9px;font-weight:600;padding:3px 9px;border-radius:100px;border:none;cursor:pointer;font-family:'DM Mono',monospace;letter-spacing:0.5px;transition:all 0.15s}
+.btn-ok{background:rgba(78,166,116,0.12);color:var(--mid)}
+.btn-ok:hover{background:var(--mid);color:var(--ink)}
+.btn-del{background:rgba(255,107,107,0.08);color:#ff6b6b}
+.btn-del:hover{background:#ff6b6b;color:#fff}
 
-/* CHIP */
-.chip-row{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;cursor:pointer;border:0.5px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s}
-.chip:hover{color:var(--text)}
-.chip.active{background:var(--accent-g);color:var(--accent);border-color:rgba(79,126,255,0.3)}
-
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.modal-overlay.open{display:flex}
-.modal{background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--r-lg);width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;animation:modal-in 0.2s ease}
-@keyframes modal-in{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
-.modal-head{padding:18px 22px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.modal-title{font-size:15px;font-weight:700}
-.modal-close{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:2px 6px;border-radius:6px}
-.modal-close:hover{background:var(--surface2);color:var(--text)}
-.modal-body{padding:20px 22px}
-.modal-footer{padding:14px 22px;border-top:0.5px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.5px;padding:5px 12px;border-radius:100px;cursor:pointer;border:0.5px solid var(--border);background:transparent;color:var(--light);opacity:0.5;transition:all 0.15s}
+.chip:hover{opacity:0.8}
+.chip.active{background:rgba(78,166,116,0.12);color:var(--mid);border-color:var(--border2);opacity:1}
 
 /* TOGGLE */
-.toggle{position:relative;width:38px;height:20px;cursor:pointer;flex-shrink:0}
-.toggle input{opacity:0;width:0;height:0;position:absolute}
-.toggle-sl{position:absolute;inset:0;background:var(--faint);border-radius:100px;transition:background 0.2s}
-.toggle input:checked+.toggle-sl{background:var(--green)}
-.toggle-sl::after{content:'';position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform 0.2s}
-.toggle input:checked+.toggle-sl::after{transform:translateX(18px)}
+.tgl{position:relative;width:36px;height:18px;cursor:pointer;flex-shrink:0}
+.tgl input{opacity:0;width:0;height:0;position:absolute}
+.tgl-sl{position:absolute;inset:0;background:var(--ink3);border-radius:100px;transition:background 0.2s;border:0.5px solid var(--border2)}
+.tgl input:checked+.tgl-sl{background:var(--mid);border-color:var(--mid)}
+.tgl-sl::after{content:'';position:absolute;left:3px;top:3px;width:10px;height:10px;border-radius:50%;background:#fff;transition:transform 0.2s;opacity:0.9}
+.tgl input:checked+.tgl-sl::after{transform:translateX(18px)}
 
-/* EMPTY */
-.empty{text-align:center;padding:40px;color:var(--muted)}
-.empty-icon{font-size:32px;margin-bottom:10px}
-.empty-text{font-size:13px}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(2,51,55,0.8);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.modal-bg.open{display:flex}
+.modal{background:var(--ink2);border:0.5px solid var(--border2);border-radius:var(--r-xl);width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;animation:min 0.2s ease}
+@keyframes min{from{opacity:0;transform:scale(0.97)}to{opacity:1;transform:scale(1)}}
+.modal-head{padding:18px 22px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-t{font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:var(--pale)}
+.modal-x{background:none;border:none;color:var(--light);opacity:0.4;font-size:18px;cursor:pointer;transition:opacity 0.15s;line-height:1}
+.modal-x:hover{opacity:0.8}
+.modal-body{padding:20px 22px}
+.modal-foot{padding:14px 22px;border-top:0.5px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
 
-/* TIMELINE */
-.tl-slot{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r);border:0.5px solid var(--border);margin-bottom:6px;transition:all 0.15s}
-.tl-slot.ocupado{border-color:rgba(79,126,255,0.25);background:var(--accent-g)}
-.tl-time{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--accent);width:44px;flex-shrink:0}
-
-/* NOTIF */
-.notif-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--surface2);border-radius:var(--r);border:0.5px solid var(--border);margin-bottom:6px}
-.notif-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
-
-/* CHART */
-.chart-wrap{display:flex;align-items:flex-end;gap:5px;height:80px;padding:0 2px}
-.chart-bar{flex:1;border-radius:3px 3px 0 0;min-height:4px;cursor:pointer;transition:opacity 0.15s}
-.chart-bar:hover{opacity:0.7}
-.chart-labels{display:flex;gap:5px;padding:5px 2px 0;font-size:9px;color:var(--faint)}
-.chart-labels span{flex:1;text-align:center}
-
-/* PROF CARD */
-.prof-card{background:var(--surface2);border:0.5px solid var(--border);border-radius:var(--r-lg);padding:16px;display:flex;align-items:center;gap:12px;transition:border-color 0.15s;cursor:pointer}
-.prof-card:hover{border-color:var(--border2)}
-.prof-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
-.prof-info{flex:1}
-.prof-name{font-size:14px;font-weight:700;margin-bottom:2px}
-.prof-sub{font-size:11px;color:var(--muted)}
-.prof-num{font-size:20px;font-weight:800;text-align:right}
-.prof-lbl{font-size:10px;color:var(--muted);text-align:right}
+/* LOADING */
+.loader{position:fixed;inset:0;background:rgba(2,51,55,0.7);z-index:800;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+.loader.on{display:flex}
+.spin{width:32px;height:32px;border:2px solid rgba(78,166,116,0.2);border-top-color:var(--mid);border-radius:50%;animation:spin 0.6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin-txt{font-family:'DM Mono',monospace;font-size:11px;color:var(--mid);letter-spacing:1px;opacity:0.7}
 
 /* TOAST */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:0.5px solid var(--border2);border-radius:var(--r-lg);padding:14px 18px;font-size:13px;z-index:1000;display:none;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.4);animation:toast-in 0.3s ease}
-.toast.show{display:flex}
-@keyframes toast-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.toast{position:fixed;bottom:22px;right:22px;background:var(--ink2);border:0.5px solid var(--border2);border-radius:var(--r-lg);padding:12px 16px;font-size:12px;z-index:900;display:none;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.3);font-family:'DM Mono',monospace;color:var(--pale2)}
+.toast.on{display:flex;animation:min 0.3s ease}
 
-/* COLORS */
-.c1{background:linear-gradient(135deg,#4f7eff,#8b5cf6)}
-.c2{background:linear-gradient(135deg,#ec4899,#8b5cf6)}
-.c3{background:linear-gradient(135deg,#00c97a,#4f7eff)}
-.c4{background:linear(135deg,#f59e0b,#ec4899)}
-.c5{background:linear-gradient(135deg,#f43f5e,#f59e0b)}
-.c6{background:linear-gradient(135deg,#06b6d4,#4f7eff)}
+/* PROF CARD */
+.prof-card{background:var(--ink2);border:0.5px solid var(--border);border-radius:var(--r-lg);padding:18px;display:flex;align-items:center;gap:14px;transition:border-color 0.2s;cursor:pointer}
+.prof-card:hover{border-color:var(--border2)}
+.prof-av{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--ink);flex-shrink:0}
+.prof-name{font-size:14px;font-weight:600;color:var(--pale);margin-bottom:3px}
+.prof-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);opacity:0.5}
+.prof-num{font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:var(--mid);text-align:right;line-height:1}
+.prof-lbl{font-family:'DM Mono',monospace;font-size:9px;color:var(--light);opacity:0.4;text-align:right}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-head{text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--light);opacity:0.4;padding:4px 0;letter-spacing:0.5px}
+.cal-day{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;color:var(--light);opacity:0.5;transition:all 0.15s}
+.cal-day:hover{background:var(--glow);opacity:0.9}
+.cal-day.today{background:var(--mid);color:var(--ink);opacity:1;font-weight:500}
+.cal-day.selected{background:rgba(78,166,116,0.15);color:var(--mid);opacity:1;border:0.5px solid var(--border2)}
+.cal-day.has-ev::after{content:'';display:block;width:3px;height:3px;border-radius:50%;background:var(--mid);position:absolute;bottom:3px}
+.cal-day{position:relative}
+
+/* TIMELINE */
+.tl{display:flex;flex-direction:column;gap:6px}
+.tl-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r);border:0.5px solid var(--border);background:var(--ink);transition:border-color 0.15s}
+.tl-row.ocu{border-color:rgba(78,166,116,0.25);background:rgba(78,166,116,0.04)}
+.tl-row:hover{border-color:var(--border2)}
+.tl-time{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--mid);width:42px;flex-shrink:0}
+.tl-bar{width:3px;height:28px;border-radius:2px;flex-shrink:0}
+.tl-name{font-size:12px;font-weight:600;color:var(--pale)}
+.tl-svc{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);opacity:0.5}
+
+/* EMPTY */
+.empty{text-align:center;padding:40px;color:var(--light);opacity:0.4}
+.empty-icon{font-size:28px;margin-bottom:10px}
+.empty-txt{font-family:'DM Mono',monospace;font-size:11px}
+
+/* SEARCH */
+.search-input{background:var(--ink);border:0.5px solid var(--border2);border-radius:100px;padding:9px 16px;font-family:'DM Mono',monospace;font-size:12px;color:var(--pale);outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:240px}
+.search-input:focus{border-color:var(--mid);box-shadow:0 0 0 3px rgba(78,166,116,0.08)}
+.search-input::placeholder{color:var(--light);opacity:0.3}
+
+/* ARC PROGRESS */
+.arc-wrap{position:relative;width:56px;height:56px}
+.arc-wrap svg{width:100%;height:100%}
+.arc-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--mid)}
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
-<div class="loading-overlay" id="loading">
-  <div class="spinner"></div>
-  <div class="loading-text" id="loading-text">Cargando...</div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <span id="toast-icon">✅</span>
-  <span id="toast-msg">Guardado</span>
-</div>
+<div class="loader" id="loader"><div class="spin"></div><div class="spin-txt" id="loader-txt">cargando</div></div>
+<div class="toast" id="toast"><span id="toast-icon">✓</span><span id="toast-msg"></span></div>
 
 <!-- LOGIN -->
 <div class="login-wrap" id="login-wrap">
-  <div class="login-box">
-    <div class="login-logo">
-      <div class="login-mark">A</div>
-      <div style="font-size:20px;font-weight:800">Autix<span style="color:var(--accent)"> Agenda</span></div>
+  <div class="login-panel">
+    <div class="login-glow"></div>
+    <div class="login-box">
+      <div class="l-logo">
+        <div class="l-mark"><div class="l-mark-icon">Ax</div> Autix Agenda</div>
+        <div class="l-sub">// sistema de agendamiento</div>
+      </div>
+      <div class="lf"><label>ID del negocio</label><input id="li-org" type="text" placeholder="ej: barberia-carlos" autocomplete="off"></div>
+      <div class="lf"><label>Contraseña</label><input id="li-pass" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="l-btn" id="l-btn" onclick="doLogin()">Ingresar →</button>
+      <div class="l-err" id="l-err"></div>
+      <div class="l-demo">demo disponible: <a onclick="demoLogin()">entrar sin cuenta</a></div>
     </div>
-    <div class="login-title">Ingresa con las credenciales de tu negocio</div>
-    <div class="login-field">
-      <label>ID del negocio</label>
-      <input type="text" id="li-org" placeholder="ej: barberia-carlos" autocomplete="off">
-    </div>
-    <div class="login-field">
-      <label>Contraseña</label>
-      <input type="password" id="li-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
-    <button class="login-btn" id="login-btn" onclick="doLogin()">Entrar</button>
-    <div class="login-error" id="login-error"></div>
-    <div class="login-demo">¿Quieres ver el demo? <a onclick="demoLogin()">Entrar como demo</a></div>
   </div>
 </div>
 
 <!-- APP -->
-<div class="app" id="app" style="display:none">
+<div id="app" style="display:none;flex:1;overflow:hidden">
+  <div style="display:flex;height:100vh;overflow:hidden">
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sb-logo">
-      <div class="sb-mark">A</div>
-      <div>
-        <div class="sb-name">Autix<span> Agenda</span></div>
-      </div>
+    <div class="sb-logo">Ax</div>
+    <div class="sb-btn active" onclick="nav('dashboard',this)" id="nb-dashboard">
+      <span>◈</span><div class="sb-tip">Dashboard</div>
     </div>
-    <div class="sb-negocio" id="sb-negocio">—</div>
-
-    <div class="sb-sec">Principal</div>
-    <div class="sb-item active" onclick="nav('dashboard',this)"><span class="sb-icon">📊</span> Dashboard</div>
-    <div class="sb-item" onclick="nav('agenda',this)"><span class="sb-icon">📅</span> Agenda</div>
-    <div class="sb-item" onclick="nav('reservas',this)"><span class="sb-icon">📋</span> Reservas</div>
-    <div class="sb-item" onclick="nav('clientes',this)"><span class="sb-icon">👥</span> Clientes</div>
-
-    <div class="sb-sec">Configuración</div>
-    <div class="sb-item" onclick="nav('servicios',this)"><span class="sb-icon">✂️</span> Servicios</div>
-    <div class="sb-item" onclick="nav('profesionales',this)"><span class="sb-icon">🧑‍💼</span> Profesionales</div>
-
+    <div class="sb-btn" onclick="nav('agenda',this)" id="nb-agenda">
+      <span>◷</span><div class="sb-tip">Agenda</div>
+    </div>
+    <div class="sb-btn" onclick="nav('reservas',this)" id="nb-reservas">
+      <span>≡</span><div class="sb-tip">Reservas</div>
+    </div>
+    <div class="sb-btn" onclick="nav('clientes',this)" id="nb-clientes">
+      <span>◉</span><div class="sb-tip">Clientes</div>
+    </div>
+    <div class="sb-sep"></div>
+    <div class="sb-btn" onclick="nav('servicios',this)" id="nb-servicios">
+      <span>◇</span><div class="sb-tip">Servicios</div>
+    </div>
+    <div class="sb-btn" onclick="nav('profesionales',this)" id="nb-profesionales">
+      <span>◎</span><div class="sb-tip">Profesionales</div>
+    </div>
     <div class="sb-bottom">
-      <div class="sb-user">
-        <div class="sb-av" id="sb-av">?</div>
-        <div>
-          <div class="sb-uname" id="sb-uname">—</div>
-          <div class="sb-uplan" id="sb-uplan">—</div>
-        </div>
+      <div class="sb-btn" onclick="doLogout()" style="opacity:0.3">
+        <span>←</span><div class="sb-tip">Salir</div>
       </div>
+      <div class="sb-av" id="sb-av" title="">?</div>
     </div>
   </aside>
 
   <!-- MAIN -->
   <div class="main">
     <div class="topbar">
-      <div class="topbar-title" id="topbar-title">Dashboard</div>
-      <div class="topbar-link" id="topbar-link" onclick="copyLink()">🔗 Tu link público</div>
-      <div class="topbar-logout" onclick="doLogout()">Salir →</div>
+      <div class="topbar-breadcrumb">autix/<span id="tb-section">dashboard</span></div>
+      <div class="topbar-title" id="tb-title">Dashboard</div>
+      <div class="topbar-pulse"><div class="pulse-dot"></div>EN VIVO</div>
+      <div class="topbar-link" onclick="copyLink()">↗ link público</div>
+      <div class="topbar-logout" onclick="doLogout()">salir →</div>
     </div>
 
     <div class="content" id="content">
 
       <!-- DASHBOARD -->
       <div class="panel active" id="panel-dashboard">
-        <div class="metrics" id="metrics-grid">
-          <div class="mc"><div class="mc-label">Reservas hoy <span class="mc-icon">📅</span></div><div class="mc-val" id="m-hoy">—</div><div class="mc-sub mc-neutral">cargando...</div></div>
-          <div class="mc"><div class="mc-label">Ingresos mes <span class="mc-icon">💰</span></div><div class="mc-val" id="m-ingresos" style="color:var(--green)">—</div><div class="mc-sub mc-neutral">este mes</div></div>
-          <div class="mc"><div class="mc-label">Total reservas <span class="mc-icon">📈</span></div><div class="mc-val" id="m-total">—</div><div class="mc-sub mc-neutral">históricas</div></div>
-          <div class="mc"><div class="mc-label">Asistencia <span class="mc-icon">✅</span></div><div class="mc-val" id="m-asistencia">—</div><div class="mc-sub mc-neutral">completadas</div></div>
+        <div class="metrics">
+          <div class="mc">
+            <div class="mc-tag">Citas hoy <span class="mc-icon">◷</span></div>
+            <div class="mc-val green" id="m-hoy">—</div>
+            <div class="mc-foot"><span class="mc-badge badge-n" id="m-hoy-s">cargando</span></div>
+          </div>
+          <div class="mc">
+            <div class="mc-tag">Ingresos mes <span class="mc-icon">◈</span></div>
+            <div class="mc-val" id="m-ing">—</div>
+            <div class="mc-foot"><span class="mc-badge badge-up">este mes</span></div>
+          </div>
+          <div class="mc">
+            <div class="mc-tag">Total reservas <span class="mc-icon">≡</span></div>
+            <div class="mc-val" id="m-tot">—</div>
+            <div class="mc-foot"><span class="mc-badge badge-n">históricas</span></div>
+          </div>
+          <div class="mc">
+            <div class="mc-tag">Asistencia <span class="mc-icon">◉</span></div>
+            <div class="mc-val" id="m-asis">—</div>
+            <div class="mc-foot"><span class="mc-badge badge-up" id="m-asis-s">completadas</span></div>
+          </div>
         </div>
-        <div class="grid3">
+
+        <div class="g3">
           <div class="card">
-            <div class="card-head"><div class="card-title">Reservas últimas 2 semanas</div></div>
+            <div class="card-head">
+              <div class="card-title">reservas · últimas 2 semanas</div>
+              <div id="chart-peak" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);opacity:0.7"></div>
+            </div>
             <div class="card-body">
-              <div class="chart-wrap" id="dash-chart"></div>
-              <div class="chart-labels" id="dash-labels"></div>
+              <div class="area-chart"><svg id="area-svg" viewBox="0 0 600 100" preserveAspectRatio="none"></svg></div>
+              <div class="chart-x" id="chart-x"></div>
             </div>
           </div>
           <div class="card">
-            <div class="card-head"><div class="card-title">Actividad reciente</div></div>
-            <div class="card-body" style="padding:10px"><div id="notif-list"></div></div>
+            <div class="card-head"><div class="card-title">actividad reciente</div></div>
+            <div class="card-body" style="padding:10px 16px" id="feed"></div>
           </div>
         </div>
+
         <div class="card">
-          <div class="card-head"><div class="card-title">Citas de hoy</div><button class="card-action" onclick="nav('agenda',null)">Ver agenda</button></div>
+          <div class="card-head">
+            <div class="card-title">citas de hoy</div>
+            <button class="card-action" onclick="nav('agenda',document.getElementById('nb-agenda'))">ver agenda →</button>
+          </div>
           <div style="overflow-x:auto">
-            <table><thead><tr><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Hora</th><th>Estado</th><th>Acciones</th></tr></thead>
-            <tbody id="hoy-tabla"></tbody></table>
+            <table><thead><tr><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Hora</th><th>Estado</th><th></th></tr></thead>
+            <tbody id="t-hoy"></tbody></table>
           </div>
         </div>
       </div>
 
       <!-- AGENDA -->
       <div class="panel" id="panel-agenda">
-        <div class="grid2">
+        <div class="g2">
           <div class="card">
-            <div class="card-head"><div class="card-title" id="cal-mes-title">Calendario</div></div>
+            <div class="card-head"><div class="card-title" id="cal-title">abril 2025</div><div style="display:flex;gap:6px"><button class="card-action" onclick="changeMonth(-1)">‹</button><button class="card-action" onclick="changeMonth(1)">›</button></div></div>
             <div class="card-body" id="cal-body"></div>
           </div>
           <div class="card">
-            <div class="card-head"><div class="card-title" id="agenda-day-title">Hoy</div><button class="btn btn-primary" style="font-size:11px;padding:6px 14px" onclick="openModal('nueva-reserva')">+ Nueva cita</button></div>
+            <div class="card-head"><div class="card-title" id="agenda-day"></div><button class="btn btn-p" style="font-size:10px;padding:5px 14px" onclick="openModal('nueva-reserva')">+ nueva cita</button></div>
             <div class="card-body" style="padding:10px" id="timeline"></div>
           </div>
         </div>
@@ -341,19 +383,19 @@ tr:hover td{background:rgba(255,255,255,0.015)}
       <!-- RESERVAS -->
       <div class="panel" id="panel-reservas">
         <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap">
-          <div class="chip-row" id="filter-chips">
-            <div class="chip active" onclick="filterR('todas',this)">Todas</div>
-            <div class="chip" onclick="filterR('confirmada',this)">Confirmadas</div>
-            <div class="chip" onclick="filterR('pendiente',this)">Pendientes</div>
-            <div class="chip" onclick="filterR('cancelada',this)">Canceladas</div>
-            <div class="chip" onclick="filterR('completada',this)">Completadas</div>
+          <div class="chips" id="r-chips">
+            <div class="chip active" onclick="filterR('todas',this)">todas</div>
+            <div class="chip" onclick="filterR('confirmada',this)">confirmadas</div>
+            <div class="chip" onclick="filterR('pendiente',this)">pendientes</div>
+            <div class="chip" onclick="filterR('cancelada',this)">canceladas</div>
+            <div class="chip" onclick="filterR('completada',this)">completadas</div>
           </div>
-          <button class="btn btn-primary" style="font-size:12px" onclick="openModal('nueva-reserva')">+ Nueva reserva</button>
+          <button class="btn btn-p" style="font-size:11px" onclick="openModal('nueva-reserva')">+ nueva reserva</button>
         </div>
         <div class="card">
           <div style="overflow-x:auto">
-            <table><thead><tr><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Fecha & Hora</th><th>Estado</th><th>Monto</th><th></th></tr></thead>
-            <tbody id="reservas-tabla"></tbody></table>
+            <table><thead><tr><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Fecha y hora</th><th>Estado</th><th>Monto</th><th></th></tr></thead>
+            <tbody id="t-reservas"></tbody></table>
           </div>
         </div>
       </div>
@@ -361,652 +403,506 @@ tr:hover td{background:rgba(255,255,255,0.015)}
       <!-- CLIENTES -->
       <div class="panel" id="panel-clientes">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-          <input id="search-cli" style="background:var(--surface);border:0.5px solid var(--border2);border-radius:100px;padding:9px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;width:240px" placeholder="🔍  Buscar cliente..." oninput="searchClientes(this.value)">
-          <button class="btn btn-primary" onclick="openModal('nuevo-cliente')">+ Nuevo cliente</button>
+          <input class="search-input" id="s-cli" placeholder="// buscar cliente..." oninput="searchCli(this.value)">
+          <button class="btn btn-p" style="font-size:11px" onclick="openModal('nuevo-cliente')">+ nuevo cliente</button>
         </div>
         <div class="card">
           <div style="overflow-x:auto">
             <table><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Citas</th><th>Última visita</th><th>Gasto total</th></tr></thead>
-            <tbody id="clientes-tabla"></tbody></table>
+            <tbody id="t-clientes"></tbody></table>
           </div>
         </div>
       </div>
 
       <!-- SERVICIOS -->
       <div class="panel" id="panel-servicios">
-        <div style="display:flex;justify-content:flex-end"><button class="btn btn-primary" onclick="openModal('nuevo-servicio')">+ Agregar servicio</button></div>
+        <div style="display:flex;justify-content:flex-end"><button class="btn btn-p" style="font-size:11px" onclick="openModal('nuevo-servicio')">+ agregar servicio</button></div>
         <div class="card">
           <div style="overflow-x:auto">
             <table><thead><tr><th>Servicio</th><th>Duración</th><th>Precio</th><th>Cobro al reservar</th><th>Activo</th><th></th></tr></thead>
-            <tbody id="servicios-tabla"></tbody></table>
+            <tbody id="t-servicios"></tbody></table>
           </div>
         </div>
       </div>
 
       <!-- PROFESIONALES -->
       <div class="panel" id="panel-profesionales">
-        <div style="display:flex;justify-content:flex-end"><button class="btn btn-primary" onclick="openModal('nuevo-prof')">+ Agregar profesional</button></div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" id="prof-grid"></div>
+        <div style="display:flex;justify-content:flex-end"><button class="btn btn-p" style="font-size:11px" onclick="openModal('nuevo-prof')">+ agregar profesional</button></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" id="g-profs"></div>
       </div>
 
     </div>
+  </div>
   </div>
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOut(event)">
+<div class="modal-bg" id="modal-bg" onclick="closeMOut(event)">
   <div class="modal">
-    <div class="modal-head">
-      <div class="modal-title" id="modal-title">—</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body" id="modal-body"></div>
-    <div class="modal-footer" id="modal-footer"></div>
+    <div class="modal-head"><div class="modal-t" id="m-title">—</div><button class="modal-x" onclick="closeM()">✕</button></div>
+    <div class="modal-body" id="m-body"></div>
+    <div class="modal-foot" id="m-foot"></div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════
-// CONFIG
-// ══════════════════════════════════════════
 const N8N = 'https://n8n-n8n.fa2cjf.easypanel.host/webhook';
-let ORG_ID = '';
-let SLUG   = '';
-let PLAN   = '';
-let SERVICIOS_CACHE = [];
-let PROFS_CACHE     = [];
-let RESERVAS_CACHE  = [];
+let ORG='', SLUG='', PLAN='';
+let SVC=[], PROFS=[], RESV=[], CLIS=[];
+let selDate = new Date();
+let calDate = new Date();
 
-// ══════════════════════════════════════════
-// API
-// ══════════════════════════════════════════
-async function api(endpoint, body) {
+// ── API ──────────────────────────────────
+async function api(ep, body) {
   try {
-    const res = await fetch(`${N8N}/${endpoint}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...body, org_id: ORG_ID })
+    const r = await fetch(`${N8N}/${ep}`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({...body, org_id: ORG})
     });
-    return await res.json();
-  } catch(e) {
-    console.error(endpoint, e);
-    return null;
-  }
+    return await r.json();
+  } catch(e) { return null; }
 }
 
-// ══════════════════════════════════════════
-// LOGIN
-// ══════════════════════════════════════════
-async function doLogin() {
-  const org  = document.getElementById('li-org').value.trim();
-  const pass = document.getElementById('li-pass').value.trim();
-  const err  = document.getElementById('login-error');
-  const btn  = document.getElementById('login-btn');
-  if (!org || !pass) { err.textContent = 'Completa todos los campos'; return; }
-  btn.disabled = true;
-  btn.textContent = 'Ingresando...';
-  err.textContent = '';
-  try {
-    const res = await fetch(`${N8N}/agenda-auth`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'login', org_id: org, password: pass })
+// ── HELPERS ──────────────────────────────
+const avColors = ['#4ea674','#3d8560','#2d6b4f','#5ab88a','#6dc99a','#3a7a5e'];
+function avColor(i){ return avColors[i % avColors.length]; }
+function ini(n){ return (n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+function money(n){ return '$'+Math.round(n||0).toLocaleString('es-CL'); }
+function timeStr(ts){
+  if(!ts) return '—';
+  return new Date(ts).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+}
+function dateStr(ts){
+  if(!ts) return '—';
+  return new Date(ts).toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short'});
+}
+function statusHtml(s){
+  const m={confirmada:'s-confirmada confirmada',pendiente:'s-pendiente pendiente',cancelada:'s-cancelada cancelada',completada:'s-completada completada'};
+  const p=(m[s]||'s-pendiente '+s).split(' ');
+  return `<span class="status ${p[0]}">${p.slice(1).join(' ')}</span>`;
+}
+function showLoad(t){ document.getElementById('loader-txt').textContent=t||'cargando'; document.getElementById('loader').classList.add('on'); }
+function hideLoad(){ document.getElementById('loader').classList.remove('on'); }
+function toast(icon,msg,d=3000){
+  document.getElementById('toast-icon').textContent=icon;
+  document.getElementById('toast-msg').textContent=msg;
+  const t=document.getElementById('toast');
+  t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),d);
+}
+
+// ── LOGIN ─────────────────────────────────
+async function doLogin(){
+  const org=document.getElementById('li-org').value.trim();
+  const pass=document.getElementById('li-pass').value.trim();
+  const err=document.getElementById('l-err');
+  const btn=document.getElementById('l-btn');
+  if(!org||!pass){err.textContent='completa los campos';return;}
+  btn.disabled=true; btn.textContent='verificando...'; err.textContent='';
+  try{
+    const res = await fetch(`${N8N}/agenda-auth`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'login',org_id:org,password:pass})
     });
-    const data = await res.json();
-    if (data.ok) {
-      setSession(data);
-    } else {
-      err.textContent = data.error || 'Credenciales incorrectas';
-    }
-  } catch(e) {
-    err.textContent = 'Error de conexión. Intenta de nuevo.';
-  }
-  btn.disabled = false;
-  btn.textContent = 'Entrar';
+    const d = await res.json();
+    if(d.ok){ initApp(d); }
+    else{ err.textContent = d.error||'credenciales incorrectas'; }
+  }catch(e){ err.textContent='error de conexión'; }
+  btn.disabled=false; btn.textContent='Ingresar →';
 }
 
-function demoLogin() {
-  setSession({ ok: true, org_id: 'demo', nombre: 'Barbería Demo', slug: 'barberia-demo', plan: 'pro', trial_days: 0 });
+function demoLogin(){
+  initApp({ok:true,org_id:'demo',nombre:'Barbería Demo',slug:'barberia-demo',plan:'pro',trial_days:0});
 }
 
-function setSession(data) {
-  ORG_ID = data.org_id;
-  SLUG   = data.slug;
-  PLAN   = data.plan;
-  document.getElementById('login-wrap').style.display = 'none';
-  document.getElementById('app').style.display = 'flex';
-  document.getElementById('sb-negocio').textContent = data.nombre;
-  document.getElementById('sb-uname').textContent = data.nombre;
-  document.getElementById('sb-uplan').textContent = 'Plan ' + data.plan;
-  document.getElementById('sb-av').textContent = data.nombre.charAt(0).toUpperCase();
-  document.getElementById('topbar-link').title = `agendaos.autix.pro/reserva/${SLUG}`;
+function initApp(d){
+  ORG=d.org_id; SLUG=d.slug; PLAN=d.plan;
+  document.getElementById('login-wrap').style.display='none';
+  document.getElementById('app').style.display='flex';
+  document.getElementById('sb-av').textContent=ini(d.nombre);
+  document.getElementById('sb-av').title=d.nombre+' · '+d.plan;
   loadDashboard();
 }
 
-function doLogout() {
-  ORG_ID = SLUG = PLAN = '';
-  RESERVAS_CACHE = SERVICIOS_CACHE = PROFS_CACHE = [];
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('login-wrap').style.display = 'flex';
-  document.getElementById('li-pass').value = '';
-  document.getElementById('login-error').textContent = '';
+function doLogout(){
+  ORG=SLUG=PLAN=''; SVC=PROFS=RESV=CLIS=[];
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-wrap').style.display='flex';
+  document.getElementById('li-pass').value='';
 }
 
-function copyLink() {
-  const url = `agendaos.autix.pro/reserva/${SLUG}`;
-  navigator.clipboard?.writeText(url);
-  showToast('✅', 'Link copiado: ' + url);
+function copyLink(){
+  const u=`agendaos.autix.pro/reserva/${SLUG}`;
+  navigator.clipboard?.writeText(u);
+  toast('↗','link copiado: '+u);
 }
 
-// ══════════════════════════════════════════
-// NAV
-// ══════════════════════════════════════════
-const titles = { dashboard:'Dashboard', agenda:'Agenda', reservas:'Reservas', clientes:'Clientes', servicios:'Servicios', profesionales:'Profesionales' };
-
-function nav(id, el) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
-  document.querySelectorAll('.sb-item').forEach(s => s.classList.remove('active'));
-  if (el) el.classList.add('active');
-  document.getElementById('topbar-title').textContent = titles[id] || id;
-  if (id === 'dashboard')    loadDashboard();
-  if (id === 'agenda')       loadAgenda();
-  if (id === 'reservas')     loadReservas();
-  if (id === 'clientes')     loadClientes();
-  if (id === 'servicios')    loadServicios();
-  if (id === 'profesionales') loadProfesionales();
+// ── NAV ───────────────────────────────────
+const secNames={dashboard:'Dashboard',agenda:'Agenda',reservas:'Reservas',clientes:'Clientes',servicios:'Servicios',profesionales:'Profesionales'};
+function nav(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('tb-section').textContent=id;
+  document.getElementById('tb-title').textContent=secNames[id]||id;
+  if(id==='dashboard')    loadDashboard();
+  if(id==='agenda')       loadAgenda();
+  if(id==='reservas')     loadReservas();
+  if(id==='clientes')     loadClientes();
+  if(id==='servicios')    loadServicios();
+  if(id==='profesionales') loadProfs();
 }
 
-// ══════════════════════════════════════════
-// LOADING / TOAST
-// ══════════════════════════════════════════
-function showLoading(txt) {
-  document.getElementById('loading-text').textContent = txt || 'Cargando...';
-  document.getElementById('loading').classList.add('show');
-}
-function hideLoading() { document.getElementById('loading').classList.remove('show'); }
-function showToast(icon, msg, duration) {
-  document.getElementById('toast-icon').textContent = icon;
-  document.getElementById('toast-msg').textContent = msg;
-  const t = document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), duration || 3000);
-}
-
-// ══════════════════════════════════════════
-// STATUS HELPER
-// ══════════════════════════════════════════
-function statusHtml(s) {
-  const map = { confirmada:'s-confirmada Confirmada', pendiente:'s-pendiente Pendiente', cancelada:'s-cancelada Cancelada', completada:'s-completada Completada' };
-  const p = (map[s] || 's-pendiente ' + s).split(' ');
-  return `<span class="status ${p[0]}">${p.slice(1).join(' ')}</span>`;
+// ── DASHBOARD ────────────────────────────
+async function loadDashboard(){
+  showLoad('cargando dashboard');
+  const d = await api('agenda-dashboard',{});
+  hideLoad();
+  if(!d) return;
+  const m=d.metricas||{};
+  document.getElementById('m-hoy').textContent=m.reservas_hoy||0;
+  document.getElementById('m-hoy-s').textContent=(m.reservas_hoy||0)+' agendadas hoy';
+  document.getElementById('m-ing').textContent=money(m.ingresos_mes);
+  document.getElementById('m-tot').textContent=m.total_reservas||0;
+  document.getElementById('m-asis').textContent=(m.tasa_asistencia||0)+'%';
+  buildAreaChart(d.semana||[]);
+  buildFeed(d.hoy||[]);
+  buildHoyTabla(d.hoy||[]);
 }
 
-function avatarColors(i) {
-  const c = ['#4f7eff','#8b5cf6','#00c97a','#f59e0b','#f43f5e','#06b6d4','#ec4899'];
-  return c[i % c.length];
-}
-
-function initials(n) { return (n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
-
-function fmtMoney(n) { return '$' + Math.round(n||0).toLocaleString('es-CL'); }
-
-function fmtFecha(ts) {
-  if (!ts) return '—';
-  const d = new Date(ts);
-  return d.toLocaleDateString('es-CL', { weekday:'short', day:'numeric', month:'short' }) + ' ' +
-    d.toLocaleTimeString('es-CL', { hour:'2-digit', minute:'2-digit' });
-}
-
-// ══════════════════════════════════════════
-// DASHBOARD
-// ══════════════════════════════════════════
-async function loadDashboard() {
-  showLoading('Cargando dashboard...');
-  const data = await api('agenda-dashboard', {});
-  hideLoading();
-  if (!data) return;
-
-  const m = data.metricas || {};
-  document.getElementById('m-hoy').textContent      = m.reservas_hoy || 0;
-  document.getElementById('m-ingresos').textContent = fmtMoney(m.ingresos_mes);
-  document.getElementById('m-total').textContent    = m.total_reservas || 0;
-  document.getElementById('m-asistencia').textContent = (m.tasa_asistencia || 0) + '%';
-
-  // chart semana
-  const semana = data.semana || [];
-  buildChart(semana);
-
-  // citas hoy
-  const hoy = data.hoy || [];
-  buildHoyTabla(hoy);
-
-  // notifs desde reservas hoy
-  buildNotifs(hoy);
-}
-
-function buildChart(semana) {
-  const chart  = document.getElementById('dash-chart');
-  const labels = document.getElementById('dash-labels');
-  if (!chart) return;
-  if (!semana.length) { chart.innerHTML = '<div style="color:var(--faint);font-size:12px;margin:auto">Sin datos</div>'; return; }
-  const max = Math.max(...semana.map(s => s.total), 1);
-  chart.innerHTML = semana.map(s => {
-    const h = Math.max((s.total / max) * 74, 4);
-    const d = new Date(s.dia + 'T12:00:00');
-    const lbl = d.toLocaleDateString('es-CL', { weekday:'narrow' });
-    return `<div class="chart-bar" style="height:${h}px;background:rgba(79,126,255,0.5)" title="${s.total} reservas"></div>`;
+function buildAreaChart(data){
+  const svg=document.getElementById('area-svg');
+  const xl=document.getElementById('chart-x');
+  const pk=document.getElementById('chart-peak');
+  if(!data.length){ svg.innerHTML=''; return; }
+  const vals=data.map(d=>Number(d.total));
+  const max=Math.max(...vals,1);
+  const w=600, h=100, pad=8;
+  const step=w/(data.length-1||1);
+  const pts=vals.map((v,i)=>[i*step, h-pad-(v/max)*(h-pad*2)]);
+  const area=`M ${pts[0][0]},${h} ${pts.map(p=>`L ${p[0]},${p[1]}`).join(' ')} L ${pts[pts.length-1][0]},${h} Z`;
+  const line=`M ${pts.map(p=>p.join(',')).join(' L ')}`;
+  svg.innerHTML=`
+    <defs>
+      <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#4ea674" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#4ea674" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path d="${area}" fill="url(#ag)"/>
+    <path d="${line}" fill="none" stroke="#4ea674" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="2.5" fill="#4ea674" opacity="${i===vals.indexOf(max)?1:0.4}"/>`).join('')}
+  `;
+  xl.innerHTML=data.map(d=>{
+    const day=new Date(d.dia+'T12:00:00').toLocaleDateString('es-CL',{weekday:'narrow'});
+    return `<span>${day}</span>`;
   }).join('');
-  labels.innerHTML = semana.map(s => {
-    const d = new Date(s.dia + 'T12:00:00');
-    return `<span>${d.toLocaleDateString('es-CL',{weekday:'narrow'})}</span>`;
-  }).join('');
+  pk.textContent=`pico: ${max} citas`;
 }
 
-function buildHoyTabla(hoy) {
-  const el = document.getElementById('hoy-tabla');
-  if (!el) return;
-  if (!hoy.length) { el.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">Sin citas hoy</td></tr>'; return; }
-  el.innerHTML = hoy.map((r, i) => `
+function buildFeed(hoy){
+  const el=document.getElementById('feed');
+  if(!hoy.length){ el.innerHTML='<div class="empty"><div class="empty-icon">◈</div><div class="empty-txt">sin actividad hoy</div></div>'; return; }
+  el.innerHTML=hoy.slice(0,5).map((r,i)=>`
+    <div class="feed-item">
+      <div class="feed-dot" style="background:${avColor(i)};border-color:${avColor(i)}"></div>
+      <div class="feed-text"><strong>${r.cliente_nombre}</strong> — ${r.servicio_nombre}</div>
+      <div class="feed-time">${timeStr(r.fecha_inicio)}</div>
+    </div>`).join('');
+}
+
+function buildHoyTabla(hoy){
+  const el=document.getElementById('t-hoy');
+  if(!hoy.length){ el.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:24px;font-family:'DM Mono',monospace;font-size:11px;color:var(--light);opacity:0.4">// sin citas hoy</td></tr>`; return; }
+  el.innerHTML=hoy.map((r,i)=>`
     <tr>
       <td><div style="display:flex;align-items:center;gap:8px">
-        <div class="av" style="background:${avatarColors(i)}">${initials(r.cliente_nombre)}</div>
+        <div class="av" style="background:${avColor(i)};border-radius:8px">${ini(r.cliente_nombre)}</div>
         ${r.cliente_nombre}
       </div></td>
       <td>${r.servicio_nombre}</td>
-      <td>${r.profesional_nombre || '—'}</td>
-      <td><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent)">${new Date(r.fecha_inicio).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</span></td>
+      <td>${r.profesional_nombre||'—'}</td>
+      <td><span class="time-mono">${timeStr(r.fecha_inicio)}</span></td>
       <td>${statusHtml(r.estado)}</td>
-      <td><div style="display:flex;gap:6px">
-        <button class="btn-xs btn-xs-ok" onclick="cambiarEstado(${r.id},'completada')">✓</button>
-        <button class="btn-xs btn-xs-del" onclick="cambiarEstado(${r.id},'cancelada')">✕</button>
+      <td><div style="display:flex;gap:5px">
+        <button class="btn-xs btn-ok" onclick="cambiarEstado(${r.id},'completada')">completar</button>
+        <button class="btn-xs btn-del" onclick="cambiarEstado(${r.id},'cancelada')">cancelar</button>
       </div></td>
     </tr>`).join('');
 }
 
-function buildNotifs(hoy) {
-  const el = document.getElementById('notif-list');
-  if (!el) return;
-  if (!hoy.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Sin actividad hoy</div></div>'; return; }
-  el.innerHTML = hoy.slice(0, 5).map((r, i) => `
-    <div class="notif-item">
-      <div class="notif-dot" style="background:${avatarColors(i)}"></div>
-      <div style="font-size:12px;line-height:1.5;flex:1"><strong>${r.cliente_nombre}</strong> — ${r.servicio_nombre}</div>
-      <div style="font-size:10px;color:var(--muted)">${new Date(r.fecha_inicio).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</div>
-    </div>`).join('');
+async function cambiarEstado(id,estado){
+  await api('agenda-reservas',{action:'updateEstado',id,estado});
+  toast('✓',`reserva marcada como ${estado}`);
+  loadDashboard();
 }
 
-// ══════════════════════════════════════════
-// AGENDA / CALENDARIO
-// ══════════════════════════════════════════
-let selectedDate = new Date();
-
-async function loadAgenda() {
-  buildCalendar(selectedDate);
-  await loadTimeline(selectedDate);
+// ── AGENDA ───────────────────────────────
+async function loadAgenda(){
+  buildCalendar();
+  await loadTimeline(selDate);
 }
 
-function buildCalendar(date) {
-  const body = document.getElementById('cal-body');
-  const title = document.getElementById('cal-mes-title');
-  if (!body) return;
-  const y = date.getFullYear(), m = date.getMonth();
-  title.textContent = date.toLocaleDateString('es-CL', { month: 'long', year: 'numeric' });
-  const first = new Date(y, m, 1).getDay();
-  const days  = new Date(y, m + 1, 0).getDate();
-  const today = new Date();
-  let html = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">';
-  ['Do','Lu','Ma','Mi','Ju','Vi','Sa'].forEach(d => {
-    html += `<div style="text-align:center;font-size:9px;font-weight:700;color:var(--muted);padding:4px 0">${d}</div>`;
-  });
-  for (let i = 0; i < first; i++) html += '<div></div>';
-  for (let d = 1; d <= days; d++) {
-    const isToday = d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
-    const isSel   = d === selectedDate.getDate() && m === selectedDate.getMonth() && y === selectedDate.getFullYear();
-    const base = 'aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;font-weight:500;transition:all 0.15s';
-    const style = isToday ? 'background:var(--accent);color:#fff;font-weight:700' :
-                  isSel   ? 'background:var(--accent-g);color:var(--accent);border:0.5px solid rgba(79,126,255,0.3)' :
-                             'color:var(--muted)';
-    html += `<div style="${base};${style}" onclick="selectDay(${d},${m},${y})">${String(d).padStart(2,'0')}</div>`;
+function buildCalendar(){
+  const y=calDate.getFullYear(), m=calDate.getMonth();
+  const title=document.getElementById('cal-title');
+  title.textContent=calDate.toLocaleDateString('es-CL',{month:'long',year:'numeric'});
+  const body=document.getElementById('cal-body');
+  const first=new Date(y,m,1).getDay();
+  const days=new Date(y,m+1,0).getDate();
+  const today=new Date();
+  let html='<div class="cal-grid">';
+  ['do','lu','ma','mi','ju','vi','sa'].forEach(d=>html+=`<div class="cal-head">${d}</div>`);
+  for(let i=0;i<first;i++) html+='<div></div>';
+  for(let d=1;d<=days;d++){
+    const isT=d===today.getDate()&&m===today.getMonth()&&y===today.getFullYear();
+    const isS=d===selDate.getDate()&&m===selDate.getMonth()&&y===selDate.getFullYear();
+    const cls='cal-day'+(isT?' today':'')+(isS&&!isT?' selected':'');
+    html+=`<div class="${cls}" onclick="selDay(${d},${m},${y})">${String(d).padStart(2,'0')}</div>`;
   }
-  html += '</div>';
-  body.innerHTML = html;
+  html+='</div>';
+  body.innerHTML=html;
 }
 
-function selectDay(d, m, y) {
-  selectedDate = new Date(y, m, d);
-  buildCalendar(selectedDate);
-  document.getElementById('agenda-day-title').textContent = selectedDate.toLocaleDateString('es-CL', { weekday:'long', day:'numeric', month:'long' });
-  loadTimeline(selectedDate);
+function changeMonth(dir){
+  calDate=new Date(calDate.getFullYear(),calDate.getMonth()+dir,1);
+  buildCalendar();
 }
 
-async function loadTimeline(date) {
-  const el = document.getElementById('timeline');
-  if (!el) return;
-  el.innerHTML = '<div style="color:var(--muted);font-size:12px;text-align:center;padding:20px">Cargando...</div>';
-  const fecha = date.toISOString().split('T')[0];
-  const data  = await api('agenda-reservas', { action: 'getByFecha', fecha });
-  if (!data || !data.data) { el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Sin citas este día</div></div>'; return; }
-  const reservas = Array.isArray(data.data) ? data.data : [data.data];
-  if (!reservas.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">Sin citas. <a style="color:var(--accent);cursor:pointer" onclick="openModal(\'nueva-reserva\')">+ Agregar</a></div></div>'; return; }
-  el.innerHTML = reservas.map((r, i) => `
-    <div class="tl-slot ocupado">
-      <div class="tl-time">${new Date(r.fecha_inicio).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</div>
-      <div style="width:3px;height:30px;border-radius:2px;background:${avatarColors(i)};flex-shrink:0"></div>
-      <div style="flex:1">
-        <div style="font-size:12px;font-weight:600">${r.cliente_nombre}</div>
-        <div style="font-size:11px;color:var(--muted)">${r.servicio_nombre}</div>
-      </div>
+function selDay(d,m,y){
+  selDate=new Date(y,m,d);
+  buildCalendar();
+  const dl=document.getElementById('agenda-day');
+  dl.textContent=selDate.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
+  loadTimeline(selDate);
+}
+
+async function loadTimeline(date){
+  const el=document.getElementById('timeline');
+  el.innerHTML=`<div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);opacity:0.5;text-align:center;padding:16px">cargando...</div>`;
+  const fecha=date.toISOString().split('T')[0];
+  const d=await api('agenda-reservas',{action:'getByFecha',fecha});
+  const list=Array.isArray(d?.data)?d.data:d?.data?[d.data]:[];
+  const dayEl=document.getElementById('agenda-day');
+  if(!dayEl.textContent||dayEl.textContent==='Agenda') dayEl.textContent=date.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
+  if(!list.length){ el.innerHTML='<div class="empty"><div class="empty-icon">◷</div><div class="empty-txt">sin citas — <a style="color:var(--mid);cursor:pointer" onclick="openModal(\'nueva-reserva\')">+ agregar</a></div></div>'; return; }
+  el.innerHTML='<div class="tl">'+list.map((r,i)=>`
+    <div class="tl-row ocu">
+      <div class="tl-time">${timeStr(r.fecha_inicio)}</div>
+      <div class="tl-bar" style="background:${avColor(i)}"></div>
+      <div style="flex:1"><div class="tl-name">${r.cliente_nombre}</div><div class="tl-svc">${r.servicio_nombre}</div></div>
       ${statusHtml(r.estado)}
-    </div>`).join('');
+    </div>`).join('')+'</div>';
 }
 
-// ══════════════════════════════════════════
-// RESERVAS
-// ══════════════════════════════════════════
-async function loadReservas() {
-  showLoading('Cargando reservas...');
-  const data = await api('agenda-reservas', { action: 'getAll' });
-  hideLoading();
-  if (!data) return;
-  RESERVAS_CACHE = Array.isArray(data.data) ? data.data : [];
-  renderReservas(RESERVAS_CACHE);
+// ── RESERVAS ─────────────────────────────
+async function loadReservas(){
+  showLoad('cargando reservas');
+  const d=await api('agenda-reservas',{action:'getAll'});
+  hideLoad();
+  RESV=Array.isArray(d?.data)?d.data:[];
+  renderResv(RESV);
 }
 
-function renderReservas(list) {
-  const el = document.getElementById('reservas-tabla');
-  if (!el) return;
-  if (!list.length) { el.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">Sin reservas</td></tr>'; return; }
-  el.innerHTML = list.map((r, i) => `
+function renderResv(list){
+  const el=document.getElementById('t-reservas');
+  if(!list.length){ el.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:24px;font-family:'DM Mono',monospace;font-size:11px;color:var(--light);opacity:0.4">// sin reservas</td></tr>`; return; }
+  el.innerHTML=list.map((r,i)=>`
     <tr>
       <td><div style="display:flex;align-items:center;gap:8px">
-        <div class="av" style="background:${avatarColors(i)}">${initials(r.cliente_nombre)}</div>${r.cliente_nombre}
+        <div class="av" style="background:${avColor(i)};border-radius:8px">${ini(r.cliente_nombre)}</div>${r.cliente_nombre}
       </div></td>
       <td>${r.servicio_nombre}</td>
-      <td>${r.profesional_nombre || '—'}</td>
-      <td><span style="font-family:'Space Mono',monospace;font-size:11px">${fmtFecha(r.fecha_inicio)}</span></td>
+      <td>${r.profesional_nombre||'—'}</td>
+      <td><span class="time-mono">${dateStr(r.fecha_inicio)} ${timeStr(r.fecha_inicio)}</span></td>
       <td>${statusHtml(r.estado)}</td>
-      <td style="font-weight:700">${fmtMoney(r.monto)}</td>
-      <td><div style="display:flex;gap:6px">
-        <button class="btn-xs btn-xs-ok" onclick="cambiarEstado(${r.id},'completada')">✓</button>
-        <button class="btn-xs btn-xs-del" onclick="cambiarEstado(${r.id},'cancelada')">✕</button>
+      <td style="font-weight:600;color:var(--mid)">${money(r.monto)}</td>
+      <td><div style="display:flex;gap:5px">
+        <button class="btn-xs btn-ok" onclick="cambiarEstado(${r.id},'completada')">✓</button>
+        <button class="btn-xs btn-del" onclick="cambiarEstado(${r.id},'cancelada')">✕</button>
       </div></td>
     </tr>`).join('');
 }
 
-async function cambiarEstado(id, estado) {
-  await api('agenda-reservas', { action: 'updateEstado', id, estado });
-  showToast(estado === 'completada' ? '✅' : '❌', `Reserva marcada como ${estado}`);
-  loadDashboard();
-}
-
-function filterR(estado, el) {
-  document.querySelectorAll('#filter-chips .chip').forEach(c => c.classList.remove('active'));
+function filterR(estado,el){
+  document.querySelectorAll('#r-chips .chip').forEach(c=>c.classList.remove('active'));
   el.classList.add('active');
-  const filtered = estado === 'todas' ? RESERVAS_CACHE : RESERVAS_CACHE.filter(r => r.estado === estado);
-  renderReservas(filtered);
+  renderResv(estado==='todas'?RESV:RESV.filter(r=>r.estado===estado));
 }
 
-// ══════════════════════════════════════════
-// CLIENTES
-// ══════════════════════════════════════════
-let CLIENTES_CACHE = [];
-
-async function loadClientes() {
-  showLoading('Cargando clientes...');
-  const data = await api('agenda-clientes', { action: 'getAll' });
-  hideLoading();
-  CLIENTES_CACHE = Array.isArray(data?.data) ? data.data : [];
-  renderClientes(CLIENTES_CACHE);
+// ── CLIENTES ─────────────────────────────
+async function loadClientes(){
+  showLoad('cargando clientes');
+  const d=await api('agenda-clientes',{action:'getAll'});
+  hideLoad();
+  CLIS=Array.isArray(d?.data)?d.data:[];
+  renderClis(CLIS);
 }
 
-function renderClientes(list) {
-  const el = document.getElementById('clientes-tabla');
-  if (!el) return;
-  if (!list.length) { el.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:24px">Sin clientes</td></tr>'; return; }
-  el.innerHTML = list.map((c, i) => `
+function renderClis(list){
+  const el=document.getElementById('t-clientes');
+  if(!list.length){ el.innerHTML=`<tr><td colspan="5" style="text-align:center;padding:24px;font-family:'DM Mono',monospace;font-size:11px;color:var(--light);opacity:0.4">// sin clientes</td></tr>`; return; }
+  el.innerHTML=list.map((c,i)=>`
     <tr>
       <td><div style="display:flex;align-items:center;gap:8px">
-        <div class="av" style="background:${avatarColors(i)}">${initials(c.nombre)}</div>${c.nombre}
+        <div class="av" style="background:${avColor(i)};border-radius:8px">${ini(c.nombre)}</div>${c.nombre}
       </div></td>
-      <td style="font-family:'Space Mono',monospace;font-size:11px">${c.telefono || '—'}</td>
-      <td style="font-weight:700">${c.total_citas || 0}</td>
-      <td>${c.ultima_visita ? new Date(c.ultima_visita).toLocaleDateString('es-CL') : '—'}</td>
-      <td style="font-weight:700;color:var(--green)">${fmtMoney(c.gasto_total)}</td>
+      <td><span class="time-mono">${c.telefono||'—'}</span></td>
+      <td style="font-weight:600">${c.total_citas||0}</td>
+      <td>${c.ultima_visita?new Date(c.ultima_visita).toLocaleDateString('es-CL'):'—'}</td>
+      <td style="font-weight:600;color:var(--mid)">${money(c.gasto_total)}</td>
     </tr>`).join('');
 }
 
-function searchClientes(q) {
-  const filtered = CLIENTES_CACHE.filter(c =>
-    (c.nombre||'').toLowerCase().includes(q.toLowerCase()) ||
-    (c.telefono||'').includes(q)
-  );
-  renderClientes(filtered);
+function searchCli(q){
+  renderClis(CLIS.filter(c=>(c.nombre||'').toLowerCase().includes(q.toLowerCase())||(c.telefono||'').includes(q)));
 }
 
-// ══════════════════════════════════════════
-// SERVICIOS
-// ══════════════════════════════════════════
-async function loadServicios() {
-  showLoading('Cargando servicios...');
-  const data = await api('agenda-servicios', { action: 'getAll' });
-  hideLoading();
-  SERVICIOS_CACHE = Array.isArray(data?.data) ? data.data : [];
-  const el = document.getElementById('servicios-tabla');
-  if (!el) return;
-  if (!SERVICIOS_CACHE.length) { el.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px">Sin servicios</td></tr>'; return; }
-  el.innerHTML = SERVICIOS_CACHE.map(s => `
+// ── SERVICIOS ────────────────────────────
+async function loadServicios(){
+  showLoad('cargando servicios');
+  const d=await api('agenda-servicios',{action:'getAll'});
+  hideLoad();
+  SVC=Array.isArray(d?.data)?d.data:[];
+  const el=document.getElementById('t-servicios');
+  if(!SVC.length){ el.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:24px;font-family:'DM Mono',monospace;font-size:11px;color:var(--light);opacity:0.4">// sin servicios</td></tr>`; return; }
+  el.innerHTML=SVC.map(s=>`
     <tr>
-      <td style="font-weight:600">${s.nombre}</td>
-      <td>${s.duracion_min} min</td>
-      <td style="font-weight:700;color:var(--green)">${fmtMoney(s.precio)}</td>
-      <td>${s.requiere_pago ? '<span class="status s-confirmada">Sí</span>' : '<span class="status" style="background:rgba(255,255,255,0.05);color:var(--muted)">No</span>'}</td>
-      <td><label class="toggle"><input type="checkbox" ${s.activo?'checked':''} onchange="toggleServicio(${s.id})"><div class="toggle-sl"></div></label></td>
-      <td><button class="btn-xs btn-xs-del" onclick="deleteServicio(${s.id})">Eliminar</button></td>
+      <td style="font-weight:600;color:var(--pale)">${s.nombre}</td>
+      <td><span class="time-mono">${s.duracion_min} min</span></td>
+      <td style="font-weight:600;color:var(--mid)">${money(s.precio)}</td>
+      <td>${s.requiere_pago?'<span class="status s-confirmada">sí</span>':'<span style="font-family:DM Mono,monospace;font-size:10px;color:var(--light);opacity:0.4">no</span>'}</td>
+      <td><label class="tgl"><input type="checkbox" ${s.activo?'checked':''} onchange="toggleSvc(${s.id})"><div class="tgl-sl"></div></label></td>
+      <td><button class="btn-xs btn-del" onclick="delSvc(${s.id})">eliminar</button></td>
     </tr>`).join('');
 }
 
-async function toggleServicio(id) {
-  await api('agenda-servicios', { action: 'toggle', id });
-  showToast('✅', 'Servicio actualizado');
-}
+async function toggleSvc(id){ await api('agenda-servicios',{action:'toggle',id}); toast('✓','servicio actualizado'); }
+async function delSvc(id){ if(!confirm('¿Eliminar?'))return; await api('agenda-servicios',{action:'delete',id}); toast('✓','eliminado'); loadServicios(); }
 
-async function deleteServicio(id) {
-  if (!confirm('¿Eliminar este servicio?')) return;
-  await api('agenda-servicios', { action: 'delete', id });
-  showToast('🗑️', 'Servicio eliminado');
-  loadServicios();
-}
-
-// ══════════════════════════════════════════
-// PROFESIONALES
-// ══════════════════════════════════════════
-async function loadProfesionales() {
-  showLoading('Cargando profesionales...');
-  const data = await api('agenda-profesionales', { action: 'getAll' });
-  hideLoading();
-  PROFS_CACHE = Array.isArray(data?.data) ? data.data : [];
-  const el = document.getElementById('prof-grid');
-  if (!el) return;
-  if (!PROFS_CACHE.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">👤</div><div class="empty-text">Sin profesionales agregados</div></div>'; return; }
-  el.innerHTML = PROFS_CACHE.map((p, i) => `
+// ── PROFESIONALES ────────────────────────
+async function loadProfs(){
+  showLoad('cargando profesionales');
+  const d=await api('agenda-profesionales',{action:'getAll'});
+  hideLoad();
+  PROFS=Array.isArray(d?.data)?d.data:[];
+  const el=document.getElementById('g-profs');
+  if(!PROFS.length){ el.innerHTML='<div class="empty"><div class="empty-icon">◎</div><div class="empty-txt">sin profesionales</div></div>'; return; }
+  el.innerHTML=PROFS.map((p,i)=>`
     <div class="prof-card">
-      <div class="prof-av" style="background:${avatarColors(i)}">${initials(p.nombre)}</div>
-      <div class="prof-info">
-        <div class="prof-name">${p.nombre}</div>
-        <div class="prof-sub">${p.email || p.telefono || '—'}</div>
-      </div>
-      <div>
-        <div class="prof-num">${p.citas_mes || 0}</div>
-        <div class="prof-lbl">citas/mes</div>
-      </div>
+      <div class="prof-av" style="background:${avColor(i)}">${ini(p.nombre)}</div>
+      <div style="flex:1"><div class="prof-name">${p.nombre}</div><div class="prof-sub">${p.email||p.telefono||'—'}</div></div>
+      <div><div class="prof-num">${p.citas_mes||0}</div><div class="prof-lbl">citas/mes</div></div>
     </div>`).join('');
 }
 
-// ══════════════════════════════════════════
-// MODALS
-// ══════════════════════════════════════════
-function openModal(id) {
-  const forms = {
-    'nueva-reserva': {
-      title: 'Nueva cita',
-      body: () => `
-        <div class="form-row">
-          <div class="fg"><label>Nombre cliente</label><input id="f-cli-nom" type="text" placeholder="Nombre completo"></div>
-          <div class="fg"><label>WhatsApp</label><input id="f-cli-tel" type="text" placeholder="+56 9 ..."></div>
+// ── MODALS ───────────────────────────────
+function openModal(id){
+  const loadSvcProf=async()=>{
+    if(!SVC.length){ const d=await api('agenda-servicios',{action:'getAll'}); SVC=Array.isArray(d?.data)?d.data:[]; }
+    if(!PROFS.length){ const d=await api('agenda-profesionales',{action:'getAll'}); PROFS=Array.isArray(d?.data)?d.data:[]; }
+  };
+  const forms={
+    'nueva-reserva':{
+      title:'nueva cita',
+      body:async()=>{
+        await loadSvcProf();
+        return `<div class="form-row">
+          <div class="fg"><label>Cliente</label><input id="f-cn" type="text" placeholder="nombre completo"></div>
+          <div class="fg"><label>WhatsApp</label><input id="f-ct" type="text" placeholder="+56 9 ..."></div>
         </div>
-        <div class="fg"><label>Email (opcional)</label><input id="f-cli-email" type="email" placeholder="correo@gmail.com"></div>
+        <div class="fg"><label>Email (opcional)</label><input id="f-ce" type="email" placeholder="correo@gmail.com"></div>
         <div class="form-row">
-          <div class="fg"><label>Servicio</label><select id="f-srv">${SERVICIOS_CACHE.map(s=>`<option value="${s.id}" data-dur="${s.duracion_min}" data-nom="${s.nombre}" data-precio="${s.precio}">${s.nombre} — ${fmtMoney(s.precio)}</option>`).join('')}</select></div>
-          <div class="fg"><label>Profesional</label><select id="f-prof">${PROFS_CACHE.map(p=>`<option value="${p.id}" data-nom="${p.nombre}">${p.nombre}</option>`).join('')}</select></div>
+          <div class="fg"><label>Servicio</label><select id="f-sv">${SVC.map(s=>`<option value="${s.id}" data-dur="${s.duracion_min}" data-nom="${s.nombre}" data-p="${s.precio}">${s.nombre} · ${money(s.precio)}</option>`).join('')}</select></div>
+          <div class="fg"><label>Profesional</label><select id="f-pr">${PROFS.map(p=>`<option value="${p.id}" data-nom="${p.nombre}">${p.nombre}</option>`).join('')}</select></div>
         </div>
         <div class="form-row">
-          <div class="fg"><label>Fecha</label><input id="f-fecha" type="date" min="${new Date().toISOString().split('T')[0]}"></div>
-          <div class="fg"><label>Hora</label><input id="f-hora" type="time" value="10:00"></div>
+          <div class="fg"><label>Fecha</label><input id="f-fd" type="date" min="${new Date().toISOString().split('T')[0]}"></div>
+          <div class="fg"><label>Hora</label><input id="f-hr" type="time" value="10:00"></div>
         </div>
-        <div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" style="resize:none" placeholder="Opcional..."></textarea></div>`,
-      footer: () => `<button class="btn btn-secondary" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="saveReserva()">Crear cita</button>`
+        <div class="fg"><label>Notas</label><textarea id="f-nt" rows="2" style="resize:none" placeholder="opcional..."></textarea></div>`;
+      },
+      foot:`<button class="btn btn-s" onclick="closeM()">cancelar</button><button class="btn btn-p" onclick="saveResv()">crear cita →</button>`
     },
-    'nuevo-cliente': {
-      title: 'Nuevo cliente',
-      body: () => `
-        <div class="form-row">
-          <div class="fg"><label>Nombre</label><input id="f-nom" type="text" placeholder="Nombre"></div>
-          <div class="fg"><label>Apellido</label><input id="f-ape" type="text" placeholder="Apellido"></div>
-        </div>
-        <div class="fg"><label>WhatsApp</label><input id="f-tel" type="tel" placeholder="+56 9 ..."></div>
-        <div class="fg"><label>Email</label><input id="f-email" type="email" placeholder="correo@gmail.com"></div>
-        <div class="fg"><label>Notas</label><textarea id="f-notas" rows="2" style="resize:none" placeholder="Preferencias, alergias..."></textarea></div>`,
-      footer: () => `<button class="btn btn-secondary" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="saveCliente()">Guardar</button>`
+    'nuevo-cliente':{
+      title:'nuevo cliente',
+      body:async()=>`<div class="form-row">
+        <div class="fg"><label>Nombre</label><input id="f-nom" type="text"></div>
+        <div class="fg"><label>Apellido</label><input id="f-ape" type="text"></div>
+      </div>
+      <div class="fg"><label>WhatsApp</label><input id="f-tel" type="tel" placeholder="+56 9 ..."></div>
+      <div class="fg"><label>Email</label><input id="f-email" type="email"></div>
+      <div class="fg"><label>Notas</label><textarea id="f-nt" rows="2" style="resize:none"></textarea></div>`,
+      foot:`<button class="btn btn-s" onclick="closeM()">cancelar</button><button class="btn btn-p" onclick="saveCli()">guardar →</button>`
     },
-    'nuevo-servicio': {
-      title: 'Nuevo servicio',
-      body: () => `
-        <div class="fg"><label>Nombre</label><input id="f-nom" type="text" placeholder="Ej: Corte clásico"></div>
-        <div class="form-row">
-          <div class="fg"><label>Duración (min)</label><input id="f-dur" type="number" value="45" min="15"></div>
-          <div class="fg"><label>Precio (CLP)</label><input id="f-precio" type="number" placeholder="8000"></div>
-        </div>
-        <div class="fg"><label>Descripción</label><textarea id="f-desc" rows="2" style="resize:none" placeholder="Descripción del servicio..."></textarea></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--surface2);border-radius:var(--r);border:0.5px solid var(--border)">
-          <span style="font-size:13px">Cobrar al reservar (MercadoPago)</span>
-          <label class="toggle"><input type="checkbox" id="f-cobro"><div class="toggle-sl"></div></label>
-        </div>`,
-      footer: () => `<button class="btn btn-secondary" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="saveServicio()">Crear servicio</button>`
+    'nuevo-servicio':{
+      title:'nuevo servicio',
+      body:async()=>`<div class="fg"><label>Nombre</label><input id="f-nom" type="text" placeholder="ej: Corte clásico"></div>
+      <div class="form-row">
+        <div class="fg"><label>Duración (min)</label><input id="f-dur" type="number" value="45" min="15"></div>
+        <div class="fg"><label>Precio CLP</label><input id="f-pr" type="number" placeholder="8000"></div>
+      </div>
+      <div class="fg"><label>Descripción</label><textarea id="f-desc" rows="2" style="resize:none"></textarea></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--ink);border-radius:var(--r);border:0.5px solid var(--border2)">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--light);opacity:0.7">cobrar al reservar (MercadoPago)</span>
+        <label class="tgl"><input type="checkbox" id="f-cobro"><div class="tgl-sl"></div></label>
+      </div>`,
+      foot:`<button class="btn btn-s" onclick="closeM()">cancelar</button><button class="btn btn-p" onclick="saveSvc()">crear →</button>`
     },
-    'nuevo-prof': {
-      title: 'Nuevo profesional',
-      body: () => `
-        <div class="fg"><label>Nombre completo</label><input id="f-nom" type="text" placeholder="Nombre"></div>
-        <div class="fg"><label>WhatsApp</label><input id="f-tel" type="tel" placeholder="+56 9 ..."></div>
-        <div class="fg"><label>Email</label><input id="f-email" type="email" placeholder="correo@negocio.cl"></div>`,
-      footer: () => `<button class="btn btn-secondary" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="saveProf()">Agregar</button>`
+    'nuevo-prof':{
+      title:'nuevo profesional',
+      body:async()=>`<div class="fg"><label>Nombre completo</label><input id="f-nom" type="text"></div>
+      <div class="fg"><label>WhatsApp</label><input id="f-tel" type="tel" placeholder="+56 9 ..."></div>
+      <div class="fg"><label>Email</label><input id="f-email" type="email"></div>`,
+      foot:`<button class="btn btn-s" onclick="closeM()">cancelar</button><button class="btn btn-p" onclick="saveProf()">agregar →</button>`
     }
   };
-
-  const f = forms[id];
-  if (!f) return;
-  // precargar servicios y profs si hacen falta
-  if (id === 'nueva-reserva' && (!SERVICIOS_CACHE.length || !PROFS_CACHE.length)) {
-    Promise.all([
-      api('agenda-servicios', { action: 'getAll' }),
-      api('agenda-profesionales', { action: 'getAll' })
-    ]).then(([sd, pd]) => {
-      SERVICIOS_CACHE = Array.isArray(sd?.data) ? sd.data : [];
-      PROFS_CACHE     = Array.isArray(pd?.data) ? pd.data : [];
-      document.getElementById('modal-title').textContent = f.title;
-      document.getElementById('modal-body').innerHTML    = f.body();
-      document.getElementById('modal-footer').innerHTML  = f.footer();
-    });
-  } else {
-    document.getElementById('modal-title').textContent = f.title;
-    document.getElementById('modal-body').innerHTML    = f.body();
-    document.getElementById('modal-footer').innerHTML  = f.footer();
-  }
-  document.getElementById('modal-overlay').classList.add('open');
+  const f=forms[id];
+  if(!f)return;
+  document.getElementById('m-title').textContent=f.title;
+  document.getElementById('m-foot').innerHTML=f.foot;
+  document.getElementById('m-body').innerHTML='<div style="text-align:center;padding:20px;font-family:DM Mono,monospace;font-size:11px;color:var(--mid);opacity:0.6">// cargando</div>';
+  document.getElementById('modal-bg').classList.add('open');
+  Promise.resolve(f.body()).then(html=>{ document.getElementById('m-body').innerHTML=html; });
 }
 
-function closeModal()    { document.getElementById('modal-overlay').classList.remove('open'); }
-function closeModalOut(e){ if (e.target === document.getElementById('modal-overlay')) closeModal(); }
+function closeM(){ document.getElementById('modal-bg').classList.remove('open'); }
+function closeMOut(e){ if(e.target===document.getElementById('modal-bg')) closeM(); }
 
-// SAVES
-async function saveReserva() {
-  const srvEl  = document.getElementById('f-srv');
-  const profEl = document.getElementById('f-prof');
-  const opt    = srvEl?.selectedOptions[0];
-  const profOpt= profEl?.selectedOptions[0];
-  const fecha  = document.getElementById('f-fecha')?.value;
-  const hora   = document.getElementById('f-hora')?.value;
-  const nom    = document.getElementById('f-cli-nom')?.value.trim();
-  const tel    = document.getElementById('f-cli-tel')?.value.trim();
-  if (!nom || !fecha || !hora || !srvEl?.value) { showToast('⚠️', 'Completa todos los campos'); return; }
-  const dur       = parseInt(opt?.dataset.dur || 60);
-  const fi        = new Date(`${fecha}T${hora}:00`);
-  const ff        = new Date(fi.getTime() + dur * 60000);
-  await api('agenda-reservas', {
-    action: 'save',
-    cliente_nombre: nom,
-    cliente_tel: tel,
-    cliente_email: document.getElementById('f-cli-email')?.value || '',
-    servicio_id: parseInt(srvEl.value),
-    servicio_nombre: opt?.dataset.nom || '',
-    profesional_id: parseInt(profEl?.value || 0),
-    profesional_nombre: profOpt?.dataset.nom || '',
-    fecha_inicio: fi.toISOString(),
-    fecha_fin: ff.toISOString(),
-    monto: parseFloat(opt?.dataset.precio || 0),
-    origen: 'admin',
-    notas: document.getElementById('f-notas')?.value || ''
-  });
-  closeModal();
-  showToast('✅', 'Cita creada exitosamente');
-  loadDashboard();
+async function saveResv(){
+  const sv=document.getElementById('f-sv'); const pr=document.getElementById('f-pr');
+  const opt=sv?.selectedOptions[0]; const popt=pr?.selectedOptions[0];
+  const fd=document.getElementById('f-fd')?.value; const hr=document.getElementById('f-hr')?.value;
+  const cn=document.getElementById('f-cn')?.value.trim();
+  if(!cn||!fd||!hr||!sv?.value){ toast('⚠','completa los campos requeridos'); return; }
+  const dur=parseInt(opt?.dataset.dur||60);
+  const fi=new Date(`${fd}T${hr}:00`);
+  const ff=new Date(fi.getTime()+dur*60000);
+  await api('agenda-reservas',{action:'save',cliente_nombre:cn,cliente_tel:document.getElementById('f-ct')?.value||'',cliente_email:document.getElementById('f-ce')?.value||'',servicio_id:parseInt(sv.value),servicio_nombre:opt?.dataset.nom||'',profesional_id:parseInt(pr?.value||0),profesional_nombre:popt?.dataset.nom||'',fecha_inicio:fi.toISOString(),fecha_fin:ff.toISOString(),monto:parseFloat(opt?.dataset.p||0),origen:'admin',notas:document.getElementById('f-nt')?.value||''});
+  closeM(); toast('✓','cita creada'); loadDashboard();
 }
 
-async function saveCliente() {
-  const nom = document.getElementById('f-nom')?.value.trim();
-  const ape = document.getElementById('f-ape')?.value.trim();
-  if (!nom) { showToast('⚠️', 'El nombre es obligatorio'); return; }
-  await api('agenda-clientes', {
-    action: 'save',
-    nombre: nom + (ape ? ' ' + ape : ''),
-    telefono: document.getElementById('f-tel')?.value || '',
-    email: document.getElementById('f-email')?.value || '',
-    notas: document.getElementById('f-notas')?.value || ''
-  });
-  closeModal();
-  showToast('✅', 'Cliente guardado');
-  loadClientes();
+async function saveCli(){
+  const n=(document.getElementById('f-nom')?.value||'').trim();
+  const a=(document.getElementById('f-ape')?.value||'').trim();
+  if(!n){ toast('⚠','nombre requerido'); return; }
+  await api('agenda-clientes',{action:'save',nombre:n+(a?' '+a:''),telefono:document.getElementById('f-tel')?.value||'',email:document.getElementById('f-email')?.value||'',notas:document.getElementById('f-nt')?.value||''});
+  closeM(); toast('✓','cliente guardado'); loadClientes();
 }
 
-async function saveServicio() {
-  const nom = document.getElementById('f-nom')?.value.trim();
-  if (!nom) { showToast('⚠️', 'El nombre es obligatorio'); return; }
-  await api('agenda-servicios', {
-    action: 'save',
-    nombre: nom,
-    descripcion: document.getElementById('f-desc')?.value || '',
-    duracion_min: parseInt(document.getElementById('f-dur')?.value || 60),
-    precio: parseFloat(document.getElementById('f-precio')?.value || 0),
-    requiere_pago: document.getElementById('f-cobro')?.checked || false
-  });
-  closeModal();
-  showToast('✅', 'Servicio creado');
-  loadServicios();
+async function saveSvc(){
+  const n=(document.getElementById('f-nom')?.value||'').trim();
+  if(!n){ toast('⚠','nombre requerido'); return; }
+  await api('agenda-servicios',{action:'save',nombre:n,descripcion:document.getElementById('f-desc')?.value||'',duracion_min:parseInt(document.getElementById('f-dur')?.value||60),precio:parseFloat(document.getElementById('f-pr')?.value||0),requiere_pago:document.getElementById('f-cobro')?.checked||false});
+  closeM(); toast('✓','servicio creado'); loadServicios();
 }
 
-async function saveProf() {
-  const nom = document.getElementById('f-nom')?.value.trim();
-  if (!nom) { showToast('⚠️', 'El nombre es obligatorio'); return; }
-  await api('agenda-profesionales', {
-    action: 'save',
-    nombre: nom,
-    telefono: document.getElementById('f-tel')?.value || '',
-    email: document.getElementById('f-email')?.value || ''
-  });
-  closeModal();
-  showToast('✅', 'Profesional agregado');
-  loadProfesionales();
+async function saveProf(){
+  const n=(document.getElementById('f-nom')?.value||'').trim();
+  if(!n){ toast('⚠','nombre requerido'); return; }
+  await api('agenda-profesionales',{action:'save',nombre:n,telefono:document.getElementById('f-tel')?.value||'',email:document.getElementById('f-email')?.value||''});
+  closeM(); toast('✓','profesional agregado'); loadProfs();
 }
 </script>
 </body>
