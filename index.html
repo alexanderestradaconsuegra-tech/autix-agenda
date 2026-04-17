@@ -3,14 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Autix Agenda — Sistema de gestión inteligente</title>
-<meta name="description" content="Autix Agenda: sistema de gestión de citas, ventas, clientes y finanzas para tu negocio. Agendamiento online 24/7 con confirmación por WhatsApp.">
-<meta name="keywords" content="sistema de citas, agenda online, gestión negocio, reservas, WhatsApp, Chile, Autix">
-<meta name="author" content="Autix">
+<title>Autix Agenda — Sistema de gestión</title>
+<meta name="description" content="Autix Agenda: gestión de citas, ventas, clientes y finanzas para tu negocio.">
 <meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="Autix Agenda — Panel de gestión">
-<meta property="og:description" content="Gestiona citas, ventas, clientes y finanzas desde un solo lugar.">
-<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23023337'/><text x='16' y='23' font-family='Georgia,serif' font-size='20' font-weight='bold' fill='%234ea674' text-anchor='middle'>a</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -24,33 +20,31 @@
   --red:#e53935;--red-g:rgba(229,57,53,0.08);
   --amber:#f59e0b;--amber-g:rgba(245,158,11,0.08);
   --purple:#7c3aed;--purple-g:rgba(124,58,237,0.08);
-  --r:8px;--r-lg:14px;--r-xl:20px;
-  --sw:230px;--topbar:52px;
+  --r:8px;--r-lg:14px;--r-xl:20px;--sw:230px;--topbar:52px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:13px;overflow:hidden}
 
-/* ── LOGIN ── */
+/* LOGIN */
 .login-wrap{position:fixed;inset:0;background:var(--ink);z-index:999;display:flex;overflow:hidden}
 .login-left{flex:1;display:flex;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden}
 .login-left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(78,166,116,0.18),transparent 60%)}
-.login-brand{position:relative;z-index:1;text-align:center;max-width:320px}
-.login-logo-img{width:80px;height:80px;border-radius:20px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,0.08)}
-.login-logo-img img{width:100%;height:100%;object-fit:contain}
-.login-brand-name{font-size:30px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:8px}
+.login-brand{position:relative;z-index:1;text-align:center;max-width:300px}
+.login-logo-box{width:80px;height:80px;border-radius:20px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;overflow:hidden}
+.login-logo-box img{width:100%;height:100%;object-fit:contain}
+.login-logo-box.fallback{background:var(--mid);font-family:'Georgia',serif;font-size:40px;color:var(--ink);font-weight:700}
+.login-brand-name{font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.8px;margin-bottom:8px}
 .login-brand-name span{color:var(--light)}
-.login-brand-sub{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:40px}
+.login-brand-sub{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:36px}
 .lf-feat{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:10px;text-align:left}
 .lf-feat-icon{width:26px;height:26px;border-radius:7px;background:rgba(78,166,116,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
 .login-right{width:420px;background:var(--white);display:flex;align-items:center;justify-content:center;padding:48px 44px;flex-shrink:0}
-@media(max-width:768px){
-  .login-left{display:none}
-  .login-right{width:100%;padding:32px 24px}
-}
+@media(max-width:768px){.login-left{display:none}.login-right{width:100%;padding:32px 24px}}
 .login-box{width:100%}
 .login-box-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
-.login-box-logo img{width:36px;height:36px;border-radius:9px;object-fit:contain;background:var(--ink);padding:4px}
+.login-box-logo-img{width:34px;height:34px;border-radius:9px;overflow:hidden;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.login-box-logo-img img{width:100%;height:100%;object-fit:contain}
 .login-box-logo-text{font-size:18px;font-weight:800;color:var(--ink)}
 .login-box-logo-text span{color:var(--mid2)}
 .login-title{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-0.5px;margin-bottom:4px}
@@ -59,53 +53,49 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .lf-inp{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:11px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color 0.2s,box-shadow 0.2s;margin-bottom:14px}
 .lf-inp:focus{border-color:var(--mid);box-shadow:0 0 0 3px rgba(78,166,116,0.1)}
 .l-btn{width:100%;padding:13px;background:var(--ink);color:#fff;border:none;border-radius:var(--r);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s}
-.l-btn:hover{background:var(--ink2)}
-.l-btn:disabled{opacity:0.5;cursor:not-allowed}
+.l-btn:hover{background:var(--ink2)}.l-btn:disabled{opacity:0.5;cursor:not-allowed}
 .l-err{font-size:12px;color:var(--red);margin-top:10px;min-height:16px}
 .l-divider{display:flex;align-items:center;gap:12px;margin:18px 0;font-size:11px;color:var(--faint)}
 .l-divider::before,.l-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 .l-demo{text-align:center;font-size:12px;color:var(--muted)}
 .l-demo a{color:var(--mid2);cursor:pointer;font-weight:700}
 
-/* ── APP SHELL ── */
+/* APP */
 #app{display:none;height:100vh;position:relative}
 .app-layout{display:flex;height:100vh;overflow:hidden}
-
-/* ── OVERLAY (mobile) ── */
-.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:49;backdrop-filter:blur(2px)}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:49}
 .sb-overlay.show{display:block}
 
-/* ── SIDEBAR ── */
+/* SIDEBAR */
 .sidebar{width:var(--sw);background:var(--ink);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto;transition:transform 0.25s ease;z-index:50}
 .sidebar::-webkit-scrollbar{width:0}
-@media(max-width:768px){
-  .sidebar{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-}
-.sb-top{padding:16px 14px 14px;border-bottom:0.5px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px}
-.sb-logo-img{width:30px;height:30px;border-radius:8px;overflow:hidden;background:rgba(255,255,255,0.1);flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.sb-logo-img img{width:100%;height:100%;object-fit:contain}
+@media(max-width:768px){.sidebar{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}}
+.sb-top{padding:14px 12px;border-bottom:0.5px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px}
+.sb-logo-box{width:28px;height:28px;border-radius:7px;overflow:hidden;background:rgba(255,255,255,0.08);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.sb-logo-box img{width:100%;height:100%;object-fit:contain}
+.sb-logo-box.fallback{background:var(--mid);font-family:'Georgia',serif;font-size:16px;color:var(--ink);font-weight:700}
 .sb-name{font-size:14px;font-weight:800;color:#fff;letter-spacing:-0.3px;flex:1}
 .sb-name small{color:var(--light);font-weight:400;font-size:11px}
-.sb-close{display:none;background:none;border:none;color:rgba(255,255,255,0.4);font-size:20px;cursor:pointer;padding:2px 6px}
+.sb-close{display:none;background:none;border:none;color:rgba(255,255,255,0.4);font-size:18px;cursor:pointer;padding:2px}
 @media(max-width:768px){.sb-close{display:block}}
-.sb-negocio{padding:8px 14px;font-size:10px;color:rgba(255,255,255,0.3);border-bottom:0.5px solid rgba(255,255,255,0.06);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'DM Mono',monospace;letter-spacing:0.5px}
-.sb-sec{padding:14px 14px 5px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22)}
-.sb-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r);margin:1px 7px;cursor:pointer;transition:all 0.15s;color:rgba(255,255,255,0.42);font-size:12px;font-weight:500;position:relative;text-decoration:none}
+.sb-negocio{padding:7px 12px;font-size:10px;color:rgba(255,255,255,0.3);border-bottom:0.5px solid rgba(255,255,255,0.06);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'DM Mono',monospace}
+.sb-sec{padding:12px 12px 4px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22)}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r);margin:1px 6px;cursor:pointer;transition:all 0.15s;color:rgba(255,255,255,0.42);font-size:12px;font-weight:500;position:relative}
 .sb-item:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.75)}
 .sb-item.active{background:rgba(78,166,116,0.18);color:var(--light);font-weight:600}
-.sb-item.active::before{content:'';position:absolute;left:-7px;top:50%;transform:translateY(-50%);width:3px;height:16px;background:var(--mid);border-radius:0 3px 3px 0}
-.sb-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;background:rgba(255,255,255,0.05);font-style:normal}
+.sb-item.active::before{content:'';position:absolute;left:-6px;top:50%;transform:translateY(-50%);width:3px;height:16px;background:var(--mid);border-radius:0 3px 3px 0}
+.sb-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;background:rgba(255,255,255,0.05)}
 .sb-item.active .sb-icon{background:rgba(78,166,116,0.2)}
-.sb-bottom{margin-top:auto;padding:10px 7px 14px;border-top:0.5px solid rgba(255,255,255,0.06)}
+.sb-bottom{margin-top:auto;padding:8px 6px 12px;border-top:0.5px solid rgba(255,255,255,0.06)}
 .sb-user{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r);cursor:pointer;transition:background 0.15s}
 .sb-user:hover{background:rgba(255,255,255,0.05)}
-.sb-av{width:28px;height:28px;border-radius:50%;background:var(--mid);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--ink);flex-shrink:0}
+.sb-av-wrap{width:28px;height:28px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--mid);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--ink)}
+.sb-av-wrap img{width:100%;height:100%;object-fit:cover}
 .sb-uname{font-size:11px;font-weight:600;color:rgba(255,255,255,0.65);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sb-uout{font-size:13px;color:rgba(255,255,255,0.25);cursor:pointer;transition:color 0.15s;flex-shrink:0}
 .sb-uout:hover{color:#ff6b6b}
 
-/* ── MAIN ── */
+/* MAIN */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 .topbar{height:var(--topbar);background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0}
 .topbar-ham{display:none;background:none;border:none;font-size:20px;color:var(--ink);cursor:pointer;padding:4px;border-radius:6px;flex-shrink:0}
@@ -117,59 +107,52 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .topbar-chip{font-size:11px;font-weight:600;padding:5px 10px;border-radius:100px;background:var(--pale);color:var(--mid2);border:1px solid var(--light);cursor:pointer;white-space:nowrap;flex-shrink:0}
 @media(max-width:480px){.topbar-live,.topbar-chip{display:none}}
 
-/* ── CONTENT ── */
-.content{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
 .content::-webkit-scrollbar{width:4px}
 .content::-webkit-scrollbar-thumb{background:var(--faint);border-radius:4px}
-@media(max-width:768px){.content{padding:12px}}
 .panel{display:none}
-.panel.active{display:flex;flex-direction:column;gap:14px}
+.panel.active{display:flex;flex-direction:column;gap:12px}
 
-/* ── METRICS ── */
+/* METRICS */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 @media(max-width:900px){.metrics{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr);gap:8px}}
 .mc{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px}
 .mc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
 .mc-label{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
-.mc-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.ico-g{background:var(--pale);color:var(--mid2)}
-.ico-i{background:#e8f0f1;color:var(--ink)}
-.ico-a{background:var(--amber-g);color:var(--amber)}
-.ico-p{background:var(--purple-g);color:var(--purple)}
+.mc-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.ico-g{background:var(--pale);color:var(--mid2)}.ico-i{background:#e8f0f1;color:var(--ink)}
+.ico-a{background:var(--amber-g);color:var(--amber)}.ico-p{background:var(--purple-g);color:var(--purple)}
 .mc-val{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.8px;line-height:1;margin-bottom:5px}
 .mc-val.g{color:var(--mid2)}
 .mc-foot{font-size:10px;color:var(--muted)}
 .badge-up{display:inline-block;background:var(--pale);color:var(--mid2);font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px}
 
-/* ── CARD ── */
+/* CARD */
 .card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
-.card-head{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.card-head{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .card-title{font-size:11px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.5px}
-.card-action{font-size:11px;color:var(--mid2);cursor:pointer;background:none;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;white-space:nowrap}
-.card-action:hover{color:var(--mid3)}
-.card-body{padding:14px 16px}
+.card-action{font-size:11px;color:var(--mid2);cursor:pointer;background:none;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600}
+.card-body{padding:12px 14px}
 
-/* ── GRID ── */
+/* GRID */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .g3{display:grid;grid-template-columns:2fr 1fr;gap:12px}
 @media(max-width:768px){.g2,.g3{grid-template-columns:1fr}}
 
-/* ── TABLE ── */
+/* TABLE */
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;min-width:500px}
+table{width:100%;border-collapse:collapse;min-width:480px}
 th{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);background:var(--bg);white-space:nowrap}
-td{padding:10px 12px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text)}
+td{padding:9px 12px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text)}
 tr:last-child td{border:none}
 tr:hover td{background:var(--pale2)}
 .status{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;white-space:nowrap}
-.s-c{background:var(--pale);color:var(--mid2)}
-.s-p{background:var(--amber-g);color:#d97706}
-.s-x{background:var(--red-g);color:var(--red)}
-.s-d{background:var(--purple-g);color:var(--purple)}
+.s-c{background:var(--pale);color:var(--mid2)}.s-p{background:var(--amber-g);color:#d97706}
+.s-x{background:var(--red-g);color:var(--red)}.s-d{background:var(--purple-g);color:var(--purple)}
 .av{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
 
-/* ── FORM ── */
+/* FORM */
 .fg{margin-bottom:12px}
 .fg label{display:block;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
 .fg input,.fg select,.fg textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r);padding:9px 11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color 0.2s,box-shadow 0.2s}
@@ -178,30 +161,30 @@ tr:hover td{background:var(--pale2)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:480px){.form-row{grid-template-columns:1fr}}
 
-/* ── TOGGLE — FIXED ── */
+/* TOGGLE */
 .tgl{display:inline-block;position:relative;width:38px;height:22px;cursor:pointer;flex-shrink:0;vertical-align:middle}
 .tgl input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
-.tgl-sl{position:absolute;inset:0;background:#ccc;border-radius:100px;transition:background 0.2s;border:1px solid rgba(0,0,0,0.1)}
+.tgl-sl{position:absolute;inset:0;background:#cbd5cb;border-radius:100px;transition:background 0.2s;border:1px solid rgba(0,0,0,0.08)}
 .tgl input:checked+.tgl-sl{background:var(--mid);border-color:var(--mid2)}
 .tgl-sl::after{content:'';position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
 .tgl input:checked+.tgl-sl::after{transform:translateX(16px)}
 
-/* ── BTN ── */
-.btn{padding:9px 16px;border-radius:var(--r);font-size:12px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+/* BTN */
+.btn{padding:8px 16px;border-radius:var(--r);font-size:12px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .btn-p{background:var(--ink);color:#fff}.btn-p:hover{background:var(--ink2)}
 .btn-g{background:var(--mid);color:#fff}.btn-g:hover{background:var(--mid2)}
 .btn-s{background:var(--white);color:var(--text2);border:1.5px solid var(--border2)}.btn-s:hover{background:var(--pale)}
 .btn-xs{font-size:10px;font-weight:600;padding:4px 9px;border-radius:100px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.15s;white-space:nowrap}
 .btn-ok{background:var(--pale);color:var(--mid2)}.btn-ok:hover{background:var(--mid);color:#fff}
 .btn-del{background:var(--red-g);color:var(--red)}.btn-del:hover{background:var(--red);color:#fff}
-.btn-edit{background:var(--bg);color:var(--muted);border:1px solid var(--border)}.btn-edit:hover{color:var(--ink);border-color:var(--border2)}
+.btn-edit{background:var(--bg);color:var(--muted);border:1px solid var(--border)}.btn-edit:hover{color:var(--ink)}
 
-/* ── CHIPS ── */
+/* CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:5px}
 .chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--muted);transition:all 0.15s;white-space:nowrap}
 .chip.active{background:var(--pale);color:var(--mid2);border-color:var(--light)}
 
-/* ── MODAL ── */
+/* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(2,51,55,0.45);z-index:500;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
 .modal-bg.open{display:flex}
 @media(min-width:600px){.modal-bg{align-items:center}}
@@ -212,25 +195,25 @@ tr:hover td{background:var(--pale2)}
 .modal-handle{width:40px;height:4px;border-radius:2px;background:var(--faint);margin:10px auto 0}
 @media(min-width:600px){.modal-handle{display:none}}
 .modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.modal-t{font-size:16px;font-weight:700;color:var(--ink)}
+.modal-t{font-size:15px;font-weight:700;color:var(--ink)}
 .modal-x{background:var(--bg);border:none;color:var(--muted);width:28px;height:28px;border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
 .modal-x:hover{background:var(--red-g);color:var(--red)}
-.modal-body{padding:18px 20px}
+.modal-body{padding:16px 20px}
 .modal-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
 
-/* ── LOADER ── */
+/* LOADER */
 .loader{position:fixed;inset:0;background:rgba(255,255,255,0.75);z-index:800;display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px;backdrop-filter:blur(2px)}
 .loader.on{display:flex}
 .spin{width:28px;height:28px;border:2.5px solid var(--faint);border-top-color:var(--mid);border-radius:50%;animation:spin 0.6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin-txt{font-size:12px;color:var(--muted);font-weight:600}
 
-/* ── TOAST ── */
+/* TOAST */
 .toast{position:fixed;bottom:20px;right:16px;background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:11px 16px;font-size:12px;font-weight:600;z-index:900;display:none;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(2,51,55,0.3);max-width:calc(100vw - 32px)}
 .toast.on{display:flex;animation:toast-in 0.3s ease}
 @keyframes toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── CITAS (unified agenda+reservas) ── */
+/* CALENDAR */
 .citas-tabs{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:3px;gap:2px;width:fit-content}
 .citas-tab{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:all 0.15s;white-space:nowrap}
 .citas-tab.active{background:var(--white);color:var(--ink);box-shadow:0 1px 3px rgba(2,51,55,0.1)}
@@ -238,12 +221,14 @@ tr:hover td{background:var(--pale2)}
 .citas-view.active{display:flex;flex-direction:column;gap:12px}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
 .cal-head{text-align:center;font-size:9px;font-weight:700;color:var(--muted);padding:3px 0;letter-spacing:0.5px;text-transform:uppercase}
-.cal-day{aspect-ratio:1;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:var(--muted);transition:all 0.15s;position:relative}
+.cal-day{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:var(--muted);transition:all 0.15s;position:relative}
 .cal-day:hover{background:var(--pale);color:var(--mid2)}
 .cal-day.today{background:var(--ink);color:#fff;font-weight:700}
 .cal-day.selected{background:var(--pale);color:var(--mid2);border:1.5px solid var(--mid);font-weight:700}
+.cal-day.has-ev{background:var(--pale);color:var(--mid2);font-weight:600}
 .cal-day.has-ev::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--mid);position:absolute;bottom:2px}
-.cal-day.today.has-ev::after{background:rgba(255,255,255,0.7)}
+.cal-day.today.has-ev{background:var(--ink);color:#fff}
+.cal-day.today.has-ev::after{background:rgba(255,255,255,0.6)}
 .tl-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r);border:1px solid var(--border);background:var(--white);margin-bottom:6px;transition:all 0.15s}
 .tl-row.ocu{border-color:var(--light);background:var(--pale2)}
 .tl-time{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--mid2);width:40px;flex-shrink:0}
@@ -251,8 +236,8 @@ tr:hover td{background:var(--pale2)}
 .tl-name{font-size:12px;font-weight:600;color:var(--ink)}
 .tl-svc{font-size:10px;color:var(--muted)}
 
-/* ── TERMINAL ── */
-.terminal{display:grid;grid-template-columns:1fr 320px;gap:12px;height:calc(100vh - var(--topbar) - 32px)}
+/* TERMINAL */
+.terminal{display:grid;grid-template-columns:1fr 320px;gap:12px;height:calc(100vh - var(--topbar) - 28px)}
 @media(max-width:900px){.terminal{grid-template-columns:1fr;height:auto}}
 .terminal-left{display:flex;flex-direction:column;gap:10px;overflow:hidden;min-height:0}
 .terminal-right{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);display:flex;flex-direction:column;overflow:hidden}
@@ -278,43 +263,45 @@ tr:hover td{background:var(--pale2)}
 .cart-total-val{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.8px}
 .pago-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
 .pago-btn{padding:8px;border-radius:var(--r);border:1.5px solid var(--border2);background:var(--white);cursor:pointer;font-size:10px;font-weight:700;color:var(--text2);transition:all 0.15s;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:4px}
-.pago-btn:hover{border-color:var(--mid);background:var(--pale);color:var(--mid2)}
-.pago-btn.selected{border-color:var(--mid);background:var(--pale);color:var(--mid2)}
+.pago-btn:hover,.pago-btn.selected{border-color:var(--mid);background:var(--pale);color:var(--mid2)}
 .cobrar-btn{width:100%;padding:12px;background:var(--ink);color:#fff;border:none;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Plus Jakarta Sans',sans-serif}
-.cobrar-btn:hover{background:var(--mid)}
-.cobrar-btn:disabled{opacity:0.4;cursor:not-allowed}
+.cobrar-btn:hover{background:var(--mid)}.cobrar-btn:disabled{opacity:0.4;cursor:not-allowed}
 
-/* ── CRM ── */
+/* CRM */
 .crm-stat{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;text-align:center}
 .crm-stat-val{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-1px;line-height:1;margin-bottom:4px}
 .crm-stat-label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
 .tag{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px}
-.tag-g{background:var(--pale);color:var(--mid2)}
-.tag-a{background:var(--amber-g);color:#d97706}
-.tag-n{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
-.mkt-action{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;display:flex;align-items:center;gap:12px;transition:all 0.2s;cursor:pointer}
+.tag-g{background:var(--pale);color:var(--mid2)}.tag-a{background:var(--amber-g);color:#d97706}.tag-n{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+.mkt-action{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:12px 14px;display:flex;align-items:center;gap:12px;transition:all 0.2s}
 .mkt-action:hover{border-color:var(--border2);background:var(--white)}
-.mkt-icon{font-size:22px;flex-shrink:0}
+.mkt-icon{font-size:20px;flex-shrink:0}
 .mkt-info{flex:1}
 .mkt-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px}
 .mkt-desc{font-size:11px;color:var(--muted)}
-/* Checkbox styling */
-input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cursor:pointer}
+.mkt-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--pale);color:var(--mid2);white-space:nowrap}
 
-/* ── CONFIG ── */
-.config-section{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;margin-bottom:12px}
-.config-section-title{font-size:12px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.config-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+/* CONFIG */
+.config-section{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;margin-bottom:12px}
+.config-section-title{font-size:11px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.config-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)}
 .config-row:last-child{border:none;padding-bottom:0}
 .config-row-label{font-size:13px;font-weight:500;color:var(--ink)}
 .config-row-sub{font-size:11px;color:var(--muted)}
 
-/* ── CHART ── */
-.chart-area{height:80px;position:relative}
+/* PROF CARDS */
+.g-profs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:768px){.g-profs{grid-template-columns:1fr}}
+.prof-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;display:flex;align-items:center;gap:12px;transition:all 0.15s}
+.prof-card:hover{border-color:var(--border2)}
+.prof-av{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+
+/* CHART */
+.chart-area{height:80px}
 .chart-area svg{width:100%;height:100%}
 .chart-xl{display:flex;justify-content:space-between;padding:4px 0 0;font-size:9px;color:var(--faint);font-family:'DM Mono',monospace}
 
-/* ── FEED ── */
+/* FEED */
 .feed-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)}
 .feed-item:last-child{border:none;padding-bottom:0}
 .feed-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
@@ -322,39 +309,16 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
 .feed-txt strong{color:var(--text);font-weight:600}
 .feed-time{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;flex-shrink:0}
 
-/* ── PROF CARD ── */
-.prof-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;display:flex;align-items:center;gap:12px;transition:all 0.15s}
-.prof-card:hover{border-color:var(--border2)}
-.prof-av{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
-.g-profs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media(max-width:768px){.g-profs{grid-template-columns:1fr}}
-
-/* ── BOLETA PRINT ── */
-@media print{
-  body *{display:none}
-  #boleta-print,#boleta-print *{display:block}
-  #boleta-print{
-    font-family:'Courier New',monospace;
-    font-size:12px;
-    width:280px;
-    margin:0 auto;
-    padding:10px;
-    color:#000;
-  }
-}
-#boleta-print{display:none}
-
-/* ── EMPTY ── */
-.empty{text-align:center;padding:40px 20px;color:var(--muted)}
-.empty-icon{font-size:28px;margin-bottom:8px;opacity:0.4}
-.empty-txt{font-size:12px}
-
-/* ── SEARCH ── */
+/* SEARCH */
 .search-wrap{position:relative;display:inline-flex;align-items:center}
 .search-icon{position:absolute;left:10px;color:var(--muted);font-size:14px;pointer-events:none}
 .search-input{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:8px 10px 8px 32px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--text);outline:none;transition:border-color 0.2s;width:220px}
 .search-input:focus{border-color:var(--mid)}
-@media(max-width:480px){.search-input{width:160px}}
+
+/* EMPTY */
+.empty{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty-icon{font-size:28px;margin-bottom:8px;opacity:0.4}
+.empty-txt{font-size:12px}
 
 /* COLORS */
 .gc0{background:linear-gradient(135deg,#4ea674,#3d8560)}
@@ -363,6 +327,11 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
 .gc3{background:linear-gradient(135deg,#f59e0b,#d97706)}
 .gc4{background:linear-gradient(135deg,#e53935,#c62828)}
 .gc5{background:linear-gradient(135deg,#0ea5e9,#0284c7)}
+
+/* PRINT */
+@media print{body *{display:none}#boleta-print,#boleta-print *{display:block}#boleta-print{font-family:'Courier New',monospace;font-size:12px;width:280px;margin:0 auto;padding:10px;color:#000}}
+#boleta-print{display:none}
+input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cursor:pointer}
 </style>
 </head>
 <body>
@@ -374,9 +343,9 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
 <div class="login-wrap" id="login-wrap">
   <div class="login-left">
     <div class="login-brand">
-      <div class="login-logo-img"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAQABAADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Autix Agenda"></div>
+      <div class="login-logo-box" id="ll-logo"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAQABAADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Autix" onerror="this.parentNode.classList.add('fallback');this.parentNode.innerHTML='a'"></div>
       <div class="login-brand-name">Autix<span> Agenda</span></div>
-      <div class="login-brand-sub">Sistema inteligente de gestión para tu negocio. Citas, ventas, clientes y finanzas en un solo lugar.</div>
+      <div class="login-brand-sub">Sistema inteligente de gestión. Citas, ventas, clientes y finanzas.</div>
       <div class="lf-feat"><div class="lf-feat-icon">📅</div>Agendamiento online 24/7</div>
       <div class="lf-feat"><div class="lf-feat-icon">🤖</div>Agente IA por WhatsApp</div>
       <div class="lf-feat"><div class="lf-feat-icon">💳</div>Terminal de ventas integrado</div>
@@ -386,7 +355,7 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
   <div class="login-right">
     <div class="login-box">
       <div class="login-box-logo">
-        <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAQABAADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Logo">
+        <div class="login-box-logo-img"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAQABAADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Logo" onerror="this.style.display='none'"></div>
         <div class="login-box-logo-text">Autix<span> Agenda</span></div>
       </div>
       <div class="login-title">Bienvenido</div>
@@ -407,11 +376,9 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
 <div id="app">
 <div class="app-layout">
 <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
-
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-top">
-    <div class="sb-logo-img"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAQABAADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Autix"></div>
+    <div class="sb-logo-box" id="sb-logo-box"><img id="sb-logo-img" src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAQABAADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Logo" onerror="this.parentNode.classList.add('fallback');this.parentNode.innerHTML='a'"></div>
     <div class="sb-name">Autix <small>Agenda</small></div>
     <button class="sb-close" onclick="closeSidebar()">✕</button>
   </div>
@@ -431,22 +398,20 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
   <div class="sb-item" onclick="nav('config',this)"><i class="sb-icon">⚙</i>Configuración</div>
   <div class="sb-bottom">
     <div class="sb-user">
-      <div class="sb-av" id="sb-av">?</div>
+      <div class="sb-av-wrap" id="sb-av">?</div>
       <div class="sb-uname" id="sb-uname">—</div>
       <div class="sb-uout" onclick="doLogout()" title="Salir">→</div>
     </div>
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main">
   <div class="topbar">
     <button class="topbar-ham" onclick="openSidebar()">☰</button>
     <div class="topbar-title" id="tb-title">Dashboard</div>
-    <div class="topbar-live"><div class="live-dot"></div><span class="hide-sm">En vivo</span></div>
+    <div class="topbar-live"><div class="live-dot"></div>En vivo</div>
     <div class="topbar-chip" onclick="copyLink()">↗ Link público</div>
   </div>
-
   <div class="content" id="content">
 
     <!-- DASHBOARD -->
@@ -454,50 +419,28 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
       <div class="metrics">
         <div class="mc"><div class="mc-top"><div class="mc-label">Citas hoy</div><div class="mc-icon ico-g">📅</div></div><div class="mc-val g" id="m-hoy">—</div><div class="mc-foot"><span class="badge-up" id="m-hoy-s">cargando</span></div></div>
         <div class="mc"><div class="mc-top"><div class="mc-label">Ingresos mes</div><div class="mc-icon ico-i">💰</div></div><div class="mc-val" id="m-ing">—</div><div class="mc-foot"><span class="badge-up">este mes</span></div></div>
-        <div class="mc"><div class="mc-top"><div class="mc-label">Total citas</div><div class="mc-icon ico-a">📋</div></div><div class="mc-val" id="m-tot">—</div><div class="mc-foot"><span style="font-size:10px;color:var(--muted)">históricas</span></div></div>
+        <div class="mc"><div class="mc-top"><div class="mc-label">Total citas</div><div class="mc-icon ico-a">📋</div></div><div class="mc-val" id="m-tot">—</div><div class="mc-foot">históricas</div></div>
         <div class="mc"><div class="mc-top"><div class="mc-label">Asistencia</div><div class="mc-icon ico-p">✓</div></div><div class="mc-val" id="m-asis">—</div><div class="mc-foot"><span class="badge-up">completadas</span></div></div>
       </div>
       <div class="g3">
-        <div class="card">
-          <div class="card-head"><div class="card-title">Citas · últimas 2 semanas</div><span id="chart-peak" style="font-size:10px;color:var(--muted)"></span></div>
-          <div class="card-body"><div class="chart-area"><svg id="area-svg" viewBox="0 0 600 80" preserveAspectRatio="none"></svg></div><div class="chart-xl" id="chart-xl"></div></div>
-        </div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">Actividad reciente</div></div>
-          <div class="card-body" style="padding:10px 14px" id="feed"></div>
-        </div>
+        <div class="card"><div class="card-head"><div class="card-title">Citas · últimas 2 semanas</div><span id="chart-peak" style="font-size:10px;color:var(--muted)"></span></div><div class="card-body"><div class="chart-area"><svg id="area-svg" viewBox="0 0 600 80" preserveAspectRatio="none"></svg></div><div class="chart-xl" id="chart-xl"></div></div></div>
+        <div class="card"><div class="card-head"><div class="card-title">Actividad reciente</div></div><div class="card-body" style="padding:10px 14px" id="feed"></div></div>
       </div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Citas de hoy</div><button class="card-action" onclick="nav('citas',document.querySelectorAll('.sb-item')[1])">Ver agenda →</button></div>
-        <div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Hora</th><th>Estado</th><th></th></tr></thead><tbody id="t-hoy"></tbody></table></div>
-      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Citas de hoy</div><button class="card-action" onclick="nav('citas',document.querySelectorAll('.sb-item')[1])">Ver agenda →</button></div><div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Servicio</th><th>Profesional</th><th>Hora</th><th>Estado</th><th></th></tr></thead><tbody id="t-hoy"></tbody></table></div></div>
     </div>
 
-    <!-- CITAS (agenda + reservas unificado) -->
+    <!-- CITAS -->
     <div class="panel" id="panel-citas">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-        <div class="citas-tabs">
-          <div class="citas-tab active" onclick="switchCitasView('calendar',this)">📅 Calendario</div>
-          <div class="citas-tab" onclick="switchCitasView('list',this)">≡ Lista</div>
-        </div>
+        <div class="citas-tabs"><div class="citas-tab active" onclick="switchCV('calendar',this)">📅 Calendario</div><div class="citas-tab" onclick="switchCV('list',this)">≡ Lista</div></div>
         <button class="btn btn-p" style="font-size:12px" onclick="openModal('nueva-cita')">+ Nueva cita</button>
       </div>
-
-      <!-- CALENDARIO -->
       <div class="citas-view active" id="cv-calendar">
         <div class="g2">
-          <div class="card">
-            <div class="card-head"><div class="card-title" id="cal-title">Calendario</div><div style="display:flex;gap:4px"><button class="card-action" onclick="changeMonth(-1)">‹</button><button class="card-action" onclick="changeMonth(1)">›</button></div></div>
-            <div class="card-body" id="cal-body"></div>
-          </div>
-          <div class="card">
-            <div class="card-head"><div class="card-title" id="agenda-day">Hoy</div></div>
-            <div class="card-body" style="padding:10px" id="timeline"></div>
-          </div>
+          <div class="card"><div class="card-head"><div class="card-title" id="cal-title">Calendario</div><div style="display:flex;gap:4px"><button class="card-action" onclick="changeMonth(-1)">‹</button><button class="card-action" onclick="changeMonth(1)">›</button></div></div><div class="card-body" id="cal-body"></div></div>
+          <div class="card"><div class="card-head"><div class="card-title" id="agenda-day">Hoy</div></div><div class="card-body" style="padding:10px" id="timeline"></div></div>
         </div>
       </div>
-
-      <!-- LISTA -->
       <div class="citas-view" id="cv-list">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
           <div class="chips" id="r-chips">
@@ -517,13 +460,8 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
       <div class="terminal">
         <div class="terminal-left">
           <div class="card" style="display:flex;flex-direction:column;overflow:hidden;flex:1">
-            <div class="card-head">
-              <div class="card-title">Catálogo</div>
-              <div class="chips" id="cat-chips" style="gap:4px"></div>
-            </div>
-            <div style="padding:8px 10px;border-bottom:1px solid var(--border)">
-              <div class="search-wrap" style="width:100%"><span class="search-icon">⌕</span><input class="search-input" style="width:100%" id="prod-search" placeholder="Buscar..." oninput="filterProds(this.value)"></div>
-            </div>
+            <div class="card-head"><div class="card-title">Catálogo</div><div class="chips" id="cat-chips" style="gap:4px"></div></div>
+            <div style="padding:8px 10px;border-bottom:1px solid var(--border)"><div class="search-wrap" style="width:100%"><span class="search-icon">⌕</span><input class="search-input" style="width:100%" id="prod-search" placeholder="Buscar..." oninput="filterProds(this.value)"></div></div>
             <div class="prod-grid" id="prod-grid"></div>
           </div>
         </div>
@@ -557,43 +495,50 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
     <div class="panel" id="panel-crm">
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
         <div class="crm-stat"><div class="crm-stat-val" id="crm-total">—</div><div class="crm-stat-label">Clientes</div></div>
-        <div class="crm-stat"><div class="crm-stat-val" style="color:var(--mid2)" id="crm-vip">—</div><div class="crm-stat-label">VIP (+5 citas)</div></div>
+        <div class="crm-stat"><div class="crm-stat-val" style="color:var(--mid2)" id="crm-vip">—</div><div class="crm-stat-label">VIP +5 citas</div></div>
         <div class="crm-stat"><div class="crm-stat-val" style="color:var(--amber)" id="crm-nuevos">—</div><div class="crm-stat-label">Este mes</div></div>
-        <div class="crm-stat"><div class="crm-stat-val" style="color:var(--purple)" id="crm-inactivos">—</div><div class="crm-stat-label">Sin visita 30d</div></div>
+        <div class="crm-stat"><div class="crm-stat-val" style="color:var(--red)" id="crm-inactivos">—</div><div class="crm-stat-label">Sin visita 30d</div></div>
       </div>
       <div class="g2">
         <div class="card">
           <div class="card-head">
-            <div class="card-title">Clientes — selecciona y envía mensajes</div>
-            <div style="display:flex;gap:6px;align-items:center">
+            <div class="card-title">Selecciona clientes y envía mensajes</div>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
               <button class="btn-xs btn-edit" onclick="selectAllCRM()">Seleccionar todos</button>
               <button class="btn btn-g" style="font-size:11px;padding:6px 12px" onclick="openModal('enviar-mensaje')">💬 Enviar mensaje</button>
+            </div>
+          </div>
+          <div style="padding:8px 12px;border-bottom:1px solid var(--border);display:flex;gap:6px;flex-wrap:wrap">
+            <div class="chips" id="crm-filter-chips">
+              <div class="chip active" onclick="filterCRM('todos',this)">Todos</div>
+              <div class="chip" onclick="filterCRM('vip',this)">VIP</div>
+              <div class="chip" onclick="filterCRM('regular',this)">Regular</div>
+              <div class="chip" onclick="filterCRM('inactivo',this)">Inactivos</div>
             </div>
           </div>
           <div class="table-wrap"><table><thead><tr><th><input type="checkbox" id="chk-all" onchange="toggleAllCRM(this)" style="accent-color:var(--mid)"></th><th>Cliente</th><th>WhatsApp</th><th>Citas</th><th>Segmento</th></tr></thead><tbody id="t-crm"></tbody></table></div>
         </div>
         <div class="card">
-          <div class="card-head"><div class="card-title">Automatizaciones activas</div></div>
+          <div class="card-head"><div class="card-title">Automatizaciones WhatsApp</div></div>
           <div class="card-body" style="padding:10px 14px;display:flex;flex-direction:column;gap:8px">
-            <div class="mkt-action" onclick="toast('✓','Activado — se enviará después de cada cita completada')">
+            <div class="mkt-action">
               <div class="mkt-icon">⭐</div>
-              <div class="mkt-info"><div class="mkt-title">Encuesta de satisfacción</div><div class="mkt-desc">Mensaje automático después de cada cita completada. Recopila NPS.</div></div>
-              <label class="tgl" onclick="event.stopPropagation()"><input type="checkbox" checked><div class="tgl-sl"></div></label>
+              <div class="mkt-info"><div class="mkt-title">Encuesta de satisfacción</div><div class="mkt-desc">Enviada automáticamente después de cada cita completada</div></div>
+              <label class="tgl"><input type="checkbox" id="auto-encuesta" checked><div class="tgl-sl"></div></label>
             </div>
-            <div class="mkt-action" onclick="toast('✓','Activado — mensaje el día del cumpleaños')">
-              <div class="mkt-icon">🎂</div>
-              <div class="mkt-info"><div class="mkt-title">Saludo de cumpleaños</div><div class="mkt-desc">WhatsApp automático el día del cumpleaños del cliente.</div></div>
-              <label class="tgl" onclick="event.stopPropagation()"><input type="checkbox" checked><div class="tgl-sl"></div></label>
-            </div>
-            <div class="mkt-action" onclick="toast('✓','Activado — clientes sin visita en 30 días recibirán mensaje')">
+            <div class="mkt-action">
               <div class="mkt-icon">🔔</div>
-              <div class="mkt-info"><div class="mkt-title">Reactivar clientes inactivos</div><div class="mkt-desc">Mensaje a clientes sin visita en los últimos 30 días.</div></div>
-              <label class="tgl" onclick="event.stopPropagation()"><input type="checkbox"><div class="tgl-sl"></div></label>
+              <div class="mkt-info"><div class="mkt-title">Reactivar clientes inactivos</div><div class="mkt-desc">Mensaje automático a clientes sin visita en 30+ días</div></div>
+              <label class="tgl"><input type="checkbox" id="auto-reactivar"><div class="tgl-sl"></div></label>
             </div>
-            <div class="mkt-action" onclick="toast('✓','Activado — recordatorio 24h antes de cada cita')">
+            <div class="mkt-action">
               <div class="mkt-icon">⏰</div>
-              <div class="mkt-info"><div class="mkt-title">Recordatorio de cita</div><div class="mkt-desc">WhatsApp 24h antes de cada cita confirmada. Reduce ausencias.</div></div>
-              <label class="tgl" onclick="event.stopPropagation()"><input type="checkbox" checked><div class="tgl-sl"></div></label>
+              <div class="mkt-info"><div class="mkt-title">Recordatorio de cita</div><div class="mkt-desc">WhatsApp 24h antes de cada cita confirmada</div></div>
+              <label class="tgl"><input type="checkbox" id="auto-recordatorio" checked><div class="tgl-sl"></div></label>
+            </div>
+            <div style="background:var(--pale);border:1px solid var(--light);border-radius:var(--r);padding:10px 12px;margin-top:4px">
+              <div style="font-size:11px;font-weight:700;color:var(--mid2);margin-bottom:4px">✓ Conectado con Evolution API</div>
+              <div style="font-size:10px;color:var(--muted)">Los mensajes se envían desde tu número WhatsApp (instancia: autix)</div>
             </div>
           </div>
         </div>
@@ -627,7 +572,7 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
         <div class="mc"><div class="mc-top"><div class="mc-label">Ingresos mes</div><div class="mc-icon ico-g">↑</div></div><div class="mc-val g" id="fin-ing">—</div><div class="mc-foot"><span class="badge-up">este mes</span></div></div>
         <div class="mc"><div class="mc-top"><div class="mc-label">Egresos mes</div><div class="mc-icon ico-a">↓</div></div><div class="mc-val" style="color:var(--red)" id="fin-eg">—</div></div>
         <div class="mc"><div class="mc-top"><div class="mc-label">Utilidad</div><div class="mc-icon ico-i">⊕</div></div><div class="mc-val" id="fin-util">—</div></div>
-        <div class="mc"><div class="mc-top"><div class="mc-label">Comisiones</div><div class="mc-icon ico-p">%</div></div><div class="mc-val" id="fin-com">—</div></div>
+        <div class="mc"><div class="mc-top"><div class="mc-label">Comisiones a pagar</div><div class="mc-icon ico-p">%</div></div><div class="mc-val" id="fin-com">—</div></div>
       </div>
       <div class="g2">
         <div class="card">
@@ -636,7 +581,7 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
         </div>
         <div class="card">
           <div class="card-head"><div class="card-title">Comisiones por profesional</div></div>
-          <div class="table-wrap"><table><thead><tr><th>Profesional</th><th>Citas</th><th>Generado</th><th>Comisión (15%)</th></tr></thead><tbody id="t-comisiones"></tbody></table></div>
+          <div class="table-wrap"><table><thead><tr><th>Profesional</th><th>Comisión %</th><th>Citas</th><th>Generado</th><th>A pagar</th><th></th></tr></thead><tbody id="t-comisiones"></tbody></table></div>
         </div>
       </div>
     </div>
@@ -644,31 +589,38 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
     <!-- CONFIG -->
     <div class="panel" id="panel-config">
       <div class="config-section">
+        <div class="config-section-title">Logo del negocio</div>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <div style="width:80px;height:80px;border-radius:16px;border:2px dashed var(--border2);display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bg);flex-shrink:0" id="logo-preview">
+            <img id="logo-preview-img" style="width:100%;height:100%;object-fit:contain;display:none" alt="Logo">
+            <span style="font-size:24px;color:var(--faint)">◈</span>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px">Sube el logo de tu negocio</div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:10px">PNG o JPG · Recomendado 200×200px</div>
+            <input type="file" id="logo-upload" accept="image/*" style="display:none" onchange="handleLogoUpload(this)">
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-s" onclick="document.getElementById('logo-upload').click()">Subir logo</button>
+              <button class="btn-xs btn-del" onclick="removeLogo()">Quitar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="config-section">
         <div class="config-section-title">Información del negocio</div>
-        <div class="form-row"><div class="fg"><label>Nombre del negocio</label><input type="text" id="cfg-nombre" placeholder="Ej: Barbería Don Carlos"></div><div class="fg"><label>Rubro</label><select id="cfg-rubro"><option>Barbería</option><option>Salón de belleza</option><option>Spa / Estética</option><option>Médico / Clínica</option><option>Psicología</option><option>Nutricionista</option><option>Fisioterapia</option><option>Dentista</option><option>Otro</option></select></div></div>
-        <div class="form-row"><div class="fg"><label>WhatsApp de contacto</label><input type="tel" id="cfg-tel" placeholder="+56 9 ..."></div><div class="fg"><label>Email</label><input type="email" id="cfg-email"></div></div>
-        <div class="fg"><label>Dirección</label><input type="text" id="cfg-dir" placeholder="Dirección del negocio"></div>
-        <div class="fg"><label>Slug / URL pública</label><input type="text" id="cfg-slug" placeholder="mi-negocio" style="font-family:'DM Mono',monospace"><div style="font-size:10px;color:var(--muted);margin-top:4px">Tu link: agendaos.autix.pro/reserva/<strong id="cfg-slug-preview">mi-negocio</strong></div></div>
+        <div class="form-row"><div class="fg"><label>Nombre del negocio</label><input type="text" id="cfg-nombre" placeholder="Ej: Barbería Don Carlos"></div><div class="fg"><label>Rubro</label><select id="cfg-rubro"><option>Barbería</option><option>Salón de belleza</option><option>Spa / Estética</option><option>Médico / Clínica</option><option>Psicología</option><option>Nutricionista</option><option>Dentista</option><option>Centro deportivo</option><option>Otro</option></select></div></div>
+        <div class="form-row"><div class="fg"><label>WhatsApp</label><input type="tel" id="cfg-tel" placeholder="+56 9 ..."></div><div class="fg"><label>Email</label><input type="email" id="cfg-email"></div></div>
+        <div class="fg"><label>Dirección</label><input type="text" id="cfg-dir"></div>
+        <div class="fg"><label>Slug / URL pública</label><input type="text" id="cfg-slug" placeholder="mi-negocio" style="font-family:'DM Mono',monospace" oninput="document.getElementById('cfg-slug-preview').textContent=this.value||'mi-negocio'"><div style="font-size:10px;color:var(--muted);margin-top:4px">Tu link: agendaos.autix.pro/reserva/<strong id="cfg-slug-preview">mi-negocio</strong></div></div>
         <button class="btn btn-p" onclick="saveConfig()">Guardar cambios</button>
       </div>
-
       <div class="config-section">
         <div class="config-section-title">Impresora de boletas</div>
-        <div class="config-row">
-          <div><div class="config-row-label">Habilitar impresión de boletas</div><div class="config-row-sub">Imprime boleta térmica al cobrar en el terminal</div></div>
-          <label class="tgl"><input type="checkbox" id="cfg-print" checked><div class="tgl-sl"></div></label>
-        </div>
-        <div class="config-row">
-          <div><div class="config-row-label">Mostrar logo en boleta</div><div class="config-row-sub">Incluye el logo del negocio en la boleta impresa</div></div>
-          <label class="tgl"><input type="checkbox" id="cfg-print-logo" checked><div class="tgl-sl"></div></label>
-        </div>
-        <div class="config-row">
-          <div><div class="config-row-label">Mensaje de cierre boleta</div></div>
-        </div>
-        <div class="fg"><input type="text" id="cfg-print-msg" value="¡Gracias por tu visita! Te esperamos pronto."></div>
+        <div class="config-row"><div><div class="config-row-label">Habilitar impresión</div><div class="config-row-sub">Imprime boleta al cobrar en terminal</div></div><label class="tgl"><input type="checkbox" id="cfg-print" checked><div class="tgl-sl"></div></label></div>
+        <div class="config-row"><div><div class="config-row-label">Mostrar logo en boleta</div></div><label class="tgl"><input type="checkbox" id="cfg-print-logo" checked><div class="tgl-sl"></div></label></div>
+        <div class="fg" style="margin-top:10px"><label>Mensaje de cierre</label><input type="text" id="cfg-print-msg" value="¡Gracias por tu visita! Te esperamos pronto."></div>
         <button class="btn btn-s" onclick="imprimirBoleta([{nombre:'Servicio de prueba',qty:1,precio:10000}],10000)">🖨️ Imprimir boleta de prueba</button>
       </div>
-
       <div class="config-section">
         <div class="config-section-title">Notificaciones WhatsApp</div>
         <div class="config-row"><div><div class="config-row-label">Confirmación al reservar</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
@@ -678,10 +630,10 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
       </div>
     </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
-</div><!-- /app-layout -->
-</div><!-- /app -->
+  </div>
+</div>
+</div>
+</div>
 
 <!-- MODAL -->
 <div class="modal-bg" id="modal-bg" onclick="closeMOut(event)">
@@ -693,19 +645,44 @@ input[type=checkbox].row-check{width:16px;height:16px;accent-color:var(--mid);cu
   </div>
 </div>
 <script>
+// ── CONFIG ────────────────────────────────
 const N8N='https://n8n-n8n.fa2cjf.easypanel.host/webhook';
+const API_KEY='AUTIX-2025-xK9mP3qR8nL7';
+const EVO_URL='https://n8n-evolution-api.fa2cjf.easypanel.host';
+const EVO_INST='autix';
+const EVO_KEY='09CBA133AB1C-4341-86A1-92BA1D2191EA';
+
 let ORG='',SLUG='',PLAN='';
 let SVC=[],PROFS=[],RESV=[],CLIS=[],PRODS_ALL=[];
 let CART=[],PAGO='efectivo';
 let selDate=new Date(),calDate=new Date();
 let selectedCRM=new Set();
+let DAYS_WITH_CITAS=new Set();
 
 // ── API ──────────────────────────────────
 async function api(ep,body){
   try{
-    const r=await fetch(`${N8N}/${ep}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,org_id:ORG})});
+    const r=await fetch(`${N8N}/${ep}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':API_KEY},
+      body:JSON.stringify({...body,org_id:ORG})
+    });
     return await r.json();
   }catch(e){return null;}
+}
+
+// ── EVOLUTION API ─────────────────────────
+async function sendWhatsApp(telefono,mensaje){
+  const tel=telefono.replace(/[^0-9]/g,'');
+  if(!tel)return false;
+  try{
+    const r=await fetch(`${EVO_URL}/message/sendText/${EVO_INST}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':EVO_KEY},
+      body:JSON.stringify({number:tel,text:mensaje})
+    });
+    return r.ok;
+  }catch(e){return false;}
 }
 
 // ── HELPERS ───────────────────────────────
@@ -720,9 +697,40 @@ function showLoad(t){document.getElementById('loader-txt').textContent=t||'Carga
 function hideLoad(){document.getElementById('loader').classList.remove('on');}
 function toast(icon,msg,d=3000){document.getElementById('ti').textContent=icon;document.getElementById('tm').textContent=msg;const t=document.getElementById('toast');t.classList.add('on');setTimeout(()=>t.classList.remove('on'),d);}
 
-// ── SIDEBAR MOBILE ─────────────────────────
+// ── SIDEBAR ───────────────────────────────
 function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('sb-overlay').classList.add('show');}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('show');}
+
+// ── LOGO ──────────────────────────────────
+function handleLogoUpload(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const b64=e.target.result;
+    localStorage.setItem('autix_logo_'+ORG,b64);
+    applyLogo(b64);
+    toast('✓','Logo actualizado');
+  };
+  reader.readAsDataURL(file);
+}
+
+function applyLogo(b64){
+  if(!b64)return;
+  const preview=document.getElementById('logo-preview');
+  const previewImg=document.getElementById('logo-preview-img');
+  if(previewImg){previewImg.src=b64;previewImg.style.display='block';if(preview)preview.querySelector('span')&&(preview.querySelector('span').style.display='none');}
+  const sbBox=document.getElementById('sb-logo-box');
+  if(sbBox){sbBox.innerHTML=`<img src="${b64}" alt="Logo" style="width:100%;height:100%;object-fit:contain">`;sbBox.classList.remove('fallback');}
+}
+
+function removeLogo(){
+  localStorage.removeItem('autix_logo_'+ORG);
+  const preview=document.getElementById('logo-preview');
+  const previewImg=document.getElementById('logo-preview-img');
+  if(previewImg){previewImg.style.display='none';}
+  if(preview&&preview.querySelector('span'))preview.querySelector('span').style.display='';
+  toast('✓','Logo eliminado');
+}
 
 // ── LOGIN ─────────────────────────────────
 async function doLogin(){
@@ -733,13 +741,19 @@ async function doLogin(){
   if(!org||!pass){err.textContent='Completa los campos';return;}
   btn.disabled=true;btn.textContent='Verificando...';err.textContent='';
   try{
-    const res=await fetch(`${N8N}/agenda-auth`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',org_id:org,password:pass})});
+    const res=await fetch(`${N8N}/agenda-auth`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':API_KEY},
+      body:JSON.stringify({action:'login',org_id:org,password:pass})
+    });
     const d=await res.json();
     if(d.ok){initApp(d);}else{err.textContent=d.error||'Credenciales incorrectas';}
-  }catch(e){err.textContent='Error de conexión. Intenta de nuevo.';}
+  }catch(e){err.textContent='Error de conexión.';}
   btn.disabled=false;btn.textContent='Ingresar →';
 }
+
 function demoLogin(){initApp({ok:true,org_id:'demo',nombre:'Barbería Demo',slug:'barberia-demo',plan:'pro'});}
+
 function initApp(d){
   ORG=d.org_id;SLUG=d.slug;PLAN=d.plan;
   document.getElementById('login-wrap').style.display='none';
@@ -750,16 +764,32 @@ function initApp(d){
   document.getElementById('cfg-nombre').value=d.nombre||'';
   document.getElementById('cfg-slug').value=d.slug||'';
   document.getElementById('cfg-slug-preview').textContent=d.slug||'mi-negocio';
+  // cargar logo guardado
+  const savedLogo=localStorage.getItem('autix_logo_'+ORG);
+  if(savedLogo)applyLogo(savedLogo);
   loadDashboard();
 }
+
 function doLogout(){
-  ORG=SLUG=PLAN='';SVC=PROFS=RESV=CLIS=PRODS_ALL=[];CART=[];
+  ORG=SLUG=PLAN='';SVC=PROFS=RESV=CLIS=PRODS_ALL=[];CART=[];selectedCRM=new Set();
   document.getElementById('app').style.display='none';
   document.getElementById('login-wrap').style.display='flex';
   document.getElementById('li-pass').value='';
 }
+
 function copyLink(){const u=`agendaos.autix.pro/reserva/${SLUG}`;navigator.clipboard?.writeText(u);toast('↗','Link copiado: '+u);}
-function saveConfig(){const s=document.getElementById('cfg-slug').value.trim();document.getElementById('cfg-slug-preview').textContent=s||'mi-negocio';toast('✓','Configuración guardada');}
+
+async function saveConfig(){
+  await api('agenda-config',{
+    action:'save',
+    nombre:document.getElementById('cfg-nombre')?.value||'',
+    rubro:document.getElementById('cfg-rubro')?.value||'',
+    telefono:document.getElementById('cfg-tel')?.value||'',
+    email:document.getElementById('cfg-email')?.value||'',
+    direccion:document.getElementById('cfg-dir')?.value||''
+  });
+  toast('✓','Configuración guardada');
+}
 
 // ── NAV ───────────────────────────────────
 const secNames={dashboard:'Dashboard',citas:'Citas',terminal:'Terminal de ventas',clientes:'Clientes',crm:'CRM & Marketing',productos:'Productos',servicios:'Servicios',profesionales:'Profesionales',finanzas:'Finanzas',config:'Configuración'};
@@ -783,7 +813,7 @@ function nav(id,el){
 
 // ── DASHBOARD ────────────────────────────
 async function loadDashboard(){
-  showLoad('Cargando dashboard...');
+  showLoad('Cargando...');
   const d=await api('agenda-dashboard',{});
   hideLoad();
   if(!d)return;
@@ -796,20 +826,18 @@ async function loadDashboard(){
   buildChart(d.semana||[]);
   buildFeed(d.hoy||[]);
   buildHoyTabla(d.hoy||[]);
+  DAYS_WITH_CITAS=new Set((d.semana||[]).map(s=>s.dia));
 }
 
 function buildChart(data){
-  const svg=document.getElementById('area-svg');
-  const xl=document.getElementById('chart-xl');
+  const svg=document.getElementById('area-svg');const xl=document.getElementById('chart-xl');
   if(!data.length){svg.innerHTML='';return;}
-  const vals=data.map(d=>Number(d.total));
-  const max=Math.max(...vals,1);
-  const w=600,h=80,pad=6;
-  const step=w/(data.length-1||1);
+  const vals=data.map(d=>Number(d.total));const max=Math.max(...vals,1);
+  const w=600,h=80,pad=6;const step=w/(data.length-1||1);
   const pts=vals.map((v,i)=>[i*step,h-pad-(v/max)*(h-pad*2)]);
   const area=`M ${pts[0][0]},${h} ${pts.map(p=>`L ${p[0]},${p[1]}`).join(' ')} L ${pts[pts.length-1][0]},${h} Z`;
   const line=`M ${pts.map(p=>p.join(',')).join(' L ')}`;
-  svg.innerHTML=`<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ea674" stop-opacity="0.2"/><stop offset="100%" stop-color="#4ea674" stop-opacity="0"/></linearGradient></defs><path d="${area}" fill="url(#ag)"/><path d="${line}" fill="none" stroke="#4ea674" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#4ea674" opacity="0.7"/>`).join('')}`;
+  svg.innerHTML=`<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ea674" stop-opacity="0.2"/><stop offset="100%" stop-color="#4ea674" stop-opacity="0"/></linearGradient></defs><path d="${area}" fill="url(#ag)"/><path d="${line}" fill="none" stroke="#4ea674" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#4ea674" opacity="0.6"/>`).join('')}`;
   xl.innerHTML=data.map(d=>`<span>${new Date(d.dia+'T12:00:00').toLocaleDateString('es-CL',{weekday:'narrow'})}</span>`).join('');
   document.getElementById('chart-peak').textContent=`Pico: ${Math.max(...vals)} citas`;
 }
@@ -828,42 +856,54 @@ function buildHoyTabla(hoy){
 
 async function cambiarEstado(id,estado){
   await api('agenda-reservas',{action:'updateEstado',id,estado});
-  toast(estado==='completada'?'✓':'✕','Reserva marcada como '+estado);
+  toast(estado==='completada'?'✓':'✕','Reserva '+estado);
+  // si se completa cita y encuesta activa → enviar encuesta
+  if(estado==='completada'&&document.getElementById('auto-encuesta')?.checked){
+    const cita=RESV.find(r=>r.id===id)||{};
+    if(cita.cliente_tel){
+      const negocio=document.getElementById('cfg-nombre')?.value||'nuestro negocio';
+      await sendWhatsApp(cita.cliente_tel,`Hola ${cita.cliente_nombre}! Gracias por visitarnos en ${negocio}. ¿Cómo calificarías tu experiencia del 1 al 5? Tu opinión es muy importante para nosotros. ⭐`);
+    }
+  }
   loadDashboard();
 }
 
-// ── CITAS (unificado) ──────────────────────
-function switchCitasView(view,el){
-  document.querySelectorAll('.citas-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
+// ── CITAS ────────────────────────────────
+function switchCV(view,el){
+  document.querySelectorAll('.citas-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
   document.querySelectorAll('.citas-view').forEach(v=>v.classList.remove('active'));
   document.getElementById('cv-'+view).classList.add('active');
   if(view==='list')loadReservas();
 }
 
-function loadCalendar(){
-  buildCalendar();
-  loadTimeline(selDate);
-}
+function loadCalendar(){buildCalendar();loadTimeline(selDate);}
 
-function buildCalendar(){
+async function buildCalendar(){
   const y=calDate.getFullYear(),m=calDate.getMonth();
   document.getElementById('cal-title').textContent=calDate.toLocaleDateString('es-CL',{month:'long',year:'numeric'});
+  // cargar citas del mes para marcar días
+  const mesStr=`${y}-${String(m+1).padStart(2,'0')}`;
+  const d=await api('agenda-reservas',{action:'getAll'});
+  const reservas=Array.isArray(d?.data)?d.data:[];
+  const diasConCitas=new Set(reservas.filter(r=>r.fecha_inicio?.startsWith(mesStr)&&r.estado!=='cancelada').map(r=>r.fecha_inicio?.split('T')[0]));
+
   const body=document.getElementById('cal-body');
-  const first=new Date(y,m,1).getDay();
-  const days=new Date(y,m+1,0).getDate();
-  const today=new Date();
+  const first=new Date(y,m,1).getDay();const days=new Date(y,m+1,0).getDate();const today=new Date();
   let html='<div class="cal-grid">';
   ['Do','Lu','Ma','Mi','Ju','Vi','Sa'].forEach(d=>html+=`<div class="cal-head">${d}</div>`);
   for(let i=0;i<first;i++)html+='<div></div>';
-  for(let d=1;d<=days;d++){
-    const isT=d===today.getDate()&&m===today.getMonth()&&y===today.getFullYear();
-    const isS=d===selDate.getDate()&&m===selDate.getMonth()&&y===selDate.getFullYear();
-    const cls='cal-day'+(isT?' today':'')+(isS&&!isT?' selected':'');
-    html+=`<div class="${cls}" onclick="selDay(${d},${m},${y})">${String(d).padStart(2,'0')}</div>`;
+  for(let dd=1;dd<=days;dd++){
+    const dateStr=`${y}-${String(m+1).padStart(2,'0')}-${String(dd).padStart(2,'0')}`;
+    const isT=dd===today.getDate()&&m===today.getMonth()&&y===today.getFullYear();
+    const isS=dd===selDate.getDate()&&m===selDate.getMonth()&&y===selDate.getFullYear();
+    const hasCitas=diasConCitas.has(dateStr);
+    let cls='cal-day';
+    if(isT)cls+=' today';
+    else if(isS)cls+=' selected';
+    else if(hasCitas)cls+=' has-ev';
+    html+=`<div class="${cls}" onclick="selDay(${dd},${m},${y})">${String(dd).padStart(2,'0')}</div>`;
   }
-  html+='</div>';
-  body.innerHTML=html;
+  html+='</div>';body.innerHTML=html;
 }
 
 function changeMonth(dir){calDate=new Date(calDate.getFullYear(),calDate.getMonth()+dir,1);buildCalendar();}
@@ -887,11 +927,8 @@ async function loadTimeline(date){
 }
 
 async function loadReservas(){
-  showLoad('Cargando citas...');
-  const d=await api('agenda-reservas',{action:'getAll'});
-  hideLoad();
-  RESV=Array.isArray(d?.data)?d.data:[];
-  renderResv(RESV);
+  showLoad('Cargando citas...');const d=await api('agenda-reservas',{action:'getAll'});hideLoad();
+  RESV=Array.isArray(d?.data)?d.data:[];renderResv(RESV);
 }
 
 function renderResv(list){
@@ -901,225 +938,208 @@ function renderResv(list){
 }
 
 function filterR(estado,el){
-  document.querySelectorAll('#r-chips .chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll('#r-chips .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');
   renderResv(estado==='todas'?RESV:RESV.filter(r=>r.estado===estado));
 }
 
 // ── TERMINAL ─────────────────────────────
 async function loadTerminal(){
-  showLoad('Cargando catálogo...');
-  const sd=await api('agenda-servicios',{action:'getAll'});
-  hideLoad();
+  showLoad('Cargando catálogo...');const sd=await api('agenda-servicios',{action:'getAll'});
+  const pd=await api('agenda-productos',{action:'getAll'});hideLoad();
   SVC=Array.isArray(sd?.data)?sd.data:[];
+  const prods=Array.isArray(pd?.data)?pd.data:[];
   PRODS_ALL=[
     ...SVC.filter(s=>s.activo).map(s=>({id:'s_'+s.id,nombre:s.nombre,precio:s.precio,tipo:'Servicios',emoji:'◎'})),
-    {id:'p1',nombre:'Shampoo profesional',precio:4900,tipo:'Productos',emoji:'◇'},
-    {id:'p2',nombre:'Acondicionador',precio:3900,tipo:'Productos',emoji:'◇'},
-    {id:'p3',nombre:'Mascarilla capilar',precio:8900,tipo:'Productos',emoji:'◇'},
-    {id:'p4',nombre:'Gel fijador',precio:2900,tipo:'Productos',emoji:'◇'},
+    ...prods.filter(p=>p.activo).map(p=>({id:'p_'+p.id,nombre:p.nombre,precio:p.precio_venta,tipo:'Productos',emoji:'◇'}))
   ];
-  buildCatChips();
-  renderProdGrid(PRODS_ALL);
-  renderCart();
+  buildCatChips();renderProdGrid(PRODS_ALL);renderCart();
 }
 
 function buildCatChips(){
   const cats=['Todos',...new Set(PRODS_ALL.map(p=>p.tipo))];
   document.getElementById('cat-chips').innerHTML=cats.map((c,i)=>`<div class="chip${i===0?' active':''}" onclick="filterCat('${c}',this)">${c}</div>`).join('');
 }
-
-function filterCat(cat,el){
-  document.querySelectorAll('#cat-chips .chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  renderProdGrid(cat==='Todos'?PRODS_ALL:PRODS_ALL.filter(p=>p.tipo===cat));
-}
-
+function filterCat(cat,el){document.querySelectorAll('#cat-chips .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderProdGrid(cat==='Todos'?PRODS_ALL:PRODS_ALL.filter(p=>p.tipo===cat));}
 function filterProds(q){renderProdGrid(PRODS_ALL.filter(p=>p.nombre.toLowerCase().includes(q.toLowerCase())));}
-
 function renderProdGrid(list){
   const el=document.getElementById('prod-grid');
   if(!list.length){el.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon">◇</div><div class="empty-txt">Sin resultados</div></div>';return;}
   el.innerHTML=list.map(p=>`<div class="prod-item" onclick="addToCart('${p.id}')"><div class="prod-emoji">${p.emoji}</div><div class="prod-name">${p.nombre}</div><div class="prod-price">${money(p.precio)}</div></div>`).join('');
 }
-
-function addToCart(id){
-  const prod=PRODS_ALL.find(p=>p.id===id);if(!prod)return;
-  const ex=CART.find(c=>c.id===id);
-  if(ex){ex.qty++;}else{CART.push({...prod,qty:1});}
-  renderCart();toast('✓',prod.nombre+' agregado');
-}
-
-function changeQty(id,delta){
-  const item=CART.find(c=>c.id===id);
-  if(item){item.qty+=delta;if(item.qty<=0)CART=CART.filter(c=>c.id!==id);}
-  renderCart();
-}
-
+function addToCart(id){const prod=PRODS_ALL.find(p=>p.id===id);if(!prod)return;const ex=CART.find(c=>c.id===id);if(ex){ex.qty++;}else{CART.push({...prod,qty:1});}renderCart();toast('✓',prod.nombre+' agregado');}
+function changeQty(id,delta){const item=CART.find(c=>c.id===id);if(item){item.qty+=delta;if(item.qty<=0)CART=CART.filter(c=>c.id!==id);}renderCart();}
 function renderCart(){
-  const el=document.getElementById('cart-items');
-  const totalEl=document.getElementById('cart-total');
-  const btn=document.getElementById('cobrar-btn');
+  const el=document.getElementById('cart-items');const totalEl=document.getElementById('cart-total');const btn=document.getElementById('cobrar-btn');
   if(!CART.length){el.innerHTML='<div class="empty" style="padding:24px"><div class="empty-icon">⊡</div><div class="empty-txt">Agrega al carrito</div></div>';totalEl.textContent='$0';btn.disabled=true;btn.textContent='Cobrar $0';return;}
   const total=CART.reduce((a,c)=>a+c.precio*c.qty,0);
   el.innerHTML=CART.map(c=>`<div class="cart-item"><div class="cart-item-name">${c.nombre}</div><div style="display:flex;align-items:center;gap:4px"><button class="qty-btn" onclick="changeQty('${c.id}',-1)">−</button><span style="font-size:11px;font-weight:700;min-width:18px;text-align:center">${c.qty}</span><button class="qty-btn" onclick="changeQty('${c.id}',1)">+</button></div><div class="cart-item-price">${money(c.precio*c.qty)}</div></div>`).join('');
   totalEl.textContent=money(total);btn.disabled=false;btn.textContent=`Cobrar ${money(total)}`;
 }
-
 function clearCart(){CART=[];renderCart();}
 function selPago(m){PAGO=m;document.querySelectorAll('.pago-btn').forEach(b=>b.classList.remove('selected'));document.getElementById('pm-'+m)?.classList.add('selected');}
-
 function cobrar(){
-  const total=CART.reduce((a,c)=>a+c.precio*c.qty,0);
-  if(!total)return;
+  const total=CART.reduce((a,c)=>a+c.precio*c.qty,0);if(!total)return;
   const items=[...CART];
-  const printEnabled=document.getElementById('cfg-print')?.checked;
-  toast('✅',`Cobro de ${money(total)} registrado · ${PAGO}`);
-  if(printEnabled)imprimirBoleta(items,total);
+  toast('✅',`Cobro de ${money(total)} · ${PAGO}`);
+  if(document.getElementById('cfg-print')?.checked)imprimirBoleta(items,total);
   clearCart();
 }
 
-// ── BOLETA ─────────────────────────────────
+// ── BOLETA ────────────────────────────────
 function imprimirBoleta(items,total){
   const negocio=document.getElementById('cfg-nombre')?.value||'Autix Agenda';
   const msg=document.getElementById('cfg-print-msg')?.value||'¡Gracias por tu visita!';
   const fecha=new Date().toLocaleString('es-CL');
-  const lineas=items.map(i=>`${i.nombre.padEnd(20).slice(0,20)}  x${i.qty}  ${money(i.precio*i.qty)}`).join('\n');
-  const html=`
-<div style="font-family:'Courier New',monospace;font-size:12px;width:280px;padding:10px;color:#000">
-  <div style="text-align:center;font-weight:bold;font-size:14px;margin-bottom:4px">${negocio}</div>
-  <div style="text-align:center;font-size:10px;margin-bottom:8px;border-bottom:1px dashed #000;padding-bottom:8px">${fecha}</div>
-  <pre style="font-size:11px;margin:0">${lineas}</pre>
-  <div style="border-top:1px dashed #000;margin-top:8px;padding-top:8px;font-weight:bold;display:flex;justify-content:space-between">
-    <span>TOTAL</span><span>${money(total)}</span>
-  </div>
-  <div style="border-top:1px dashed #000;margin-top:8px;padding-top:8px;font-size:10px;display:flex;justify-content:space-between">
-    <span>Método de pago</span><span>${PAGO}</span>
-  </div>
-  <div style="text-align:center;margin-top:12px;font-size:10px;border-top:1px dashed #000;padding-top:8px">${msg}</div>
-  <div style="text-align:center;font-size:9px;margin-top:4px;color:#666">Powered by Autix Agenda</div>
-</div>`;
-  const bp=document.getElementById('boleta-print');
-  bp.innerHTML=html;bp.style.display='block';
-  window.print();
-  setTimeout(()=>{bp.style.display='none';},1000);
+  const logoData=localStorage.getItem('autix_logo_'+ORG);
+  const logoHtml=logoData&&document.getElementById('cfg-print-logo')?.checked?`<img src="${logoData}" style="width:60px;height:60px;object-fit:contain;margin-bottom:4px"><br>`:'';
+  const lineas=items.map(i=>`${i.nombre.slice(0,20).padEnd(20)}  x${i.qty}  ${money(i.precio*i.qty)}`).join('\n');
+  const html=`<div style="font-family:'Courier New',monospace;font-size:12px;width:280px;padding:10px;color:#000;text-align:center">${logoHtml}<div style="font-weight:bold;font-size:14px;margin-bottom:4px">${negocio}</div><div style="font-size:10px;margin-bottom:8px;border-bottom:1px dashed #000;padding-bottom:8px">${fecha}</div><pre style="font-size:11px;margin:0;text-align:left">${lineas}</pre><div style="border-top:1px dashed #000;margin-top:8px;padding-top:8px;font-weight:bold;display:flex;justify-content:space-between"><span>TOTAL</span><span>${money(total)}</span></div><div style="display:flex;justify-content:space-between;font-size:10px;margin-top:4px"><span>Método</span><span>${PAGO}</span></div><div style="text-align:center;margin-top:10px;font-size:10px;border-top:1px dashed #000;padding-top:8px">${msg}</div><div style="text-align:center;font-size:9px;margin-top:4px;color:#666">Powered by Autix Agenda</div></div>`;
+  const bp=document.getElementById('boleta-print');bp.innerHTML=html;bp.style.display='block';
+  window.print();setTimeout(()=>{bp.style.display='none';},1000);
 }
 
 // ── CLIENTES ─────────────────────────────
 async function loadClientes(){
-  showLoad('Cargando clientes...');
-  const d=await api('agenda-clientes',{action:'getAll'});
-  hideLoad();
-  CLIS=Array.isArray(d?.data)?d.data:[];
-  renderClis(CLIS);
+  showLoad('Cargando clientes...');const d=await api('agenda-clientes',{action:'getAll'});hideLoad();
+  CLIS=Array.isArray(d?.data)?d.data:[];renderClis(CLIS);
 }
-
 function renderClis(list){
   const el=document.getElementById('t-clientes');
   if(!list.length){el.innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Sin clientes</td></tr>';return;}
   el.innerHTML=list.map((c,i)=>{
     const seg=c.total_citas>=5?'<span class="tag tag-g">VIP</span>':c.total_citas>=2?'<span class="tag tag-a">Regular</span>':'<span class="tag tag-n">Nuevo</span>';
-    return`<tr><td><div style="display:flex;align-items:center;gap:7px"><div class="av" style="background:${avC2(i)}">${ini(c.nombre)}</div>${c.nombre}</div></td><td style="font-family:'DM Mono',monospace;font-size:11px">${c.telefono||'—'}</td><td style="font-size:11px">${c.email||'—'}</td><td style="font-weight:700">${c.total_citas||0}</td><td style="font-weight:700;color:var(--mid2)">${money(c.gasto_total)}</td><td>${seg}</td><td><div style="display:flex;gap:4px"><button class="btn-xs btn-edit" onclick="openModal('editar-cliente',${JSON.stringify(c).replace(/'/g,"&#39;")})">Editar</button></div></td></tr>`;
+    return`<tr><td><div style="display:flex;align-items:center;gap:7px"><div class="av" style="background:${avC2(i)}">${ini(c.nombre)}</div>${c.nombre}</div></td><td style="font-family:'DM Mono',monospace;font-size:11px">${c.telefono||'—'}</td><td style="font-size:11px">${c.email||'—'}</td><td style="font-weight:700">${c.total_citas||0}</td><td style="font-weight:700;color:var(--mid2)">${money(c.gasto_total)}</td><td>${seg}</td><td><button class="btn-xs btn-edit" onclick='openModal("editar-cliente",${JSON.stringify(c)})'>Editar</button></td></tr>`;
   }).join('');
 }
-
 function searchCli(q){renderClis(CLIS.filter(c=>(c.nombre||'').toLowerCase().includes(q.toLowerCase())||(c.telefono||'').includes(q)));}
 
 // ── CRM ───────────────────────────────────
 async function loadCRM(){
-  showLoad('Cargando CRM...');
-  const d=await api('agenda-clientes',{action:'getAll'});
-  hideLoad();
+  showLoad('Cargando CRM...');const d=await api('agenda-clientes',{action:'getAll'});hideLoad();
   CLIS=Array.isArray(d?.data)?d.data:[];
   const now=new Date();
   const mes=CLIS.filter(c=>{const dd=new Date(c.created_at);return dd.getMonth()===now.getMonth()&&dd.getFullYear()===now.getFullYear();});
-  const inactivos=CLIS.filter(c=>{if(!c.ultima_visita)return true;return(now-new Date(c.ultima_visita))>30*86400000;});
+  const inactivos=CLIS.filter(c=>{if(!c.ultima_visita)return c.total_citas===0;return(now-new Date(c.ultima_visita))>30*86400000;});
   document.getElementById('crm-total').textContent=CLIS.length;
   document.getElementById('crm-vip').textContent=CLIS.filter(c=>c.total_citas>=5).length;
   document.getElementById('crm-nuevos').textContent=mes.length;
   document.getElementById('crm-inactivos').textContent=inactivos.length;
   renderCRMTable(CLIS);
+  // reactivar automático si está activo
+  if(document.getElementById('auto-reactivar')?.checked&&inactivos.length){
+    inactivos.slice(0,5).forEach(async(c,idx)=>{
+      if(!c.telefono)return;
+      setTimeout(async()=>{
+        const negocio=document.getElementById('cfg-nombre')?.value||'nuestro negocio';
+        await sendWhatsApp(c.telefono,`¡Hola ${c.nombre}! Te extrañamos en ${negocio}. ¿Cuándo agendamos tu próxima cita? Reserva fácil aquí: agendaos.autix.pro/reserva/${SLUG} 😊`);
+      },idx*1000);
+    });
+  }
 }
 
 function renderCRMTable(list){
-  const el=document.getElementById('t-crm');
-  selectedCRM=new Set();
+  const el=document.getElementById('t-crm');selectedCRM=new Set();
   el.innerHTML=list.map((c,i)=>{
     const seg=c.total_citas>=5?'<span class="tag tag-g">VIP</span>':c.total_citas>=2?'<span class="tag tag-a">Regular</span>':'<span class="tag tag-n">Nuevo</span>';
     return`<tr><td><input type="checkbox" class="row-check" data-id="${c.id}" data-tel="${c.telefono||''}" data-name="${c.nombre}" onchange="toggleCRM(this)"></td><td><div style="display:flex;align-items:center;gap:7px"><div class="av" style="background:${avC2(i)}">${ini(c.nombre)}</div>${c.nombre}</div></td><td style="font-family:'DM Mono',monospace;font-size:11px">${c.telefono||'—'}</td><td style="font-weight:700">${c.total_citas||0}</td><td>${seg}</td></tr>`;
   }).join('');
 }
 
-function toggleCRM(chk){if(chk.checked){selectedCRM.add({id:chk.dataset.id,tel:chk.dataset.tel,name:chk.dataset.name});}else{selectedCRM=new Set([...selectedCRM].filter(c=>c.id!==chk.dataset.id));}}
+function filterCRM(tipo,el){
+  document.querySelectorAll('#crm-filter-chips .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');
+  const now=new Date();
+  let list=CLIS;
+  if(tipo==='vip')list=CLIS.filter(c=>c.total_citas>=5);
+  else if(tipo==='regular')list=CLIS.filter(c=>c.total_citas>=2&&c.total_citas<5);
+  else if(tipo==='inactivo')list=CLIS.filter(c=>!c.ultima_visita||(now-new Date(c.ultima_visita))>30*86400000);
+  renderCRMTable(list);
+}
 
+function toggleCRM(chk){
+  if(chk.checked){selectedCRM.add({id:chk.dataset.id,tel:chk.dataset.tel,name:chk.dataset.name});}
+  else{selectedCRM=new Set([...selectedCRM].filter(c=>c.id!==chk.dataset.id));}
+}
 function toggleAllCRM(chk){document.querySelectorAll('.row-check').forEach(c=>{c.checked=chk.checked;toggleCRM(c);});}
-
 function selectAllCRM(){const all=document.getElementById('chk-all');all.checked=!all.checked;toggleAllCRM(all);}
 
 // ── PRODUCTOS ────────────────────────────
-function loadProductos(){
-  const demos=[
-    {nombre:'Shampoo profesional',cat:'Cuidado capilar',pc:2500,pv:4900,stock:12,activo:true},
-    {nombre:'Acondicionador',cat:'Cuidado capilar',pc:1800,pv:3900,stock:8,activo:true},
-    {nombre:'Mascarilla capilar',cat:'Tratamientos',pc:4000,pv:8900,stock:5,activo:true},
-    {nombre:'Gel fijador',cat:'Peinado',pc:1200,pv:2900,stock:20,activo:true},
-    {nombre:'Spray brillo',cat:'Peinado',pc:2200,pv:4500,stock:0,activo:false},
-  ];
+async function loadProductos(){
+  showLoad('Cargando...');const d=await api('agenda-productos',{action:'getAll'});hideLoad();
+  const prods=Array.isArray(d?.data)?d.data:[];
   const el=document.getElementById('t-productos');
-  el.innerHTML=demos.map(p=>{
-    const mg=Math.round((p.pv-p.pc)/p.pv*100);
+  if(!prods.length){el.innerHTML='<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--muted)">Sin productos — agrega el primero</td></tr>';return;}
+  el.innerHTML=prods.map(p=>{
+    const mg=p.precio_venta>0?Math.round((p.precio_venta-p.precio_compra)/p.precio_venta*100):0;
     const stCls=p.stock===0?'color:var(--red)':p.stock<5?'color:var(--amber)':'color:var(--mid2)';
-    return`<tr><td style="font-weight:600">${p.nombre}</td><td>${p.cat}</td><td style="font-family:'DM Mono',monospace">${money(p.pc)}</td><td style="font-weight:700;color:var(--mid2)">${money(p.pv)}</td><td style="${stCls};font-weight:700">${p.stock}</td><td><span class="tag ${mg>=40?'tag-g':mg>=20?'tag-a':'tag-n'}">${mg}%</span></td><td><label class="tgl" style="vertical-align:middle"><input type="checkbox" ${p.activo?'checked':''}><div class="tgl-sl"></div></label></td><td><div style="display:flex;gap:4px"><button class="btn-xs btn-edit">Editar</button><button class="btn-xs btn-del">✕</button></div></td></tr>`;
+    return`<tr><td style="font-weight:600">${p.nombre}</td><td>${p.categoria||'—'}</td><td style="font-family:'DM Mono',monospace">${money(p.precio_compra)}</td><td style="font-weight:700;color:var(--mid2)">${money(p.precio_venta)}</td><td style="${stCls};font-weight:700">${p.stock}</td><td><span class="tag ${mg>=40?'tag-g':mg>=20?'tag-a':'tag-n'}">${mg}%</span></td><td><label class="tgl" style="vertical-align:middle"><input type="checkbox" ${p.activo?'checked':''} onchange="api('agenda-productos',{action:'toggle',id:${p.id}})"><div class="tgl-sl"></div></label></td><td><button class="btn-xs btn-del" onclick="api('agenda-productos',{action:'delete',id:${p.id}}).then(()=>loadProductos())">✕</button></td></tr>`;
   }).join('');
 }
 
 // ── SERVICIOS ────────────────────────────
 async function loadServicios(){
-  showLoad('Cargando servicios...');
-  const d=await api('agenda-servicios',{action:'getAll'});
-  hideLoad();
+  showLoad('Cargando...');const d=await api('agenda-servicios',{action:'getAll'});hideLoad();
   SVC=Array.isArray(d?.data)?d.data:[];
   const el=document.getElementById('t-servicios');
   if(!SVC.length){el.innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted)">Sin servicios</td></tr>';return;}
   el.innerHTML=SVC.map(s=>`<tr><td style="font-weight:600">${s.nombre}</td><td><span style="font-family:'DM Mono',monospace;font-size:11px">${s.duracion_min} min</span></td><td style="font-weight:700;color:var(--mid2)">${money(s.precio)}</td><td>${s.requiere_pago?'<span class="tag tag-g">Sí</span>':'<span class="tag tag-n">No</span>'}</td><td><label class="tgl" style="vertical-align:middle"><input type="checkbox" ${s.activo?'checked':''} onchange="toggleSvc(${s.id})"><div class="tgl-sl"></div></label></td><td><button class="btn-xs btn-del" onclick="delSvc(${s.id})">Eliminar</button></td></tr>`).join('');
 }
-
-async function toggleSvc(id){await api('agenda-servicios',{action:'toggle',id});toast('✓','Servicio actualizado');}
+async function toggleSvc(id){await api('agenda-servicios',{action:'toggle',id});toast('✓','Actualizado');}
 async function delSvc(id){if(!confirm('¿Eliminar?'))return;await api('agenda-servicios',{action:'delete',id});toast('✓','Eliminado');loadServicios();}
 
 // ── PROFESIONALES ────────────────────────
 async function loadProfs(){
-  showLoad('Cargando...');
-  const d=await api('agenda-profesionales',{action:'getAll'});
-  hideLoad();
+  showLoad('Cargando...');const d=await api('agenda-profesionales',{action:'getAll'});hideLoad();
   PROFS=Array.isArray(d?.data)?d.data:[];
   const el=document.getElementById('g-profs');
   if(!PROFS.length){el.innerHTML='<div class="empty"><div class="empty-icon">◎</div><div class="empty-txt">Sin profesionales</div></div>';return;}
-  el.innerHTML=PROFS.map((p,i)=>`<div class="prof-card"><div class="prof-av gc${i%6}" style="width:40px;height:40px;border-radius:10px">${ini(p.nombre)}</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--ink)">${p.nombre}</div><div style="font-size:11px;color:var(--muted)">${p.email||p.telefono||'—'}</div></div><div style="text-align:right"><div style="font-size:20px;font-weight:800;color:var(--ink)">${p.citas_mes||0}</div><div style="font-size:10px;color:var(--muted)">citas/mes</div></div></div>`).join('');
+  el.innerHTML=PROFS.map((p,i)=>`
+    <div class="prof-card">
+      <div class="prof-av gc${i%6}" style="width:40px;height:40px;border-radius:10px">${ini(p.nombre)}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--ink)">${p.nombre}</div>
+        <div style="font-size:11px;color:var(--muted)">${p.email||p.telefono||'—'}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:18px;font-weight:800;color:var(--ink)">${p.citas_mes||0}</div>
+        <div style="font-size:10px;color:var(--muted)">citas/mes</div>
+        <div style="display:flex;align-items:center;gap:4px;margin-top:6px;justify-content:flex-end">
+          <input type="number" value="${p.comision_pct||15}" min="0" max="100" style="width:48px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:3px 5px;font-size:11px;font-weight:700;color:var(--ink);text-align:center;outline:none" onchange="updateComision(${p.id},this.value)">
+          <span style="font-size:10px;color:var(--muted)">%</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+async function updateComision(id,pct){
+  // guardar comision en DB
+  await api('agenda-profesionales',{action:'save',id,comision_pct:parseFloat(pct)});
+  toast('✓','Comisión actualizada');
 }
 
 // ── FINANZAS ─────────────────────────────
 async function loadFinanzas(){
-  showLoad('Cargando finanzas...');
-  const d=await api('agenda-dashboard',{});
+  showLoad('Cargando...');
+  const [dash,movD,profD]=await Promise.all([
+    api('agenda-dashboard',{}),
+    api('agenda-movimientos',{action:'getAll'}),
+    api('agenda-profesionales',{action:'getAll'})
+  ]);
   hideLoad();
-  const m=d?.metricas||{};
-  const ing=m.ingresos_mes||0;
-  const eg=Math.round(ing*0.3);
+  const m=dash?.metricas||{};const ing=m.ingresos_mes||0;
+  const movs=Array.isArray(movD?.data)?movD.data:[];
+  PROFS=Array.isArray(profD?.data)?profD.data:[];
+  const egresos=movs.filter(mv=>mv.tipo==='eg').reduce((a,mv)=>a+parseFloat(mv.monto||0),0);
   document.getElementById('fin-ing').textContent=money(ing);
-  document.getElementById('fin-eg').textContent=money(eg);
-  document.getElementById('fin-util').textContent=money(ing-eg);
-  document.getElementById('fin-com').textContent=money(Math.round(ing*0.15));
-  document.getElementById('fin-movs').innerHTML=[
-    {tipo:'ing',desc:'Citas completadas',monto:ing,fecha:'Este mes'},
-    {tipo:'eg',desc:'Insumos y productos',monto:Math.round(eg*0.6),fecha:'15 abr'},
-    {tipo:'eg',desc:'Arriendo / servicios',monto:Math.round(eg*0.4),fecha:'1 abr'},
-  ].map(mv=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)"><div style="width:30px;height:30px;border-radius:8px;background:${mv.tipo==='ing'?'var(--pale)':'var(--red-g)'};display:flex;align-items:center;justify-content:center;font-size:14px">${mv.tipo==='ing'?'↑':'↓'}</div><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--ink)">${mv.desc}</div><div style="font-size:10px;color:var(--muted)">${mv.fecha}</div></div><div style="font-weight:700;font-size:13px;color:${mv.tipo==='ing'?'var(--mid2)':'var(--red)'}">${mv.tipo==='ing'?'+':'-'}${money(mv.monto)}</div></div>`).join('');
-  const d2=await api('agenda-profesionales',{action:'getAll'});
-  PROFS=Array.isArray(d2?.data)?d2.data:[];
+  document.getElementById('fin-eg').textContent=money(egresos);
+  document.getElementById('fin-util').textContent=money(ing-egresos);
+  const totalCom=PROFS.reduce((a,p)=>a+Math.round(ing/PROFS.length*(p.comision_pct||15)/100),0);
+  document.getElementById('fin-com').textContent=money(totalCom);
+  const recentMovs=movs.slice(0,5);
+  document.getElementById('fin-movs').innerHTML=recentMovs.length?recentMovs.map(mv=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)"><div style="width:28px;height:28px;border-radius:8px;background:${mv.tipo==='ing'?'var(--pale)':'var(--red-g)'};display:flex;align-items:center;justify-content:center;font-size:13px">${mv.tipo==='ing'?'↑':'↓'}</div><div style="flex:1"><div style="font-size:12px;font-weight:600">${mv.descripcion||'—'}</div><div style="font-size:10px;color:var(--muted)">${mv.fecha||'—'}</div></div><div style="font-weight:700;color:${mv.tipo==='ing'?'var(--mid2)':'var(--red)'}">${mv.tipo==='ing'?'+':'-'}${money(mv.monto)}</div></div>`).join(''):'<div class="empty"><div class="empty-txt">Sin movimientos registrados</div></div>';
   document.getElementById('t-comisiones').innerHTML=PROFS.map(p=>{
     const gen=PROFS.length?Math.round(ing/PROFS.length):0;
-    return`<tr><td>${p.nombre}</td><td>${p.citas_mes||0}</td><td style="color:var(--mid2);font-weight:700">${money(gen)}</td><td style="font-weight:700">${money(Math.round(gen*0.15))}</td></tr>`;
+    const com=Math.round(gen*(p.comision_pct||15)/100);
+    return`<tr><td>${p.nombre}</td><td style="font-weight:700">${p.comision_pct||15}%</td><td>${p.citas_mes||0}</td><td style="color:var(--mid2);font-weight:700">${money(gen)}</td><td style="font-weight:800">${money(com)}</td><td><button class="btn-xs btn-edit" onclick="openModal('editar-comision',${JSON.stringify(p)})">Editar %</button></td></tr>`;
   }).join('');
 }
 
@@ -1129,71 +1149,78 @@ async function openModal(id,data){
     if(!SVC.length){const d=await api('agenda-servicios',{action:'getAll'});SVC=Array.isArray(d?.data)?d.data:[];}
     if(!PROFS.length){const d=await api('agenda-profesionales',{action:'getAll'});PROFS=Array.isArray(d?.data)?d.data:[];}
   };
-
   const forms={
-    'nueva-cita':{
-      title:'Nueva cita',
-      body:async()=>{
-        await loadSP();
-        return`<div class="form-row"><div class="fg"><label>Nombre cliente</label><input id="f-cn" type="text" placeholder="Nombre completo"></div><div class="fg"><label>WhatsApp</label><input id="f-ct" type="tel" placeholder="+56 9 ..."></div></div><div class="fg"><label>Email (opcional)</label><input id="f-ce" type="email"></div><div class="form-row"><div class="fg"><label>Servicio</label><select id="f-sv">${SVC.map(s=>`<option value="${s.id}" data-dur="${s.duracion_min}" data-nom="${s.nombre}" data-p="${s.precio}">${s.nombre} · ${money(s.precio)}</option>`).join('')}</select></div><div class="fg"><label>Profesional</label><select id="f-pr">${PROFS.map(p=>`<option value="${p.id}" data-nom="${p.nombre}">${p.nombre}</option>`).join('')}</select></div></div><div class="form-row"><div class="fg"><label>Fecha</label><input id="f-fd" type="date" min="${new Date().toISOString().split('T')[0]}"></div><div class="fg"><label>Hora</label><input id="f-hr" type="time" value="10:00"></div></div><div class="fg"><label>Notas</label><textarea id="f-nt" rows="2" style="resize:none"></textarea></div>`;
-      },
-      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveResv()">Crear cita →</button>`
-    },
-    'nuevo-cliente':{
-      title:'Nuevo cliente',
+    'nueva-cita':{title:'Nueva cita',
+      body:async()=>{await loadSP();return`<div class="form-row"><div class="fg"><label>Nombre cliente</label><input id="f-cn" type="text" placeholder="Nombre completo"></div><div class="fg"><label>WhatsApp</label><input id="f-ct" type="tel" placeholder="+56 9 ..."></div></div><div class="fg"><label>Email (opcional)</label><input id="f-ce" type="email"></div><div class="form-row"><div class="fg"><label>Servicio</label><select id="f-sv">${SVC.map(s=>`<option value="${s.id}" data-dur="${s.duracion_min}" data-nom="${s.nombre}" data-p="${s.precio}">${s.nombre} · ${money(s.precio)}</option>`).join('')}</select></div><div class="fg"><label>Profesional</label><select id="f-pr">${PROFS.map(p=>`<option value="${p.id}" data-nom="${p.nombre}">${p.nombre}</option>`).join('')}</select></div></div><div class="form-row"><div class="fg"><label>Fecha</label><input id="f-fd" type="date" min="${new Date().toISOString().split('T')[0]}"></div><div class="fg"><label>Hora</label><input id="f-hr" type="time" value="10:00"></div></div><div class="fg"><label>Notas</label><textarea id="f-nt" rows="2" style="resize:none"></textarea></div>`;},
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveResv()">Crear cita →</button>`},
+    'nuevo-cliente':{title:'Nuevo cliente',
       body:async()=>`<div class="form-row"><div class="fg"><label>Nombre</label><input id="f-nom" type="text"></div><div class="fg"><label>Apellido</label><input id="f-ape" type="text"></div></div><div class="fg"><label>WhatsApp</label><input id="f-tel" type="tel" placeholder="+56 9 ..."></div><div class="fg"><label>Email</label><input id="f-email" type="email"></div><div class="fg"><label>Notas</label><textarea id="f-nt" rows="2" style="resize:none"></textarea></div>`,
-      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveCli()">Guardar →</button>`
-    },
-    'editar-cliente':{
-      title:'Editar cliente',
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveCli()">Guardar →</button>`},
+    'editar-cliente':{title:'Editar cliente',
+      body:async()=>{const c=data||{};return`<div class="form-row"><div class="fg"><label>Nombre</label><input id="f-nom" type="text" value="${c.nombre||''}"></div><div class="fg"><label>Teléfono</label><input id="f-tel" type="tel" value="${c.telefono||''}"></div></div><div class="fg"><label>Email</label><input id="f-email" type="email" value="${c.email||''}"></div><div class="fg"><label>Notas</label><textarea id="f-nt" rows="2" style="resize:none">${c.notas||''}</textarea></div>`;},
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="updateCli(${data?.id})">Guardar →</button>`},
+    'enviar-mensaje':{title:'Enviar mensaje WhatsApp',
       body:async()=>{
-        const c=data||{};
-        return`<div class="form-row"><div class="fg"><label>Nombre</label><input id="f-nom" type="text" value="${c.nombre||''}"></div><div class="fg"><label>Teléfono</label><input id="f-tel" type="tel" value="${c.telefono||''}"></div></div><div class="fg"><label>Email</label><input id="f-email" type="email" value="${c.email||''}"></div><div class="fg"><label>Notas</label><textarea id="f-nt" rows="2" style="resize:none">${c.notas||''}</textarea></div>`;
-      },
-      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="updateCli(${data?.id})">Guardar cambios →</button>`
-    },
-    'enviar-mensaje':{
-      title:'Enviar mensaje WhatsApp',
-      body:async()=>{
-        const sel=[...selectedCRM];
-        const count=sel.length;
-        if(count===0)return`<div class="empty"><div class="empty-icon">◉</div><div class="empty-txt">Selecciona clientes primero desde la tabla</div></div>`;
-        return`<div style="background:var(--pale);border:1px solid var(--light);border-radius:var(--r);padding:12px;margin-bottom:14px;font-size:12px;color:var(--mid2);font-weight:600">${count} cliente${count>1?'s':''} seleccionado${count>1?'s':''}</div><div class="fg"><label>Mensaje</label><textarea id="f-msg" rows="4" style="resize:none" placeholder="Escribe tu mensaje aquí... Puedes usar {nombre} para personalizar.">Hola {nombre}, te contactamos desde ${document.getElementById('cfg-nombre')?.value||'nuestro negocio'}.</textarea></div><div style="font-size:11px;color:var(--muted);margin-top:-8px">Usa <strong>{nombre}</strong> para insertar el nombre del cliente automáticamente.</div>`;
-      },
-      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-g" onclick="enviarMensajes()">💬 Enviar a ${[...selectedCRM].length} cliente${[...selectedCRM].length>1?'s':''}</button>`
-    },
-    'nuevo-servicio':{
-      title:'Nuevo servicio',
-      body:async()=>`<div class="fg"><label>Nombre</label><input id="f-nom" type="text" placeholder="Nombre del servicio"></div><div class="form-row"><div class="fg"><label>Duración (min)</label><input id="f-dur" type="number" value="45" min="15"></div><div class="fg"><label>Precio CLP</label><input id="f-pr" type="number" placeholder="0"></div></div><div class="fg"><label>Descripción</label><textarea id="f-desc" rows="2" style="resize:none"></textarea></div><div style="display:flex;align-items:center;justify-content:space-between;padding:11px;background:var(--bg);border-radius:var(--r);border:1px solid var(--border)"><span style="font-size:13px;font-weight:500">Cobrar al reservar (MercadoPago)</span><label class="tgl"><input type="checkbox" id="f-cobro"><div class="tgl-sl"></div></label></div>`,
-      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveSvc()">Crear →</button>`
-    },
-    'nuevo-prof':{
-      title:'Nuevo profesional',
-      body:async()=>`<div class="fg"><label>Nombre completo</label><input id="f-nom" type="text"></div><div class="fg"><label>WhatsApp</label><input id="f-tel" type="tel" placeholder="+56 9 ..."></div><div class="fg"><label>Email</label><input id="f-email" type="email"></div>`,
-      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveProf()">Agregar →</button>`
-    },
-    'nuevo-producto':{
-      title:'Nuevo producto',
+        const sel=[...selectedCRM];const count=sel.length;
+        if(!count)return`<div class="empty"><div class="empty-icon">◉</div><div class="empty-txt">Selecciona clientes primero desde la tabla</div></div>`;
+        const negocio=document.getElementById('cfg-nombre')?.value||'nuestro negocio';
+        return`<div style="background:var(--pale);border:1px solid var(--light);border-radius:var(--r);padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--mid2);font-weight:600">${count} cliente${count>1?'s':''} seleccionado${count>1?'s':''}</div>
+        <div class="fg"><label>Tipo de mensaje</label><select id="f-msg-tipo" onchange="updateMsgTemplate(this.value,'${negocio}')"><option value="libre">Mensaje libre</option><option value="recordatorio">Recordatorio de cita</option><option value="promo">Promoción</option><option value="encuesta">Encuesta de satisfacción</option></select></div>
+        <div class="fg"><label>Mensaje</label><textarea id="f-msg" rows="4" style="resize:none">Hola {nombre}, te contactamos desde ${negocio}.</textarea></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:-8px">Usa <strong>{nombre}</strong> para personalizar con el nombre del cliente</div>`;},
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-g" onclick="enviarMensajes()">💬 Enviar mensajes</button>`},
+    'nuevo-servicio':{title:'Nuevo servicio',
+      body:async()=>`<div class="fg"><label>Nombre</label><input id="f-nom" type="text" placeholder="Nombre del servicio"></div><div class="form-row"><div class="fg"><label>Duración (min)</label><input id="f-dur" type="number" value="45" min="15"></div><div class="fg"><label>Precio CLP</label><input id="f-pr" type="number" placeholder="0"></div></div><div class="fg"><label>Descripción</label><textarea id="f-desc" rows="2" style="resize:none"></textarea></div><div style="display:flex;align-items:center;justify-content:space-between;padding:11px;background:var(--bg);border-radius:var(--r);border:1px solid var(--border)"><span style="font-size:13px;font-weight:500">Cobrar al reservar</span><label class="tgl"><input type="checkbox" id="f-cobro"><div class="tgl-sl"></div></label></div>`,
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveSvc()">Crear →</button>`},
+    'nuevo-prof':{title:'Nuevo profesional',
+      body:async()=>`<div class="fg"><label>Nombre completo</label><input id="f-nom" type="text"></div><div class="fg"><label>WhatsApp</label><input id="f-tel" type="tel" placeholder="+56 9 ..."></div><div class="fg"><label>Email</label><input id="f-email" type="email"></div><div class="fg"><label>Comisión (%)</label><input id="f-com" type="number" value="15" min="0" max="100"></div>`,
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveProf()">Agregar →</button>`},
+    'editar-comision':{title:'Editar comisión',
+      body:async()=>{const p=data||{};return`<div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:16px">${p.nombre}</div><div class="fg"><label>Porcentaje de comisión (%)</label><input id="f-com" type="number" value="${p.comision_pct||15}" min="0" max="100" style="font-size:18px;font-weight:700"></div><div style="font-size:11px;color:var(--muted);margin-top:-8px">Ej: 15 = el profesional recibe 15% de cada servicio</div>`;},
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="updateComision(${data?.id},document.getElementById('f-com').value);closeM();loadFinanzas()">Guardar →</button>`},
+    'nuevo-producto':{title:'Nuevo producto',
       body:async()=>`<div class="fg"><label>Nombre</label><input id="f-nom" type="text"></div><div class="fg"><label>Categoría</label><input id="f-cat" type="text" placeholder="Ej: Cuidado capilar"></div><div class="form-row"><div class="fg"><label>Precio compra</label><input id="f-pc" type="number" placeholder="0"></div><div class="fg"><label>Precio venta</label><input id="f-pv" type="number" placeholder="0"></div></div><div class="fg"><label>Stock inicial</label><input id="f-stk" type="number" value="0"></div>`,
-      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="closeM();toast('✓','Producto creado')">Crear →</button>`
-    },
-    'nuevo-movimiento':{
-      title:'Registrar movimiento',
-      body:async()=>`<div class="fg"><label>Tipo</label><select id="f-tipo"><option value="ing">Ingreso</option><option value="eg">Egreso</option></select></div><div class="fg"><label>Descripción</label><input id="f-desc" type="text" placeholder="Ej: Pago de arriendo"></div><div class="fg"><label>Monto CLP</label><input id="f-monto" type="number" placeholder="0"></div><div class="fg"><label>Fecha</label><input id="f-fecha" type="date" value="${new Date().toISOString().split('T')[0]}"></div>`,
-      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="toast('✓','Movimiento registrado');closeM()">Registrar →</button>`
-    }
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveProducto()">Crear →</button>`},
+    'nuevo-movimiento':{title:'Registrar movimiento',
+      body:async()=>`<div class="fg"><label>Tipo</label><select id="f-tipo"><option value="ing">Ingreso</option><option value="eg">Egreso</option></select></div><div class="fg"><label>Descripción</label><input id="f-desc" type="text" placeholder="Ej: Arriendo local"></div><div class="fg"><label>Monto CLP</label><input id="f-monto" type="number" placeholder="0"></div><div class="fg"><label>Fecha</label><input id="f-fecha" type="date" value="${new Date().toISOString().split('T')[0]}"></div>`,
+      foot:`<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveMovimiento()">Registrar →</button>`}
   };
-
   const f=forms[id];if(!f)return;
   document.getElementById('m-title').textContent=f.title;
   document.getElementById('m-foot').innerHTML=f.foot;
-  document.getElementById('m-body').innerHTML='<div style="text-align:center;padding:20px;color:var(--muted);font-size:12px">Cargando...</div>';
+  document.getElementById('m-body').innerHTML='<div style="text-align:center;padding:20px;color:var(--muted)">Cargando...</div>';
   document.getElementById('modal-bg').classList.add('open');
   Promise.resolve(f.body()).then(html=>{document.getElementById('m-body').innerHTML=html;});
 }
 
 function closeM(){document.getElementById('modal-bg').classList.remove('open');}
 function closeMOut(e){if(e.target===document.getElementById('modal-bg'))closeM();}
+
+function updateMsgTemplate(tipo,negocio){
+  const el=document.getElementById('f-msg');if(!el)return;
+  const templates={
+    libre:`Hola {nombre}, te contactamos desde ${negocio}.`,
+    recordatorio:`Hola {nombre}! Te recordamos tu próxima cita en ${negocio}. ¿Necesitas cambiar el horario? Escríbenos aquí 😊`,
+    promo:`¡Hola {nombre}! En ${negocio} tenemos una oferta especial para ti. ¡Agenda tu cita y aprovecha! 👉 agendaos.autix.pro/reserva/${SLUG}`,
+    encuesta:`Hola {nombre}, ¿cómo fue tu experiencia en ${negocio}? Del 1 al 5, ¿cómo nos calificarías? ⭐ Tu opinión nos ayuda a mejorar.`
+  };
+  el.value=templates[tipo]||templates.libre;
+}
+
+async function enviarMensajes(){
+  const sel=[...selectedCRM];if(!sel.length){toast('⚠','Selecciona clientes');return;}
+  const msg=document.getElementById('f-msg')?.value||'';if(!msg.trim()){toast('⚠','Escribe un mensaje');return;}
+  closeM();
+  let enviados=0;
+  for(const c of sel){
+    if(!c.tel){continue;}
+    const texto=msg.replace(/{nombre}/g,c.name);
+    const ok=await sendWhatsApp(c.tel,texto);
+    if(ok)enviados++;
+    await new Promise(r=>setTimeout(r,600));
+  }
+  toast('✅',`${enviados} mensaje${enviados>1?'s':''} enviado${enviados>1?'s':''}`);
+}
 
 async function saveResv(){
   const sv=document.getElementById('f-sv');const pr=document.getElementById('f-pr');
@@ -1202,67 +1229,56 @@ async function saveResv(){
   const cn=document.getElementById('f-cn')?.value.trim();
   if(!cn||!fd||!hr||!sv?.value){toast('⚠','Completa los campos requeridos');return;}
   const dur=parseInt(opt?.dataset.dur||60);
-  const fi=new Date(`${fd}T${hr}:00`);
-  const ff=new Date(fi.getTime()+dur*60000);
-  await api('agenda-reservas',{action:'save',cliente_nombre:cn,cliente_tel:document.getElementById('f-ct')?.value||'',cliente_email:document.getElementById('f-ce')?.value||'',servicio_id:parseInt(sv.value),servicio_nombre:opt?.dataset.nom||'',profesional_id:parseInt(pr?.value||0),profesional_nombre:popt?.dataset.nom||'',fecha_inicio:fi.toISOString(),fecha_fin:ff.toISOString(),monto:parseFloat(opt?.dataset.p||0),origen:'admin',notas:document.getElementById('f-nt')?.value||''});
-  closeM();toast('✓','Cita creada exitosamente');loadDashboard();
+  const fi=new Date(`${fd}T${hr}:00`);const ff=new Date(fi.getTime()+dur*60000);
+  const result=await api('agenda-reservas',{action:'save',cliente_nombre:cn,cliente_tel:document.getElementById('f-ct')?.value||'',cliente_email:document.getElementById('f-ce')?.value||'',servicio_id:parseInt(sv.value),servicio_nombre:opt?.dataset.nom||'',profesional_id:parseInt(pr?.value||0),profesional_nombre:popt?.dataset.nom||'',fecha_inicio:fi.toISOString(),fecha_fin:ff.toISOString(),monto:parseFloat(opt?.dataset.p||0),origen:'admin',notas:document.getElementById('f-nt')?.value||''});
+  closeM();toast('✓','Cita creada');
+  // enviar confirmación WS
+  const tel=document.getElementById('f-ct')?.value;
+  if(tel){
+    const negocio=document.getElementById('cfg-nombre')?.value||'nuestro negocio';
+    const hora=fi.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+    const fecha=fi.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});
+    await sendWhatsApp(tel,`✅ ¡Cita confirmada!\n📌 ${opt?.dataset.nom||'Servicio'}\n📅 ${fecha}\n🕐 ${hora}\n\nTe esperamos en ${negocio}!`);
+  }
+  loadDashboard();
 }
 
 async function saveCli(){
-  const n=(document.getElementById('f-nom')?.value||'').trim();
-  const a=(document.getElementById('f-ape')?.value||'').trim();
+  const n=(document.getElementById('f-nom')?.value||'').trim();const a=(document.getElementById('f-ape')?.value||'').trim();
   if(!n){toast('⚠','Nombre requerido');return;}
   await api('agenda-clientes',{action:'save',nombre:n+(a?' '+a:''),telefono:document.getElementById('f-tel')?.value||'',email:document.getElementById('f-email')?.value||'',notas:document.getElementById('f-nt')?.value||''});
   closeM();toast('✓','Cliente guardado');loadClientes();
 }
 
 async function updateCli(id){
-  const n=(document.getElementById('f-nom')?.value||'').trim();
-  if(!n){toast('⚠','Nombre requerido');return;}
+  const n=(document.getElementById('f-nom')?.value||'').trim();if(!n){toast('⚠','Nombre requerido');return;}
   await api('agenda-clientes',{action:'save',id,nombre:n,telefono:document.getElementById('f-tel')?.value||'',email:document.getElementById('f-email')?.value||'',notas:document.getElementById('f-nt')?.value||''});
   closeM();toast('✓','Cliente actualizado');loadClientes();
 }
 
 async function saveSvc(){
-  const n=(document.getElementById('f-nom')?.value||'').trim();
-  if(!n){toast('⚠','Nombre requerido');return;}
+  const n=(document.getElementById('f-nom')?.value||'').trim();if(!n){toast('⚠','Nombre requerido');return;}
   await api('agenda-servicios',{action:'save',nombre:n,descripcion:document.getElementById('f-desc')?.value||'',duracion_min:parseInt(document.getElementById('f-dur')?.value||60),precio:parseFloat(document.getElementById('f-pr')?.value||0),requiere_pago:document.getElementById('f-cobro')?.checked||false});
   closeM();toast('✓','Servicio creado');loadServicios();
 }
 
 async function saveProf(){
-  const n=(document.getElementById('f-nom')?.value||'').trim();
-  if(!n){toast('⚠','Nombre requerido');return;}
-  await api('agenda-profesionales',{action:'save',nombre:n,telefono:document.getElementById('f-tel')?.value||'',email:document.getElementById('f-email')?.value||''});
+  const n=(document.getElementById('f-nom')?.value||'').trim();if(!n){toast('⚠','Nombre requerido');return;}
+  await api('agenda-profesionales',{action:'save',nombre:n,telefono:document.getElementById('f-tel')?.value||'',email:document.getElementById('f-email')?.value||'',comision_pct:parseFloat(document.getElementById('f-com')?.value||15)});
   closeM();toast('✓','Profesional agregado');loadProfs();
 }
 
-function enviarMensajes(){
-  const sel=[...selectedCRM];
-  if(!sel.length){toast('⚠','Selecciona clientes primero');return;}
-  const msg=document.getElementById('f-msg')?.value||'';
-  if(!msg.trim()){toast('⚠','Escribe un mensaje');return;}
-  // Abrir WhatsApp para cada cliente
-  sel.forEach((c,i)=>{
-    setTimeout(()=>{
-      if(c.tel){
-        const texto=msg.replace(/{nombre}/g,c.name);
-        const tel=c.tel.replace(/[^0-9]/g,'');
-        window.open(`https://wa.me/${tel}?text=${encodeURIComponent(texto)}`,'_blank');
-      }
-    },i*500);
-  });
-  closeM();
-  toast('✅',`Mensajes enviados a ${sel.length} cliente${sel.length>1?'s':''}`);
+async function saveProducto(){
+  const n=(document.getElementById('f-nom')?.value||'').trim();if(!n){toast('⚠','Nombre requerido');return;}
+  await api('agenda-productos',{action:'save',nombre:n,categoria:document.getElementById('f-cat')?.value||'General',precio_compra:parseFloat(document.getElementById('f-pc')?.value||0),precio_venta:parseFloat(document.getElementById('f-pv')?.value||0),stock:parseInt(document.getElementById('f-stk')?.value||0)});
+  closeM();toast('✓','Producto creado');loadProductos();
 }
 
-// ── SLUG PREVIEW ─────────────────────────
-document.addEventListener('DOMContentLoaded',()=>{
-  const slugInput=document.getElementById('cfg-slug');
-  if(slugInput)slugInput.addEventListener('input',()=>{
-    document.getElementById('cfg-slug-preview').textContent=slugInput.value||'mi-negocio';
-  });
-});
+async function saveMovimiento(){
+  const monto=parseFloat(document.getElementById('f-monto')?.value||0);if(!monto){toast('⚠','Monto requerido');return;}
+  await api('agenda-movimientos',{action:'save',tipo:document.getElementById('f-tipo')?.value||'eg',descripcion:document.getElementById('f-desc')?.value||'',monto,fecha:document.getElementById('f-fecha')?.value||new Date().toISOString().split('T')[0]});
+  closeM();toast('✓','Movimiento registrado');loadFinanzas();
+}
 </script>
 </body>
 </html>
