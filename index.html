@@ -1498,32 +1498,7 @@ async function saveMovimiento(){
   closeM();toast('✓','Movimiento registrado');loadFinanzas();
 }
 
-// ── PATCH: override buildHoyTabla to also fill slots ──
-const _origBuildHoy = buildHoyTabla;
-function buildHoyTabla(hoy){
-  _origBuildHoy(hoy);
-  buildTodaySlots(hoy);
-}
-
-// ── PATCH: override buildFeed to also update ring ──
-const _origLoadDashboard = loadDashboard;
-async function loadDashboard(){
-  await _origLoadDashboard();
-  // Update ring after data loads
-  setTimeout(()=>{
-    const asisEl=document.getElementById('m-asis');
-    const asis=asisEl?parseInt(asisEl.textContent)||0:0;
-    buildRing(asis);
-    // Fake ring counters from dashboard data
-    const tot=parseInt(document.getElementById('m-tot')?.textContent||'0');
-    const hoy=parseInt(document.getElementById('m-hoy')?.textContent||'0');
-    const comp=Math.round(tot*(asis/100));
-    const canc=Math.round(tot*0.08);
-    const pend=tot-comp-canc;
-    const rc=document.getElementById('ring-comp');const rp=document.getElementById('ring-pend');const rx=document.getElementById('ring-canc');
-    if(rc)rc.textContent=comp;if(rp)rp.textContent=pend>0?pend:0;if(rx)rx.textContent=canc;
-  },600);
-}
+// (ring + slots patch moved to end)
 
 
 
