@@ -937,7 +937,7 @@ function escNum(n){return isNaN(n)?0:parseFloat(n);}
 function buildRing(pct){
   const dash=Math.round(251*(pct/100));
   const el=document.getElementById('ring-dash');
-  if(el){setTimeout(()=>{el.style.strokeDashoffset=226-dash;},300);}
+  if(el){setTimeout(()=>{el.style.strokeDashoffset=251-dash;},300);}
   const txt=document.getElementById('ring-txt');
   if(txt)txt.textContent=pct+'%';
 }
@@ -959,8 +959,7 @@ function buildTodaySlots(hoy){
     </div>`).join('')+'</div>';
 }
 
-// Override loadDashboard to add ring + slots
-const _origLoadDash=typeof loadDashboard!=='undefined'?loadDashboard:null;
+// loadDashboard ring update integrated above
 // ── CONFIG ────────────────────────────────
 const N8N='https://n8n-n8n.fa2cjf.easypanel.host/webhook';
 const API_KEY='AUTIX-2025-xK9mP3qR8nL7';
@@ -1158,9 +1157,22 @@ async function loadDashboard(){
   buildChart(d.semana||[]);
   buildFeed(d.hoy||[]);
   buildHoyTabla(d.hoy||[]);
+  buildTodaySlots(d.hoy||[]);
   buildSparkline('spark-hoy', d.semana||[], '#00d4aa');
   buildSparkline('spark-ing', d.semana||[], '#4361ee');
   DAYS_WITH_CITAS=new Set((d.semana||[]).map(s=>s.dia));
+  setTimeout(()=>{
+    const asis=parseInt(document.getElementById('m-asis')?.textContent)||0;
+    buildRing(asis);
+    const tot=parseInt(document.getElementById('m-tot')?.textContent||'0');
+    const comp=Math.round(tot*(asis/100));
+    const canc=Math.round(tot*0.08);
+    const pend=Math.max(tot-comp-canc,0);
+    const rc=document.getElementById('ring-comp');
+    const rp=document.getElementById('ring-pend');
+    const rx=document.getElementById('ring-canc');
+    if(rc)rc.textContent=comp;if(rp)rp.textContent=pend;if(rx)rx.textContent=canc;
+  },600);
 }
 
 function buildChart(data){
@@ -1325,7 +1337,7 @@ async function cobrar(){
     metodo: PAGO,
     cajero: document.getElementById('sb-uname')?.textContent||'—'
   };
-  await api('agenda-movimientos',{action:'save',tipo:'ing',descripcion:`Venta terminal · ${items.length} items`,monto:total,fecha:new Date().toISOString().split('T')[0]});
+  await api('agenda-movimientos',{action:'save',data:{tipo:'ing',descripcion:`Venta terminal · ${items.length} items`,monto:total,fecha:new Date().toISOString().split('T')[0]});
   toast('✅',`Cobro de ${money(total)} · ${PAGO}`);
   if(document.getElementById('cfg-print')?.checked)imprimirBoleta(items,total);
   clearCart();
@@ -1655,7 +1667,7 @@ async function saveProducto(){
 
 async function saveMovimiento(){
   const monto=parseFloat(document.getElementById('f-monto')?.value||0);if(!monto){toast('⚠','Monto requerido');return;}
-  await api('agenda-movimientos',{action:'save',tipo:document.getElementById('f-tipo')?.value||'eg',descripcion:document.getElementById('f-desc')?.value||'',monto,fecha:document.getElementById('f-fecha')?.value||new Date().toISOString().split('T')[0]});
+  await api('agenda-movimientos',{action:'save',data:{tipo:document.getElementById('f-tipo')?.value||'eg',descripcion:document.getElementById('f-desc')?.value||'',monto,fecha:document.getElementById('f-fecha')?.value||new Date().toISOString().split('T')[0]}});
   closeM();toast('✓','Movimiento registrado');loadFinanzas();
 }
 
@@ -1663,20 +1675,4 @@ async function saveMovimiento(){
 
 
 
-// ── PATCH: buildTodaySlots ─────────────────────────────────────────────────
-function buildTodaySlots(hoy){
-  const el=document.getElementById('today-slots');
-  if(!el)return;
-  if(!hoy.length){el.innerHTML='<div class="empty" style="padding:16px"><div class="empty-icon">📅</div><div class="empty-txt">Sin citas hoy — <a style="color:var(--blue);cursor:pointer" onclick="openModal(\'nueva-cita\')">+ Agregar</a></div></div>';return;}
-  const avColors=['#00d4aa','#4361ee','#8b5cf6','#f59e0b','#ef4444','#0ea5e9'];
-  el.innerHTML='<div class="today-timeline">'+hoy.map((r,i)=>`
-    <div class="today-slot busy" onclick="cambiarEstado(${r.id},'completada')">
-      <div class="slot-time">${tStr(r.fecha_inicio)}</div>
-      <div class="slot-bar" style="background:${avColors[i%6]}"></div>
-      <div style="flex:1">
-        <div class="slot-name">${esc(r.cliente_nombre)}</div>
-        <div class="slot-svc">${esc(r.servicio_nombre)}</div>
-      </div>
-      <div class="slot-status">${sts(r.estado)}</div>
-    </div>`).join('')+'</div>';
-}
+// buildTodaySlots defined above
