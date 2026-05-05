@@ -528,11 +528,11 @@ input[type=checkbox].row-check{width:14px;height:14px;accent-color:var(--blue);c
       <label class="lf-label">ID del negocio</label>
       <input class="lf-inp" id="li-org" type="text" placeholder="ej: mi-negocio" autocomplete="off" spellcheck="false">
       <label class="lf-label">Contraseña</label>
-      <input class="lf-inp" id="li-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')window.doLogin&&window.doLogin()">
-      <button class="l-btn" id="l-btn" onclick="window.doLogin&&window.doLogin()">Ingresar →</button>
+      <input class="lf-inp" id="li-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')document.getElementById('l-btn').click()">
+      <button class="l-btn" id="l-btn">Ingresar →</button>
       <div class="l-err" id="l-err"></div>
       <div class="l-divider">o</div>
-      <div class="l-demo">Ver demo: <a onclick="window.demoLogin&&window.demoLogin()">entrar sin cuenta</a></div>
+      <div class="l-demo">Ver demo: <a onclick="demoLogin()">entrar sin cuenta</a></div>
     </div>
   </div>
 </div>
@@ -1676,18 +1676,5 @@ async function saveMovimiento(){
 
 
 // buildTodaySlots defined above
-// Make key functions globally accessible
-window.doLogin = doLogin;
-window.demoLogin = demoLogin;
-window.doLogout = doLogout;
-window.nav = nav;
-window.openModal = openModal;
-window.closeM = closeM;
-window.closeMOut = closeMOut;
-window.cobrar = cobrar;
-window.clearCart = clearCart;
-window.selPago = selPago;
-window.openSidebar = openSidebar;
-window.closeSidebar = closeSidebar;
-window.copyLink = copyLink;
-window.gotoReg = typeof gotoReg !== 'undefined' ? gotoReg : null;
+// Bind login button
+document.getElementById('l-btn').addEventListener('click',doLogin);
