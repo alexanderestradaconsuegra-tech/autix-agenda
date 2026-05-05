@@ -416,6 +416,78 @@ input[type=checkbox].row-check{width:14px;height:14px;accent-color:var(--blue);c
 /* ── OS PILL (brand accent) ── */
 .os-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(0,212,170,0.1);color:var(--os);border:1px solid rgba(0,212,170,0.2);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;letter-spacing:0.3px}
 .os-dot{width:5px;height:5px;border-radius:50%;background:var(--os);animation:pulse-os 2s ease-in-out infinite}
+
+/* ── DASHBOARD REDISEÑADO ── */
+.dash-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:900px){.dash-kpi-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.dash-kpi-row{grid-template-columns:1fr 1fr}}
+
+.dkpi{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;cursor:pointer;transition:all 0.18s;position:relative;overflow:hidden}
+.dkpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transition:transform 0.2s;transform-origin:left;border-radius:0 0 var(--r-lg) var(--r-lg)}
+.dkpi-os::after{background:var(--os)}.dkpi-blue::after{background:var(--blue)}.dkpi-amber::after{background:var(--amber)}.dkpi-purple::after{background:var(--purple)}
+.dkpi:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(67,97,238,0.1)}.dkpi:hover::after{transform:scaleX(1)}
+.dkpi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.dkpi-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px}
+.dkpi-val{font-size:32px;font-weight:900;color:var(--text);letter-spacing:-1.5px;line-height:1}
+.dkpi-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.dkpi-trend-row{margin-bottom:8px}
+.dkpi-trend{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px}
+.dkpi-trend.up{background:rgba(16,185,129,0.1);color:var(--green)}
+.dkpi-trend.dn{background:var(--red-g);color:var(--red)}
+.dkpi-spark{height:36px}
+.dkpi-spark svg{width:100%;height:100%}
+
+.dash-row2{display:grid;grid-template-columns:1fr 200px 200px;gap:10px;align-items:start}
+@media(max-width:1100px){.dash-row2{grid-template-columns:1fr 180px}}
+@media(max-width:768px){.dash-row2{grid-template-columns:1fr}}
+.dash-chart-card{min-width:0}
+
+.dash-actions-col{display:flex;flex-direction:column;gap:8px}
+@media(max-width:1100px){.dash-actions-col{display:none}}
+.dact{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all 0.18s}
+.dact:hover{border-color:rgba(67,97,238,0.3);background:var(--blue-light);transform:translateX(2px)}
+.dact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.dact-title{font-size:12px;font-weight:700;color:var(--text)}
+.dact-sub{font-size:10px;color:var(--muted)}
+.dact:hover .dact-title{color:var(--blue)}
+
+.dash-row3{display:grid;grid-template-columns:3fr 2fr;gap:10px}
+@media(max-width:768px){.dash-row3{grid-template-columns:1fr}}
+
+.ring-stat-row{display:flex;align-items:center;gap:7px;font-size:11px}
+.ring-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ring-stat-label{flex:1;color:var(--muted);font-weight:500}
+.ring-stat-val{font-weight:700;color:var(--text);font-family:var(--mono)}
+
+/* ── PROFESIONALES REDISEÑADO ── */
+.profs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2px}
+@media(max-width:600px){.profs-stats{grid-template-columns:1fr}}
+.pstat{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;display:flex;align-items:center;gap:12px}
+.pstat-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pstat-val{font-size:24px;font-weight:900;color:var(--text);letter-spacing:-0.8px;line-height:1}
+.pstat-label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.3px;margin-top:2px}
+
+.profs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:900px){.profs-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.profs-grid{grid-template-columns:1fr}}
+
+.pcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-xl);overflow:hidden;transition:all 0.2s;cursor:pointer}
+.pcard:hover{border-color:rgba(67,97,238,0.25);transform:translateY(-3px);box-shadow:0 12px 32px rgba(67,97,238,0.1)}
+.pcard-header{padding:18px 18px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.pcard-av{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
+.pcard-name{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-0.3px}
+.pcard-role{font-size:10px;color:var(--muted);font-weight:500;margin-top:1px}
+.pcard-body{padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.pcard-metric{display:flex;align-items:center;justify-content:space-between}
+.pcard-metric-label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.3px}
+.pcard-metric-val{font-size:14px;font-weight:800;color:var(--text);font-family:var(--mono)}
+.pcard-bar-wrap{background:var(--faint);border-radius:100px;height:5px;overflow:hidden;margin-top:3px}
+.pcard-bar{height:100%;border-radius:100px;transition:width 1s ease}
+.pcard-footer{padding:10px 18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--off)}
+.pcard-comision{font-size:11px;color:var(--muted)}
+.pcard-comision strong{color:var(--text);font-weight:700}
+.pcard-actions{display:flex;gap:5px}
+
 </style>
 </head>
 <body>
@@ -509,82 +581,128 @@ input[type=checkbox].row-check{width:14px;height:14px;accent-color:var(--blue);c
 
     <!-- DASHBOARD -->
     <div class="panel active" id="panel-dashboard">
-      <div class="metrics">
-        <div class="mc mc-os" onclick="nav('citas',document.querySelectorAll('.sb-item')[1])">
-          <div class="mc-top"><div class="mc-label">Citas hoy</div><div class="mc-icon ico-os">📅</div></div>
-          <div class="mc-val os" id="m-hoy">—</div>
-          <div class="mc-foot"><span class="mc-trend up" id="m-hoy-s">cargando</span></div>
-          <div class="mc-spark" id="spark-hoy"></div>
+
+      <!-- ROW 1: KPI CARDS ESTILO COMETLY -->
+      <div class="dash-kpi-row">
+        <div class="dkpi dkpi-os" onclick="nav('citas',document.querySelectorAll('.sb-item')[1])">
+          <div class="dkpi-top">
+            <div>
+              <div class="dkpi-label">Citas hoy</div>
+              <div class="dkpi-val" id="m-hoy">—</div>
+            </div>
+            <div class="dkpi-icon" style="background:rgba(0,212,170,0.12);color:var(--os)">📅</div>
+          </div>
+          <div class="dkpi-trend-row">
+            <span class="dkpi-trend up" id="m-hoy-s">— agendadas</span>
+          </div>
+          <div class="dkpi-spark" id="spark-hoy"></div>
         </div>
-        <div class="mc" onclick="nav('finanzas',document.querySelectorAll('.sb-item')[9])">
-          <div class="mc-top"><div class="mc-label">Ingresos mes</div><div class="mc-icon ico-b">💰</div></div>
-          <div class="mc-val" id="m-ing">—</div>
-          <div class="mc-foot"><span class="mc-trend up">este mes</span></div>
-          <div class="mc-spark" id="spark-ing"></div>
+        <div class="dkpi dkpi-blue" onclick="nav('finanzas',document.querySelectorAll('.sb-item')[9])">
+          <div class="dkpi-top">
+            <div>
+              <div class="dkpi-label">Ingresos mes</div>
+              <div class="dkpi-val" id="m-ing">—</div>
+            </div>
+            <div class="dkpi-icon" style="background:var(--blue-light);color:var(--blue)">💰</div>
+          </div>
+          <div class="dkpi-trend-row"><span class="dkpi-trend up">este mes</span></div>
+          <div class="dkpi-spark" id="spark-ing"></div>
         </div>
-        <div class="mc mc-amber" onclick="nav('clientes',document.querySelectorAll('.sb-item')[4])">
-          <div class="mc-top"><div class="mc-label">Total citas</div><div class="mc-icon ico-a">📋</div></div>
-          <div class="mc-val" id="m-tot">—</div>
-          <div class="mc-foot" style="font-size:10px;color:var(--muted)">históricas</div>
+        <div class="dkpi dkpi-amber" onclick="nav('citas',document.querySelectorAll('.sb-item')[1])">
+          <div class="dkpi-top">
+            <div>
+              <div class="dkpi-label">Total citas</div>
+              <div class="dkpi-val" id="m-tot">—</div>
+            </div>
+            <div class="dkpi-icon" style="background:var(--amber-g);color:var(--amber)">📋</div>
+          </div>
+          <div class="dkpi-trend-row"><span style="font-size:10px;color:var(--muted)">históricas</span></div>
         </div>
-        <div class="mc mc-purple" onclick="nav('crm',document.querySelectorAll('.sb-item')[5])">
-          <div class="mc-top"><div class="mc-label">Asistencia</div><div class="mc-icon ico-p">✓</div></div>
-          <div class="mc-val" id="m-asis">—</div>
-          <div class="mc-foot"><span class="mc-trend up">completadas</span></div>
+        <div class="dkpi dkpi-purple" onclick="nav('crm',document.querySelectorAll('.sb-item')[5])">
+          <div class="dkpi-top">
+            <div>
+              <div class="dkpi-label">Asistencia</div>
+              <div class="dkpi-val" id="m-asis">—</div>
+            </div>
+            <div class="dkpi-icon" style="background:var(--purple-g);color:var(--purple)">✓</div>
+          </div>
+          <div class="dkpi-trend-row"><span class="dkpi-trend up">completadas</span></div>
         </div>
       </div>
 
-      <div class="qa-grid">
-        <div class="qa-btn" onclick="openModal('nueva-cita')"><span class="qa-icon">📅</span><div class="qa-label">Nueva cita</div></div>
-        <div class="qa-btn" onclick="nav('terminal',document.querySelectorAll('.sb-item')[2])"><span class="qa-icon">💳</span><div class="qa-label">Terminal ventas</div></div>
-        <div class="qa-btn" onclick="openModal('nuevo-cliente')"><span class="qa-icon">👤</span><div class="qa-label">Nuevo cliente</div></div>
-        <div class="qa-btn" onclick="nav('crm',document.querySelectorAll('.sb-item')[5])"><span class="qa-icon">💬</span><div class="qa-label">Enviar mensajes</div></div>
-      </div>
-
-      <div class="g4">
-        <div class="card">
+      <!-- ROW 2: CHART + RING + ACCIONES -->
+      <div class="dash-row2">
+        <!-- CHART GRANDE -->
+        <div class="card dash-chart-card">
           <div class="card-head">
-            <div><div class="card-title">Citas · últimas 2 semanas</div><div class="card-sub" id="chart-peak"></div></div>
+            <div>
+              <div class="card-title">Citas · últimas 2 semanas</div>
+              <div class="card-sub" id="chart-peak"></div>
+            </div>
             <div class="os-pill"><div class="os-dot"></div>En vivo</div>
           </div>
-          <div class="card-body">
-            <div class="chart-area"><svg id="area-svg" viewBox="0 0 600 72" preserveAspectRatio="none"></svg></div>
+          <div class="card-body" style="padding:12px 16px 8px">
+            <div style="height:110px"><svg id="area-svg" viewBox="0 0 600 110" preserveAspectRatio="none" style="width:100%;height:100%"></svg></div>
             <div class="chart-xl" id="chart-xl"></div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-head"><div class="card-title">Tasa de asistencia</div></div>
-          <div class="card-body" style="display:flex;flex-direction:column;align-items:center;gap:10px">
-            <div class="ring-wrap">
-              <svg width="80" height="80" viewBox="0 0 80 80">
-                <circle cx="40" cy="40" r="32" fill="none" stroke="var(--faint)" stroke-width="7"/>
-                <circle cx="40" cy="40" r="32" fill="none" stroke="var(--os)" stroke-width="7" stroke-linecap="round" stroke-dasharray="201" id="ring-dash" stroke-dashoffset="201" transform="rotate(-90 40 40)" style="transition:stroke-dashoffset 1.5s ease"/>
-                <text x="40" y="45" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="14" font-weight="900" fill="var(--text)" id="ring-txt">—</text>
-              </svg>
-              <div class="ring-label">Completadas<br>vs total</div>
+
+        <!-- RING -->
+        <div class="card" style="min-width:0">
+          <div class="card-head"><div class="card-title">Asistencia</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--faint)" stroke-width="9"/>
+              <circle cx="50" cy="50" r="40" fill="none" stroke="var(--os)" stroke-width="9" stroke-linecap="round" stroke-dasharray="251" id="ring-dash" stroke-dashoffset="251" transform="rotate(-90 50 50)" style="transition:stroke-dashoffset 1.5s ease"/>
+              <text x="50" y="55" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="16" font-weight="900" fill="var(--text)" id="ring-txt">—</text>
+            </svg>
+            <div style="width:100%;display:flex;flex-direction:column;gap:7px">
+              <div class="ring-stat-row"><span class="ring-dot" style="background:var(--os)"></span><span class="ring-stat-label">Completadas</span><span class="ring-stat-val" id="ring-comp">—</span></div>
+              <div class="ring-stat-row"><span class="ring-dot" style="background:var(--amber)"></span><span class="ring-stat-label">Pendientes</span><span class="ring-stat-val" id="ring-pend">—</span></div>
+              <div class="ring-stat-row"><span class="ring-dot" style="background:var(--red)"></span><span class="ring-stat-label">Canceladas</span><span class="ring-stat-val" id="ring-canc">—</span></div>
             </div>
-            <div style="width:100%;display:flex;flex-direction:column;gap:5px">
-              <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:var(--muted);display:flex;align-items:center;gap:4px"><span style="width:7px;height:7px;border-radius:50%;background:var(--os);display:inline-block"></span>Completadas</span><span style="font-weight:700;color:var(--text);font-family:var(--mono)" id="ring-comp">—</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:var(--muted);display:flex;align-items:center;gap:4px"><span style="width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block"></span>Pendientes</span><span style="font-weight:700;color:var(--text);font-family:var(--mono)" id="ring-pend">—</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:var(--muted);display:flex;align-items:center;gap:4px"><span style="width:7px;height:7px;border-radius:50%;background:var(--red);display:inline-block"></span>Canceladas</span><span style="font-weight:700;color:var(--text);font-family:var(--mono)" id="ring-canc">—</span></div>
-            </div>
+          </div>
+        </div>
+
+        <!-- ACCIONES RÁPIDAS VERTICAL -->
+        <div class="dash-actions-col">
+          <div class="dact" onclick="openModal('nueva-cita')">
+            <div class="dact-icon" style="background:rgba(0,212,170,0.1);color:var(--os)">📅</div>
+            <div><div class="dact-title">Nueva cita</div><div class="dact-sub">Agendar ahora</div></div>
+          </div>
+          <div class="dact" onclick="nav('terminal',document.querySelectorAll('.sb-item')[2])">
+            <div class="dact-icon" style="background:var(--blue-light);color:var(--blue)">💳</div>
+            <div><div class="dact-title">Terminal</div><div class="dact-sub">Cobrar venta</div></div>
+          </div>
+          <div class="dact" onclick="openModal('nuevo-cliente')">
+            <div class="dact-icon" style="background:var(--purple-g);color:var(--purple)">👤</div>
+            <div><div class="dact-title">Cliente nuevo</div><div class="dact-sub">Registrar</div></div>
+          </div>
+          <div class="dact" onclick="nav('crm',document.querySelectorAll('.sb-item')[5])">
+            <div class="dact-icon" style="background:var(--amber-g);color:var(--amber)">💬</div>
+            <div><div class="dact-title">WhatsApp</div><div class="dact-sub">Enviar mensajes</div></div>
           </div>
         </div>
       </div>
 
-      <div class="g2">
+      <!-- ROW 3: CITAS HOY + FEED -->
+      <div class="dash-row3">
         <div class="card">
           <div class="card-head">
-            <div class="card-title">Citas de hoy</div>
-            <button class="card-action" onclick="nav('citas',document.querySelectorAll('.sb-item')[1])">Ver agenda →</button>
+            <div>
+              <div class="card-title">Agenda de hoy</div>
+              <div class="card-sub" id="dash-fecha-hoy"></div>
+            </div>
+            <button class="card-action" onclick="nav('citas',document.querySelectorAll('.sb-item')[1])">Ver todas →</button>
           </div>
-          <div class="card-body" style="padding:6px 14px" id="today-slots"></div>
+          <div style="padding:8px 12px" id="today-slots"></div>
         </div>
         <div class="card">
-          <div class="card-head"><div class="card-title">Actividad reciente</div></div>
-          <div class="card-body" style="padding:6px 14px" id="feed"></div>
+          <div class="card-head"><div class="card-title">Actividad reciente</div><div class="os-pill" style="font-size:9px"><div class="os-dot"></div>Live</div></div>
+          <div style="padding:8px 12px" id="feed"></div>
         </div>
       </div>
+
     </div>
 
     <!-- CITAS -->
@@ -710,8 +828,17 @@ input[type=checkbox].row-check{width:14px;height:14px;accent-color:var(--blue);c
 
     <!-- PROFESIONALES -->
     <div class="panel" id="panel-profesionales">
-      <div class="section-hd"><div></div><button class="btn btn-p" style="font-size:12px" onclick="openModal('nuevo-prof')">+ Agregar profesional</button></div>
-      <div class="g-profs" id="g-profs"></div>
+      <div class="section-hd">
+        <div class="section-hd-left">
+          <div style="font-size:13px;font-weight:700;color:var(--text)">Equipo profesional</div>
+          <div id="profs-count" style="font-size:11px;color:var(--muted)"></div>
+        </div>
+        <button class="btn btn-p" style="font-size:12px" onclick="openModal('nuevo-prof')">+ Agregar profesional</button>
+      </div>
+      <!-- RESUMEN STATS -->
+      <div class="profs-stats" id="profs-stats-row"></div>
+      <!-- GRID CARDS -->
+      <div class="profs-grid" id="g-profs"></div>
     </div>
 
     <!-- FINANZAS -->
@@ -808,7 +935,7 @@ function escNum(n){return isNaN(n)?0:parseFloat(n);}
 
 // ── DASHBOARD EXTRA — Anillo + Slots de hoy ────────────
 function buildRing(pct){
-  const dash=Math.round(201*(pct/100));
+  const dash=Math.round(251*(pct/100));
   const el=document.getElementById('ring-dash');
   if(el){setTimeout(()=>{el.style.strokeDashoffset=226-dash;},300);}
   const txt=document.getElementById('ring-txt');
@@ -1022,6 +1149,8 @@ async function loadDashboard(){
   if(!d)return;
   const m=d.metricas||{};
   document.getElementById('m-hoy').textContent=m.reservas_hoy||0;
+  const fechaEl=document.getElementById('dash-fecha-hoy');
+  if(fechaEl){const d=new Date();const dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];const meses=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];fechaEl.textContent=`${dias[d.getDay()]} ${d.getDate()} ${meses[d.getMonth()]}`;}
   document.getElementById('m-hoy-s').textContent=(m.reservas_hoy||0)+' agendadas';
   document.getElementById('m-ing').textContent=money(m.ingresos_mes);
   document.getElementById('m-tot').textContent=m.total_reservas||0;
@@ -1309,24 +1438,56 @@ async function loadProfs(){
   showLoad('Cargando...');const d=await api('agenda-profesionales',{action:'getAll'});hideLoad();
   PROFS=Array.isArray(d?.data)?d.data:[];
   const el=document.getElementById('g-profs');
-  if(!PROFS.length){el.innerHTML='<div class="empty"><div class="empty-icon">◎</div><div class="empty-txt">Sin profesionales</div></div>';return;}
-  el.innerHTML=PROFS.map((p,i)=>`
-    <div class="prof-card">
-      <div class="prof-av gc${i%6}" style="width:40px;height:40px;border-radius:10px">${ini(p.nombre)}</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:700;color:var(--ink)">${esc(p.nombre)}</div>
-        <div style="font-size:11px;color:var(--muted)">${esc(p.email||p.telefono||'—')}</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:18px;font-weight:800;color:var(--ink)">${p.citas_mes||0}</div>
-        <div style="font-size:10px;color:var(--muted)">citas/mes</div>
-        <div style="display:flex;align-items:center;gap:4px;margin-top:6px;justify-content:flex-end">
-          <input type="number" value="${p.comision_pct||15}" min="0" max="100" style="width:48px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:3px 5px;font-size:11px;font-weight:700;color:var(--ink);text-align:center;outline:none" onchange="updateComision(${p.id},this.value)">
-          <span style="font-size:10px;color:var(--muted)">%</span>
+  if(!PROFS.length){el.innerHTML='<div class="empty"><div class="empty-icon">◑</div><div class="empty-txt">Sin profesionales. Agrega el primero.</div></div>';return;}
+  const avColors=['#4361ee','#00d4aa','#8b5cf6','#f59e0b','#ef4444','#0ea5e9'];
+  const maxCitas=Math.max(...PROFS.map(p=>parseInt(p.citas_mes||0)),1);
+
+  const statsEl=document.getElementById('profs-stats-row');
+  const totalCitas=PROFS.reduce((a,p)=>a+parseInt(p.citas_mes||0),0);
+  const avgComision=PROFS.length?Math.round(PROFS.reduce((a,p)=>a+parseFloat(p.comision_pct||15),0)/PROFS.length):15;
+  if(statsEl)statsEl.innerHTML=`
+    <div class="pstat"><div class="pstat-icon" style="background:rgba(0,212,170,0.1);color:var(--os)">◑</div><div><div class="pstat-val">${PROFS.length}</div><div class="pstat-label">Profesionales</div></div></div>
+    <div class="pstat"><div class="pstat-icon" style="background:var(--blue-light);color:var(--blue)">📅</div><div><div class="pstat-val">${totalCitas}</div><div class="pstat-label">Citas este mes</div></div></div>
+    <div class="pstat"><div class="pstat-icon" style="background:var(--purple-g);color:var(--purple)">%</div><div><div class="pstat-val">${avgComision}%</div><div class="pstat-label">Comisión promedio</div></div></div>`;
+
+  const countEl=document.getElementById('profs-count');
+  if(countEl)countEl.textContent=`${PROFS.length} miembro${PROFS.length!==1?'s':''}`;
+
+  el.innerHTML=PROFS.map((p,i)=>{
+    const citas=parseInt(p.citas_mes||0);
+    const barPct=Math.round((citas/maxCitas)*100);
+    const col=avColors[i%6];
+    return`<div class="pcard" onclick="editProf(${p.id})">
+      <div class="pcard-header">
+        <div class="pcard-av" style="background:${col}">${ini(p.nombre)}</div>
+        <div style="flex:1">
+          <div class="pcard-name">${esc(p.nombre)}</div>
+          <div class="pcard-role">${esc(p.email||p.telefono||'Sin contacto')}</div>
         </div>
       </div>
-    </div>`).join('');
+      <div class="pcard-body">
+        <div>
+          <div class="pcard-metric">
+            <span class="pcard-metric-label">Citas este mes</span>
+            <span class="pcard-metric-val" style="color:${col}">${citas}</span>
+          </div>
+          <div class="pcard-bar-wrap"><div class="pcard-bar" style="width:${barPct}%;background:${col}"></div></div>
+        </div>
+        <div class="pcard-metric">
+          <span class="pcard-metric-label">Comisión</span>
+          <span class="pcard-metric-val">${p.comision_pct||15}%</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <div class="pcard-comision">Contacto: <strong>${esc(p.telefono||p.email||'—')}</strong></div>
+        <div class="pcard-actions">
+          <button class="btn-xs btn-edit" onclick="event.stopPropagation();editProf(${p.id})">✏</button>
+          <button class="btn-xs btn-del" onclick="event.stopPropagation();deleteProf(${p.id})">✕</button>
+        </div>
+      </div>
+    </div>`;}).join('');
 }
+
 
 async function updateComision(id,pct){
   // guardar comision en DB
