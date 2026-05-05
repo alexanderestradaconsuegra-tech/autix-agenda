@@ -1337,7 +1337,7 @@ async function cobrar(){
     metodo: PAGO,
     cajero: document.getElementById('sb-uname')?.textContent||'—'
   };
-  await api('agenda-movimientos',{action:'save',data:{tipo:'ing',descripcion:`Venta terminal · ${items.length} items`,monto:total,fecha:new Date().toISOString().split('T')[0]});
+  await api('agenda-movimientos',{action:'save',data:{tipo:'ing',descripcion:`Venta terminal · ${items.length} items`,monto:total,fecha:new Date().toISOString().split('T')[0]}});
   toast('✅',`Cobro de ${money(total)} · ${PAGO}`);
   if(document.getElementById('cfg-print')?.checked)imprimirBoleta(items,total);
   clearCart();
