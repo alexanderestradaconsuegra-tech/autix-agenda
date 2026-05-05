@@ -1680,35 +1680,3 @@ function buildTodaySlots(hoy){
       <div class="slot-status">${sts(r.estado)}</div>
     </div>`).join('')+'</div>';
 }
-
-// ── PATCH: ring update after dashboard loads ───────────────────────────────
-const _origLoadDashboard = loadDashboard;
-async function loadDashboard(){
-  await _origLoadDashboard();
-  setTimeout(()=>{
-    const asisEl=document.getElementById('m-asis');
-    const asis=asisEl?parseInt(asisEl.textContent)||0:0;
-    const dash=Math.round(201*(asis/100));
-    const ringEl=document.getElementById('ring-dash');
-    if(ringEl){setTimeout(()=>{ringEl.style.strokeDashoffset=201-dash;},300);}
-    const txtEl=document.getElementById('ring-txt');
-    if(txtEl)txtEl.textContent=asis+'%';
-    const tot=parseInt(document.getElementById('m-tot')?.textContent||'0');
-    const comp=Math.round(tot*(asis/100));
-    const canc=Math.round(tot*0.08);
-    const pend=tot-comp-canc;
-    const rc=document.getElementById('ring-comp');const rp=document.getElementById('ring-pend');const rx=document.getElementById('ring-canc');
-    if(rc)rc.textContent=comp;if(rp)rp.textContent=Math.max(pend,0);if(rx)rx.textContent=canc;
-  },600);
-}
-
-// ── PATCH: buildHoyTabla also fills today-slots ────────────────────────────
-const _origBuildHoy = buildHoyTabla;
-function buildHoyTabla(hoy){
-  if(typeof _origBuildHoy==='function')_origBuildHoy(hoy);
-  buildTodaySlots(hoy);
-}
-
-</script>
-</body>
-</html>
