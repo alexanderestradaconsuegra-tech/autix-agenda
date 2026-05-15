@@ -7,10 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a0e1a">
-<title>AgendaOS · Panel</title>
+<title>AgendaOS · Gestión de citas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -1210,7 +1209,7 @@ async function doLogin(){
     const res = await fetch(`${N8N}/agenda-auth`,{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':API_KEY},
-      body:JSON.stringify({action:'login',org_id:org,password:pass})
+      body:JSON.stringify({action:'login',org_id:org,password:pass,nombre:'',slug:'',email:'',telefono:'',contacto:'',rubro:''})
     });
     const d = await res.json();
     if(d.ok && d.org_id){
