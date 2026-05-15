@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a0e1a">
-<title>AgendaOS · Panel</title>
+<title>AgendaOS · Gestión de citas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -488,6 +488,202 @@ tbody tr:hover td{background:var(--off)}
 
 #boleta-print{display:none}
 @media print{body *{display:none}#boleta-print,#boleta-print *{display:block}#boleta-print{font-family:'Courier New',monospace;font-size:12px;width:280px;margin:0 auto;padding:10px;color:#000}}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   AGENDAOS · UI CLIENTE PRO v3
+   Solo capa visual. No modifica integración, IDs ni lógica n8n.
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --blue:#4f6df5;--blue2:#6ea8ff;--blue-l:#edf3ff;--blue-glow:rgba(79,109,245,.22);
+  --os:#18c7a5;--os2:#0ea98d;--os-l:rgba(24,199,165,.10);--os-glow:rgba(24,199,165,.26);
+  --dark:#07111f;--dark2:#0a1729;--dark3:#10213a;--dark-bdr:rgba(255,255,255,.08);
+  --bg:#f4f7fb;--off:#eef4fb;--white:#ffffff;
+  --bdr:#dfe8f4;--bdr2:#c8d7ea;
+  --ink:#08111f;--ink2:#27364a;--muted:#65758b;--faint:#b9c8d9;
+  --red:#ef476f;--red-g:rgba(239,71,111,.10);
+  --amber:#f59e0b;--amber-g:rgba(245,158,11,.11);
+  --green:#10b981;--green-g:rgba(16,185,129,.11);
+  --purple:#8b5cf6;--purple-g:rgba(139,92,246,.11);
+  --pink:#ec4899;--pink-g:rgba(236,72,153,.11);
+  --r:10px;--r-md:14px;--r-lg:20px;--r-xl:26px;--r-2xl:30px;
+  --sw:268px;--tb:70px;
+  --shadow-sm:0 1px 2px rgba(8,17,31,.05);
+  --shadow-md:0 12px 34px rgba(25,48,86,.10);
+  --shadow-lg:0 24px 70px rgba(25,48,86,.16);
+  --shadow-glow:0 0 32px rgba(24,199,165,.22);
+}
+html[data-theme="dark"]{
+  --bg:#07111f;--off:#0d1b31;--white:#101f36;
+  --bdr:rgba(255,255,255,.09);--bdr2:rgba(255,255,255,.15);
+  --ink:#f8fbff;--ink2:#d9e6f6;--muted:#91a5bd;--faint:#42566f;
+  --blue-l:rgba(79,109,245,.15);--os-l:rgba(24,199,165,.13);
+  --green-g:rgba(16,185,129,.13);--amber-g:rgba(245,158,11,.14);--red-g:rgba(239,71,111,.14);--purple-g:rgba(139,92,246,.14);
+}
+body{
+  background:
+    radial-gradient(900px 600px at 18% -14%,rgba(79,109,245,.25),transparent 62%),
+    radial-gradient(760px 560px at 102% 0%,rgba(24,199,165,.15),transparent 62%),
+    linear-gradient(180deg,var(--bg),var(--off));
+  color:var(--ink);
+}
+html[data-theme="dark"] body{
+  background:
+    radial-gradient(1000px 620px at 15% -15%,rgba(79,109,245,.28),transparent 64%),
+    radial-gradient(800px 560px at 100% 0%,rgba(24,199,165,.16),transparent 62%),
+    linear-gradient(180deg,#07111f,#0a1628 60%,#08111f);
+}
+.auth-wrap{background:linear-gradient(135deg,#07111f,#0b1930 58%,#10213a)}
+.auth-left::after{content:"";position:absolute;inset:24px;border:1px solid rgba(255,255,255,.07);border-radius:34px;pointer-events:none}
+.auth-mark,.auth-box-mark,.sb-mark{border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--os));box-shadow:0 18px 40px rgba(79,109,245,.34)}
+.auth-right{background:rgba(255,255,255,.94);backdrop-filter:blur(24px)}
+html[data-theme="dark"] .auth-right{background:#0b1729}
+.auth-box{background:var(--white);border:1px solid var(--bdr);border-radius:28px;padding:28px;box-shadow:var(--shadow-lg);max-width:390px}
+.auth-tabs{border:1px solid var(--bdr);background:var(--off);border-radius:16px}
+.auth-tab{border-radius:12px}.auth-tab.active{box-shadow:0 8px 22px rgba(25,48,86,.10)}
+.fl-input,.fl-select,.fg input,.fg select,.fg textarea{border-radius:15px;background:var(--off);border-color:var(--bdr);color:var(--ink)}
+.auth-btn,.btn-p,.cobrar-b{border-radius:15px;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 16px 34px var(--blue-glow)}
+.app-layout{background:transparent}
+.sidebar{
+  background:rgba(7,17,31,.84);
+  backdrop-filter:blur(24px);
+  border-right:1px solid rgba(255,255,255,.08);
+  padding:12px 10px;
+}
+.sb-top{padding:14px 14px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-brand{font-size:18px;letter-spacing:-.05em}.sb-neg{margin:10px 6px 4px;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:10px 12px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.56)}
+.sb-sec{padding:18px 14px 8px;color:rgba(255,255,255,.30);font-size:10px;letter-spacing:.16em}
+.sb-item{margin:3px 6px;padding:11px 12px;border-radius:15px;color:rgba(255,255,255,.58);font-weight:700;font-size:12px}
+.sb-item:hover{background:rgba(255,255,255,.07);color:#fff;transform:translateX(2px)}
+.sb-item.active{background:linear-gradient(135deg,rgba(79,109,245,.32),rgba(24,199,165,.16));box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 12px 30px rgba(0,0,0,.12)}
+.sb-item.active::before{left:-6px;height:24px;background:linear-gradient(180deg,var(--blue),var(--os));box-shadow:0 0 14px rgba(24,199,165,.45)}
+.sb-icon{width:28px;height:28px;border-radius:11px;background:rgba(255,255,255,.07);font-size:12px}.sb-item.active .sb-icon{background:rgba(255,255,255,.12);color:#fff}
+.sb-bottom{padding:14px 8px 12px}.sb-user{border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.04);padding:11px}.sb-av{width:36px;height:36px;border-radius:14px}
+.main{background:transparent}.tb{height:var(--tb);background:rgba(255,255,255,.72);backdrop-filter:blur(22px);border-bottom:1px solid var(--bdr);padding:0 26px}
+html[data-theme="dark"] .tb{background:rgba(7,17,31,.54)}
+.tb-title{font-size:18px;font-weight:900;letter-spacing:-.04em}.tb-live,.tb-chip,.theme-toggle{height:34px;border-radius:999px;font-weight:900}
+.theme-toggle{border:1px solid var(--bdr);background:var(--white);color:var(--ink2);padding:0 13px;display:inline-flex;align-items:center;gap:8px;font-size:11px;box-shadow:var(--shadow-sm)}
+.theme-toggle:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.content{padding:22px;gap:16px}.panel.active{gap:16px}
+.client-hero{position:relative;overflow:hidden;border:1px solid var(--bdr);border-radius:30px;padding:24px;min-height:188px;background:linear-gradient(135deg,rgba(79,109,245,.96),rgba(20,118,220,.90) 48%,rgba(24,199,165,.86));box-shadow:var(--shadow-lg);color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:end}
+.client-hero::before{content:"";position:absolute;right:-80px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.36),transparent 62%)}
+.client-hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(90deg,transparent,black 20%,black 80%,transparent);opacity:.26;pointer-events:none}
+.client-hero > *{position:relative;z-index:1}.client-kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.13);border-radius:999px;padding:7px 11px;font:800 10px var(--mono);text-transform:uppercase;letter-spacing:.12em}.client-kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:#39ffbb;box-shadow:0 0 0 6px rgba(57,255,187,.13)}
+.client-hero h2{margin:14px 0 8px;font-size:34px;line-height:1.03;letter-spacing:-.07em;max-width:620px}.client-hero p{margin:0;color:rgba(255,255,255,.78);font-size:14px;line-height:1.6;max-width:640px}.client-hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.client-hero .hero-btn{border:0;border-radius:15px;padding:11px 15px;font-weight:900;background:#fff;color:#18336a;box-shadow:0 16px 34px rgba(0,0,0,.14)}.client-hero .hero-btn.secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.24)}
+.client-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat{border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:15px;background:rgba(255,255,255,.12);backdrop-filter:blur(12px)}.hero-stat b{font-size:26px;letter-spacing:-.06em}.hero-stat span{display:block;margin-top:4px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.70);font-weight:900}
+.metrics-row{gap:14px}.metric{border-radius:24px;padding:19px;background:linear-gradient(180deg,var(--white),rgba(255,255,255,.86));box-shadow:var(--shadow-md);border:1px solid var(--bdr)}
+html[data-theme="dark"] .metric{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035))}
+.metric::before{height:100%;width:4px;right:auto;bottom:0;transform:scaleY(.35);transform-origin:bottom}.metric:hover::before{transform:scaleY(1)}.metric:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.m-label{font-size:10px;letter-spacing:.12em}.m-icon{width:42px;height:42px;border-radius:16px}.m-val{font-size:36px;letter-spacing:-.07em}.m-trend{padding:4px 9px}.m-spark{height:42px;opacity:.95}
+.qa-grid{gap:12px}.qa-btn{border-radius:22px;padding:18px 12px;background:var(--white);box-shadow:var(--shadow-sm);border:1px solid var(--bdr)}.qa-icon{font-size:25px}.qa-label{font-size:12px}.qa-btn:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:rgba(79,109,245,.28)}
+.card{border-radius:24px;background:var(--white);border:1px solid var(--bdr);box-shadow:var(--shadow-md)}.card-h{padding:17px 20px}.card-t{font-size:14px;letter-spacing:-.03em}.card-s{font-size:12px}.card-b{padding:18px 20px}.dash-grid-main{grid-template-columns:1fr 285px;gap:14px}.dash-grid-bot{gap:14px}
+.chart-wrap{height:230px}.ring-svg{filter:drop-shadow(0 18px 24px rgba(24,199,165,.18))}.ring-wrap{gap:16px}.ring-stat-row{padding:8px 10px;border:1px solid var(--bdr);border-radius:13px;background:var(--off)}
+.t-slot{border-radius:17px;padding:13px 14px;border-color:var(--bdr);box-shadow:var(--shadow-sm)}.t-slot.busy{background:linear-gradient(90deg,var(--blue-l),var(--white))}.t-time{font-size:12px;width:50px}.t-bar{height:38px;width:4px}.t-name{font-size:13px}.t-svc{font-size:11px}.feed-item{padding:12px 8px;border-radius:14px}.feed-dot{width:10px;height:10px}.feed-tx{font-size:12px}.feed-time{font-size:10px}
+.sec-h{background:var(--white);border:1px solid var(--bdr);border-radius:22px;padding:14px 16px;box-shadow:var(--shadow-sm)}.tabs{border-radius:15px;padding:4px}.tab{border-radius:11px;padding:8px 15px}.chip{border-radius:999px;padding:7px 12px}.btn{border-radius:14px;font-weight:900}.btn-s{background:var(--white);border-color:var(--bdr);color:var(--ink2)}
+table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding:12px 14px}td{padding:13px 14px}.tbl-wrap{border-radius:18px;border:1px solid var(--bdr);overflow:auto}tbody tr:hover td{background:var(--blue-l)}
+.cal-grid{gap:7px}.cal-d{border-radius:13px;background:var(--off);border:1px solid transparent}.cal-d.today{box-shadow:0 14px 24px var(--blue-glow)}.cal-d.has-ev{border-color:rgba(79,109,245,.22)}
+.prod,.pcard,.crmstat,.pstat,.mkt,.cfg-sec,.term-r{border-radius:23px;background:var(--white);box-shadow:var(--shadow-sm);border:1px solid var(--bdr)}.prod:hover,.pcard:hover,.crmstat:hover,.mkt:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}.prod-em{font-size:28px}.prod-n{font-size:12px}.prod-p{font-size:13px}.pcard-av{width:58px;height:58px;border-radius:20px}.pcard-h{padding:20px}.pcard-f{background:var(--off)}
+.modal{border-radius:28px;box-shadow:var(--shadow-lg)}.m-h{padding:18px 22px}.m-b{padding:22px}.m-f{padding:16px 22px}.toast{border-radius:18px;box-shadow:var(--shadow-lg)}
+.service-photo-field,.product-photo-field,.team-photo-field{border:1px dashed var(--bdr2);border-radius:18px;background:var(--off);padding:13px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px}.photo-thumb{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,var(--blue-l),var(--os-l));display:grid;place-items:center;color:var(--blue);font-size:22px;flex-shrink:0}.photo-help{line-height:1.45}.photo-help b{display:block;color:var(--ink);font-size:12px;margin-bottom:2px}
+@media(max-width:1100px){.dash-grid-main{grid-template-columns:1fr}.client-hero{grid-template-columns:1fr}.client-hero-stats{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:900px){.sidebar{padding:12px 8px}.tb{padding:0 14px}.content{padding:14px}.client-hero{padding:20px;border-radius:24px}.client-hero h2{font-size:27px}.client-hero-stats{grid-template-columns:1fr 1fr}.metrics-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.client-hero h2{font-size:24px}.client-hero-actions{display:grid}.client-hero .hero-btn{width:100%;justify-content:center}.metrics-row{grid-template-columns:1fr}.qa-grid{grid-template-columns:1fr 1fr}.theme-toggle{display:inline-flex}.m-val{font-size:32px}.dash-grid-bot{grid-template-columns:1fr}}
+
+
+
+/* ── MENU LATERAL REFINADO: iconos limpios sin animaciones invasivas ── */
+.sidebar{
+  background:
+    radial-gradient(520px 360px at 20% -10%, rgba(67,97,238,.20), transparent 62%),
+    linear-gradient(180deg,#080d19 0%,#0b1222 52%,#070b14 100%) !important;
+}
+.sb-top{padding:20px 16px 17px !important;}
+.sb-mark{
+  width:34px !important;height:34px !important;border-radius:12px !important;
+  background:linear-gradient(135deg,#5b7cff 0%,#00d4aa 100%) !important;
+  box-shadow:0 12px 28px rgba(67,97,238,.28),0 0 0 1px rgba(255,255,255,.08) inset !important;
+}
+.sb-brand{font-size:17px !important;letter-spacing:-.55px !important;}
+.sb-sec{
+  padding:16px 16px 7px !important;
+  color:rgba(255,255,255,.24) !important;
+  font-size:9px !important;
+}
+.sb-item{
+  min-height:40px !important;
+  margin:3px 9px !important;
+  padding:9px 11px !important;
+  border-radius:13px !important;
+  color:rgba(255,255,255,.56) !important;
+  font-size:12px !important;
+  font-weight:700 !important;
+  letter-spacing:-.05px !important;
+  border:1px solid transparent !important;
+}
+.sb-item:hover{
+  background:rgba(255,255,255,.055) !important;
+  border-color:rgba(255,255,255,.065) !important;
+  color:rgba(255,255,255,.92) !important;
+  transform:translateX(2px);
+}
+.sb-item.active{
+  background:linear-gradient(135deg,rgba(67,97,238,.26),rgba(0,212,170,.12)) !important;
+  border-color:rgba(255,255,255,.10) !important;
+  color:#fff !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+.sb-item.active::before{
+  left:-9px !important;height:22px !important;width:4px !important;
+  background:linear-gradient(180deg,#00d4aa,#4361ee) !important;
+  box-shadow:0 0 18px rgba(0,212,170,.42) !important;
+}
+.sb-icon{
+  width:28px !important;height:28px !important;border-radius:11px !important;
+  background:rgba(255,255,255,.065) !important;
+  border:1px solid rgba(255,255,255,.075) !important;
+  color:#fff !important;
+  font-size:14px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+.sb-item.active .sb-icon{
+  background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.06)) !important;
+  border-color:rgba(255,255,255,.18) !important;
+  box-shadow:0 8px 20px rgba(67,97,238,.18), inset 0 1px 0 rgba(255,255,255,.15) !important;
+}
+.sb-neg{
+  margin:0 12px 4px !important;
+  padding:10px 12px !important;
+  border:1px solid rgba(255,255,255,.07) !important;
+  border-radius:14px !important;
+  background:rgba(255,255,255,.035) !important;
+  color:rgba(255,255,255,.42) !important;
+}
+.sb-bottom{padding:10px 9px 16px !important;}
+.sb-user{
+  border:1px solid rgba(255,255,255,.07) !important;
+  background:rgba(255,255,255,.035) !important;
+  border-radius:15px !important;
+}
+.sb-av{width:34px !important;height:34px !important;border-radius:12px !important;}
+
+
+/* ── Neutralización visual multi-rubro ── */
+.sb-icon{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+.prod-em,
+.qa-icon{
+  filter:saturate(.85);
+}
+.service-icon,
+.prod-em,
+.pcard-av{
+  text-rendering:auto;
+}
+
 </style>
 </head>
 <body>
@@ -507,11 +703,11 @@ tbody tr:hover td{background:var(--off)}
         <div class="auth-mark" id="auth-logo-mark">A</div>
         <div class="auth-name">Agenda<span class="accent">OS</span></div>
       </div>
-      <div class="auth-tag">Sistema inteligente de gestión de citas, clientes y ventas — con agente IA en WhatsApp incluido.</div>
+      <div class="auth-tag">Administra citas, clientes, servicios, productos y ventas desde un solo lugar.</div>
       <div class="auth-feat"><div class="auth-feat-ic">📅</div><div class="auth-feat-tx">Agenda online 24/7 con link público</div></div>
-      <div class="auth-feat"><div class="auth-feat-ic">🤖</div><div class="auth-feat-tx">Agente IA por WhatsApp — texto, voz e imagen</div></div>
-      <div class="auth-feat"><div class="auth-feat-ic">💳</div><div class="auth-feat-tx">Terminal de ventas con boleta automática</div></div>
-      <div class="auth-feat"><div class="auth-feat-ic">📊</div><div class="auth-feat-tx">CRM, finanzas y reportes en tiempo real</div></div>
+      <div class="auth-feat"><div class="auth-feat-ic">🤖</div><div class="auth-feat-tx">Reservas y mensajes desde WhatsApp</div></div>
+      <div class="auth-feat"><div class="auth-feat-ic">💳</div><div class="auth-feat-tx">Ventas, productos y comprobantes</div></div>
+      <div class="auth-feat"><div class="auth-feat-ic">📊</div><div class="auth-feat-tx">Clientes, ingresos y reportes claros</div></div>
       <div class="auth-stats">
         <div class="auth-stat"><div class="auth-stat-v">+240</div><div class="auth-stat-l">Negocios activos</div></div>
         <div class="auth-stat"><div class="auth-stat-v">99.9%</div><div class="auth-stat-l">Uptime</div></div>
@@ -557,7 +753,7 @@ tbody tr:hover td{background:var(--off)}
           <div class="fl"><label class="fl-label">Email</label><input class="fl-input" id="r-email" type="email" placeholder="tu@email.com"></div>
           <div class="fl"><label class="fl-label">WhatsApp</label><input class="fl-input" id="r-tel" type="tel" placeholder="+56 9 ..."></div>
         </div>
-        <div class="fl"><label class="fl-label">Rubro</label><select class="fl-select" id="r-rubro"><option value="">Selecciona</option><option>Barbería</option><option>Salón de belleza</option><option>Spa / Estética</option><option>Médico / Clínica</option><option>Psicología</option><option>Nutricionista</option><option>Dentista</option><option>Veterinaria</option><option>Centro deportivo</option><option>Otro</option></select></div>
+        <div class="fl"><label class="fl-label">Rubro</label><select class="fl-select" id="r-rubro"><option value="">Selecciona</option><option>Negocio de servicios</option><option>Centro de servicios</option><option>Servicios profesionales</option><option>Centro de atención</option><option>Consulta profesional</option><option>Profesional independiente</option><option>Centro profesional</option><option>Centro de atención</option><option>Centro de servicios</option><option>Otro</option></select></div>
         <div class="fl"><label class="fl-label">ID del negocio</label><input class="fl-input" id="r-slug" type="text" placeholder="mi-negocio" autocomplete="off" spellcheck="false" style="font-family:var(--mono)"><div class="fl-help">Tu link público: agendaos.pro/<b id="slug-prev">mi-negocio</b></div></div>
         <div class="fl"><label class="fl-label">Contraseña</label><input class="fl-input" id="r-pass" type="password" placeholder="Mínimo 6 caracteres"></div>
         <button class="auth-btn" id="register-btn">Crear cuenta gratis →</button>
@@ -578,19 +774,19 @@ tbody tr:hover td{background:var(--off)}
     <button class="sb-close" id="sb-close-btn">✕</button>
   </div>
   <div class="sb-neg" id="sb-neg">—</div>
-  <div class="sb-sec">Principal</div>
-  <div class="sb-item active" data-page="dashboard"><i class="sb-icon">◈</i>Dashboard</div>
-  <div class="sb-item" data-page="citas"><i class="sb-icon">📅</i>Citas</div>
-  <div class="sb-item" data-page="terminal"><i class="sb-icon">⊡</i>Terminal</div>
+  <div class="sb-sec">Día a día</div>
+  <div class="sb-item active" data-page="dashboard"><i class="sb-icon">⌂</i>Inicio</div>
+  <div class="sb-item" data-page="citas"><i class="sb-icon">◈</i>Agenda</div>
+  <div class="sb-item" data-page="terminal"><i class="sb-icon">▣</i>Ventas</div>
   <div class="sb-sec">Clientes</div>
-  <div class="sb-item" data-page="clientes"><i class="sb-icon">◉</i>Clientes</div>
-  <div class="sb-item" data-page="crm"><i class="sb-icon">◌</i>CRM</div>
+  <div class="sb-item" data-page="clientes"><i class="sb-icon">◎</i>Clientes</div>
+  <div class="sb-item" data-page="crm"><i class="sb-icon">◌</i>Seguimiento</div>
   <div class="sb-sec">Negocio</div>
-  <div class="sb-item" data-page="productos"><i class="sb-icon">◇</i>Productos</div>
-  <div class="sb-item" data-page="servicios"><i class="sb-icon">◎</i>Servicios</div>
-  <div class="sb-item" data-page="profesionales"><i class="sb-icon">◑</i>Equipo</div>
-  <div class="sb-item" data-page="finanzas"><i class="sb-icon">⊕</i>Finanzas</div>
-  <div class="sb-item" data-page="config"><i class="sb-icon">⚙</i>Configuración</div>
+  <div class="sb-item" data-page="productos"><i class="sb-icon">⬢</i>Productos</div>
+  <div class="sb-item" data-page="servicios"><i class="sb-icon">◇</i>Servicios</div>
+  <div class="sb-item" data-page="profesionales"><i class="sb-icon">◉</i>Equipo</div>
+  <div class="sb-item" data-page="finanzas"><i class="sb-icon">◍</i>Finanzas</div>
+  <div class="sb-item" data-page="config"><i class="sb-icon">⚙</i>Ajustes</div>
   <div class="sb-bottom">
     <div class="sb-user">
       <div class="sb-av" id="sb-av">?</div>
@@ -603,7 +799,7 @@ tbody tr:hover td{background:var(--off)}
 <div class="main">
   <div class="tb">
     <button class="tb-ham" id="ham-btn">☰</button>
-    <div class="tb-title" id="tb-title">Dashboard</div>
+    <div class="tb-title" id="tb-title">Inicio</div>
     <div class="tb-live"><div class="live-dot"></div>En vivo</div>
     <div class="tb-chip" id="copy-link-btn">↗ Link público</div>
   </div>
@@ -612,6 +808,25 @@ tbody tr:hover td{background:var(--off)}
 
     <!-- DASHBOARD -->
     <div class="panel active" id="p-dashboard">
+
+      <div class="client-hero" id="client-hero">
+        <div>
+          <div class="client-kicker">Panel del negocio</div>
+          <h2>Todo tu negocio en una vista clara.</h2>
+          <p>Revisa tus citas del día, ventas, clientes y próximos movimientos sin entrar a configuraciones técnicas.</p>
+          <div class="client-hero-actions">
+            <button class="hero-btn" data-modal="nueva-cita">+ Crear cita</button>
+            <button class="hero-btn secondary" data-go="servicios">Gestionar servicios</button>
+            <button class="hero-btn secondary" data-go="productos">Ver productos</button>
+          </div>
+        </div>
+        <div class="client-hero-stats">
+          <div class="hero-stat"><b id="hero-hoy">—</b><span>Citas hoy</span></div>
+          <div class="hero-stat"><b id="hero-ing">—</b><span>Ingresos mes</span></div>
+          <div class="hero-stat"><b id="hero-cli">—</b><span>Clientes</span></div>
+          <div class="hero-stat"><b id="hero-ok">—</b><span>Asistencia</span></div>
+        </div>
+      </div>
       <div class="metrics-row">
         <div class="metric os" data-go="citas">
           <div class="m-top"><div class="m-label">Citas hoy</div><div class="m-icon">📅</div></div>
@@ -626,7 +841,7 @@ tbody tr:hover td{background:var(--off)}
           <div class="m-spark" id="sp-ing"></div>
         </div>
         <div class="metric amber" data-go="citas">
-          <div class="m-top"><div class="m-label">Total citas</div><div class="m-icon">📋</div></div>
+          <div class="m-top"><div class="m-label">Citas registradas</div><div class="m-icon">📋</div></div>
           <div class="m-val" id="m-tot">—</div>
           <div class="m-foot" style="font-size:10px;color:var(--muted)">históricas</div>
         </div>
@@ -639,7 +854,7 @@ tbody tr:hover td{background:var(--off)}
 
       <div class="qa-grid">
         <div class="qa-btn" data-modal="nueva-cita"><span class="qa-icon">📅</span><div class="qa-label">Nueva cita</div></div>
-        <div class="qa-btn" data-go="terminal"><span class="qa-icon">💳</span><div class="qa-label">Terminal</div></div>
+        <div class="qa-btn" data-go="terminal"><span class="qa-icon">💳</span><div class="qa-label">Venta rápida</div></div>
         <div class="qa-btn" data-modal="nuevo-cliente"><span class="qa-icon">👤</span><div class="qa-label">Nuevo cliente</div></div>
         <div class="qa-btn" data-modal="nuevo-movimiento"><span class="qa-icon">⊕</span><div class="qa-label">Movimiento</div></div>
       </div>
@@ -647,7 +862,7 @@ tbody tr:hover td{background:var(--off)}
       <div class="dash-grid-main">
         <div class="card">
           <div class="card-h">
-            <div><div class="card-t">Citas · últimas 2 semanas</div><div class="card-s" id="chart-info"></div></div>
+            <div><div class="card-t">Movimiento de citas</div><div class="card-s" id="chart-info"></div></div>
             <div class="card-tag"><div class="card-tag-dot"></div>Live</div>
           </div>
           <div class="card-b">
@@ -656,7 +871,7 @@ tbody tr:hover td{background:var(--off)}
           </div>
         </div>
         <div class="card">
-          <div class="card-h"><div class="card-t">Asistencia</div></div>
+          <div class="card-h"><div class="card-t">Cumplimiento</div></div>
           <div class="card-b ring-wrap">
             <svg width="120" height="120" viewBox="0 0 120 120" class="ring-svg">
               <circle cx="60" cy="60" r="50" fill="none" stroke="var(--faint)" stroke-width="10"/>
@@ -679,7 +894,7 @@ tbody tr:hover td{background:var(--off)}
           <div class="card-b" style="padding:10px 14px"><div class="today-slots" id="today-slots"></div></div>
         </div>
         <div class="card">
-          <div class="card-h"><div class="card-t">Actividad reciente</div></div>
+          <div class="card-h"><div class="card-t">Últimos movimientos</div></div>
           <div class="card-b" style="padding:6px 14px"><div id="feed"></div></div>
         </div>
       </div>
@@ -829,7 +1044,7 @@ tbody tr:hover td{background:var(--off)}
       </div>
       <div class="cfg-sec">
         <div class="cfg-sec-t">Información del negocio</div>
-        <div class="f-row"><div class="fg"><label>Nombre</label><input id="cfg-nom"></div><div class="fg"><label>Rubro</label><select id="cfg-rubro"><option>Barbería</option><option>Salón de belleza</option><option>Spa / Estética</option><option>Médico / Clínica</option><option>Psicología</option><option>Nutricionista</option><option>Dentista</option><option>Veterinaria</option><option>Centro deportivo</option><option>Otro</option></select></div></div>
+        <div class="f-row"><div class="fg"><label>Nombre</label><input id="cfg-nom"></div><div class="fg"><label>Rubro</label><select id="cfg-rubro"><option>Negocio de servicios</option><option>Centro de servicios</option><option>Servicios profesionales</option><option>Centro de atención</option><option>Consulta profesional</option><option>Profesional independiente</option><option>Centro profesional</option><option>Centro de atención</option><option>Centro de servicios</option><option>Otro</option></select></div></div>
         <div class="f-row"><div class="fg"><label>WhatsApp</label><input id="cfg-tel"></div><div class="fg"><label>Email</label><input type="email" id="cfg-email"></div></div>
         <div class="fg"><label>Dirección</label><input id="cfg-dir"></div>
         <div class="fg"><label>Slug público</label><input id="cfg-slug" style="font-family:var(--mono)"><div class="fl-help">Tu link: agendaos.pro/<b id="cfg-slug-prev">mi-negocio</b></div></div>
@@ -873,7 +1088,7 @@ tbody tr:hover td{background:var(--off)}
 // ═══════════════════════════════════════════════════════════════════════════
 
 const N8N = 'https://n8n-n8n.fa2cjf.easypanel.host/webhook';
-const API_KEY = 'AUTIX-2025-xK9mP3qR8nL7';
+const API_KEY = 'AGENDAOS-2025-xK9mP3qR8nL7';
 
 // State
 let ORG = '', SLUG = '', PLAN = '', NOMBRE = '';
@@ -1002,7 +1217,7 @@ async function doRegister(){
 }
 
 function demoLogin(){
-  initApp({ok:true,org_id:'demo',nombre:'Barbería Demo',slug:'barberia-demo',plan:'pro'});
+  initApp({ok:true,org_id:'demo',nombre:'Negocio de servicios Demo',slug:'barberia-demo',plan:'pro'});
 }
 
 function initApp(d){
@@ -1109,8 +1324,8 @@ async function loadDashboard(){
   $('dash-fecha-hoy').textContent = `${dias[now.getDay()]} ${now.getDate()} ${meses[now.getMonth()]}`;
 
   buildChart(d.semana || []);
-  buildSparkline('sp-hoy', d.semana || [], '#00d4aa');
-  buildSparkline('sp-ing', d.semana || [], '#4361ee');
+  buildServiciorkline('sp-hoy', d.semana || [], '#00d4aa');
+  buildServiciorkline('sp-ing', d.semana || [], '#4361ee');
   buildFeed(d.hoy || []);
   buildTodaySlots(d.hoy || []);
   DAYS_WITH_CITAS = new Set((d.semana || []).map(s => s.dia));
@@ -1161,7 +1376,7 @@ function buildChart(semana){
   $('chart-info').textContent = `Máximo: ${max} citas el ${new Date(semana[peak]?.dia).toLocaleDateString('es-CL',{weekday:'long',day:'numeric'})}`;
 }
 
-function buildSparkline(id, data, color){
+function buildServiciorkline(id, data, color){
   const el = $(id); if(!el) return;
   if(!data.length){el.innerHTML='';return}
   const vals = data.map(d => parseInt(d.total||0));
@@ -1484,7 +1699,7 @@ function renderProdsTerminal(filter=''){
   // Combinar productos + servicios
   const items = [
     ...PRODS.filter(p => p.activo !== false).map(p => ({id:'p'+p.id, nombre:p.nombre, precio:p.precio_venta, emoji:'📦', tipo:'producto'})),
-    ...SVC.filter(s => s.activo !== false).map(s => ({id:'s'+s.id, nombre:s.nombre, precio:s.precio, emoji:'✂️', tipo:'servicio'}))
+    ...SVC.filter(s => s.activo !== false).map(s => ({id:'s'+s.id, nombre:s.nombre, precio:s.precio, emoji:'◈', tipo:'servicio'}))
   ];
   let list = items;
   if(filter) list = items.filter(i => i.nombre.toLowerCase().includes(filter.toLowerCase()));
@@ -1955,5 +2170,50 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
+
+<script>
+// AgendaOS UI cliente: tema claro/oscuro + sincronización visual. No toca API ni workflows.
+(function(){
+  function qs(id){return document.getElementById(id)}
+  function applyTheme(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('agendaos_theme', theme);
+    var btn = qs('theme-toggle-btn');
+    if(btn) btn.innerHTML = theme === 'dark' ? '☀️ Claro' : '🌙 Oscuro';
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute('content', theme === 'dark' ? '#07111f' : '#f4f7fb');
+  }
+  function syncHero(){
+    var map = [['hero-hoy','m-hoy'],['hero-ing','m-ing'],['hero-ok','m-asis']];
+    map.forEach(function(pair){
+      var a=qs(pair[0]), b=qs(pair[1]);
+      if(a && b && b.textContent && b.textContent.trim() !== '—') a.textContent = b.textContent.trim();
+    });
+    var heroCli = qs('hero-cli');
+    if(heroCli && Array.isArray(window.CLIS)) heroCli.textContent = window.CLIS.length || '0';
+  }
+  function addThemeButton(){
+    var tb = document.querySelector('.tb');
+    if(!tb || qs('theme-toggle-btn')) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'theme-toggle-btn';
+    btn.className = 'theme-toggle';
+    btn.addEventListener('click', function(){
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+    var link = qs('copy-link-btn');
+    tb.insertBefore(btn, link || null);
+    applyTheme(localStorage.getItem('agendaos_theme') || 'light');
+  }
+  function boot(){
+    addThemeButton();
+    syncHero();
+    setInterval(syncHero, 800);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
+
 </body>
 </html>
