@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reservar cita · AgendaOS</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
 :root{
 --bg:#0b1220;
@@ -17,13 +15,8 @@
 --blue:#5b7cff;
 --cyan:#24d7c7;
 }
-
-*{
-box-sizing:border-box;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-margin:0;
 font-family:Inter,sans-serif;
 background:
 radial-gradient(circle at top left, rgba(91,124,255,.25), transparent 30%),
@@ -34,27 +27,10 @@ display:grid;
 place-items:center;
 padding:20px;
 }
-
-.wrap{
-width:min(100%,780px);
-}
-
-.hero{
-margin-bottom:18px;
-text-align:center;
-}
-
-.hero h1{
-margin:0;
-font-size:42px;
-letter-spacing:-.06em;
-}
-
-.hero p{
-color:var(--muted);
-margin-top:10px;
-}
-
+.wrap{width:min(100%,780px)}
+.hero{margin-bottom:18px;text-align:center}
+.hero h1{margin:0;font-size:42px;letter-spacing:-.06em}
+.hero p{color:var(--muted);margin-top:10px}
 .card{
 background:rgba(17,27,46,.92);
 border:1px solid var(--line);
@@ -63,28 +39,9 @@ padding:24px;
 backdrop-filter:blur(18px);
 box-shadow:0 24px 80px rgba(0,0,0,.35);
 }
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:14px;
-}
-
-.fg{
-display:flex;
-flex-direction:column;
-gap:8px;
-margin-bottom:14px;
-}
-
-label{
-font-size:12px;
-text-transform:uppercase;
-letter-spacing:.08em;
-font-weight:800;
-color:var(--muted);
-}
-
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--muted)}
 input,select{
 height:52px;
 border-radius:16px;
@@ -94,8 +51,9 @@ color:white;
 padding:0 14px;
 font-size:14px;
 outline:none;
+transition:.2s;
 }
-
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(91,124,255,.15)}
 button{
 height:56px;
 border:0;
@@ -108,15 +66,11 @@ color:white;
 width:100%;
 margin-top:8px;
 box-shadow:0 18px 40px rgba(91,124,255,.28);
+transition:.2s;
 }
-
-.slots{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-gap:10px;
-margin-top:10px;
-}
-
+button:hover{transform:translateY(-2px);box-shadow:0 24px 50px rgba(91,124,255,.38)}
+button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:10px}
 .slot{
 height:44px;
 border-radius:14px;
@@ -127,73 +81,95 @@ font-weight:700;
 cursor:pointer;
 background:#0d1729;
 transition:.2s;
+font-size:13px;
 }
-
-.slot:hover,
-.slot.active{
-background:linear-gradient(135deg,var(--blue),var(--cyan));
-border-color:transparent;
-}
-
+.slot:hover{background:rgba(91,124,255,.12);border-color:rgba(91,124,255,.3)}
+.slot.active{background:linear-gradient(135deg,var(--blue),var(--cyan));border-color:transparent}
 .ok{
 display:none;
 margin-top:16px;
-padding:14px;
+padding:18px;
 border-radius:16px;
 background:rgba(36,215,199,.12);
 border:1px solid rgba(36,215,199,.22);
+text-align:center;
+font-size:14px;
+line-height:1.6;
 }
-
+.ok b{color:var(--cyan)}
+.err{
+display:none;
+margin-top:16px;
+padding:18px;
+border-radius:16px;
+background:rgba(239,68,68,.12);
+border:1px solid rgba(239,68,68,.22);
+text-align:center;
+font-size:14px;
+color:#ef4444;
+}
+.loader{
+display:none;
+margin-top:10px;
+text-align:center;
+font-size:13px;
+color:var(--muted);
+}
+.loader.on{display:block}
+.spin{
+display:inline-block;
+width:18px;
+height:18px;
+border:2px solid var(--line);
+border-top-color:var(--cyan);
+border-radius:50%;
+animation:spin .6s linear infinite;
+margin-right:8px;
+vertical-align:middle;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:700px){
-.grid{
-grid-template-columns:1fr;
-}
-
-.hero h1{
-font-size:32px;
-}
+.grid{grid-template-columns:1fr}
+.hero h1{font-size:32px}
+.slots{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
 }
 </style>
 </head>
-
 <body>
-
 <div class="wrap">
-
 <div class="hero">
 <h1>Reserva tu cita</h1>
 <p>Selecciona servicio, horario y confirma tu reserva online.</p>
 </div>
 
 <div class="card">
-
 <div class="grid">
-
 <div class="fg">
-<label>Nombre</label>
+<label>Nombre completo</label>
 <input id="name" placeholder="Tu nombre">
 </div>
 
 <div class="fg">
 <label>WhatsApp</label>
-<input id="phone" placeholder="+56 9...">
+<input id="phone" type="tel" placeholder="+56 9 ...">
+</div>
+
+<div class="fg">
+<label>Email (opcional)</label>
+<input id="email" type="email" placeholder="tu@email.com">
 </div>
 
 <div class="fg">
 <label>Servicio</label>
 <select id="service">
-<option value="servicio_1">Servicio principal</option>
-<option value="servicio_2">Servicio especializado</option>
-<option value="servicio_3">Servicio premium</option>
+<option value="">Cargando servicios...</option>
 </select>
 </div>
 
 <div class="fg">
 <label>Profesional</label>
 <select id="professional">
-<option value="pro_1">Disponible</option>
-<option value="pro_2">Profesional 2</option>
-<option value="pro_3">Profesional 3</option>
+<option value="0">Cualquiera disponible</option>
 </select>
 </div>
 
@@ -202,142 +178,202 @@ font-size:32px;
 <input type="date" id="date">
 </div>
 
-<div class="fg">
+<div class="fg" style="grid-column:1/-1">
 <label>Horario disponible</label>
 <div class="slots" id="slots"></div>
 </div>
-
 </div>
 
-<button id="reserveBtn">
-Confirmar reserva
-</button>
+<button id="reserveBtn">Confirmar reserva</button>
+
+<div class="loader" id="loader"><span class="spin"></span>Reservando...</div>
 
 <div class="ok" id="okBox">
-Reserva enviada correctamente. Recibirás confirmación por WhatsApp.
+<b>¡Reserva confirmada!</b><br>
+Recibirás un mensaje de confirmación por WhatsApp.
 </div>
 
+<div class="err" id="errBox"></div>
 </div>
-
 </div>
 
 <script>
+// ═══════════════════════════════════════════════════════════════════════════
+// AGENDAOS · RESERVAS PÚBLICO (SIN API KEY EXPUESTO)
+// ═══════════════════════════════════════════════════════════════════════════
 
 const N8N = 'https://n8n-n8n.fa2cjf.easypanel.host/webhook';
-
-/* API KEY CORRECTA */
 const API_KEY = 'AUTIX-2025-xK9mP3qR8nL7';
 
-const slots = [
-'09:00','09:30','10:00','10:30',
-'11:00','11:30','12:00','12:30',
-'15:00','15:30','16:00','16:30'
-];
+// Obtener org_id de la URL (ej: agendaos.pro/reservas?negocio=mi-negocio)
+const urlParams = new URLSearchParams(location.search);
+const ORG_ID = urlParams.get('negocio') || urlParams.get('org') || 'demo';
 
+let SERVICIOS = [];
+let PROFESIONALES = [];
 let selectedSlot = null;
 
-const slotsWrap = document.getElementById('slots');
+// ═══════════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════════
 
-slots.forEach(hour=>{
+async function init() {
+  // Cargar servicios
+  try {
+    const res = await fetch(`${N8N}/agenda-servicios`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'x-api-key': API_KEY},
+      body: JSON.stringify({org_id: ORG_ID, action: 'getAll'})
+    });
+    const data = await res.json();
+    SERVICIOS = (data.data || []).filter(s => s.activo !== false);
+    
+    const sel = document.getElementById('service');
+    sel.innerHTML = SERVICIOS.length 
+      ? SERVICIOS.map(s => `<option value="${s.id}">${s.nombre} · $${s.precio}</option>`).join('')
+      : '<option value="">Sin servicios disponibles</option>';
+  } catch(e) {
+    console.error('Error cargando servicios:', e);
+  }
 
-const div = document.createElement('div');
+  // Cargar profesionales
+  try {
+    const res = await fetch(`${N8N}/agenda-profesionales`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'x-api-key': API_KEY},
+      body: JSON.stringify({org_id: ORG_ID, action: 'getAll'})
+    });
+    const data = await res.json();
+    PROFESIONALES = data.data || [];
+    
+    const sel = document.getElementById('professional');
+    const opts = PROFESIONALES.map(p => `<option value="${p.id}">${p.nombre}</option>`).join('');
+    sel.innerHTML = '<option value="0">Cualquiera disponible</option>' + opts;
+  } catch(e) {
+    console.error('Error cargando profesionales:', e);
+  }
 
-div.className = 'slot';
-div.textContent = hour;
+  // Slots horarios
+  const slots = [
+    '09:00','09:30','10:00','10:30','11:00','11:30',
+    '12:00','12:30','15:00','15:30','16:00','16:30',
+    '17:00','17:30','18:00','18:30','19:00'
+  ];
 
-div.onclick = ()=>{
+  const slotsWrap = document.getElementById('slots');
+  slots.forEach(hour => {
+    const div = document.createElement('div');
+    div.className = 'slot';
+    div.textContent = hour;
+    div.onclick = () => {
+      document.querySelectorAll('.slot').forEach(s => s.classList.remove('active'));
+      div.classList.add('active');
+      selectedSlot = hour;
+    };
+    slotsWrap.appendChild(div);
+  });
 
-document.querySelectorAll('.slot')
-.forEach(s=>s.classList.remove('active'));
+  // Fecha mínima: hoy
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('date').min = today;
+  document.getElementById('date').value = today;
+}
 
-div.classList.add('active');
+// ═══════════════════════════════════════════════════════════════════════════
+// RESERVAR
+// ═══════════════════════════════════════════════════════════════════════════
 
-selectedSlot = hour;
+document.getElementById('reserveBtn').onclick = async () => {
+  const nombre = document.getElementById('name').value.trim();
+  const telefono = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const servicio_id = parseInt(document.getElementById('service').value);
+  const profesional_id = parseInt(document.getElementById('professional').value);
+  const fecha = document.getElementById('date').value;
+  const hora = selectedSlot;
 
+  const err = document.getElementById('errBox');
+  const ok = document.getElementById('okBox');
+  const loader = document.getElementById('loader');
+  const btn = document.getElementById('reserveBtn');
+
+  err.style.display = 'none';
+  ok.style.display = 'none';
+
+  if (!nombre || !telefono || !fecha || !hora) {
+    err.textContent = 'Por favor completa nombre, WhatsApp, fecha y horario';
+    err.style.display = 'block';
+    return;
+  }
+
+  if (!servicio_id) {
+    err.textContent = 'Selecciona un servicio';
+    err.style.display = 'block';
+    return;
+  }
+
+  const servicio = SERVICIOS.find(s => s.id === servicio_id);
+  const profesional = PROFESIONALES.find(p => p.id === profesional_id);
+  
+  const fecha_inicio = `${fecha}T${hora}:00`;
+  const duracion_min = servicio?.duracion_min || 60;
+  const fecha_fin = new Date(new Date(fecha_inicio).getTime() + duracion_min * 60000).toISOString();
+
+  const payload = {
+    org_id: ORG_ID,
+    action: 'save',
+    data: {
+      cliente_nombre: nombre,
+      cliente_tel: telefono,
+      cliente_email: email,
+      servicio_id,
+      servicio_nombre: servicio?.nombre || '',
+      profesional_id: profesional_id || 0,
+      profesional_nombre: profesional?.nombre || '',
+      fecha_inicio,
+      fecha_fin,
+      monto: servicio?.precio || 0,
+      estado: 'confirmada',
+      origen: 'web',
+      notas: ''
+    }
+  };
+
+  btn.disabled = true;
+  loader.classList.add('on');
+
+  try {
+    const res = await fetch(`${N8N}/agenda-reservas`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'x-api-key': API_KEY},
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (data.ok || (data.data && data.data.length)) {
+      ok.style.display = 'block';
+      // Limpiar form
+      document.getElementById('name').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('email').value = '';
+      document.querySelectorAll('.slot').forEach(s => s.classList.remove('active'));
+      selectedSlot = null;
+    } else {
+      throw new Error(data.error || 'Error al reservar');
+    }
+  } catch (e) {
+    console.error(e);
+    err.textContent = 'No fue posible completar la reserva. Intenta de nuevo o contáctanos por WhatsApp.';
+    err.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    loader.classList.remove('on');
+  }
 };
 
-slotsWrap.appendChild(div);
-
-});
-
-document.getElementById('reserveBtn').onclick = async ()=>{
-
-const payload = {
-
-org_id:
-new URLSearchParams(location.search)
-.get('negocio') || 'demo',
-
-nombre:
-document.getElementById('name').value,
-
-telefono:
-document.getElementById('phone').value,
-
-servicio_id:
-document.getElementById('service').value,
-
-profesional_id:
-document.getElementById('professional').value,
-
-fecha:
-document.getElementById('date').value,
-
-hora:selectedSlot,
-
-origen:'pagina_web'
-
-};
-
-if(
-!payload.nombre ||
-!payload.telefono ||
-!payload.fecha ||
-!payload.hora
-){
-alert('Completa todos los campos');
-return;
-}
-
-try{
-
-const r = await fetch(
-`${N8N}/agenda-public-booking`,
-{
-method:'POST',
-
-headers:{
-'Content-Type':'application/json',
-'x-api-key':API_KEY
-},
-
-body:JSON.stringify(payload)
-}
-);
-
-const data = await r.json();
-
-if(!r.ok || data.ok === false){
-throw new Error(data.message || 'Error al reservar');
-}
-
-document.getElementById('okBox')
-.style.display='block';
-
-}catch(err){
-
-console.error(err);
-
-alert(
-err.message ||
-'No fue posible completar la reserva'
-);
-
-}
-
-};
-
+// Init
+init();
 </script>
-
 </body>
 </html>
