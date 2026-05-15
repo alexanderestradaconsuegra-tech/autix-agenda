@@ -489,13 +489,180 @@ tbody tr:hover td{background:var(--off)}
 #boleta-print{display:none}
 @media print{body *{display:none}#boleta-print,#boleta-print *{display:block}#boleta-print{font-family:'Courier New',monospace;font-size:12px;width:280px;margin:0 auto;padding:10px;color:#000}}
 
-/* ── Menú neutro multi-rubro: visual únicamente, no altera conexión ── */
-.sb-icon{
-  font-family:var(--mono);
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:-.04em;
+
+/* ─────────────────────────────────────────────────────────────
+   AGENDAOS CLIENT UI OVERRIDE
+   Solo capa visual: no modifica endpoints, IDs, handlers ni JS.
+───────────────────────────────────────────────────────────── */
+:root{
+  --blue:#6d7cff;--blue2:#8aa4ff;--blue-l:rgba(109,124,255,.14);--blue-glow:rgba(109,124,255,.26);
+  --os:#24e0bf;--os2:#12bfa1;--os-l:rgba(36,224,191,.12);--os-glow:rgba(36,224,191,.28);
+  --dark:#060b14;--dark2:#0b1220;--dark3:#111b2f;--dark-bdr:rgba(255,255,255,.08);
+  --bg:#07111f;--off:#101b2e;--white:#0f1b2d;
+  --bdr:rgba(255,255,255,.09);--bdr2:rgba(255,255,255,.15);
+  --ink:#f5f8ff;--ink2:#d8e3f2;--muted:#8ea3bd;--faint:#3d516d;
+  --red:#ff5d6c;--red-g:rgba(255,93,108,.13);
+  --amber:#ffbd59;--amber-g:rgba(255,189,89,.13);
+  --green:#36e2a0;--green-g:rgba(54,226,160,.13);
+  --purple:#b891ff;--purple-g:rgba(184,145,255,.14);
+  --pink:#ff7ac8;--pink-g:rgba(255,122,200,.13);
+  --r:10px;--r-md:14px;--r-lg:20px;--r-xl:26px;--r-2xl:32px;
+  --sw:278px;--tb:72px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.18);
+  --shadow-md:0 14px 34px rgba(0,0,0,.22);
+  --shadow-lg:0 28px 80px rgba(0,0,0,.34);
+  --shadow-glow:0 0 42px rgba(36,224,191,.24);
 }
+html,body{background:var(--bg)}
+body{
+  font-size:13px;
+  background:
+    radial-gradient(900px 520px at 18% -10%,rgba(109,124,255,.32),transparent 62%),
+    radial-gradient(700px 420px at 100% 5%,rgba(36,224,191,.18),transparent 64%),
+    linear-gradient(180deg,#07111f 0%,#091321 38%,#050914 100%);
+  color:var(--ink);
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 78%);
+}
+/* Auth premium */
+.auth-wrap{background:linear-gradient(135deg,#050914,#0b1428 55%,#07111f)}
+.auth-left{background:radial-gradient(600px 460px at 38% 40%,rgba(109,124,255,.22),transparent 65%)}
+.auth-right{background:rgba(9,17,31,.86);backdrop-filter:blur(24px);border-left:1px solid var(--dark-bdr)}
+.auth-box{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));border:1px solid var(--bdr);border-radius:28px;padding:26px;box-shadow:var(--shadow-lg)}
+.auth-title,.auth-box-name{color:var(--ink)}.auth-sub,.auth-demo{color:var(--muted)}
+.auth-tabs{background:rgba(255,255,255,.06);border:1px solid var(--bdr);padding:5px}.auth-tab.active{background:linear-gradient(135deg,rgba(109,124,255,.28),rgba(36,224,191,.12));color:#fff;box-shadow:inset 0 0 0 1px var(--bdr2)}
+.fl-input,.fl-select,.fg input,.fg select,.fg textarea{background:rgba(255,255,255,.055);border-color:var(--bdr2);color:var(--ink)}
+.fl-input::placeholder,.fg input::placeholder{color:#687b96}.fl-input:focus,.fl-select:focus,.fg input:focus,.fg select:focus,.fg textarea:focus{background:rgba(255,255,255,.08);border-color:var(--blue);box-shadow:0 0 0 4px rgba(109,124,255,.18)}
+.auth-btn,.btn-p,.cobrar-b{background:linear-gradient(135deg,var(--blue),#5f8dff 50%,var(--os));box-shadow:0 18px 42px rgba(109,124,255,.25);border:0}.auth-btn:hover,.btn-p:hover,.cobrar-b:hover{filter:saturate(1.08);transform:translateY(-2px)}
+/* Layout */
+.app-layout{background:transparent}.sidebar{
+  background:linear-gradient(180deg,rgba(7,13,24,.92),rgba(6,11,20,.98));
+  border-right:1px solid var(--dark-bdr);box-shadow:16px 0 60px rgba(0,0,0,.24);backdrop-filter:blur(24px);
+}
+.sb-top{padding:22px 18px 18px;border-bottom:1px solid var(--dark-bdr)}
+.sb-mark{width:40px;height:40px;border-radius:15px;background:linear-gradient(135deg,var(--blue),var(--os));box-shadow:0 16px 38px rgba(109,124,255,.34);font-size:13px}.sb-brand{font-size:18px;letter-spacing:-.06em}
+.sb-neg{margin:12px 12px 4px;padding:12px 14px;border:1px solid var(--dark-bdr);border-radius:16px;background:rgba(255,255,255,.04);color:#8398b2}.sb-sec{padding:18px 20px 7px;color:rgba(255,255,255,.28)}
+.sb-item{margin:3px 10px;padding:11px 13px;border-radius:15px;color:rgba(230,239,255,.55);font-weight:700;letter-spacing:-.01em}.sb-item:hover{background:rgba(255,255,255,.065);color:#fff;transform:translateX(2px)}.sb-item.active{background:linear-gradient(135deg,rgba(109,124,255,.24),rgba(36,224,191,.10));box-shadow:inset 0 0 0 1px rgba(255,255,255,.10),0 12px 30px rgba(0,0,0,.18)}.sb-item.active::before{left:-10px;height:28px;background:linear-gradient(var(--blue),var(--os));box-shadow:0 0 18px rgba(36,224,191,.42)}
+.sb-icon{width:30px;height:30px;border-radius:12px;background:rgba(255,255,255,.07);font-size:13px}.sb-item.active .sb-icon{background:rgba(255,255,255,.12);color:var(--os)}.sb-bottom{border-top:1px solid var(--dark-bdr);padding:14px 12px 18px}.sb-user{border:1px solid var(--dark-bdr);background:rgba(255,255,255,.04);padding:11px;border-radius:17px}.sb-av{width:36px;height:36px}.sb-uname{color:#fff}.sb-uplan{color:var(--os)}
+.main{background:transparent}.tb{
+  height:var(--tb);background:rgba(8,16,30,.70);border-bottom:1px solid var(--bdr);backdrop-filter:blur(24px);padding:0 26px;
+}.tb-title{font-size:20px;color:var(--ink);letter-spacing:-.05em}.tb-live{background:rgba(36,224,191,.10);border-color:rgba(36,224,191,.24);padding:7px 12px;color:var(--os)}.tb-chip{background:rgba(109,124,255,.13);border-color:rgba(109,124,255,.25);padding:8px 14px;color:#c8d4ff}.tb-chip:hover{background:linear-gradient(135deg,var(--blue),var(--os));color:#fff}
+.content{padding:24px;gap:18px}.panel.active{gap:18px;animation:fadeIn .36s cubic-bezier(.16,1,.3,1)}
+/* Enterprise Hero */
+.pro-hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;min-height:268px;padding:26px;border:1px solid var(--bdr);border-radius:32px;overflow:hidden;background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.035));box-shadow:var(--shadow-lg)}
+.pro-hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(460px 280px at 24% 8%,rgba(109,124,255,.42),transparent 68%),radial-gradient(400px 260px at 92% 24%,rgba(36,224,191,.24),transparent 68%),linear-gradient(135deg,rgba(109,124,255,.08),transparent 50%)}
+.pro-hero-bg::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(110deg,rgba(0,0,0,.8),transparent 72%)}
+.pro-hero-main,.pro-ai-panel{position:relative;z-index:1}.pro-kicker{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border-radius:999px;border:1px solid rgba(36,224,191,.25);background:rgba(36,224,191,.10);font:800 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--os)}.pro-kicker span{width:7px;height:7px;border-radius:999px;background:var(--os);box-shadow:0 0 0 6px rgba(36,224,191,.13)}
+.pro-hero h1{max-width:760px;margin:18px 0 12px;font-size:clamp(32px,4.1vw,56px);line-height:.94;letter-spacing:-.085em;color:#fff}.pro-hero p{max-width:680px;margin:0;color:#a9bbd2;font-size:15px;line-height:1.7}.pro-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.pro-hero-actions .btn{padding:12px 17px;border-radius:15px}.pro-ai-panel{display:flex;flex-direction:column;justify-content:space-between;gap:14px;border:1px solid rgba(255,255,255,.13);border-radius:26px;padding:18px;background:linear-gradient(180deg,rgba(8,16,30,.62),rgba(8,16,30,.30));backdrop-filter:blur(18px)}.pro-ai-orb{width:96px;height:96px;border-radius:30px;display:grid;place-items:center;margin-left:auto;background:radial-gradient(circle at 35% 28%,#fff,rgba(36,224,191,.78) 18%,rgba(109,124,255,.72) 46%,rgba(184,145,255,.42) 72%);box-shadow:0 0 70px rgba(36,224,191,.30);font:900 24px var(--mono);letter-spacing:-.08em;color:#04121c}.pro-ai-copy span{font:800 10px var(--mono);letter-spacing:.12em;color:var(--os);text-transform:uppercase}.pro-ai-copy strong{display:block;margin-top:7px;font-size:24px;letter-spacing:-.06em}.pro-ai-copy small{display:block;margin-top:7px;color:#9fb2ca;line-height:1.5}.pro-ai-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pro-ai-metrics div{border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:12px;background:rgba(255,255,255,.05)}.pro-ai-metrics b{display:block;font-size:24px;letter-spacing:-.06em}.pro-ai-metrics span{color:#91a4bd;font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+/* Cards / Inicio */
+.metrics-row{gap:16px}.metric{border:1px solid var(--bdr);border-radius:24px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));box-shadow:0 16px 50px rgba(0,0,0,.18);backdrop-filter:blur(18px)}.metric::before{height:100%;width:4px;right:auto;opacity:1;transform:none;background:linear-gradient(180deg,currentColor,transparent);border-radius:4px}.metric:hover{box-shadow:0 24px 70px rgba(0,0,0,.32);border-color:rgba(255,255,255,.18);transform:translateY(-5px)}.m-label{font-size:10px;color:#9aacbf;letter-spacing:.12em}.m-icon{width:44px;height:44px;border-radius:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.m-val{font-size:38px;color:#fff;letter-spacing:-.07em}.m-foot{color:#90a4bd}.m-trend{padding:4px 9px}.m-spark{height:42px}.card{border:1px solid var(--bdr);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.032));box-shadow:0 18px 55px rgba(0,0,0,.20);backdrop-filter:blur(18px)}.card-h{padding:18px 20px;border-bottom:1px solid var(--bdr);background:rgba(255,255,255,.025)}.card-t{font-size:15px;color:#fff;letter-spacing:-.04em}.card-s{color:#8fa3bb}.card-b{padding:18px 20px}.card-tag{background:rgba(36,224,191,.11);border-color:rgba(36,224,191,.26);color:var(--os);padding:6px 11px}.dash-grid-main{grid-template-columns:minmax(0,1fr) 300px;gap:16px}.dash-grid-bot{gap:16px}.chart-wrap{height:250px}.ring-wrap{gap:18px}.ring-svg{filter:drop-shadow(0 14px 24px rgba(36,224,191,.12))}.ring-stat-label{color:#9aacc1}.ring-stat-val{color:#fff}.qa-grid{gap:14px}.qa-btn{border-color:var(--bdr);border-radius:22px;padding:18px 12px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));box-shadow:0 12px 30px rgba(0,0,0,.14)}.qa-btn::after{background:radial-gradient(circle at 50% 0%,rgba(109,124,255,.28),transparent 68%)}.qa-btn:hover{border-color:rgba(109,124,255,.32);box-shadow:0 20px 54px rgba(0,0,0,.24)}.qa-icon{font-size:25px}.qa-label{color:#d6e2f1}.today-slots{gap:9px}.t-slot{border-color:var(--bdr);background:rgba(255,255,255,.035);border-radius:17px;padding:13px 14px}.t-slot.busy{background:linear-gradient(90deg,rgba(109,124,255,.15),rgba(255,255,255,.03));border-color:rgba(109,124,255,.20)}.t-slot:hover{background:rgba(109,124,255,.12);border-color:rgba(109,124,255,.32)}.t-time{color:#9fb2ff}.t-name{color:#fff}.t-svc{color:#8fa3bb}.feed-item{border-bottom-color:var(--bdr);border-radius:14px;padding:11px 9px}.feed-item:hover{background:rgba(255,255,255,.05)}.feed-tx{color:#b8c8da}.feed-tx b{color:#fff}.feed-time{color:#7f93ad}
+/* Inner modules */
+th{background:rgba(255,255,255,.045);color:#8fa3bb;border-bottom-color:var(--bdr)}td{color:#dce7f5;border-bottom-color:var(--bdr)}tbody tr:hover td{background:rgba(109,124,255,.08)}.tabs{background:rgba(255,255,255,.055);border-color:var(--bdr);padding:5px;border-radius:15px}.tab{border-radius:11px;color:#92a6bf}.tab.active{background:linear-gradient(135deg,rgba(109,124,255,.25),rgba(36,224,191,.10));color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.09)}.chip{background:rgba(255,255,255,.05);border-color:var(--bdr);color:#93a8c0}.chip.active{background:rgba(109,124,255,.17);border-color:rgba(109,124,255,.32);color:#dbe2ff}.cal-d:hover,.cal-d.has-ev,.cal-d.sel{background:rgba(109,124,255,.15);color:#dbe2ff}.cal-d.today{background:linear-gradient(135deg,var(--blue),var(--os));box-shadow:0 16px 34px rgba(109,124,255,.26)}.btn-s{background:rgba(255,255,255,.055);border-color:var(--bdr2);color:#dbe7f5}.btn-s:hover{background:rgba(109,124,255,.12);border-color:rgba(109,124,255,.34);color:#fff}.btn-os{background:linear-gradient(135deg,var(--os),#2fb8ff);color:#04121c;box-shadow:0 18px 42px rgba(36,224,191,.18)}.btn-xs{border-radius:999px}.search input{background:rgba(255,255,255,.055);border-color:var(--bdr2);color:#fff}.status{padding:5px 10px}.modal-bg{background:rgba(0,0,0,.62)}.modal{background:#0f1b2d;border:1px solid var(--bdr);box-shadow:var(--shadow-lg)}.m-h{border-bottom-color:var(--bdr)}.m-t{color:#fff}.m-x{background:rgba(255,255,255,.06)}.m-f{border-top-color:var(--bdr)}.toast{background:#0b1220;border:1px solid rgba(36,224,191,.20);border-left:4px solid var(--os);box-shadow:0 20px 60px rgba(0,0,0,.35)}.loader{background:rgba(7,13,24,.74)}.spin-tx{color:#d9e4f2}.empty{color:#8fa3bb}.pstat,.crmstat,.mkt,.prod,.pcard,.cfg-sec,.term-r{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.032));border-color:var(--bdr);box-shadow:0 12px 34px rgba(0,0,0,.14)}.pstat-v,.crmstat-v,.pcard-name,.pcard-m-v,.cfg-row-l,.prod-n,.cart-h,.cart-tot-v{color:#fff}.pstat-l,.crmstat-l,.pcard-role,.cfg-row-s,.prod-p{color:#9aacc1}.cart-f,.pcard-f{background:rgba(255,255,255,.04);border-color:var(--bdr)}.cart-it{background:rgba(255,255,255,.04);border-color:var(--bdr)}.pago-b{background:rgba(255,255,255,.055);border-color:var(--bdr2);color:#dce7f5}.pago-b:hover,.pago-b.sel{background:rgba(109,124,255,.14);border-color:rgba(109,124,255,.34);color:#fff}
+/* Responsive */
+@media(max-width:1200px){.pro-hero{grid-template-columns:1fr}.pro-ai-panel{display:grid;grid-template-columns:auto 1fr auto;align-items:center}.pro-ai-metrics{min-width:220px}.dash-grid-main{grid-template-columns:1fr}}
+@media(max-width:900px){:root{--sw:286px;--tb:64px}.tb{padding:0 14px}.content{padding:14px}.pro-hero{padding:20px;border-radius:24px}.pro-hero h1{font-size:34px}.pro-ai-panel{display:flex}.chart-wrap{height:210px}.sidebar{box-shadow:0 0 70px rgba(0,0,0,.55)}}
+@media(max-width:560px){.pro-hero h1{font-size:30px}.pro-hero-actions{flex-direction:column}.pro-hero-actions .btn{justify-content:center;width:100%}.metrics-row{grid-template-columns:1fr}.m-val{font-size:34px}.qa-grid{grid-template-columns:1fr 1fr}.dash-grid-bot{grid-template-columns:1fr}.card-h{padding:15px}.card-b{padding:15px}}
+
+
+/* ─────────────────────────────────────────────────────────────
+   CLIENT-FACING SIMPLICITY OVERRIDE
+   Más visual, menos técnico, sin cambiar conexión ni lógica.
+───────────────────────────────────────────────────────────── */
+.pro-kicker{color:#9ff7e7!important}
+.pro-kicker::after{content:'Todo en un solo panel';display:inline-flex;margin-left:8px;padding:4px 9px;border:1px solid rgba(36,224,191,.22);border-radius:999px;background:rgba(36,224,191,.10);font:800 10px var(--mono);color:#bcfff4;text-transform:uppercase;letter-spacing:.08em}
+.pro-hero h1{max-width:820px!important}
+.pro-hero p{max-width:720px!important;font-size:16px!important}
+.pro-ai-orb{font-size:20px!important;color:#04121c!important;text-align:center;line-height:1!important}
+.pro-ai-panel{box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),0 24px 70px rgba(0,0,0,.24)}
+.metric,.card,.qa-btn,.pstat,.crmstat,.mkt,.prod,.pcard,.cfg-sec,.term-r{transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease,background .24s ease}
+.card:hover{border-color:rgba(255,255,255,.16);box-shadow:0 26px 70px rgba(0,0,0,.28)}
+.entity-cell{display:flex;align-items:center;gap:11px;min-width:190px}
+.entity-thumb{width:42px;height:42px;border-radius:13px;overflow:hidden;display:inline-grid;place-items:center;flex-shrink:0;background:linear-gradient(135deg,rgba(109,124,255,.26),rgba(36,224,191,.16));border:1px solid rgba(255,255,255,.12);box-shadow:0 10px 26px rgba(0,0,0,.20);color:#dff7ff;font-weight:900}
+.entity-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.entity-meta strong{display:block;color:#fff;font-weight:850;font-size:12px;line-height:1.2}.entity-meta small{display:block;color:#8fa3bb;font-size:10px;margin-top:3px}
+.image-field{border:1px dashed var(--bdr2);border-radius:16px;padding:12px;background:rgba(255,255,255,.035);display:grid;grid-template-columns:54px 1fr;gap:12px;align-items:center;margin-bottom:13px}
+.image-preview{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(109,124,255,.20),rgba(36,224,191,.12));border:1px solid var(--bdr);font-size:21px;color:#bed0e5;overflow:hidden}.image-preview img{width:100%;height:100%;object-fit:cover}.image-field .fg{margin:0}.image-field input{background:rgba(255,255,255,.055)}
+.prod{padding:0!important;text-align:left!important;border-radius:20px!important;overflow:hidden}.prod-media{height:88px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(109,124,255,.22),rgba(36,224,191,.12));border-bottom:1px solid var(--bdr);font-size:28px;overflow:hidden}.prod-media img{width:100%;height:100%;object-fit:cover}.prod-body{padding:12px}.prod-n{justify-content:flex-start!important;min-height:auto!important;text-align:left!important;font-size:12px!important}.prod-p{margin-top:7px;color:#cfdcff!important;font-size:13px!important}.prod:hover .prod-media{filter:saturate(1.15)}
+.pcard-av.has-photo{background:none!important;border-radius:18px;overflow:hidden;width:58px;height:58px;border:1px solid rgba(255,255,255,.14);box-shadow:0 14px 30px rgba(0,0,0,.24)}.pcard-av.has-photo img{width:100%;height:100%;object-fit:cover}.pcard{border-radius:26px}.pcard-h{padding:18px!important}.pcard-name{font-size:15px!important}.pcard-role::before{content:'Contacto: ';color:#64758b}.sec-h-title{font-size:18px!important;letter-spacing:-.05em}.sec-h-sub{font-size:12px!important}.mkt-t{font-size:13px!important}.mkt-d{font-size:11px!important;line-height:1.45}.tb-title{font-size:16px!important}.tb-chip::before{content:'🔗 ';}.tb-live{background:rgba(36,224,191,.11)!important;color:#9ff7e7!important}.status,.tag{font-weight:850}.btn-p{box-shadow:0 14px 32px rgba(109,124,255,.22)!important}.btn-os{font-weight:900!important}
+#p-productos .card::before,#p-servicios .card::before,#p-profesionales .profs-grid::before{content:'';display:none}
+@media(max-width:700px){.entity-cell{min-width:160px}.entity-thumb{width:36px;height:36px}.prod-media{height:76px}.image-field{grid-template-columns:1fr}.image-preview{width:64px;height:64px}}
+
+
+
+/* ─────────────────────────────────────────────────────────────
+   THEME SWITCHER · Cliente claro/oscuro
+   Solo visual. No modifica endpoints ni flujos de negocio.
+───────────────────────────────────────────────────────────── */
+.theme-toggle{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;
+  border:1px solid var(--bdr2);background:rgba(255,255,255,.055);color:var(--ink);
+  font-size:11px;font-weight:850;letter-spacing:-.01em;white-space:nowrap;transition:all .18s ease;
+}
+.theme-toggle:hover{transform:translateY(-1px);border-color:rgba(109,124,255,.38);box-shadow:0 12px 28px rgba(0,0,0,.16)}
+.theme-toggle .theme-dot{width:20px;height:20px;border-radius:999px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--os));box-shadow:0 8px 18px rgba(36,224,191,.20);font-size:11px;color:#fff}
+body.theme-light{
+  --blue:#4f67f2;--blue2:#728cff;--blue-l:rgba(79,103,242,.10);--blue-glow:rgba(79,103,242,.18);
+  --os:#00b894;--os2:#009b7f;--os-l:rgba(0,184,148,.10);--os-glow:rgba(0,184,148,.18);
+  --dark:#ffffff;--dark2:#f7faff;--dark3:#edf3fb;--dark-bdr:rgba(10,20,40,.10);
+  --bg:#f4f7fb;--off:#edf2f8;--white:#ffffff;
+  --bdr:rgba(18,34,60,.10);--bdr2:rgba(18,34,60,.16);
+  --ink:#0b1220;--ink2:#22324a;--muted:#66758a;--faint:#d5deeb;
+  --red:#e54858;--red-g:rgba(229,72,88,.10);
+  --amber:#d88916;--amber-g:rgba(216,137,22,.11);
+  --green:#069668;--green-g:rgba(6,150,104,.10);
+  --purple:#7357dc;--purple-g:rgba(115,87,220,.11);
+  --pink:#d94697;--pink-g:rgba(217,70,151,.10);
+  --shadow-sm:0 1px 2px rgba(21,34,56,.06);
+  --shadow-md:0 14px 34px rgba(52,72,112,.10);
+  --shadow-lg:0 28px 80px rgba(52,72,112,.14);
+  --shadow-glow:0 0 42px rgba(0,184,148,.16);
+  background:
+    radial-gradient(900px 520px at 18% -10%,rgba(79,103,242,.16),transparent 62%),
+    radial-gradient(700px 420px at 100% 5%,rgba(0,184,148,.10),transparent 64%),
+    linear-gradient(180deg,#f7faff 0%,#f2f6fb 45%,#eef3f9 100%)!important;
+  color:var(--ink);
+}
+body.theme-light::before{background-image:linear-gradient(rgba(18,34,60,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(18,34,60,.04) 1px,transparent 1px)}
+body.theme-light .auth-wrap{background:linear-gradient(135deg,#f7faff,#eef4fb)}
+body.theme-light .auth-left{background:radial-gradient(620px 460px at 38% 40%,rgba(79,103,242,.16),transparent 66%)}
+body.theme-light .auth-right{background:rgba(255,255,255,.86);border-left:1px solid rgba(18,34,60,.10)}
+body.theme-light .auth-box,
+body.theme-light .card,
+body.theme-light .metric,
+body.theme-light .qa-btn,
+body.theme-light .cfg-sec,
+body.theme-light .pstat,
+body.theme-light .pcard,
+body.theme-light .crmstat,
+body.theme-light .mkt,
+body.theme-light .term-r,
+body.theme-light .prod{
+  background:rgba(255,255,255,.92)!important;border-color:rgba(18,34,60,.10)!important;box-shadow:0 20px 60px rgba(52,72,112,.10)!important;backdrop-filter:blur(14px);
+}
+body.theme-light .sidebar{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(244,248,253,.98))!important;border-right:1px solid rgba(18,34,60,.10)!important;box-shadow:16px 0 60px rgba(52,72,112,.10)!important}
+body.theme-light .sb-brand,body.theme-light .sb-uname,body.theme-light .card-t,body.theme-light .m-val,body.theme-light .pro-hero h1,body.theme-light .pcard-name,body.theme-light .entity-meta strong{color:var(--ink)!important}
+body.theme-light .sb-sec{color:#9aa7b8!important}body.theme-light .sb-neg{background:rgba(79,103,242,.06)!important;color:#66758a!important;border-color:rgba(18,34,60,.10)!important}
+body.theme-light .sb-item{color:#65738a!important}body.theme-light .sb-item:hover{background:rgba(79,103,242,.07)!important;color:var(--ink)!important}body.theme-light .sb-item.active{background:linear-gradient(135deg,rgba(79,103,242,.12),rgba(0,184,148,.08))!important;color:var(--ink)!important;box-shadow:inset 0 0 0 1px rgba(18,34,60,.08),0 12px 28px rgba(52,72,112,.08)!important}
+body.theme-light .sb-icon{background:rgba(18,34,60,.06)!important}body.theme-light .sb-user{background:rgba(79,103,242,.05)!important;border-color:rgba(18,34,60,.10)!important}
+body.theme-light .tb{background:rgba(255,255,255,.78)!important;border-bottom:1px solid rgba(18,34,60,.10)!important;box-shadow:0 10px 34px rgba(52,72,112,.08)}
+body.theme-light .tb-chip{background:rgba(79,103,242,.09)!important;color:#4056d8!important;border-color:rgba(79,103,242,.16)!important}body.theme-light .tb-live{background:rgba(0,184,148,.09)!important;color:#008f73!important;border-color:rgba(0,184,148,.16)!important}
+body.theme-light .pro-hero{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(247,250,255,.78))!important;border-color:rgba(18,34,60,.10)!important;box-shadow:0 28px 80px rgba(52,72,112,.12)!important}
+body.theme-light .pro-hero-bg{background:radial-gradient(460px 280px at 24% 8%,rgba(79,103,242,.20),transparent 68%),radial-gradient(400px 260px at 92% 24%,rgba(0,184,148,.14),transparent 68%),linear-gradient(135deg,rgba(79,103,242,.05),transparent 50%)!important}
+body.theme-light .pro-hero p,body.theme-light .pro-ai-copy small,body.theme-light .card-s,body.theme-light .m-foot,body.theme-light .feed-tx,body.theme-light .t-svc{color:var(--muted)!important}
+body.theme-light .pro-ai-panel{background:rgba(255,255,255,.72)!important;border-color:rgba(18,34,60,.10)!important}
+body.theme-light .m-label,body.theme-light .ring-stat-label,body.theme-light .cfg-row-s{color:var(--muted)!important}
+body.theme-light .chart-labels{color:#94a3b8!important}
+body.theme-light th{background:#f1f5fb!important;color:#66758a!important;border-color:rgba(18,34,60,.10)!important}body.theme-light td{color:var(--ink)!important;border-color:rgba(18,34,60,.09)!important}body.theme-light tbody tr:hover td{background:#f5f8fc!important}
+body.theme-light .fl-input,body.theme-light .fl-select,body.theme-light .fg input,body.theme-light .fg select,body.theme-light .fg textarea{background:#f6f9fd!important;border-color:rgba(18,34,60,.12)!important;color:var(--ink)!important}
+body.theme-light .modal{background:#fff!important;color:var(--ink)!important}body.theme-light .modal-bg{background:rgba(11,18,32,.36)!important}
+body.theme-light .toast{background:#0b1220!important;color:#fff!important}.theme-label-dark{display:inline}.theme-label-light{display:none}body.theme-light .theme-label-dark{display:none}body.theme-light .theme-label-light{display:inline}
+@media(max-width:560px){.theme-toggle{padding:8px 10px}.theme-toggle span:not(.theme-dot){display:none}}
 
 </style>
 </head>
@@ -516,10 +683,10 @@ tbody tr:hover td{background:var(--off)}
         <div class="auth-mark" id="auth-logo-mark">A</div>
         <div class="auth-name">Agenda<span class="accent">OS</span></div>
       </div>
-      <div class="auth-tag">Sistema inteligente de gestión de citas, clientes y ventas — con agente IA en WhatsApp incluido.</div>
+      <div class="auth-tag">Sistema simple para manejar citas, clientes, servicios, productos, equipo y ventas desde un solo lugar.</div>
       <div class="auth-feat"><div class="auth-feat-ic">📅</div><div class="auth-feat-tx">Agenda online 24/7 con link público</div></div>
-      <div class="auth-feat"><div class="auth-feat-ic">🤖</div><div class="auth-feat-tx">Agente IA por WhatsApp — texto, voz e imagen</div></div>
-      <div class="auth-feat"><div class="auth-feat-ic">💳</div><div class="auth-feat-tx">Terminal de ventas con boleta automática</div></div>
+      <div class="auth-feat"><div class="auth-feat-ic">🤖</div><div class="auth-feat-tx">Asistente de reservas por WhatsApp — responde y agenda por ti</div></div>
+      <div class="auth-feat"><div class="auth-feat-ic">💳</div><div class="auth-feat-tx">Ventas con boleta automática</div></div>
       <div class="auth-feat"><div class="auth-feat-ic">📊</div><div class="auth-feat-tx">CRM, finanzas y reportes en tiempo real</div></div>
       <div class="auth-stats">
         <div class="auth-stat"><div class="auth-stat-v">+240</div><div class="auth-stat-l">Negocios activos</div></div>
@@ -556,7 +723,7 @@ tbody tr:hover td{background:var(--off)}
         <div class="auth-sub">7 días sin tarjeta · Acceso completo</div>
         <div class="auth-trial">
           <div class="auth-trial-dot"></div>
-          <div class="auth-trial-tx">Tu cuenta queda <b>activa de inmediato</b>. Setup del agente IA gratis después.</div>
+          <div class="auth-trial-tx">Tu cuenta queda <b>activa de inmediato</b>. Te ayudamos a dejar lista la agenda y el asistente.</div>
         </div>
         <div class="fl-row">
           <div class="fl"><label class="fl-label">Tu nombre</label><input class="fl-input" id="r-nom" type="text" placeholder="Nombre completo"></div>
@@ -566,7 +733,7 @@ tbody tr:hover td{background:var(--off)}
           <div class="fl"><label class="fl-label">Email</label><input class="fl-input" id="r-email" type="email" placeholder="tu@email.com"></div>
           <div class="fl"><label class="fl-label">WhatsApp</label><input class="fl-input" id="r-tel" type="tel" placeholder="+56 9 ..."></div>
         </div>
-        <div class="fl"><label class="fl-label">Rubro</label><select class="fl-select" id="r-rubro"><option value="">Selecciona</option><option>Negocio de servicios</option><option>Centro de servicios</option><option>Servicios profesionales</option><option>Centro de atención</option><option>Consulta profesional</option><option>Profesional independiente</option><option>Centro profesional</option><option>Centro de atención</option><option>Centro de servicios</option><option>Otro</option></select></div>
+        <div class="fl"><label class="fl-label">Rubro</label><select class="fl-select" id="r-rubro"><option value="">Selecciona</option><option>Barbería</option><option>Salón de belleza</option><option>Spa / Estética</option><option>Médico / Clínica</option><option>Psicología</option><option>Nutricionista</option><option>Dentista</option><option>Veterinaria</option><option>Centro deportivo</option><option>Otro</option></select></div>
         <div class="fl"><label class="fl-label">ID del negocio</label><input class="fl-input" id="r-slug" type="text" placeholder="mi-negocio" autocomplete="off" spellcheck="false" style="font-family:var(--mono)"><div class="fl-help">Tu link público: agendaos.pro/<b id="slug-prev">mi-negocio</b></div></div>
         <div class="fl"><label class="fl-label">Contraseña</label><input class="fl-input" id="r-pass" type="password" placeholder="Mínimo 6 caracteres"></div>
         <button class="auth-btn" id="register-btn">Crear cuenta gratis →</button>
@@ -588,17 +755,17 @@ tbody tr:hover td{background:var(--off)}
   </div>
   <div class="sb-neg" id="sb-neg">—</div>
   <div class="sb-sec">Principal</div>
-  <div class="sb-item active" data-page="dashboard"><i class="sb-icon">⌂</i>Dashboard</div>
-  <div class="sb-item" data-page="citas"><i class="sb-icon">◈</i>Citas</div>
-  <div class="sb-item" data-page="terminal"><i class="sb-icon">▣</i>Terminal</div>
+  <div class="sb-item active" data-page="dashboard"><i class="sb-icon">◈</i>Inicio</div>
+  <div class="sb-item" data-page="citas"><i class="sb-icon">📅</i>Agenda</div>
+  <div class="sb-item" data-page="terminal"><i class="sb-icon">⊡</i>Ventas</div>
   <div class="sb-sec">Clientes</div>
-  <div class="sb-item" data-page="clientes"><i class="sb-icon">◎</i>Clientes</div>
-  <div class="sb-item" data-page="crm"><i class="sb-icon">◌</i>CRM</div>
+  <div class="sb-item" data-page="clientes"><i class="sb-icon">◉</i>Clientes</div>
+  <div class="sb-item" data-page="crm"><i class="sb-icon">◌</i>Mensajes</div>
   <div class="sb-sec">Negocio</div>
-  <div class="sb-item" data-page="productos"><i class="sb-icon">⬢</i>Productos</div>
-  <div class="sb-item" data-page="servicios"><i class="sb-icon">◇</i>Servicios</div>
-  <div class="sb-item" data-page="profesionales"><i class="sb-icon">◉</i>Equipo</div>
-  <div class="sb-item" data-page="finanzas"><i class="sb-icon">◍</i>Finanzas</div>
+  <div class="sb-item" data-page="productos"><i class="sb-icon">◇</i>Productos</div>
+  <div class="sb-item" data-page="servicios"><i class="sb-icon">◎</i>Servicios</div>
+  <div class="sb-item" data-page="profesionales"><i class="sb-icon">◑</i>Equipo</div>
+  <div class="sb-item" data-page="finanzas"><i class="sb-icon">⊕</i>Finanzas</div>
   <div class="sb-item" data-page="config"><i class="sb-icon">⚙</i>Configuración</div>
   <div class="sb-bottom">
     <div class="sb-user">
@@ -612,15 +779,41 @@ tbody tr:hover td{background:var(--off)}
 <div class="main">
   <div class="tb">
     <button class="tb-ham" id="ham-btn">☰</button>
-    <div class="tb-title" id="tb-title">Dashboard</div>
-    <div class="tb-live"><div class="live-dot"></div>En vivo</div>
-    <div class="tb-chip" id="copy-link-btn">↗ Link público</div>
+    <div class="tb-title" id="tb-title">Inicio</div>
+    <div class="tb-live"><div class="live-dot"></div>Actualizado</div>
+    <button class="theme-toggle" id="theme-toggle" type="button" title="Cambiar modo claro/oscuro"><span class="theme-dot">◐</span><span class="theme-label-dark">Modo claro</span><span class="theme-label-light">Modo oscuro</span></button>
+    <div class="tb-chip" id="copy-link-btn">↗ Mi agenda online</div>
   </div>
 
   <div class="content" id="content">
 
     <!-- DASHBOARD -->
     <div class="panel active" id="p-dashboard">
+      <div class="pro-hero">
+        <div class="pro-hero-bg"></div>
+        <div class="pro-hero-main">
+          <div class="pro-kicker"><span></span> Agenda, ventas y clientes · Actualizado</div>
+          <h1>Control completo de tu negocio, simple y visual.</h1>
+          <p>Revisa tus citas, ventas, clientes y mensajes importantes sin complicarte. Todo pensado para operar el día a día de tu negocio.</p>
+          <div class="pro-hero-actions">
+            <button class="btn btn-p" data-modal="nueva-cita">+ Agendar cita</button>
+            <button class="btn btn-s" data-go="citas">Ver agenda</button>
+            <button class="btn btn-os" data-go="terminal">Vender ahora</button>
+          </div>
+        </div>
+        <div class="pro-ai-panel">
+          <div class="pro-ai-orb">24/7</div>
+          <div class="pro-ai-copy">
+            <span>Asistente de reservas</span>
+            <strong>Reservas activas</strong>
+            <small>Ayuda a responder consultas, confirmar citas y mantener tu agenda ordenada.</small>
+          </div>
+          <div class="pro-ai-metrics">
+            <div><b id="pro-ai-citas">24</b><span>mensajes</span></div>
+            <div><b>98%</b><span>disponible</span></div>
+          </div>
+        </div>
+      </div>
       <div class="metrics-row">
         <div class="metric os" data-go="citas">
           <div class="m-top"><div class="m-label">Citas hoy</div><div class="m-icon">📅</div></div>
@@ -640,24 +833,24 @@ tbody tr:hover td{background:var(--off)}
           <div class="m-foot" style="font-size:10px;color:var(--muted)">históricas</div>
         </div>
         <div class="metric purple" data-go="crm">
-          <div class="m-top"><div class="m-label">Asistencia</div><div class="m-icon">✓</div></div>
+          <div class="m-top"><div class="m-label">Citas completadas</div><div class="m-icon">✓</div></div>
           <div class="m-val" id="m-asis">—</div>
           <div class="m-foot"><span class="m-trend up">completadas</span></div>
         </div>
       </div>
 
       <div class="qa-grid">
-        <div class="qa-btn" data-modal="nueva-cita"><span class="qa-icon">📅</span><div class="qa-label">Nueva cita</div></div>
-        <div class="qa-btn" data-go="terminal"><span class="qa-icon">💳</span><div class="qa-label">Terminal</div></div>
-        <div class="qa-btn" data-modal="nuevo-cliente"><span class="qa-icon">👤</span><div class="qa-label">Nuevo cliente</div></div>
-        <div class="qa-btn" data-modal="nuevo-movimiento"><span class="qa-icon">⊕</span><div class="qa-label">Movimiento</div></div>
+        <div class="qa-btn" data-modal="nueva-cita"><span class="qa-icon">📅</span><div class="qa-label">Agendar cita</div></div>
+        <div class="qa-btn" data-go="terminal"><span class="qa-icon">💳</span><div class="qa-label">Ventas</div></div>
+        <div class="qa-btn" data-modal="nuevo-cliente"><span class="qa-icon">👤</span><div class="qa-label">Agregar cliente</div></div>
+        <div class="qa-btn" data-modal="nuevo-movimiento"><span class="qa-icon">⊕</span><div class="qa-label">Registrar movimiento</div></div>
       </div>
 
       <div class="dash-grid-main">
         <div class="card">
           <div class="card-h">
-            <div><div class="card-t">Citas · últimas 2 semanas</div><div class="card-s" id="chart-info"></div></div>
-            <div class="card-tag"><div class="card-tag-dot"></div>Live</div>
+            <div><div class="card-t">Reservas de las últimas 2 semanas</div><div class="card-s" id="chart-info"></div></div>
+            <div class="card-tag"><div class="card-tag-dot"></div>Hoy</div>
           </div>
           <div class="card-b">
             <div class="chart-wrap"><svg id="chart-svg" viewBox="0 0 600 180" preserveAspectRatio="none"></svg></div>
@@ -665,7 +858,7 @@ tbody tr:hover td{background:var(--off)}
           </div>
         </div>
         <div class="card">
-          <div class="card-h"><div class="card-t">Asistencia</div></div>
+          <div class="card-h"><div class="card-t">Citas completadas</div></div>
           <div class="card-b ring-wrap">
             <svg width="120" height="120" viewBox="0 0 120 120" class="ring-svg">
               <circle cx="60" cy="60" r="50" fill="none" stroke="var(--faint)" stroke-width="10"/>
@@ -684,11 +877,11 @@ tbody tr:hover td{background:var(--off)}
 
       <div class="dash-grid-bot">
         <div class="card">
-          <div class="card-h"><div><div class="card-t">Agenda de hoy</div><div class="card-s" id="dash-fecha-hoy"></div></div><button class="card-act" data-go="citas">Ver todas →</button></div>
+          <div class="card-h"><div><div class="card-t">Citas de hoy</div><div class="card-s" id="dash-fecha-hoy"></div></div><button class="card-act" data-go="citas">Ver todas →</button></div>
           <div class="card-b" style="padding:10px 14px"><div class="today-slots" id="today-slots"></div></div>
         </div>
         <div class="card">
-          <div class="card-h"><div class="card-t">Actividad reciente</div></div>
+          <div class="card-h"><div class="card-t">Últimos movimientos</div></div>
           <div class="card-b" style="padding:6px 14px"><div id="feed"></div></div>
         </div>
       </div>
@@ -703,7 +896,7 @@ tbody tr:hover td{background:var(--off)}
             <div class="tab" data-cv="list">≡ Lista</div>
           </div>
         </div>
-        <button class="btn btn-p" data-modal="nueva-cita">+ Nueva cita</button>
+        <button class="btn btn-p" data-modal="nueva-cita">+ Agendar cita</button>
       </div>
       <div class="cv active" id="cv-cal">
         <div class="dash-grid-bot">
@@ -734,7 +927,7 @@ tbody tr:hover td{background:var(--off)}
       <div class="terminal">
         <div class="term-l">
           <div class="card" style="display:flex;flex-direction:column;overflow:hidden;flex:1">
-            <div class="card-h"><div class="card-t">Catálogo</div><div class="search"><span class="search-ic">⌕</span><input id="prod-search" placeholder="Buscar..."></div></div>
+            <div class="card-h"><div class="card-t">Servicios y productos</div><div class="search"><span class="search-ic">⌕</span><input id="prod-search" placeholder="Buscar..."></div></div>
             <div class="prod-grid" id="prod-grid"></div>
           </div>
         </div>
@@ -747,7 +940,7 @@ tbody tr:hover td{background:var(--off)}
               <button class="pago-b sel" data-pago="efectivo">💵 Efectivo</button>
               <button class="pago-b" data-pago="debito">💳 Débito</button>
               <button class="pago-b" data-pago="credito">💳 Crédito</button>
-              <button class="pago-b" data-pago="transferencia">📲 Transfer</button>
+              <button class="pago-b" data-pago="transferencia">📲 Transferencia</button>
             </div>
             <button class="cobrar-b" id="cobrar-btn" disabled>Cobrar $0</button>
           </div>
@@ -759,7 +952,7 @@ tbody tr:hover td{background:var(--off)}
     <div class="panel" id="p-clientes">
       <div class="sec-h">
         <div class="search"><span class="search-ic">⌕</span><input id="s-cli" placeholder="Buscar cliente..."></div>
-        <button class="btn btn-p" data-modal="nuevo-cliente">+ Nuevo cliente</button>
+        <button class="btn btn-p" data-modal="nuevo-cliente">+ Agregar cliente</button>
       </div>
       <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Cliente</th><th>WhatsApp</th><th>Email</th><th>Citas</th><th>Total</th><th>Segmento</th><th></th></tr></thead><tbody id="t-cli"></tbody></table></div></div>
     </div>
@@ -774,16 +967,16 @@ tbody tr:hover td{background:var(--off)}
       </div>
       <div class="dash-grid-bot">
         <div class="card">
-          <div class="card-h"><div class="card-t">Selecciona y envía mensajes</div><button class="btn btn-p" style="font-size:11px" data-modal="enviar-mensaje">💬 Enviar campaña</button></div>
+          <div class="card-h"><div class="card-t">Clientes para contactar</div><button class="btn btn-p" style="font-size:11px" data-modal="enviar-mensaje">💬 Enviar mensaje</button></div>
           <div class="tbl-wrap"><table><thead><tr><th><input type="checkbox" id="chk-all"></th><th>Cliente</th><th>WhatsApp</th><th>Citas</th><th>Segmento</th></tr></thead><tbody id="t-crm"></tbody></table></div>
         </div>
         <div class="card">
-          <div class="card-h"><div class="card-t">Automatizaciones</div></div>
+          <div class="card-h"><div class="card-t">Mensajes automáticos</div></div>
           <div class="card-b" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
             <div class="mkt"><div class="mkt-ic">⭐</div><div class="mkt-info"><div class="mkt-t">Encuesta post-cita</div><div class="mkt-d">Tras completar cada cita</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
             <div class="mkt"><div class="mkt-ic">🔔</div><div class="mkt-info"><div class="mkt-t">Reactivar inactivos</div><div class="mkt-d">Sin visita en 30+ días</div></div><label class="tgl"><input type="checkbox"><div class="tgl-sl"></div></label></div>
             <div class="mkt"><div class="mkt-ic">⏰</div><div class="mkt-info"><div class="mkt-t">Recordatorio 24h</div><div class="mkt-d">Día antes de cita</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
-            <div style="background:var(--os-l);border:1px solid rgba(0,212,170,.18);border-radius:var(--r-md);padding:10px 12px"><div style="font-size:11px;font-weight:800;color:var(--os);margin-bottom:2px">✓ Evolution API conectada</div><div style="font-size:10px;color:var(--muted)">Mensajes desde tu número</div></div>
+            <div style="background:var(--os-l);border:1px solid rgba(0,212,170,.18);border-radius:var(--r-md);padding:10px 12px"><div style="font-size:11px;font-weight:800;color:var(--os);margin-bottom:2px">✓ WhatsApp conectado</div><div style="font-size:10px;color:var(--muted)">Tus clientes reciben mensajes desde el número de tu negocio</div></div>
           </div>
         </div>
       </div>
@@ -792,7 +985,7 @@ tbody tr:hover td{background:var(--off)}
     <!-- PRODUCTOS -->
     <div class="panel" id="p-productos">
       <div class="sec-h"><div class="search"><span class="search-ic">⌕</span><input id="s-prod" placeholder="Buscar producto..."></div><button class="btn btn-p" data-modal="nuevo-producto">+ Producto</button></div>
-      <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>P. compra</th><th>P. venta</th><th>Stock</th><th>Margen</th><th>Activo</th><th></th></tr></thead><tbody id="t-prod"></tbody></table></div></div>
+      <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Producto</th><th>Categoría</th><th>Costo</th><th>Precio</th><th>Stock</th><th>Margen</th><th>Activo</th><th></th></tr></thead><tbody id="t-prod"></tbody></table></div></div>
     </div>
 
     <!-- SERVICIOS -->
@@ -817,7 +1010,7 @@ tbody tr:hover td{background:var(--off)}
         <div class="metric purple"><div class="m-top"><div class="m-label">Comisiones</div><div class="m-icon">%</div></div><div class="m-val" id="fin-com">—</div></div>
       </div>
       <div class="dash-grid-bot">
-        <div class="card"><div class="card-h"><div class="card-t">Movimientos</div><button class="btn btn-p" style="font-size:11px" data-modal="nuevo-movimiento">+ Registrar</button></div><div class="card-b" style="padding:8px 16px" id="fin-movs"></div></div>
+        <div class="card"><div class="card-h"><div class="card-t">Registrar movimientos</div><button class="btn btn-p" style="font-size:11px" data-modal="nuevo-movimiento">+ Registrar</button></div><div class="card-b" style="padding:8px 16px" id="fin-movs"></div></div>
         <div class="card"><div class="card-h"><div class="card-t">Comisiones</div></div><div class="tbl-wrap"><table><thead><tr><th>Profesional</th><th>%</th><th>Citas</th><th>A pagar</th></tr></thead><tbody id="t-com"></tbody></table></div></div>
       </div>
     </div>
@@ -838,7 +1031,7 @@ tbody tr:hover td{background:var(--off)}
       </div>
       <div class="cfg-sec">
         <div class="cfg-sec-t">Información del negocio</div>
-        <div class="f-row"><div class="fg"><label>Nombre</label><input id="cfg-nom"></div><div class="fg"><label>Rubro</label><select id="cfg-rubro"><option>Negocio de servicios</option><option>Centro de servicios</option><option>Servicios profesionales</option><option>Centro de atención</option><option>Consulta profesional</option><option>Profesional independiente</option><option>Centro profesional</option><option>Centro de atención</option><option>Centro de servicios</option><option>Otro</option></select></div></div>
+        <div class="f-row"><div class="fg"><label>Nombre</label><input id="cfg-nom"></div><div class="fg"><label>Rubro</label><select id="cfg-rubro"><option>Barbería</option><option>Salón de belleza</option><option>Spa / Estética</option><option>Médico / Clínica</option><option>Psicología</option><option>Nutricionista</option><option>Dentista</option><option>Veterinaria</option><option>Centro deportivo</option><option>Otro</option></select></div></div>
         <div class="f-row"><div class="fg"><label>WhatsApp</label><input id="cfg-tel"></div><div class="fg"><label>Email</label><input type="email" id="cfg-email"></div></div>
         <div class="fg"><label>Dirección</label><input id="cfg-dir"></div>
         <div class="fg"><label>Slug público</label><input id="cfg-slug" style="font-family:var(--mono)"><div class="fl-help">Tu link: agendaos.pro/<b id="cfg-slug-prev">mi-negocio</b></div></div>
@@ -899,6 +1092,16 @@ let R_FILTER = 'todas';
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+
+function imgOf(o){return o?.image_url||o?.imagen_url||o?.foto_url||o?.foto||o?.avatar_url||''}
+function thumbHTML(o, fallback='◇', alt='Imagen'){
+  const img = imgOf(o);
+  return `<span class="entity-thumb">${img?`<img src="${esc(img)}" alt="${esc(alt)}" loading="lazy">`:fallback}</span>`;
+}
+function productMediaHTML(o, fallback='📦'){
+  const img = imgOf(o);
+  return `<div class="prod-media">${img?`<img src="${esc(img)}" alt="${esc(o?.nombre||'Imagen')}" loading="lazy">`:fallback}</div>`;
+}
 function ini(n){return(n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
 function money(n){return '$'+Math.round(n||0).toLocaleString('es-CL')}
 function tStr(ts){if(!ts)return '—';return new Date(ts).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}
@@ -914,7 +1117,7 @@ function toast(icon,msg,d=3000){$('t-icon').textContent=icon;$('t-msg').textCont
 // ═══════════════════════════════════════════════════════════════════════════
 async function api(ep, body){
   try{
-    const res = await fetch(`${N8N}/${ep}`,{
+    const res = await fetch(`${SISTEMA}/${ep}`,{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':API_KEY},
       body:JSON.stringify({org_id:ORG,...body})
@@ -944,7 +1147,7 @@ async function doLogin(){
   if(!org || !pass){err.textContent='Completa los campos';return}
   btn.disabled=true;btn.textContent='Verificando...';err.textContent='';
   try{
-    const res = await fetch(`${N8N}/agenda-auth`,{
+    const res = await fetch(`${SISTEMA}/agenda-auth`,{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':API_KEY},
       body:JSON.stringify({action:'login',org_id:org,password:pass})
@@ -981,7 +1184,7 @@ async function doRegister(){
   btn.disabled=true;btn.textContent='Creando cuenta...';
 
   try{
-    const res = await fetch(`${N8N}/agenda-auth`,{
+    const res = await fetch(`${SISTEMA}/agenda-auth`,{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':API_KEY},
       body:JSON.stringify({
@@ -1011,7 +1214,7 @@ async function doRegister(){
 }
 
 function demoLogin(){
-  initApp({ok:true,org_id:'demo',nombre:'Negocio de servicios Demo',slug:'barberia-demo',plan:'pro'});
+  initApp({ok:true,org_id:'demo',nombre:'Barbería Demo',slug:'barberia-demo',plan:'pro'});
 }
 
 function initApp(d){
@@ -1028,7 +1231,7 @@ function initApp(d){
   const saved = localStorage.getItem('autix_logo_'+ORG);
   if(saved) applyLogo(saved);
   // Cargar dashboard
-  loadDashboard();
+  loadInicio();
 }
 
 function doLogout(){
@@ -1071,7 +1274,7 @@ function removeLogo(){
 // ═══════════════════════════════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════════════════════
-const PAGE_TITLES = {dashboard:'Dashboard',citas:'Citas',terminal:'Terminal de ventas',clientes:'Clientes',crm:'CRM & Marketing',productos:'Productos',servicios:'Servicios',profesionales:'Equipo profesional',finanzas:'Finanzas',config:'Configuración'};
+const PAGE_TITLES = {dashboard:'Inicio',citas:'Agenda',terminal:'Ventas',clientes:'Clientes',crm:'Mensajes a clientes',productos:'Productos',servicios:'Servicios',profesionales:'Equipo de trabajo',finanzas:'Finanzas',config:'Configuración'};
 
 function nav(page){
   $$('.sb-item').forEach(it => it.classList.remove('active'));
@@ -1083,7 +1286,7 @@ function nav(page){
   closeSidebar();
   // Lazy load data
   switch(page){
-    case 'dashboard': loadDashboard(); break;
+    case 'dashboard': loadInicio(); break;
     case 'citas': loadResv(); loadSvc(); loadProfs(); loadClis(); break;
     case 'terminal': loadProds(); break;
     case 'clientes': loadClis(); break;
@@ -1101,7 +1304,7 @@ function closeSidebar(){$('sidebar').classList.remove('open');$('sb-overlay').cl
 // ═══════════════════════════════════════════════════════════════════════════
 // DASHBOARD
 // ═══════════════════════════════════════════════════════════════════════════
-async function loadDashboard(){
+async function loadInicio(){
   const d = await api('agenda-dashboard', {});
   if(!d) return;
   const m = d.metricas || {};
@@ -1118,8 +1321,8 @@ async function loadDashboard(){
   $('dash-fecha-hoy').textContent = `${dias[now.getDay()]} ${now.getDate()} ${meses[now.getMonth()]}`;
 
   buildChart(d.semana || []);
-  buildServiciorkline('sp-hoy', d.semana || [], '#00d4aa');
-  buildServiciorkline('sp-ing', d.semana || [], '#4361ee');
+  buildSparkline('sp-hoy', d.semana || [], '#00d4aa');
+  buildSparkline('sp-ing', d.semana || [], '#4361ee');
   buildFeed(d.hoy || []);
   buildTodaySlots(d.hoy || []);
   DAYS_WITH_CITAS = new Set((d.semana || []).map(s => s.dia));
@@ -1170,7 +1373,7 @@ function buildChart(semana){
   $('chart-info').textContent = `Máximo: ${max} citas el ${new Date(semana[peak]?.dia).toLocaleDateString('es-CL',{weekday:'long',day:'numeric'})}`;
 }
 
-function buildServiciorkline(id, data, color){
+function buildSparkline(id, data, color){
   const el = $(id); if(!el) return;
   if(!data.length){el.innerHTML='';return}
   const vals = data.map(d => parseInt(d.total||0));
@@ -1256,7 +1459,7 @@ function renderResv(){
 
 async function cambiarEstado(id, estado){
   const r = await api('agenda-reservas', {action:'updateEstado', id, estado});
-  if(r?.ok){toast('✓','Estado actualizado');loadResv();loadDashboard()}
+  if(r?.ok){toast('✓','Estado actualizado');loadResv();loadInicio()}
 }
 
 function buildCalendar(){
@@ -1388,7 +1591,7 @@ function renderSvc(){
   if(!SVC.length){tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="empty-ic">◎</div><div class="empty-tx">Sin servicios. Agrega el primero.</div></div></td></tr>';return}
   tbody.innerHTML = SVC.map(s => `
     <tr>
-      <td style="font-weight:600">${esc(s.nombre)}</td>
+      <td><div class="entity-cell">${thumbHTML(s,'◎',s.nombre)}<div class="entity-meta"><strong>${esc(s.nombre)}</strong><small>${esc(s.descripcion||'Servicio')}</small></div></div></td>
       <td>${s.duracion_min} min</td>
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(s.precio)}</td>
       <td>${s.requiere_pago?'<span class="tag tag-vip">Sí</span>':'<span class="tag tag-new">No</span>'}</td>
@@ -1433,7 +1636,7 @@ function renderProfs(){
     const col = avC(i);
     return `<div class="pcard">
       <div class="pcard-h">
-        <div class="pcard-av" style="background:${col}">${ini(p.nombre)}</div>
+        ${imgOf(p)?`<div class="pcard-av has-photo"><img src="${esc(imgOf(p))}" alt="${esc(p.nombre)}" loading="lazy"></div>`:`<div class="pcard-av" style="background:${col}">${ini(p.nombre)}</div>`}
         <div style="flex:1">
           <div class="pcard-name">${esc(p.nombre)}</div>
           <div class="pcard-role">${esc(p.email||p.telefono||'Sin contacto')}</div>
@@ -1476,7 +1679,7 @@ function renderProds(){
   tbody.innerHTML = PRODS.map(p => {
     const margen = p.precio_venta && p.precio_compra ? Math.round(((p.precio_venta - p.precio_compra)/p.precio_venta)*100) : 0;
     return `<tr>
-      <td style="font-weight:600">${esc(p.nombre)}</td>
+      <td><div class="entity-cell">${thumbHTML(p,'◇',p.nombre)}<div class="entity-meta"><strong>${esc(p.nombre)}</strong><small>${esc(p.categoria||'Producto')}</small></div></div></td>
       <td><span class="tag tag-new">${esc(p.categoria||'—')}</span></td>
       <td style="font-family:var(--mono);font-size:11px">${money(p.precio_compra)}</td>
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(p.precio_venta)}</td>
@@ -1492,17 +1695,19 @@ function renderProdsTerminal(filter=''){
   const grid = $('prod-grid'); if(!grid) return;
   // Combinar productos + servicios
   const items = [
-    ...PRODS.filter(p => p.activo !== false).map(p => ({id:'p'+p.id, nombre:p.nombre, precio:p.precio_venta, emoji:'📦', tipo:'producto'})),
-    ...SVC.filter(s => s.activo !== false).map(s => ({id:'s'+s.id, nombre:s.nombre, precio:s.precio, emoji:'◈', tipo:'servicio'}))
+    ...PRODS.filter(p => p.activo !== false).map(p => ({id:'p'+p.id, nombre:p.nombre, precio:p.precio_venta, emoji:'📦', tipo:'producto', image_url:imgOf(p)})),
+    ...SVC.filter(s => s.activo !== false).map(s => ({id:'s'+s.id, nombre:s.nombre, precio:s.precio, emoji:'◈', tipo:'servicio', image_url:imgOf(s)}))
   ];
   let list = items;
   if(filter) list = items.filter(i => i.nombre.toLowerCase().includes(filter.toLowerCase()));
   if(!list.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-ic">⊡</div><div class="empty-tx">Agrega productos o servicios</div></div>';return}
   grid.innerHTML = list.map(i => `
     <div class="prod" data-id="${i.id}" data-nom="${esc(i.nombre)}" data-precio="${i.precio||0}">
-      <div class="prod-em">${i.emoji}</div>
-      <div class="prod-n">${esc(i.nombre)}</div>
-      <div class="prod-p">${money(i.precio)}</div>
+      ${productMediaHTML(i,i.emoji)}
+      <div class="prod-body">
+        <div class="prod-n">${esc(i.nombre)}</div>
+        <div class="prod-p">${money(i.precio)}</div>
+      </div>
     </div>`).join('');
 }
 
@@ -1631,7 +1836,7 @@ function renderComisiones(){
     const pct = parseFloat(p.comision_pct||15);
     const monto = c * 15000 * (pct/100); // estimado promedio
     return `<tr>
-      <td style="font-weight:600">${esc(p.nombre)}</td>
+      <td><div class="entity-cell">${thumbHTML(p,'◇',p.nombre)}<div class="entity-meta"><strong>${esc(p.nombre)}</strong><small>${esc(p.categoria||'Producto')}</small></div></div></td>
       <td style="font-family:var(--mono)">${pct}%</td>
       <td>${c}</td>
       <td style="font-weight:800;color:var(--purple);font-family:var(--mono)">${money(monto)}</td>
@@ -1664,7 +1869,7 @@ async function saveConfig(){
 // ═══════════════════════════════════════════════════════════════════════════
 const MODAL_TEMPLATES = {
   'nueva-cita': data => ({
-    title: data?.id ? 'Editar cita' : 'Nueva cita',
+    title: data?.id ? 'Editar cita' : 'Agendar cita',
     body: `
       <div class="fg"><label>Cliente</label><input id="mc-cliente" placeholder="Nombre del cliente" value="${esc(data?.cliente_nombre||'')}"></div>
       <div class="f-row">
@@ -1681,7 +1886,7 @@ const MODAL_TEMPLATES = {
     foot: `<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveCita(${data?.id||0})">${data?.id?'Guardar':'Agendar'}</button>`
   }),
   'nuevo-cliente': data => ({
-    title: data?.id ? 'Editar cliente' : 'Nuevo cliente',
+    title: data?.id ? 'Editar cliente' : 'Agregar cliente',
     body: `
       <div class="fg"><label>Nombre completo</label><input id="mc-nom" value="${esc(data?.nombre||'')}"></div>
       <div class="f-row">
@@ -1695,6 +1900,7 @@ const MODAL_TEMPLATES = {
   'nuevo-servicio': data => ({
     title: data?.id ? 'Editar servicio' : 'Nuevo servicio',
     body: `
+      <div class="image-field"><div class="image-preview">🖼️</div><div class="fg"><label>Foto del servicio</label><input id="ms-img" placeholder="URL de imagen" value="${esc(imgOf(data)||'')}"></div></div>
       <div class="fg"><label>Nombre del servicio</label><input id="ms-nom" value="${esc(data?.nombre||'')}"></div>
       <div class="fg"><label>Descripción</label><textarea id="ms-desc" rows="2">${esc(data?.descripcion||'')}</textarea></div>
       <div class="f-row">
@@ -1708,6 +1914,7 @@ const MODAL_TEMPLATES = {
   'nuevo-prof': data => ({
     title: data?.id ? 'Editar profesional' : 'Nuevo profesional',
     body: `
+      <div class="image-field"><div class="image-preview">👤</div><div class="fg"><label>Foto del profesional</label><input id="mprof-img" placeholder="URL de imagen" value="${esc(imgOf(data)||'')}"></div></div>
       <div class="fg"><label>Nombre completo</label><input id="mp-nom" value="${esc(data?.nombre||'')}"></div>
       <div class="f-row">
         <div class="fg"><label>WhatsApp</label><input id="mp-tel" value="${esc(data?.telefono||'')}"></div>
@@ -1720,11 +1927,12 @@ const MODAL_TEMPLATES = {
   'nuevo-producto': data => ({
     title: data?.id ? 'Editar producto' : 'Nuevo producto',
     body: `
+      <div class="image-field"><div class="image-preview">📦</div><div class="fg"><label>Foto del producto</label><input id="mprod-img" placeholder="URL de imagen" value="${esc(imgOf(data)||'')}"></div></div>
       <div class="fg"><label>Nombre</label><input id="mp-nom" value="${esc(data?.nombre||'')}"></div>
       <div class="fg"><label>Categoría</label><input id="mp-cat" value="${esc(data?.categoria||'General')}"></div>
       <div class="f-row">
-        <div class="fg"><label>P. compra</label><input id="mp-pc" type="number" value="${data?.precio_compra||0}"></div>
-        <div class="fg"><label>P. venta</label><input id="mp-pv" type="number" value="${data?.precio_venta||0}"></div>
+        <div class="fg"><label>Costo</label><input id="mp-pc" type="number" value="${data?.precio_compra||0}"></div>
+        <div class="fg"><label>Precio</label><input id="mp-pv" type="number" value="${data?.precio_venta||0}"></div>
       </div>
       <div class="fg"><label>Stock inicial</label><input id="mp-stock" type="number" value="${data?.stock||0}"></div>
     `,
@@ -1796,7 +2004,7 @@ async function saveCita(id){
     notas: $('mc-notas').value
   };
   const r = await api('agenda-reservas', {action:'save', data});
-  if(r?.ok){toast('✓','Cita agendada');closeM();loadResv();loadDashboard()}
+  if(r?.ok){toast('✓','Cita agendada');closeM();loadResv();loadInicio()}
 }
 
 async function saveCli(id){
@@ -1817,6 +2025,7 @@ async function saveSvc(id){
     id: id || undefined,
     nombre: $('ms-nom').value,
     descripcion: $('ms-desc').value,
+    image_url: $('ms-img')?.value || '',
     duracion_min: parseInt($('ms-dur').value)||60,
     precio: parseFloat($('ms-precio').value)||0,
     requiere_pago: $('ms-pago').checked
@@ -1831,6 +2040,7 @@ async function saveProf(id){
     id: id || undefined,
     nombre: $('mp-nom').value,
     telefono: $('mp-tel').value,
+    image_url: $('mprof-img')?.value || '',
     email: $('mp-email').value,
     comision_pct: parseFloat($('mp-com').value)||15
   };
@@ -1844,6 +2054,7 @@ async function saveProd(id){
     id: id || undefined,
     nombre: $('mp-nom').value,
     categoria: $('mp-cat').value,
+    image_url: $('mprod-img')?.value || '',
     precio_compra: parseFloat($('mp-pc').value)||0,
     precio_venta: parseFloat($('mp-pv').value)||0,
     stock: parseInt($('mp-stock').value)||0
@@ -1862,7 +2073,7 @@ async function saveMov(){
   };
   if(!data.monto){toast('⚠','Monto requerido');return}
   const r = await api('agenda-movimientos', {action:'save', data});
-  if(r?.ok){toast('✓','Movimiento registrado');closeM();loadFinanzas();loadDashboard()}
+  if(r?.ok){toast('✓','Registrar movimiento registrado');closeM();loadFinanzas();loadInicio()}
 }
 
 async function enviarCampana(tels){
@@ -1870,8 +2081,23 @@ async function enviarCampana(tels){
   if(!msg){toast('⚠','Mensaje vacío');return}
   closeM();
   toast('✓',`Enviando a ${tels.length} clientes...`);
-  // Aquí podría llamar a un endpoint de campañas en n8n
+  // Aquí podría llamar a un endpoint de campañas en sistema
 }
+
+
+
+// Tema claro / oscuro: solo cambia apariencia, no toca datos ni conexión
+function applyTheme(mode){
+  document.body.classList.toggle('theme-light', mode === 'light');
+  try{ localStorage.setItem('agendaos-theme', mode); }catch(e){}
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute('content', mode === 'light' ? '#f7faff' : '#07111f');
+}
+function toggleTheme(){
+  const isLight = document.body.classList.contains('theme-light');
+  applyTheme(isLight ? 'dark' : 'light');
+}
+try{ applyTheme(localStorage.getItem('agendaos-theme') || 'dark'); }catch(e){ applyTheme('dark'); }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // EVENT LISTENERS - todo al final, después de definir todas las funciones
@@ -1901,6 +2127,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('sb-overlay').addEventListener('click', closeSidebar);
   $('logout-btn').addEventListener('click', doLogout);
   $('copy-link-btn').addEventListener('click', copyLink);
+  $('theme-toggle')?.addEventListener('click', toggleTheme);
 
   // Click delegation for data-go and data-modal
   document.addEventListener('click', e => {
