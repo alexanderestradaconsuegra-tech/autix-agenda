@@ -2298,8 +2298,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function getPublicUrl(){
     var slug = slugify(getOrgId());
     var base = location.origin && location.origin !== 'null' ? location.origin : '';
-    if(!slug) return base ? base + '/reservar' : 'reservar';
-    return base ? base + '/reservar?negocio=' + encodeURIComponent(slug) : 'reservar?negocio=' + encodeURIComponent(slug);
+    if(!slug) return base ? base + '/reservar.html' : 'reservar.html';
+    return base ? base + '/reservar.html?negocio=' + encodeURIComponent(slug) : 'reservar.html?negocio=' + encodeURIComponent(slug);
   }
   function notify(text, sub){
     var box = document.getElementById('public-link-help');
