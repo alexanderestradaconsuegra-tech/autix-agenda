@@ -684,6 +684,61 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
   text-rendering:auto;
 }
 
+
+/* ── Link público visible en móvil ── */
+.tb-chip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+@media(max-width:560px){
+  .tb-live{display:none!important}
+  .tb-chip{
+    display:inline-flex!important;
+    font-size:0;
+    width:36px;
+    height:36px;
+    padding:0;
+    border-radius:12px;
+    box-shadow:0 8px 22px rgba(67,97,238,.16);
+  }
+  .tb-chip::before{
+    content:'↗';
+    font-size:16px;
+    line-height:1;
+  }
+}
+.public-link-help{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%) translateY(12px);
+  opacity:0;
+  pointer-events:none;
+  z-index:950;
+  background:var(--dark);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 48px rgba(10,14,26,.32);
+  border-radius:16px;
+  padding:13px 16px;
+  max-width:calc(100vw - 28px);
+  font-size:12px;
+  font-weight:700;
+  transition:all .22s ease;
+}
+.public-link-help.on{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+.public-link-help small{
+  display:block;
+  color:rgba(255,255,255,.62);
+  font-weight:600;
+  margin-top:3px;
+}
+
 </style>
 </head>
 <body>
@@ -691,6 +746,7 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
 <div class="loader" id="loader"><div class="spin"></div><div class="spin-tx" id="loader-tx">Cargando...</div></div>
 <div class="toast" id="toast"><span id="t-icon"></span><span id="t-msg"></span></div>
 <div id="boleta-print"></div>
+<div class="public-link-help" id="public-link-help">Link público copiado<small>Compártelo para que tus clientes reserven desde la web.</small></div>
 
 <!-- AUTH -->
 <div class="auth-wrap" id="auth-wrap">
@@ -2212,6 +2268,84 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(syncHero, 800);
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
+
+
+<script>
+/* Link público estable: no cambia n8n ni endpoints actuales */
+(function(){
+  function getOrgId(){
+    try{
+      var org = window.ORG || window.org || window.currentOrg || null;
+      if(org && typeof org === 'object') return org.slug || org.id || org.org_id || org.negocio_id || '';
+      if(typeof org === 'string') return org;
+      var keys = ['org_id','agendaos_org','org','tenant','business_slug'];
+      for(var i=0;i<keys.length;i++){
+        var v = localStorage.getItem(keys[i]) || sessionStorage.getItem(keys[i]);
+        if(v) return v;
+      }
+      var el = document.getElementById('li-org') || document.getElementById('r-slug');
+      if(el && el.value) return el.value;
+    }catch(e){}
+    return '';
+  }
+  function slugify(v){
+    return String(v || '').trim().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  }
+  function getPublicUrl(){
+    var slug = slugify(getOrgId());
+    var base = location.origin && location.origin !== 'null' ? location.origin : '';
+    if(!slug) return base ? base + '/reservar' : 'reservar';
+    return base ? base + '/reservar?negocio=' + encodeURIComponent(slug) : 'reservar?negocio=' + encodeURIComponent(slug);
+  }
+  function notify(text, sub){
+    var box = document.getElementById('public-link-help');
+    if(!box) return;
+    box.innerHTML = text + (sub ? '<small>'+sub+'</small>' : '');
+    box.classList.add('on');
+    clearTimeout(box._t);
+    box._t = setTimeout(function(){ box.classList.remove('on'); }, 2600);
+  }
+  function copyText(text){
+    if(navigator.clipboard && window.isSecureContext){
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function(resolve,reject){
+      try{
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position='fixed';
+        ta.style.left='-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        resolve();
+      }catch(e){ reject(e); }
+    });
+  }
+  function bind(){
+    var btn = document.getElementById('copy-link-btn');
+    if(!btn || btn.dataset.publicLinkFixed === '1') return;
+    btn.dataset.publicLinkFixed = '1';
+    btn.title = 'Copiar link público de reservas';
+    btn.addEventListener('click', function(ev){
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+      var url = getPublicUrl();
+      copyText(url).then(function(){
+        notify('Link público copiado', url);
+      }).catch(function(){
+        notify('Link público de reservas', url);
+      });
+    }, true);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
 })();
 </script>
 
