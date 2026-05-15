@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reservar cita · AgendaOS</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 :root{
 --bg:#0b1220;
@@ -15,7 +17,11 @@
 --blue:#5b7cff;
 --cyan:#24d7c7;
 }
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 font-family:Inter,sans-serif;
@@ -28,22 +34,27 @@ display:grid;
 place-items:center;
 padding:20px;
 }
+
 .wrap{
 width:min(100%,780px);
 }
+
 .hero{
 margin-bottom:18px;
 text-align:center;
 }
+
 .hero h1{
 margin:0;
 font-size:42px;
 letter-spacing:-.06em;
 }
+
 .hero p{
 color:var(--muted);
 margin-top:10px;
 }
+
 .card{
 background:rgba(17,27,46,.92);
 border:1px solid var(--line);
@@ -52,17 +63,20 @@ padding:24px;
 backdrop-filter:blur(18px);
 box-shadow:0 24px 80px rgba(0,0,0,.35);
 }
+
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:14px;
 }
+
 .fg{
 display:flex;
 flex-direction:column;
 gap:8px;
 margin-bottom:14px;
 }
+
 label{
 font-size:12px;
 text-transform:uppercase;
@@ -70,6 +84,7 @@ letter-spacing:.08em;
 font-weight:800;
 color:var(--muted);
 }
+
 input,select{
 height:52px;
 border-radius:16px;
@@ -80,6 +95,7 @@ padding:0 14px;
 font-size:14px;
 outline:none;
 }
+
 button{
 height:56px;
 border:0;
@@ -93,12 +109,14 @@ width:100%;
 margin-top:8px;
 box-shadow:0 18px 40px rgba(91,124,255,.28);
 }
+
 .slots{
 display:grid;
 grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
 gap:10px;
 margin-top:10px;
 }
+
 .slot{
 height:44px;
 border-radius:14px;
@@ -110,10 +128,13 @@ cursor:pointer;
 background:#0d1729;
 transition:.2s;
 }
-.slot:hover,.slot.active{
+
+.slot:hover,
+.slot.active{
 background:linear-gradient(135deg,var(--blue),var(--cyan));
 border-color:transparent;
 }
+
 .ok{
 display:none;
 margin-top:16px;
@@ -122,21 +143,32 @@ border-radius:16px;
 background:rgba(36,215,199,.12);
 border:1px solid rgba(36,215,199,.22);
 }
+
 @media(max-width:700px){
-.grid{grid-template-columns:1fr}
-.hero h1{font-size:32px}
+.grid{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:32px;
+}
 }
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
+
 <div class="hero">
 <h1>Reserva tu cita</h1>
 <p>Selecciona servicio, horario y confirma tu reserva online.</p>
 </div>
 
 <div class="card">
+
 <div class="grid">
+
 <div class="fg">
 <label>Nombre</label>
 <input id="name" placeholder="Tu nombre">
@@ -174,18 +206,26 @@ border:1px solid rgba(36,215,199,.22);
 <label>Horario disponible</label>
 <div class="slots" id="slots"></div>
 </div>
+
 </div>
 
-<button id="reserveBtn">Confirmar reserva</button>
+<button id="reserveBtn">
+Confirmar reserva
+</button>
 
 <div class="ok" id="okBox">
 Reserva enviada correctamente. Recibirás confirmación por WhatsApp.
 </div>
+
 </div>
+
 </div>
 
 <script>
+
 const N8N = 'https://n8n-n8n.fa2cjf.easypanel.host/webhook';
+
+/* API KEY CORRECTA */
 const API_KEY = 'AUTIX-2025-xK9mP3qR8nL7';
 
 const slots = [
@@ -199,60 +239,105 @@ let selectedSlot = null;
 const slotsWrap = document.getElementById('slots');
 
 slots.forEach(hour=>{
-  const div = document.createElement('div');
-  div.className = 'slot';
-  div.textContent = hour;
 
-  div.onclick = ()=>{
-    document.querySelectorAll('.slot').forEach(s=>s.classList.remove('active'));
-    div.classList.add('active');
-    selectedSlot = hour;
-  };
+const div = document.createElement('div');
 
-  slotsWrap.appendChild(div);
+div.className = 'slot';
+div.textContent = hour;
+
+div.onclick = ()=>{
+
+document.querySelectorAll('.slot')
+.forEach(s=>s.classList.remove('active'));
+
+div.classList.add('active');
+
+selectedSlot = hour;
+
+};
+
+slotsWrap.appendChild(div);
+
 });
 
 document.getElementById('reserveBtn').onclick = async ()=>{
 
-  const payload = {
-    org_id: new URLSearchParams(location.search).get('negocio') || 'demo',
-    nombre: document.getElementById('name').value,
-    telefono: document.getElementById('phone').value,
-    servicio_id: document.getElementById('service').value,
-    profesional_id: document.getElementById('professional').value,
-    fecha: document.getElementById('date').value,
-    hora: selectedSlot,
-    origen: 'pagina_web'
-  };
+const payload = {
 
-  if(!payload.nombre || !payload.telefono || !payload.fecha || !payload.hora){
-    alert('Completa todos los campos');
-    return;
-  }
+org_id:
+new URLSearchParams(location.search)
+.get('negocio') || 'demo',
 
-  try{
+nombre:
+document.getElementById('name').value,
 
-    const r = await fetch(`${N8N}/agenda-public-booking`,{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key':API_KEY
-      },
-      body:JSON.stringify(payload)
-    });
+telefono:
+document.getElementById('phone').value,
 
-    if(!r.ok){
-      throw new Error('Error al reservar');
-    }
+servicio_id:
+document.getElementById('service').value,
 
-    document.getElementById('okBox').style.display='block';
+profesional_id:
+document.getElementById('professional').value,
 
-  }catch(err){
-    console.error(err);
-    alert('No fue posible completar la reserva');
-  }
+fecha:
+document.getElementById('date').value,
+
+hora:selectedSlot,
+
+origen:'pagina_web'
 
 };
+
+if(
+!payload.nombre ||
+!payload.telefono ||
+!payload.fecha ||
+!payload.hora
+){
+alert('Completa todos los campos');
+return;
+}
+
+try{
+
+const r = await fetch(
+`${N8N}/agenda-public-booking`,
+{
+method:'POST',
+
+headers:{
+'Content-Type':'application/json',
+'x-api-key':API_KEY
+},
+
+body:JSON.stringify(payload)
+}
+);
+
+const data = await r.json();
+
+if(!r.ok || data.ok === false){
+throw new Error(data.message || 'Error al reservar');
+}
+
+document.getElementById('okBox')
+.style.display='block';
+
+}catch(err){
+
+console.error(err);
+
+alert(
+err.message ||
+'No fue posible completar la reserva'
+);
+
+}
+
+};
+
 </script>
+
 </body>
 </html>
