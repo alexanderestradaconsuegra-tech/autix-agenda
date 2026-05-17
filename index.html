@@ -891,9 +891,14 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
           <div class="m-spark" id="sp-hoy"></div>
         </div>
         <div class="metric blue" data-go="finanzas">
-          <div class="m-top"><div class="m-label">Ingresos mes</div><div class="m-icon">💰</div></div>
+          <div class="m-top"><div class="m-label">Ingresos</div><div class="m-icon">💰</div></div>
           <div class="m-val" id="m-ing">—</div>
-          <div class="m-foot"><span class="m-trend up">este mes</span></div>
+          <div class="m-foot" style="gap:4px;flex-wrap:wrap">
+            <span id="ing-hoy" onclick="switchPeriodo('hoy')" style="cursor:pointer;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;background:var(--blue-l);color:var(--blue)">Hoy</span>
+            <span id="ing-sem" onclick="switchPeriodo('semana')" style="cursor:pointer;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;color:var(--muted)">Semana</span>
+            <span id="ing-mes" onclick="switchPeriodo('mes')" style="cursor:pointer;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;color:var(--muted)">Mes</span>
+            <span id="ing-anio" onclick="switchPeriodo('anio')" style="cursor:pointer;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;color:var(--muted)">Año</span>
+          </div>
           <div class="m-spark" id="sp-ing"></div>
         </div>
         <div class="metric amber" data-go="citas">
@@ -1366,13 +1371,37 @@ function closeSidebar(){$('sidebar').classList.remove('open');$('sb-overlay').cl
 // ═══════════════════════════════════════════════════════════════════════════
 // DASHBOARD
 // ═══════════════════════════════════════════════════════════════════════════
+// Datos financieros del dashboard
+let DASH_FINANZAS = {};
+
+function switchPeriodo(p){
+  const map = {
+    hoy: ['ing-hoy', DASH_FINANZAS.ingresos_hoy],
+    semana: ['ing-sem', DASH_FINANZAS.ingresos_semana],
+    mes: ['ing-mes', DASH_FINANZAS.ingresos_mes],
+    anio: ['ing-anio', DASH_FINANZAS.ingresos_anio]
+  };
+  // Reset all
+  ['ing-hoy','ing-sem','ing-mes','ing-anio'].forEach(id => {
+    const el = $(id); if(!el) return;
+    el.style.background=''; el.style.color='var(--muted)';
+  });
+  // Activate selected
+  const [activeId, val] = map[p] || map['mes'];
+  const el = $(activeId);
+  if(el){ el.style.background='var(--blue-l)'; el.style.color='var(--blue)'; }
+  $('m-ing').textContent = money(val || 0);
+}
+
 async function loadDashboard(){
   const d = await api('agenda-dashboard', {});
   if(!d) return;
   const m = d.metricas || {};
+  DASH_FINANZAS = m;
   $('m-hoy').textContent = m.reservas_hoy || 0;
   $('m-hoy-t').textContent = (m.reservas_hoy || 0) + ' agendadas';
-  $('m-ing').textContent = money(m.ingresos_mes);
+  $('m-ing').textContent = money(m.ingresos_mes || 0);
+  if($('hero-ing')) $('hero-ing').textContent = money(m.ingresos_mes || 0);
   $('m-tot').textContent = m.total_reservas || 0;
   $('m-asis').textContent = (m.tasa_asistencia || 0) + '%';
   
