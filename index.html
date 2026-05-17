@@ -1278,6 +1278,8 @@ function demoLogin(){
 
 function initApp(d){
   ORG = d.org_id; SLUG = d.slug || d.org_id; PLAN = d.plan || 'trial'; NOMBRE = d.nombre;
+  // Persistir sesión
+  localStorage.setItem('agendaos_session', JSON.stringify({org_id:ORG,slug:SLUG,plan:PLAN,nombre:NOMBRE}));
   $('auth-wrap').style.display='none';
   $('app').style.display='block';
   $('sb-neg').textContent = d.nombre;
@@ -1295,6 +1297,7 @@ function initApp(d){
 
 function doLogout(){
   ORG=''; SLUG=''; PLAN='';
+  localStorage.removeItem('agendaos_session');
   $('app').style.display='none';
   $('auth-wrap').style.display='flex';
   $('li-org').value='';$('li-pass').value='';
@@ -2139,6 +2142,15 @@ async function enviarCampana(tels){
 // EVENT LISTENERS - todo al final, después de definir todas las funciones
 // ═══════════════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+  // Restaurar sesión si existe
+  try {
+    const sess = localStorage.getItem('agendaos_session');
+    if(sess) {
+      const d = JSON.parse(sess);
+      if(d.org_id) { initApp(d); }
+    }
+  } catch(e) { localStorage.removeItem('agendaos_session'); }
+
   // Auth
   $('login-btn').addEventListener('click', doLogin);
   $('register-btn').addEventListener('click', doRegister);
