@@ -494,7 +494,27 @@ tbody tr:hover td{background:var(--off)}
 .gc6{background:linear-gradient(135deg,#ec4899,#db2777)}
 
 #boleta-print{display:none}
-@media print{body *{display:none}#boleta-print,#boleta-print *{display:block}#boleta-print{font-family:'Courier New',monospace;font-size:12px;width:280px;margin:0 auto;padding:10px;color:#000}}
+@media print{
+  body *{visibility:hidden !important;position:absolute !important;overflow:hidden !important}
+  #boleta-print{
+    visibility:visible !important;
+    position:fixed !important;
+    top:0 !important;
+    left:0 !important;
+    width:80mm !important;
+    max-width:80mm !important;
+    margin:0 !important;
+    padding:6mm !important;
+    background:#fff !important;
+    color:#000 !important;
+    font-family:'Courier New',monospace !important;
+    font-size:12px !important;
+    z-index:99999 !important;
+    display:block !important;
+  }
+  #boleta-print *{visibility:visible !important;position:relative !important}
+  @page{size:80mm auto;margin:0}
+}
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1437,25 +1457,22 @@ async function loadDashboard(){
   const d = await api('agenda-dashboard', {});
   if(!d) return;
   const m = d.metricas || {};
-  DASH_FINANZAS = m;
-  $('m-hoy').textContent = m.reservas_hoy || 0;
-  $('m-hoy-t').textContent = (m.reservas_hoy || 0) + ' agendadas';
-  // Parsear a número (llegan como strings desde postgres)
+  // Parsear a número PRIMERO (llegan como strings desde postgres)
   m.ingresos_hoy = parseFloat(m.ingresos_hoy || 0);
   m.ingresos_semana = parseFloat(m.ingresos_semana || 0);
   m.ingresos_mes = parseFloat(m.ingresos_mes || 0);
   m.ingresos_anio = parseFloat(m.ingresos_anio || 0);
   m.egresos_mes = parseFloat(m.egresos_mes || 0);
+  m.reservas_hoy = parseInt(m.reservas_hoy || 0);
+  m.total_reservas = parseInt(m.total_reservas || 0);
+  m.tasa_asistencia = parseInt(m.tasa_asistencia || 0);
+  // Guardar DESPUES de parsear
   DASH_FINANZAS = m;
-  $('m-ing').textContent = money(m.ingresos_mes || 0);
-  if($('hero-ing')) $('hero-ing').textContent = money(m.ingresos_mes || 0);
-  // Activar botón mes por defecto
-  ['ing-hoy','ing-sem','ing-mes','ing-anio'].forEach(id => {
-    const el = $(id); if(!el) return;
-    el.style.background=''; el.style.color='var(--muted)';
-  });
-  const elMes = $('ing-mes');
-  if(elMes){ elMes.style.background='var(--blue-l)'; elMes.style.color='var(--blue)'; }
+  $('m-hoy').textContent = m.reservas_hoy;
+  $('m-hoy-t').textContent = m.reservas_hoy + ' agendadas';
+  // Mostrar ingresos del mes por defecto
+  switchPeriodo('mes');
+  if($('hero-ing')) $('hero-ing').textContent = money(m.ingresos_mes);
   $('m-tot').textContent = m.total_reservas || 0;
   $('m-asis').textContent = (m.tasa_asistencia || 0) + '%';
   
