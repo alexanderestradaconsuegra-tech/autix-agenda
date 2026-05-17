@@ -1400,7 +1400,12 @@ async function loadDashboard(){
   DASH_FINANZAS = m;
   $('m-hoy').textContent = m.reservas_hoy || 0;
   $('m-hoy-t').textContent = (m.reservas_hoy || 0) + ' agendadas';
-  // Mostrar ingresos del mes por defecto y activar botón mes
+  // Parsear a número (llegan como strings desde postgres)
+  m.ingresos_hoy = parseFloat(m.ingresos_hoy || 0);
+  m.ingresos_semana = parseFloat(m.ingresos_semana || 0);
+  m.ingresos_mes = parseFloat(m.ingresos_mes || 0);
+  m.ingresos_anio = parseFloat(m.ingresos_anio || 0);
+  m.egresos_mes = parseFloat(m.egresos_mes || 0);
   DASH_FINANZAS = m;
   $('m-ing').textContent = money(m.ingresos_mes || 0);
   if($('hero-ing')) $('hero-ing').textContent = money(m.ingresos_mes || 0);
