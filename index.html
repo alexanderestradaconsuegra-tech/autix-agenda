@@ -1400,8 +1400,17 @@ async function loadDashboard(){
   DASH_FINANZAS = m;
   $('m-hoy').textContent = m.reservas_hoy || 0;
   $('m-hoy-t').textContent = (m.reservas_hoy || 0) + ' agendadas';
+  // Mostrar ingresos del mes por defecto y activar botón mes
+  DASH_FINANZAS = m;
   $('m-ing').textContent = money(m.ingresos_mes || 0);
   if($('hero-ing')) $('hero-ing').textContent = money(m.ingresos_mes || 0);
+  // Activar botón mes por defecto
+  ['ing-hoy','ing-sem','ing-mes','ing-anio'].forEach(id => {
+    const el = $(id); if(!el) return;
+    el.style.background=''; el.style.color='var(--muted)';
+  });
+  const elMes = $('ing-mes');
+  if(elMes){ elMes.style.background='var(--blue-l)'; elMes.style.color='var(--blue)'; }
   $('m-tot').textContent = m.total_reservas || 0;
   $('m-asis').textContent = (m.tasa_asistencia || 0) + '%';
   
