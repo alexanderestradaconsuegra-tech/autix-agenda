@@ -37,6 +37,13 @@ html,body{height:100%}
 body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:13px;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 button,input,select,textarea{font-family:inherit}
 
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:38px}
+.pw-eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;display:flex;align-items:center;justify-content:center}
+.pw-eye:hover{color:var(--blue)}
+.pw-eye svg{width:18px;height:18px}
+
+
 /* ── LOGIN/REGISTER ── */
 .auth-wrap{position:fixed;inset:0;background:var(--dark);z-index:999;display:flex;overflow:hidden}
 .auth-left{flex:1;display:flex;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden}
@@ -756,7 +763,7 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
     <div class="auth-bg-glow g2"></div>
     <div class="auth-brand">
       <div class="auth-logo">
-        <div class="auth-mark" id="auth-logo-mark">A</div>
+        <div class="auth-mark" id="auth-logo-mark"><img src="https://assets.zyrosite.com/tuxlJ9mU9qc7kZnZ/chatgpt-image-17-may-2026-12_46_53-tK0XB1qT5B8aqHTH.png" style="width:100%;height:100%;object-fit:contain;border-radius:13px" onerror="this.replaceWith(document.createTextNode('A'))"></div>
         <div class="auth-name">Agenda<span class="accent">OS</span></div>
       </div>
       <div class="auth-tag">Administra citas, clientes, servicios, productos y ventas desde un solo lugar.</div>
@@ -773,7 +780,7 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
   <div class="auth-right">
     <div class="auth-box">
       <div class="auth-box-logo">
-        <div class="auth-box-mark">A</div>
+        <div class="auth-box-mark"><img src="https://assets.zyrosite.com/tuxlJ9mU9qc7kZnZ/chatgpt-image-17-may-2026-12_46_53-tK0XB1qT5B8aqHTH.png" style="width:100%;height:100%;object-fit:contain;border-radius:10px" onerror="this.replaceWith(document.createTextNode('A'))"></div>
         <div class="auth-box-name">Agenda<span class="accent">OS</span></div>
       </div>
       <div class="auth-tabs">
@@ -786,7 +793,7 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
         <div class="auth-title">Bienvenido</div>
         <div class="auth-sub">Ingresa con las credenciales de tu negocio</div>
         <div class="fl"><label class="fl-label">ID del negocio</label><input class="fl-input" id="li-org" type="text" placeholder="ej: mi-negocio" autocomplete="off" spellcheck="false"></div>
-        <div class="fl"><label class="fl-label">Contraseña</label><input class="fl-input" id="li-pass" type="password" placeholder="••••••••"></div>
+        <div class="fl"><label class="fl-label">Contraseña</label><div class="pw-wrap"><input class="fl-input" id="li-pass" type="password" placeholder="••••••••"><button type="button" class="pw-eye" onclick="togglePw('li-pass',this)" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
         <button class="auth-btn" id="login-btn">Ingresar →</button>
         <div class="auth-err" id="login-err"></div>
         <div class="auth-divider">o</div>
@@ -811,7 +818,7 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
         </div>
         <div class="fl"><label class="fl-label">Rubro</label><select class="fl-select" id="r-rubro"><option value="">Selecciona</option><option>Negocio de servicios</option><option>Centro de servicios</option><option>Servicios profesionales</option><option>Centro de atención</option><option>Consulta profesional</option><option>Profesional independiente</option><option>Centro profesional</option><option>Centro de atención</option><option>Centro de servicios</option><option>Otro</option></select></div>
         <div class="fl"><label class="fl-label">ID del negocio</label><input class="fl-input" id="r-slug" type="text" placeholder="mi-negocio" autocomplete="off" spellcheck="false" style="font-family:var(--mono)"><div class="fl-help">Tu link público: agendaos.pro/<b id="slug-prev">mi-negocio</b></div></div>
-        <div class="fl"><label class="fl-label">Contraseña</label><input class="fl-input" id="r-pass" type="password" placeholder="Mínimo 6 caracteres"></div>
+        <div class="fl"><label class="fl-label">Contraseña</label><div class="pw-wrap"><input class="fl-input" id="r-pass" type="password" placeholder="Mínimo 6 caracteres"><button type="button" class="pw-eye" onclick="togglePw('r-pass',this)" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
         <button class="auth-btn" id="register-btn">Crear cuenta gratis →</button>
         <div class="auth-err" id="register-err"></div>
       </div>
@@ -825,7 +832,7 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
 <div class="sb-overlay" id="sb-overlay"></div>
 <aside class="sidebar" id="sidebar">
   <div class="sb-top">
-    <div class="sb-mark" id="sb-logo">A</div>
+    <div class="sb-mark" id="sb-logo"><img src="https://assets.zyrosite.com/tuxlJ9mU9qc7kZnZ/chatgpt-image-17-may-2026-12_46_53-tK0XB1qT5B8aqHTH.png" style="width:100%;height:100%;object-fit:contain" onerror="this.replaceWith(document.createTextNode('A'))"></div>
     <div class="sb-brand">Agenda<span class="accent">OS</span></div>
     <button class="sb-close" id="sb-close-btn">✕</button>
   </div>
@@ -1165,6 +1172,15 @@ let R_FILTER = 'todas';
 // ═══════════════════════════════════════════════════════════════════════════
 const $ = id => document.getElementById(id);
 const $$ = sel => document.querySelectorAll(sel);
+function togglePw(id,btn){
+  const inp = $(id); if(!inp) return;
+  const show = inp.type === 'password';
+  inp.type = show ? 'text' : 'password';
+  btn.innerHTML = show
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+}
+
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function ini(n){return(n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
 function money(n){return '$'+Math.round(n||0).toLocaleString('es-CL')}
@@ -1296,8 +1312,32 @@ function initApp(d){
   // Cargar logo guardado
   const saved = localStorage.getItem('autix_logo_'+ORG);
   if(saved) applyLogo(saved);
+  // Cargar configuración del negocio
+  loadConfig();
   // Cargar dashboard
   loadDashboard();
+}
+
+async function loadConfig(){
+  try {
+    const d = await api('agenda-configuracion', {action:'getAll'});
+    if(!d) return;
+    const raw = d.data?.[0]?.datos || d.data?.[0] || {};
+    const cfg = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    CFG = cfg;
+    if($('cfg-nom') && cfg.nombre) $('cfg-nom').value = cfg.nombre;
+    if($('cfg-rubro') && cfg.rubro) $('cfg-rubro').value = cfg.rubro;
+    if($('cfg-tel') && cfg.telefono) $('cfg-tel').value = cfg.telefono;
+    if($('cfg-email') && cfg.email) $('cfg-email').value = cfg.email;
+    if($('cfg-dir') && cfg.direccion) $('cfg-dir').value = cfg.direccion;
+    if($('cfg-slug') && cfg.slug) { $('cfg-slug').value = cfg.slug; $('cfg-slug-prev').textContent = cfg.slug; }
+    if($('cfg-mp') && cfg.mp_activo) $('cfg-mp').checked = cfg.mp_activo;
+    if($('cfg-mp-token') && cfg.mp_token) $('cfg-mp-token').value = cfg.mp_token;
+    if($('cfg-print') && cfg.print_activo !== undefined) $('cfg-print').checked = cfg.print_activo;
+    if($('cfg-print-msg') && cfg.print_msg) $('cfg-print-msg').value = cfg.print_msg;
+    // Update sidebar with config name
+    if(cfg.nombre){ NOMBRE = cfg.nombre; $('sb-neg').textContent = cfg.nombre; $('sb-uname').textContent = cfg.nombre; }
+  } catch(e) { console.error('Error loading config:', e); }
 }
 
 function doLogout(){
@@ -1884,15 +1924,35 @@ async function cobrar(){
 
 function imprimirBoleta(items, total){
   const msg = $('cfg-print-msg')?.value || '¡Gracias por tu visita!';
+  const dir = $('cfg-dir')?.value || CFG.direccion || '';
+  const tel = $('cfg-tel')?.value || CFG.telefono || '';
+  const now = new Date();
+  const numBoleta = 'B-' + now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + String(now.getHours()).padStart(2,'0') + String(now.getMinutes()).padStart(2,'0') + String(now.getSeconds()).padStart(2,'0');
+  const pagoLabel = {efectivo:'Efectivo',debito:'Débito',credito:'Crédito',transferencia:'Transferencia'}[PAGO] || PAGO;
+  const subtotal = items.reduce((a,i) => a + i.precio * i.qty, 0);
+
   const html = `
-    <div style="text-align:center;font-weight:700;margin-bottom:8px">${esc(NOMBRE)}</div>
-    <div style="text-align:center;margin-bottom:8px;font-size:10px">${new Date().toLocaleString('es-CL')}</div>
-    <div style="border-top:1px dashed #000;border-bottom:1px dashed #000;padding:6px 0;margin-bottom:6px">
-      ${items.map(i => `<div style="display:flex;justify-content:space-between"><span>${i.qty}× ${esc(i.nombre)}</span><span>${money(i.precio*i.qty)}</span></div>`).join('')}
+    <div style="text-align:center;padding-bottom:8px;border-bottom:2px solid #000;margin-bottom:8px">
+      <img src="https://assets.zyrosite.com/tuxlJ9mU9qc7kZnZ/chatgpt-image-17-may-2026-12_46_53-tK0XB1qT5B8aqHTH.png" style="width:50px;height:50px;object-fit:contain;margin-bottom:4px" onerror="this.style.display=\'none\'">
+      <div style="font-size:16px;font-weight:900;letter-spacing:-.5px">${esc(NOMBRE)}</div>
+      ${dir ? '<div style="font-size:9px;color:#555;margin-top:2px">' + esc(dir) + '</div>' : ''}
+      ${tel ? '<div style="font-size:9px;color:#555">Tel: ' + esc(tel) + '</div>' : ''}
     </div>
-    <div style="display:flex;justify-content:space-between;font-weight:700;font-size:14px">TOTAL<span>${money(total)}</span></div>
-    <div style="margin-top:8px;font-size:10px">Pago: ${PAGO}</div>
-    <div style="text-align:center;margin-top:12px;font-size:10px">${esc(msg)}</div>
+    <div style="display:flex;justify-content:space-between;font-size:9px;color:#555;margin-bottom:8px">
+      <span>${now.toLocaleDateString('es-CL')} ${now.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</span>
+      <span>${numBoleta}</span>
+    </div>
+    <div style="border-top:1px dashed #000;padding-top:6px;margin-bottom:4px">
+      <div style="display:flex;justify-content:space-between;font-size:9px;font-weight:700;color:#555;margin-bottom:4px;text-transform:uppercase"><span>Item</span><span>Subtotal</span></div>
+      ${items.map(i => '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dotted #ccc"><div><div style="font-weight:700;font-size:11px">' + esc(i.nombre) + '</div><div style="font-size:9px;color:#666">' + i.qty + ' × $' + Math.round(i.precio).toLocaleString('es-CL') + '</div></div><div style="font-weight:700;font-size:11px;white-space:nowrap">' + money(i.precio*i.qty) + '</div></div>').join('')}
+    </div>
+    <div style="border-top:2px solid #000;padding-top:6px;margin-top:4px">
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:#555;margin-bottom:2px"><span>Subtotal</span><span>${money(subtotal)}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:#555;margin-bottom:4px"><span>Pago</span><span>${pagoLabel}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:900;padding:6px 0;border-top:2px solid #000;border-bottom:2px solid #000"><span>TOTAL</span><span>${money(total)}</span></div>
+    </div>
+    <div style="text-align:center;margin-top:10px;font-size:10px;color:#555">${esc(msg)}</div>
+    <div style="text-align:center;margin-top:6px;font-size:8px;color:#999">Powered by AgendaOS</div>
   `;
   $('boleta-print').innerHTML = html;
   setTimeout(() => window.print(), 100);
