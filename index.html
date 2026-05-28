@@ -34,8 +34,9 @@
   --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.07);
   --glass-bdr:1px solid rgba(255,255,255,.07);
 }
-/* ── FORCE DARK THEME ALWAYS ── */
-html[data-theme="dark"]{--bg:#07111f;--off:#0b1627;--white:#0f1e30;--bdr:rgba(255,255,255,.07);--bdr2:rgba(255,255,255,.12);--ink:#e8f0ff;--ink2:#a8b8d8;--muted:#5a7090;--faint:rgba(255,255,255,.08)}
+/* ── THEMES ── */
+html[data-theme="dark"]{--bg:#07111f;--off:#0b1627;--white:#0f1e30;--bdr:rgba(255,255,255,.07);--bdr2:rgba(255,255,255,.12);--ink:#e8f0ff;--ink2:#a8b8d8;--muted:#5a7090;--faint:rgba(255,255,255,.08);color-scheme:dark}
+html[data-theme="light"]{--bg:#f4f7fb;--off:#eef1f8;--white:#ffffff;--bdr:#e2e8f2;--bdr2:#c8d4e8;--ink:#0d1117;--ink2:#374151;--muted:#6b7280;--faint:#e2e8f2;color-scheme:light}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:13px;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;color-scheme:dark}
@@ -975,6 +976,85 @@ tbody tr:hover td { background: rgba(79,109,245,.06) !important; }
 .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 @media(max-width:480px){ .f-row { grid-template-columns: 1fr; } }
 
+
+/* ── PHOTO UPLOAD COMPONENT ── */
+.pu-row{display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;margin-bottom:12px}
+.pu-prev{width:72px;height:72px;border-radius:12px;background:rgba(255,255,255,.06);border:1.5px dashed rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;background-size:cover;background-position:center;overflow:hidden}
+.pu-round{border-radius:50%}
+.pu-ic{font-size:22px;color:rgba(168,184,216,.3)}
+.pu-info{flex:1}
+.pu-lbl{font-size:12px;font-weight:700;color:#e8f0ff;margin-bottom:2px}
+.pu-hint{font-size:10px;color:rgba(168,184,216,.35)}
+/* Light theme photo */
+html[data-theme="light"] .pu-row{background:#f8faff;border-color:#e2e8f2}
+html[data-theme="light"] .pu-prev{background:#f0f4ff;border-color:#c8d4e8}
+/* Light theme general */
+html[data-theme="light"] body{background:#f4f7fb;color:#0d1117}
+html[data-theme="light"] .metric{background:linear-gradient(135deg,#fff,#f8faff) !important;border-color:#e2e8f2 !important;box-shadow:0 4px 16px rgba(79,109,245,.06) !important}
+html[data-theme="light"] .m-val{color:#0d1117 !important}
+html[data-theme="light"] .m-label{color:#6b7280 !important}
+html[data-theme="light"] .card{background:#fff !important;border-color:#e2e8f2 !important;box-shadow:0 4px 16px rgba(0,0,0,.06) !important}
+html[data-theme="light"] .card-h{background:#fafbff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .card-t{color:#0d1117 !important}
+html[data-theme="light"] .card-s{color:#6b7280 !important}
+html[data-theme="light"] .tb{background:rgba(255,255,255,.96) !important;border-color:#e2e8f2 !important;box-shadow:0 1px 12px rgba(0,0,0,.06)}
+html[data-theme="light"] .tb-title{color:#0d1117 !important}
+html[data-theme="light"] .tb-live{background:rgba(0,212,170,.1) !important;color:var(--os) !important}
+html[data-theme="light"] .tb-chip{background:#eef1fd !important;color:#4361ee !important;border-color:rgba(67,97,238,.2) !important}
+html[data-theme="light"] .tb-ham{color:#374151 !important}
+html[data-theme="light"] .sec-h{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .content{background:#f4f7fb}
+html[data-theme="light"] th{background:#f8faff !important;color:#6b7280 !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] td{border-color:#e2e8f2 !important;color:#0d1117 !important}
+html[data-theme="light"] tbody tr:hover td{background:#f0f4ff !important}
+html[data-theme="light"] .cal-d{background:#f8faff !important;color:#374151 !important;border-color:transparent !important}
+html[data-theme="light"] .cal-d:hover{background:#eef1fd !important;color:#4361ee !important}
+html[data-theme="light"] .t-slot{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .t-slot.busy{background:linear-gradient(90deg,#eef1fd,#fff) !important}
+html[data-theme="light"] .t-name{color:#0d1117 !important}
+html[data-theme="light"] .feed-item:hover{background:#f4f7fb !important}
+html[data-theme="light"] .feed-tx{color:#374151 !important}
+html[data-theme="light"] .qa-btn{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .qa-btn:hover{background:#eef1fd !important;border-color:rgba(67,97,238,.3) !important}
+html[data-theme="light"] .qa-label{color:#374151 !important}
+html[data-theme="light"] .prod{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .prod-n{color:#0d1117 !important}
+html[data-theme="light"] .pcard{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .pcard-name{color:#0d1117 !important}
+html[data-theme="light"] .term-r{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .cart-it{background:#f8faff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .cart-it-n{color:#0d1117 !important}
+html[data-theme="light"] .modal{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .m-t{color:#0d1117 !important}
+html[data-theme="light"] .fg label{color:#6b7280 !important}
+html[data-theme="light"] .fg input,html[data-theme="light"] .fg select,html[data-theme="light"] .fg textarea{background:#f8faff !important;border-color:#e2e8f2 !important;color:#0d1117 !important}
+html[data-theme="light"] .chip{background:#fff !important;border-color:#e2e8f2 !important;color:#6b7280 !important}
+html[data-theme="light"] .chip.active{background:#eef1fd !important;color:#4361ee !important;border-color:rgba(67,97,238,.3) !important}
+html[data-theme="light"] .cfg-sec{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .cfg-row-l{color:#0d1117 !important}
+html[data-theme="light"] .cfg-row-s{color:#6b7280 !important}
+html[data-theme="light"] .mov-d{color:#0d1117 !important}
+html[data-theme="light"] .mov-f{color:#6b7280 !important}
+html[data-theme="light"] .ring-stat-row{background:#f8faff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .ring-stat-label{color:#6b7280 !important}
+html[data-theme="light"] .ring-stat-val{color:#0d1117 !important}
+html[data-theme="light"] .pstat{background:#f8faff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .pstat-l{color:#6b7280 !important}
+html[data-theme="light"] .mkt{background:#fff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .mkt-t{color:#0d1117 !important}
+html[data-theme="light"] .mkt-d{color:#6b7280 !important}
+html[data-theme="light"] .crmstat{background:#f8faff !important;border-color:#e2e8f2 !important}
+html[data-theme="light"] .crmstat-l{color:#6b7280 !important}
+html[data-theme="light"] ::-webkit-scrollbar-track{background:rgba(0,0,0,.03)}
+html[data-theme="light"] ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12)}
+html[data-theme="light"] .fl-input,html[data-theme="light"] .fl-select{background:#f8faff !important;border-color:#e2e8f2 !important;color:#0d1117 !important}
+html[data-theme="light"] .auth-right{background:rgba(255,255,255,.98) !important}
+html[data-theme="light"] .auth-title{color:#0d1117 !important}
+html[data-theme="light"] .auth-sub{color:#6b7280 !important}
+html[data-theme="light"] .auth-tab{color:#6b7280 !important}
+html[data-theme="light"] .auth-tab.active{background:#fff !important;color:#4361ee !important}
+html[data-theme="light"] .auth-tabs{background:#f0f4ff !important}
+
 /* ── CONFLICT AVAILABILITY INDICATOR ── */
 .slot-conflict-banner {
   background: rgba(242,74,90,.12);
@@ -1599,8 +1679,7 @@ function demoLogin(){
 
 function initApp(d){
   ORG = d.org_id; SLUG = d.slug || d.org_id; PLAN = d.plan || 'trial'; NOMBRE = d.nombre;
-  // Force dark theme always
-  document.documentElement.setAttribute('data-theme','dark');
+  document.documentElement.setAttribute('data-theme', localStorage.getItem('agendaos_theme') || 'dark');
   // Persistir sesión
   localStorage.setItem('agendaos_session', JSON.stringify({org_id:ORG,slug:SLUG,plan:PLAN,nombre:NOMBRE}));
   $('auth-wrap').style.display='none';
@@ -1722,22 +1801,24 @@ function closeSidebar(){$('sidebar').classList.remove('open');$('sb-overlay').cl
 let DASH_FINANZAS = {};
 
 function switchPeriodo(p){
-  const map = {
-    hoy: ['ing-hoy', DASH_FINANZAS.ingresos_hoy],
-    semana: ['ing-sem', DASH_FINANZAS.ingresos_semana],
-    mes: ['ing-mes', DASH_FINANZAS.ingresos_mes],
-    anio: ['ing-anio', DASH_FINANZAS.ingresos_anio]
+  const PERIODS = {
+    hoy:    'ing-hoy',
+    semana: 'ing-sem',
+    mes:    'ing-mes',
+    anio:   'ing-anio'
   };
-  // Reset all
   ['ing-hoy','ing-sem','ing-mes','ing-anio'].forEach(id => {
-    const el = $(id); if(!el) return;
-    el.style.background=''; el.style.color='var(--muted)';
+    const el=$(id); if(!el) return;
+    el.classList.remove('periodo-sel');
+    el.style.cssText='cursor:pointer;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;color:rgba(168,184,216,.35);background:transparent;border:none';
   });
-  // Activate selected
-  const [activeId, val] = map[p] || map['mes'];
+  const activeId = PERIODS[p] || 'ing-mes';
+  const valMap = {hoy:DASH_FINANZAS.ingresos_hoy, semana:DASH_FINANZAS.ingresos_semana, mes:DASH_FINANZAS.ingresos_mes, anio:DASH_FINANZAS.ingresos_anio};
+  const val = valMap[p] ?? DASH_FINANZAS.ingresos_mes;
   const el = $(activeId);
-  if(el){ el.style.background='var(--blue-l)'; el.style.color='var(--blue)'; }
-  $('m-ing').textContent = money(val || 0);
+  if(el) el.style.cssText='cursor:pointer;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;color:#a0b8ff;background:rgba(79,109,245,.2);border:1px solid rgba(79,109,245,.35)';
+  if($('m-ing')) $('m-ing').textContent = money(val || 0);
+  if($('hero-ing')) $('hero-ing').textContent = money(val || 0);
 }
 
 async function loadDashboard(){
@@ -1926,6 +2007,13 @@ async function loadResv(){
   renderResv();
   buildCalendar();
   buildAgendaDay(SEL_DATE);
+  const pend = RESV.filter(r=>r.estado==='pendiente').length;
+  let badge = document.querySelector('[data-page="citas"] .sb-badge');
+  if(!badge && pend > 0){
+    const item = document.querySelector('[data-page="citas"]');
+    if(item){badge=document.createElement('span');badge.className='sb-badge';item.appendChild(badge);}
+  }
+  if(badge){badge.textContent=pend||'';badge.style.display=pend?'':'none';}
 }
 
 function renderResv(){
@@ -2093,7 +2181,7 @@ function renderSvc(){
   if(!SVC.length){tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="empty-ic">◎</div><div class="empty-tx">Sin servicios. Agrega el primero.</div></div></td></tr>';return}
   tbody.innerHTML = SVC.map(s => `
     <tr>
-      <td style="font-weight:600">${esc(s.nombre)}</td>
+      <td><div style="display:flex;align-items:center;gap:10px">${s.foto_url?`<img src="${s.foto_url}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;flex-shrink:0">`:'<div style="width:32px;height:32px;border-radius:8px;background:rgba(79,109,245,.12);display:flex;align-items:center;justify-content:center;color:#4f6df5;font-size:14px;flex-shrink:0">◈</div>'}<span style="font-weight:600">${esc(s.nombre)}</span></div></td>
       <td>${s.duracion_min} min</td>
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(s.precio)}</td>
       <td>${s.requiere_pago?'<span class="tag tag-vip">Sí</span>':'<span class="tag tag-new">No</span>'}</td>
@@ -2138,7 +2226,7 @@ function renderProfs(){
     const col = avC(i);
     return `<div class="pcard">
       <div class="pcard-h">
-        <div class="pcard-av" style="background:${col}">${ini(p.nombre)}</div>
+        <div class="pcard-av" style="${p.foto_url?'background-image:url('+p.foto_url+');background-size:cover;background-position:center':'background:'+col}">${p.foto_url?'':ini(p.nombre)}</div>
         <div style="flex:1">
           <div class="pcard-name">${esc(p.nombre)}</div>
           <div class="pcard-role">${esc(p.email||p.telefono||'Sin contacto')}</div>
@@ -2181,7 +2269,7 @@ function renderProds(){
   tbody.innerHTML = PRODS.map(p => {
     const margen = p.precio_venta && p.precio_compra ? Math.round(((p.precio_venta - p.precio_compra)/p.precio_venta)*100) : 0;
     return `<tr>
-      <td style="font-weight:600">${esc(p.nombre)}</td>
+      <td><div style="display:flex;align-items:center;gap:10px">${p.foto_url?`<img src="${p.foto_url}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;flex-shrink:0">`:'<div style="width:32px;height:32px;border-radius:8px;background:rgba(0,212,170,.1);display:flex;align-items:center;justify-content:center;color:#00d4aa;font-size:14px;flex-shrink:0">⬢</div>'}<span style="font-weight:600">${esc(p.nombre)}</span></div></td>
       <td><span class="tag tag-new">${esc(p.categoria||'—')}</span></td>
       <td style="font-family:var(--mono);font-size:11px">${money(p.precio_compra)}</td>
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(p.precio_venta)}</td>
@@ -2197,15 +2285,15 @@ function renderProdsTerminal(filter=''){
   const grid = $('prod-grid'); if(!grid) return;
   // Combinar productos + servicios
   const items = [
-    ...PRODS.filter(p => p.activo !== false).map(p => ({id:'p'+p.id, nombre:p.nombre, precio:p.precio_venta, emoji:'📦', tipo:'producto'})),
-    ...SVC.filter(s => s.activo !== false).map(s => ({id:'s'+s.id, nombre:s.nombre, precio:s.precio, emoji:'◈', tipo:'servicio'}))
+    ...PRODS.filter(p => p.activo !== false).map(p => ({id:'p'+p.id, nombre:p.nombre, precio:p.precio_venta, emoji:'📦', foto:p.foto_url||'', tipo:'producto'})),
+    ...SVC.filter(s => s.activo !== false).map(s => ({id:'s'+s.id, nombre:s.nombre, precio:s.precio, emoji:'◈', foto:s.foto_url||'', tipo:'servicio'}))
   ];
   let list = items;
   if(filter) list = items.filter(i => i.nombre.toLowerCase().includes(filter.toLowerCase()));
   if(!list.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-ic">⊡</div><div class="empty-tx">Agrega productos o servicios</div></div>';return}
   grid.innerHTML = list.map(i => `
     <div class="prod" data-id="${i.id}" data-nom="${esc(i.nombre)}" data-precio="${i.precio||0}">
-      <div class="prod-em">${i.emoji}</div>
+      ${i.foto?`<div style="width:100%;height:52px;border-radius:8px;background-image:url(${i.foto});background-size:cover;background-position:center;margin-bottom:5px"></div>`:`<div class="prod-em">${i.emoji}</div>`}
       <div class="prod-n">${esc(i.nombre)}</div>
       <div class="prod-p">${money(i.precio)}</div>
     </div>`).join('');
@@ -2427,6 +2515,19 @@ const MODAL_TEMPLATES = {
   'nuevo-servicio': data => ({
     title: data?.id ? 'Editar servicio' : 'Nuevo servicio',
     body: `
+      <div class="pu-row">
+        <div class="pu-prev" id="svc-prev" style="${data?.foto_url?'background-image:url('+esc(data.foto_url)+');background-size:cover;background-position:center':''}">${data?.foto_url?'':'<span class="pu-ic">◈</span>'}</div>
+        <div class="pu-info">
+          <div class="pu-lbl">Foto del servicio</div>
+          <div class="pu-hint">PNG/JPG · máx 600KB</div>
+          <input type="file" id="ms-ff" accept="image/*" style="display:none" onchange="handlePhotoUpload('ms-ff','svc-prev','ms-fb')">
+          <input type="hidden" id="ms-fb" value="${esc(data?.foto_url||'')}">
+          <div style="display:flex;gap:6px;margin-top:6px">
+            <button type="button" class="btn btn-s" style="font-size:10px;padding:5px 10px" onclick="$('ms-ff').click()">Subir foto</button>
+            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="svc-prev" data-hid="ms-fb">✕</button>':''}
+          </div>
+        </div>
+      </div>
       <div class="fg"><label>Nombre del servicio</label><input id="ms-nom" value="${esc(data?.nombre||'')}"></div>
       <div class="fg"><label>Descripción</label><textarea id="ms-desc" rows="2">${esc(data?.descripcion||'')}</textarea></div>
       <div class="f-row">
@@ -2440,6 +2541,19 @@ const MODAL_TEMPLATES = {
   'nuevo-prof': data => ({
     title: data?.id ? 'Editar profesional' : 'Nuevo profesional',
     body: `
+      <div class="pu-row">
+        <div class="pu-prev pu-round" id="prof-prev" style="${data?.foto_url?'background-image:url('+esc(data.foto_url)+');background-size:cover;background-position:center':''}">${data?.foto_url?'':'<span class="pu-ic">'+(data?.nombre?ini(data.nombre):'?')+'</span>'}</div>
+        <div class="pu-info">
+          <div class="pu-lbl">Foto del profesional</div>
+          <div class="pu-hint">PNG/JPG cuadrada · máx 600KB</div>
+          <input type="file" id="prof-ff" accept="image/*" style="display:none" onchange="handlePhotoUpload('prof-ff','prof-prev','prof-fb')">
+          <input type="hidden" id="prof-fb" value="${esc(data?.foto_url||'')}">
+          <div style="display:flex;gap:6px;margin-top:6px">
+            <button type="button" class="btn btn-s" style="font-size:10px;padding:5px 10px" onclick="$('prof-ff').click()">Subir foto</button>
+            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="prof-prev" data-hid="prof-fb">✕</button>':''}
+          </div>
+        </div>
+      </div>
       <div class="fg"><label>Nombre completo</label><input id="mp-nom" value="${esc(data?.nombre||'')}"></div>
       <div class="f-row">
         <div class="fg"><label>WhatsApp</label><input id="mp-tel" value="${esc(data?.telefono||'')}"></div>
@@ -2452,6 +2566,19 @@ const MODAL_TEMPLATES = {
   'nuevo-producto': data => ({
     title: data?.id ? 'Editar producto' : 'Nuevo producto',
     body: `
+      <div class="pu-row">
+        <div class="pu-prev" id="prod-prev" style="${data?.foto_url?'background-image:url('+esc(data.foto_url)+');background-size:cover;background-position:center':''}">${data?.foto_url?'':'<span class="pu-ic">⬢</span>'}</div>
+        <div class="pu-info">
+          <div class="pu-lbl">Foto del producto</div>
+          <div class="pu-hint">PNG/JPG · máx 600KB</div>
+          <input type="file" id="prod-ff" accept="image/*" style="display:none" onchange="handlePhotoUpload('prod-ff','prod-prev','prod-fb')">
+          <input type="hidden" id="prod-fb" value="${esc(data?.foto_url||'')}">
+          <div style="display:flex;gap:6px;margin-top:6px">
+            <button type="button" class="btn btn-s" style="font-size:10px;padding:5px 10px" onclick="$('prod-ff').click()">Subir foto</button>
+            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="prod-prev" data-hid="prod-fb">✕</button>':''}
+          </div>
+        </div>
+      </div>
       <div class="fg"><label>Nombre</label><input id="mp-nom" value="${esc(data?.nombre||'')}"></div>
       <div class="fg"><label>Categoría</label><input id="mp-cat" value="${esc(data?.categoria||'General')}"></div>
       <div class="f-row">
@@ -2509,6 +2636,47 @@ function closeM(){$('modal-bg').classList.remove('open')}
 function closeMOut(e){if(e.target.id==='modal-bg')closeM()}
 
 // SAVES
+
+// ═══════════════════════════════════════════════════════════════════
+// PHOTO UPLOAD HELPERS
+// ═══════════════════════════════════════════════════════════════════
+function handlePhotoUpload(fileInputId, previewId, hiddenId) {
+  const file = document.getElementById(fileInputId)?.files?.[0];
+  if(!file) return;
+  if(file.size > 600 * 1024){ toast('⚠', 'Imagen demasiado grande (máx 600KB)'); return; }
+  if(!file.type.startsWith('image/')){ toast('⚠', 'Solo imágenes PNG/JPG'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const b64 = e.target.result;
+    const preview = document.getElementById(previewId);
+    const hidden = document.getElementById(hiddenId);
+    if(preview){
+      preview.style.backgroundImage = 'url(' + b64 + ')';
+      preview.style.backgroundSize = 'cover';
+      preview.style.backgroundPosition = 'center';
+      const ic = preview.querySelector('.photo-placeholder-ic');
+      if(ic) ic.style.display = 'none';
+    }
+    if(hidden) hidden.value = b64;
+    toast('✓', 'Foto lista para guardar');
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearPhoto(btnOrId, hiddenId) {
+  let previewId, hid;
+  if(typeof btnOrId === 'string'){ previewId = btnOrId; hid = hiddenId; }
+  else { previewId = btnOrId.dataset.prev; hid = btnOrId.dataset.hid; }
+  const preview = document.getElementById(previewId);
+  const hidden = document.getElementById(hid);
+  if(preview){
+    preview.style.backgroundImage = '';
+    const ic = preview.querySelector('.pu-ic');
+    if(ic) ic.style.display = '';
+  }
+  if(hidden) hidden.value = '';
+}
+
 // ── COLLISION DETECTION ──
 function checkConflict(fechaIni, fechaFin, profId, excludeId){
   const start = new Date(fechaIni).getTime();
@@ -2639,10 +2807,12 @@ async function saveSvc(id){
     descripcion: $('ms-desc').value,
     duracion_min: parseInt($('ms-dur').value)||60,
     precio: parseFloat($('ms-precio').value)||0,
-    requiere_pago: $('ms-pago').checked
+    requiere_pago: $('ms-pago').checked,
+    foto_url: $('ms-fb')?.value || ''
   };
   if(!data.nombre){toast('⚠','Nombre requerido');return}
-  const r = await api('agenda-servicios', {action:'save', data});
+  const action = id ? 'update' : 'save';
+  const r = await api('agenda-servicios', {action, data});
   if(r?.ok){toast('✓','Guardado');closeM();loadSvc()}
 }
 
@@ -2652,10 +2822,11 @@ async function saveProf(id){
     nombre: $('mp-nom').value,
     telefono: $('mp-tel').value,
     email: $('mp-email').value,
-    comision_pct: parseFloat($('mp-com').value)||15
+    comision_pct: parseFloat($('mp-com').value)||15,
+    foto_url: $('prof-fb')?.value || ''
   };
   if(!data.nombre){toast('⚠','Nombre requerido');return}
-  const r = await api('agenda-profesionales', {action:'save', data});
+  const r = await api('agenda-profesionales', {action: id ? 'update' : 'save', data});
   if(r?.ok){toast('✓','Guardado');closeM();loadProfs()}
 }
 
@@ -2666,10 +2837,11 @@ async function saveProd(id){
     categoria: $('mp-cat').value,
     precio_compra: parseFloat($('mp-pc').value)||0,
     precio_venta: parseFloat($('mp-pv').value)||0,
-    stock: parseInt($('mp-stock').value)||0
+    stock: parseInt($('mp-stock').value)||0,
+    foto_url: $('prod-fb')?.value || ''
   };
   if(!data.nombre){toast('⚠','Nombre requerido');return}
-  const r = await api('agenda-productos', {action:'save', data});
+  const r = await api('agenda-productos', {action: id ? 'update' : 'save', data});
   if(r?.ok){toast('✓','Guardado');closeM();loadProds()}
 }
 
@@ -2697,8 +2869,8 @@ async function enviarCampana(tels){
 // EVENT LISTENERS - todo al final, después de definir todas las funciones
 // ═══════════════════════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
-  // Force dark theme on mount
-  document.documentElement.setAttribute('data-theme','dark');
+  var savedTh = localStorage.getItem('agendaos_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTh);
   // Restaurar sesión si existe
   try {
     const sess = localStorage.getItem('agendaos_session');
@@ -2801,11 +2973,14 @@ document.addEventListener('DOMContentLoaded', () => {
 (function(){
   function qs(id){return document.getElementById(id)}
   function applyTheme(theme){
-    // Always force dark
-    document.documentElement.setAttribute('data-theme', 'dark');
-    localStorage.setItem('agendaos_theme', 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('agendaos_theme', theme);
+    var btn = qs('theme-toggle-btn');
+    if(btn) btn.innerHTML = theme === 'dark'
+      ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>&nbsp;Claro'
+      : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>&nbsp;Oscuro';
     var meta = document.querySelector('meta[name="theme-color"]');
-    if(meta) meta.setAttribute('content', '#07111f');
+    if(meta) meta.setAttribute('content', theme === 'dark' ? '#07111f' : '#f4f7fb');
   }
   function syncHero(){
     var map = [['hero-hoy','m-hoy'],['hero-ing','m-ing'],['hero-ok','m-asis']];
