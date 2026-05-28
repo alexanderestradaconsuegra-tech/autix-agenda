@@ -4,375 +4,534 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reservar cita · AgendaOS</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
---bg:#0b1220;
---card:#111b2e;
---line:rgba(255,255,255,.08);
---text:#f5f7fb;
---muted:#9aa8bc;
---blue:#5b7cff;
---cyan:#24d7c7;
+  --bg:#07111f;--card:#0d1c30;--line:rgba(255,255,255,.07);
+  --text:#e8f0ff;--muted:#7a90b0;--blue:#4f6df5;--cyan:#00d4aa;
+  --red:#f24a5a;--amber:#f5a623;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-font-family:Inter,sans-serif;
-background:
-radial-gradient(circle at top left, rgba(91,124,255,.25), transparent 30%),
-linear-gradient(180deg,#08111f,#0c1728);
-color:var(--text);
-min-height:100vh;
-display:grid;
-place-items:center;
-padding:20px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:radial-gradient(circle at 20% 0%,rgba(79,109,245,.18),transparent 40%),
+             radial-gradient(circle at 80% 100%,rgba(0,212,170,.12),transparent 40%),
+             linear-gradient(180deg,#07111f,#09142a);
+  color:var(--text);min-height:100vh;
+  display:grid;place-items:start center;padding:24px 16px;
 }
-.wrap{width:min(100%,780px)}
-.hero{margin-bottom:18px;text-align:center}
-.hero h1{margin:0;font-size:42px;letter-spacing:-.06em}
-.hero p{color:var(--muted);margin-top:10px}
+.wrap{width:min(100%,820px);margin:0 auto}
+
+/* HEADER */
+.hdr{text-align:center;margin-bottom:28px}
+.hdr-brand{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:100px;padding:8px 18px 8px 10px}
+.hdr-mark{width:28px;height:28px;border-radius:8px;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff}
+.hdr-name{font-size:13px;font-weight:800;letter-spacing:-.3px}
+.hdr h1{font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:-.06em;
+  background:linear-gradient(135deg,#fff 30%,rgba(0,212,170,.8));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:8px}
+.hdr p{color:var(--muted);font-size:14px}
+
+/* CARD */
 .card{
-background:rgba(17,27,46,.92);
-border:1px solid var(--line);
-border-radius:28px;
-padding:24px;
-backdrop-filter:blur(18px);
-box-shadow:0 24px 80px rgba(0,0,0,.35);
+  background:rgba(13,28,48,.85);border:1px solid var(--line);
+  border-radius:28px;padding:28px;backdrop-filter:blur(20px);
+  box-shadow:0 32px 80px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05);
 }
+
+/* STEPS */
+.steps{display:flex;align-items:center;gap:0;margin-bottom:28px;padding-bottom:24px;
+  border-bottom:1px solid var(--line)}
+.step{display:flex;align-items:center;gap:8px;flex:1}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);color:var(--muted);
+  transition:all .3s}
+.step-label{font-size:11px;font-weight:700;color:var(--muted);transition:all .3s;
+  display:none}
+@media(min-width:500px){.step-label{display:block}}
+.step-line{flex:1;height:1px;background:var(--line);margin:0 8px}
+.step.active .step-num{background:linear-gradient(135deg,var(--blue),var(--cyan));
+  border-color:transparent;color:#fff;box-shadow:0 0 16px rgba(79,109,245,.4)}
+.step.active .step-label{color:var(--text)}
+.step.done .step-num{background:rgba(0,212,170,.15);border-color:rgba(0,212,170,.3);color:var(--cyan)}
+
+/* GRID */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fg{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--muted)}
+@media(max-width:580px){.grid{grid-template-columns:1fr}}
+.span2{grid-column:1/-1}
+
+/* FIELDS */
+.fg{display:flex;flex-direction:column;gap:6px}
+label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:var(--muted)}
 input,select{
-height:52px;
-border-radius:16px;
-border:1px solid var(--line);
-background:#0d1729;
-color:white;
-padding:0 14px;
-font-size:14px;
-outline:none;
-transition:.2s;
+  height:48px;border-radius:14px;border:1.5px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);color:white;padding:0 14px;
+  font-size:13px;font-family:inherit;outline:none;transition:.2s;width:100%;
 }
-input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(91,124,255,.15)}
-button{
-height:56px;
-border:0;
-border-radius:18px;
-font-weight:800;
-font-size:15px;
-cursor:pointer;
-background:linear-gradient(135deg,var(--blue),var(--cyan));
-color:white;
-width:100%;
-margin-top:8px;
-box-shadow:0 18px 40px rgba(91,124,255,.28);
-transition:.2s;
+input::placeholder{color:rgba(122,144,176,.5)}
+input:focus,select:focus{border-color:rgba(79,109,245,.5);
+  box-shadow:0 0 0 3px rgba(79,109,245,.12);background:rgba(79,109,245,.06)}
+select option{background:#0d1c30;color:#e8f0ff}
+
+/* SERVICIO CARDS */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:6px}
+.svc-card{
+  padding:14px;border-radius:16px;border:1.5px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.04);cursor:pointer;transition:.2s;
 }
-button:hover{transform:translateY(-2px);box-shadow:0 24px 50px rgba(91,124,255,.38)}
-button:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:10px}
+.svc-card:hover{border-color:rgba(79,109,245,.3);background:rgba(79,109,245,.08)}
+.svc-card.active{border-color:var(--blue);background:rgba(79,109,245,.15);
+  box-shadow:0 0 20px rgba(79,109,245,.15)}
+.svc-foto{width:100%;height:60px;border-radius:10px;object-fit:cover;margin-bottom:8px;
+  background:rgba(79,109,245,.1);display:flex;align-items:center;justify-content:center;
+  font-size:24px;overflow:hidden}
+.svc-foto img{width:100%;height:100%;object-fit:cover}
+.svc-nom{font-size:12px;font-weight:800;color:var(--text);margin-bottom:3px}
+.svc-info{font-size:10px;color:var(--muted)}
+.svc-price{font-size:13px;font-weight:800;color:var(--cyan);
+  font-family:'JetBrains Mono',monospace;margin-top:4px}
+
+/* PROF CARDS */
+.prof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:6px}
+.prof-card{
+  padding:12px;border-radius:14px;border:1.5px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.04);cursor:pointer;transition:.2s;
+  display:flex;align-items:center;gap:10px;
+}
+.prof-card:hover{border-color:rgba(79,109,245,.3);background:rgba(79,109,245,.06)}
+.prof-card.active{border-color:var(--blue);background:rgba(79,109,245,.15)}
+.prof-av{width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;
+  overflow:hidden}
+.prof-av img{width:100%;height:100%;object-fit:cover}
+.prof-nom{font-size:11px;font-weight:700;color:var(--text)}
+
+/* SLOTS */
+.slots-wrap{margin-top:6px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px}
 .slot{
-height:44px;
-border-radius:14px;
-border:1px solid var(--line);
-display:grid;
-place-items:center;
-font-weight:700;
-cursor:pointer;
-background:#0d1729;
-transition:.2s;
-font-size:13px;
+  height:42px;border-radius:12px;border:1.5px solid rgba(255,255,255,.07);
+  display:grid;place-items:center;font-weight:700;cursor:pointer;
+  background:rgba(255,255,255,.04);transition:.15s;font-size:12px;
+  font-family:'JetBrains Mono',monospace;color:var(--text);
 }
-.slot:hover{background:rgba(91,124,255,.12);border-color:rgba(91,124,255,.3)}
-.slot.active{background:linear-gradient(135deg,var(--blue),var(--cyan));border-color:transparent}
-.ok{
-display:none;
-margin-top:16px;
-padding:18px;
-border-radius:16px;
-background:rgba(36,215,199,.12);
-border:1px solid rgba(36,215,199,.22);
-text-align:center;
-font-size:14px;
-line-height:1.6;
+.slot:hover{background:rgba(79,109,245,.12);border-color:rgba(79,109,245,.3)}
+.slot.sel{background:linear-gradient(135deg,var(--blue),var(--cyan));
+  border-color:transparent;color:#fff;box-shadow:0 6px 20px rgba(79,109,245,.3)}
+.slot.busy{background:rgba(242,74,90,.06);border-color:rgba(242,74,90,.12);
+  color:rgba(242,74,90,.4);cursor:not-allowed;text-decoration:line-through}
+.slots-loading{text-align:center;padding:20px;color:var(--muted);font-size:12px}
+.slots-empty{text-align:center;padding:16px;color:var(--amber);font-size:12px;
+  background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.15);border-radius:12px}
+
+/* BTN */
+.btn-reservar{
+  height:56px;border:0;border-radius:18px;font-weight:900;font-size:15px;
+  font-family:inherit;cursor:pointer;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  color:white;width:100%;margin-top:20px;
+  box-shadow:0 16px 40px rgba(79,109,245,.3);transition:.2s;letter-spacing:-.2px;
 }
-.ok b{color:var(--cyan)}
-.err{
-display:none;
-margin-top:16px;
-padding:18px;
-border-radius:16px;
-background:rgba(239,68,68,.12);
-border:1px solid rgba(239,68,68,.22);
-text-align:center;
-font-size:14px;
-color:#ef4444;
+.btn-reservar:hover{transform:translateY(-2px);box-shadow:0 24px 50px rgba(79,109,245,.4)}
+.btn-reservar:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* FEEDBACK */
+.ok-box{
+  display:none;margin-top:20px;padding:22px;border-radius:18px;text-align:center;
+  background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.2);
 }
-.loader{
-display:none;
-margin-top:10px;
-text-align:center;
-font-size:13px;
-color:var(--muted);
+.ok-icon{font-size:36px;margin-bottom:10px}
+.ok-title{font-size:18px;font-weight:800;color:var(--cyan);margin-bottom:6px}
+.ok-sub{font-size:13px;color:var(--muted);line-height:1.6}
+.ok-detail{margin-top:12px;padding:12px;background:rgba(255,255,255,.04);
+  border-radius:12px;font-size:12px;color:var(--text);font-family:'JetBrains Mono',monospace;
+  text-align:left;line-height:1.8}
+
+.err-box{
+  display:none;margin-top:16px;padding:16px;border-radius:14px;text-align:center;
+  background:rgba(242,74,90,.1);border:1px solid rgba(242,74,90,.2);
+  font-size:13px;color:var(--red);
 }
+
+.loader{display:none;text-align:center;margin-top:12px;font-size:12px;color:var(--muted)}
 .loader.on{display:block}
-.spin{
-display:inline-block;
-width:18px;
-height:18px;
-border:2px solid var(--line);
-border-top-color:var(--cyan);
-border-radius:50%;
-animation:spin .6s linear infinite;
-margin-right:8px;
-vertical-align:middle;
-}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.1);
+  border-top-color:var(--cyan);border-radius:50%;animation:spin .6s linear infinite;
+  margin-right:6px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:700px){
-.grid{grid-template-columns:1fr}
-.hero h1{font-size:32px}
-.slots{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
-}
+
+/* SECTION TITLES */
+.sec-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--line)}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="hero">
-<h1>Reserva tu cita</h1>
-<p>Selecciona servicio, horario y confirma tu reserva online.</p>
-</div>
+  <div class="hdr">
+    <div class="hdr-brand">
+      <div class="hdr-mark">A</div>
+      <div class="hdr-name" id="hdr-negocio">AgendaOS</div>
+    </div>
+    <h1>Reserva tu cita</h1>
+    <p>Elige servicio, profesional y horario disponible</p>
+  </div>
 
-<div class="card">
-<div class="grid">
-<div class="fg">
-<label>Nombre completo</label>
-<input id="name" placeholder="Tu nombre">
-</div>
+  <div class="card">
+    <!-- STEPS -->
+    <div class="steps">
+      <div class="step active" id="step1">
+        <div class="step-num">1</div>
+        <div class="step-label">Tus datos</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step2">
+        <div class="step-num">2</div>
+        <div class="step-label">Servicio</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step3">
+        <div class="step-num">3</div>
+        <div class="step-label">Horario</div>
+      </div>
+    </div>
 
-<div class="fg">
-<label>WhatsApp</label>
-<input id="phone" type="tel" placeholder="+56 9 ...">
-</div>
+    <!-- DATOS -->
+    <div class="sec-title">Tus datos</div>
+    <div class="grid" style="margin-bottom:20px">
+      <div class="fg">
+        <label>Nombre completo *</label>
+        <input id="inp-nombre" placeholder="Tu nombre completo">
+      </div>
+      <div class="fg">
+        <label>WhatsApp *</label>
+        <input id="inp-tel" type="tel" placeholder="+56 9 1234 5678">
+      </div>
+      <div class="fg span2">
+        <label>Email (opcional)</label>
+        <input id="inp-email" type="email" placeholder="tu@email.com">
+      </div>
+    </div>
 
-<div class="fg">
-<label>Email (opcional)</label>
-<input id="email" type="email" placeholder="tu@email.com">
-</div>
+    <!-- SERVICIOS -->
+    <div class="sec-title">Elige un servicio</div>
+    <div class="svc-grid" id="svc-grid">
+      <div class="slots-loading"><span class="spin"></span>Cargando servicios...</div>
+    </div>
 
-<div class="fg">
-<label>Servicio</label>
-<select id="service">
-<option value="">Cargando servicios...</option>
-</select>
-</div>
+    <!-- PROFESIONAL -->
+    <div style="margin-top:20px">
+      <div class="sec-title">Profesional</div>
+      <div class="prof-grid" id="prof-grid">
+        <div class="slots-loading"><span class="spin"></span>Cargando...</div>
+      </div>
+    </div>
 
-<div class="fg">
-<label>Profesional</label>
-<select id="professional">
-<option value="0">Cualquiera disponible</option>
-</select>
-</div>
+    <!-- FECHA Y HORA -->
+    <div style="margin-top:20px">
+      <div class="sec-title">Fecha y horario</div>
+      <div class="grid" style="margin-bottom:14px">
+        <div class="fg span2">
+          <label>Fecha *</label>
+          <input type="date" id="inp-fecha">
+        </div>
+      </div>
+      <div class="slots-wrap">
+        <div class="slots" id="slots-grid">
+          <div class="slots-loading">Selecciona una fecha para ver horarios disponibles</div>
+        </div>
+      </div>
+    </div>
 
-<div class="fg">
-<label>Fecha</label>
-<input type="date" id="date">
-</div>
+    <!-- BOTON -->
+    <button class="btn-reservar" id="btn-reservar" disabled>Confirmar reserva</button>
+    <div class="loader" id="loader"><span class="spin"></span>Procesando tu reserva...</div>
 
-<div class="fg" style="grid-column:1/-1">
-<label>Horario disponible</label>
-<div class="slots" id="slots"></div>
-</div>
-</div>
-
-<button id="reserveBtn">Confirmar reserva</button>
-
-<div class="loader" id="loader"><span class="spin"></span>Reservando...</div>
-
-<div class="ok" id="okBox">
-<b>¡Reserva confirmada!</b><br>
-Recibirás un mensaje de confirmación por WhatsApp.
-</div>
-
-<div class="err" id="errBox"></div>
-</div>
+    <!-- RESULTADO -->
+    <div class="ok-box" id="ok-box">
+      <div class="ok-icon">✅</div>
+      <div class="ok-title">¡Reserva confirmada!</div>
+      <div class="ok-sub">Recibirás confirmación por WhatsApp. Te esperamos.</div>
+      <div class="ok-detail" id="ok-detail"></div>
+    </div>
+    <div class="err-box" id="err-box"></div>
+  </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════════════
-// AGENDAOS · RESERVAS PÚBLICO (SIN API KEY EXPUESTO)
-// ═══════════════════════════════════════════════════════════════════════════
-
 const N8N = 'https://n8n-n8n.fa2cjf.easypanel.host/webhook';
 const API_KEY = 'AUTIX-2025-xK9mP3qR8nL7';
+const params = new URLSearchParams(location.search);
+const ORG_ID = params.get('negocio') || params.get('org') || 'demo';
 
-// Obtener org_id de la URL (ej: agendaos.pro/reservas?negocio=mi-negocio)
-const urlParams = new URLSearchParams(location.search);
-const ORG_ID = urlParams.get('negocio') || urlParams.get('org') || 'demo';
+let SERVICIOS = [], PROFESIONALES = [];
+let selSvc = null, selProf = 0, selSlot = null;
 
-let SERVICIOS = [];
-let PROFESIONALES = [];
-let selectedSlot = null;
+// ── HELPERS ──
+function money(n){ return '$' + Math.round(n||0).toLocaleString('es-CL') }
+function ini(n){ return (n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════════════════════
+// Construir fecha SIN conversión UTC — respetar hora local exacta
+function buildFechaISO(fecha, hora){
+  // Devuelve string local sin Z para que Postgres lo guarde como hora local
+  return `${fecha}T${hora}:00`;
+}
 
-async function init() {
+async function api(ep, body){
+  const res = await fetch(`${N8N}/${ep}`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':API_KEY},
+    body: JSON.stringify(body)
+  });
+  return res.json();
+}
+
+// ── STEP INDICATOR ──
+function setStep(n){
+  [1,2,3].forEach(i => {
+    const el = document.getElementById('step'+i);
+    el.classList.toggle('active', i===n);
+    el.classList.toggle('done', i<n);
+  });
+}
+
+// ── INIT ──
+async function init(){
+  // Fecha mínima hoy
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('inp-fecha').min = today;
+  document.getElementById('inp-fecha').value = today;
+  document.getElementById('inp-fecha').addEventListener('change', loadSlots);
+
   // Cargar servicios
   try {
-    const res = await fetch(`${N8N}/agenda-servicios`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'x-api-key': API_KEY},
-      body: JSON.stringify({org_id: ORG_ID, action: 'getAll'})
-    });
-    const data = await res.json();
-    SERVICIOS = (data.data || []).filter(s => s.activo !== false);
-    
-    const sel = document.getElementById('service');
-    sel.innerHTML = SERVICIOS.length 
-      ? SERVICIOS.map(s => `<option value="${s.id}">${s.nombre} · $${s.precio}</option>`).join('')
-      : '<option value="">Sin servicios disponibles</option>';
-  } catch(e) {
-    console.error('Error cargando servicios:', e);
-  }
+    const d = await api('agenda-servicios', {org_id: ORG_ID, action:'getAll'});
+    SERVICIOS = (d.data||[]).filter(s => s.activo !== false);
+    renderSvc();
+  } catch(e){ console.error(e); }
 
   // Cargar profesionales
   try {
-    const res = await fetch(`${N8N}/agenda-profesionales`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'x-api-key': API_KEY},
-      body: JSON.stringify({org_id: ORG_ID, action: 'getAll'})
-    });
-    const data = await res.json();
-    PROFESIONALES = data.data || [];
-    
-    const sel = document.getElementById('professional');
-    const opts = PROFESIONALES.map(p => `<option value="${p.id}">${p.nombre}</option>`).join('');
-    sel.innerHTML = '<option value="0">Cualquiera disponible</option>' + opts;
-  } catch(e) {
-    console.error('Error cargando profesionales:', e);
-  }
+    const d = await api('agenda-profesionales', {org_id: ORG_ID, action:'getAll'});
+    PROFESIONALES = d.data || [];
+    renderProf();
+  } catch(e){ console.error(e); }
 
-  // Slots horarios
-  const slots = [
-    '09:00','09:30','10:00','10:30','11:00','11:30',
-    '12:00','12:30','15:00','15:30','16:00','16:30',
-    '17:00','17:30','18:00','18:30','19:00'
-  ];
-
-  const slotsWrap = document.getElementById('slots');
-  slots.forEach(hour => {
-    const div = document.createElement('div');
-    div.className = 'slot';
-    div.textContent = hour;
-    div.onclick = () => {
-      document.querySelectorAll('.slot').forEach(s => s.classList.remove('active'));
-      div.classList.add('active');
-      selectedSlot = hour;
-    };
-    slotsWrap.appendChild(div);
-  });
-
-  // Fecha mínima: hoy
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('date').min = today;
-  document.getElementById('date').value = today;
+  // Cargar slots para hoy
+  loadSlots();
 }
 
-// ═══════════════════════════════════════════════════════════════════════════
-// RESERVAR
-// ═══════════════════════════════════════════════════════════════════════════
-
-document.getElementById('reserveBtn').onclick = async () => {
-  const nombre = document.getElementById('name').value.trim();
-  const telefono = document.getElementById('phone').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const servicio_id = parseInt(document.getElementById('service').value);
-  const profesional_id = parseInt(document.getElementById('professional').value);
-  const fecha = document.getElementById('date').value;
-  const hora = selectedSlot;
-
-  const err = document.getElementById('errBox');
-  const ok = document.getElementById('okBox');
-  const loader = document.getElementById('loader');
-  const btn = document.getElementById('reserveBtn');
-
-  err.style.display = 'none';
-  ok.style.display = 'none';
-
-  if (!nombre || !telefono || !fecha || !hora) {
-    err.textContent = 'Por favor completa nombre, WhatsApp, fecha y horario';
-    err.style.display = 'block';
+// ── RENDER SERVICIOS ──
+function renderSvc(){
+  const grid = document.getElementById('svc-grid');
+  if(!SERVICIOS.length){
+    grid.innerHTML = '<div class="slots-empty">No hay servicios disponibles</div>';
     return;
   }
+  grid.innerHTML = SERVICIOS.map(s => `
+    <div class="svc-card" data-id="${s.id}" onclick="selectSvc(${s.id})">
+      <div class="svc-foto">
+        ${s.foto_url ? `<img src="${esc(s.foto_url)}" alt="${esc(s.nombre)}">` : '◈'}
+      </div>
+      <div class="svc-nom">${esc(s.nombre)}</div>
+      <div class="svc-info">${s.duracion_min} min</div>
+      <div class="svc-price">${money(s.precio)}</div>
+    </div>
+  `).join('');
+  // Auto-select primero
+  if(SERVICIOS.length) selectSvc(SERVICIOS[0].id);
+}
 
-  if (!servicio_id) {
-    err.textContent = 'Selecciona un servicio';
-    err.style.display = 'block';
-    return;
-  }
+function selectSvc(id){
+  selSvc = SERVICIOS.find(s => s.id == id);
+  document.querySelectorAll('.svc-card').forEach(c =>
+    c.classList.toggle('active', parseInt(c.dataset.id) === id));
+  setStep(2);
+  loadSlots();
+}
 
-  const servicio = SERVICIOS.find(s => s.id === servicio_id);
-  const profesional = PROFESIONALES.find(p => p.id === profesional_id);
-  
-  const fecha_inicio = `${fecha}T${hora}:00`;
-  const duracion_min = servicio?.duracion_min || 60;
-  const fecha_fin = new Date(new Date(fecha_inicio).getTime() + duracion_min * 60000).toISOString();
+// ── RENDER PROFESIONALES ──
+function renderProf(){
+  const grid = document.getElementById('prof-grid');
+  const cards = [
+    `<div class="prof-card active" data-id="0" onclick="selectProf(0)">
+      <div class="prof-av">★</div>
+      <div class="prof-nom">Cualquiera</div>
+    </div>`
+  ];
+  PROFESIONALES.forEach(p => {
+    cards.push(`
+      <div class="prof-card" data-id="${p.id}" onclick="selectProf(${p.id})">
+        <div class="prof-av">
+          ${p.foto_url ? `<img src="${esc(p.foto_url)}">` : ini(p.nombre)}
+        </div>
+        <div class="prof-nom">${esc(p.nombre)}</div>
+      </div>
+    `);
+  });
+  grid.innerHTML = cards.join('');
+}
 
-  const payload = {
-    org_id: ORG_ID,
-    action: 'save',
-    data: {
-      cliente_nombre: nombre,
-      cliente_tel: telefono,
-      cliente_email: email,
-      servicio_id,
-      servicio_nombre: servicio?.nombre || '',
-      profesional_id: profesional_id || 0,
-      profesional_nombre: profesional?.nombre || '',
-      fecha_inicio,
-      fecha_fin,
-      monto: servicio?.precio || 0,
-      estado: 'confirmada',
-      origen: 'web',
-      notas: ''
+function selectProf(id){
+  selProf = id;
+  document.querySelectorAll('.prof-card').forEach(c =>
+    c.classList.toggle('active', parseInt(c.dataset.id) === id));
+  loadSlots();
+}
+
+// ── SLOTS CON DISPONIBILIDAD REAL ──
+async function loadSlots(){
+  const fecha = document.getElementById('inp-fecha').value;
+  if(!fecha) return;
+  const dur = selSvc?.duracion_min || 60;
+  const grid = document.getElementById('slots-grid');
+  grid.innerHTML = '<div class="slots-loading"><span class="spin"></span>Cargando horarios...</div>';
+  selSlot = null;
+  updateBtn();
+
+  try {
+    const d = await api('agenda-slots', {
+      org_id: ORG_ID,
+      fecha,
+      profesional_id: selProf || 0,
+      duracion_min: dur
+    });
+
+    const slots = d.data || [];
+    if(!slots.length){
+      grid.innerHTML = '<div class="slots-empty">Sin horarios disponibles para esta fecha</div>';
+      return;
     }
+
+    const libres = slots.filter(s => s.disponible);
+    if(!libres.length){
+      grid.innerHTML = '<div class="slots-empty">Todos los horarios están ocupados para esta fecha. Prueba otro día.</div>';
+      return;
+    }
+
+    grid.innerHTML = slots.map(s => `
+      <div class="slot ${s.disponible ? '' : 'busy'}"
+           data-hora="${s.hora}"
+           data-inicio="${s.fecha_inicio}"
+           data-fin="${s.fecha_fin}"
+           onclick="${s.disponible ? 'selectSlot(this)' : ''}">
+        ${s.hora}
+      </div>
+    `).join('');
+    setStep(3);
+  } catch(e){
+    console.error(e);
+    // Fallback: slots fijos si el endpoint no responde
+    const horas = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','14:00','14:30','15:00','15:30','16:00','17:00','17:30','18:00'];
+    grid.innerHTML = horas.map(h => `
+      <div class="slot" data-hora="${h}" onclick="selectSlot(this)">${h}</div>
+    `).join('');
+  }
+}
+
+function selectSlot(el){
+  if(el.classList.contains('busy')) return;
+  document.querySelectorAll('.slot').forEach(s => s.classList.remove('sel'));
+  el.classList.add('sel');
+  selSlot = {
+    hora: el.dataset.hora,
+    fecha_inicio: el.dataset.inicio,
+    fecha_fin: el.dataset.fin
   };
+  updateBtn();
+}
+
+function updateBtn(){
+  document.getElementById('btn-reservar').disabled = !selSlot;
+}
+
+// ── RESERVAR ──
+document.getElementById('btn-reservar').addEventListener('click', async () => {
+  const nombre = document.getElementById('inp-nombre').value.trim();
+  const tel    = document.getElementById('inp-tel').value.trim();
+  const email  = document.getElementById('inp-email').value.trim();
+  const fecha  = document.getElementById('inp-fecha').value;
+
+  const errBox = document.getElementById('err-box');
+  const okBox  = document.getElementById('ok-box');
+  const loader = document.getElementById('loader');
+  const btn    = document.getElementById('btn-reservar');
+
+  errBox.style.display = 'none';
+  okBox.style.display = 'none';
+
+  if(!nombre){ errBox.textContent='Ingresa tu nombre completo'; errBox.style.display='block'; return; }
+  if(!tel){ errBox.textContent='Ingresa tu WhatsApp'; errBox.style.display='block'; return; }
+  if(!selSvc){ errBox.textContent='Selecciona un servicio'; errBox.style.display='block'; return; }
+  if(!selSlot){ errBox.textContent='Selecciona un horario'; errBox.style.display='block'; return; }
+
+  const prof = PROFESIONALES.find(p => p.id === selProf);
+
+  // Usar fecha_inicio y fecha_fin directamente del slot (ya son hora local sin UTC)
+  const fecha_inicio = selSlot.fecha_inicio || buildFechaISO(fecha, selSlot.hora);
+  const fecha_fin    = selSlot.fecha_fin    || buildFechaISO(fecha, selSlot.hora); // fallback
 
   btn.disabled = true;
   loader.classList.add('on');
 
   try {
-    const res = await fetch(`${N8N}/agenda-reservas`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'x-api-key': API_KEY},
-      body: JSON.stringify(payload)
+    const d = await api('agenda-reservas', {
+      org_id: ORG_ID,
+      action: 'save',
+      data: {
+        cliente_nombre:    nombre,
+        cliente_tel:       tel,
+        cliente_email:     email,
+        servicio_id:       selSvc.id,
+        servicio_nombre:   selSvc.nombre,
+        profesional_id:    selProf || 0,
+        profesional_nombre: prof?.nombre || '',
+        fecha_inicio,
+        fecha_fin,
+        monto:   selSvc.precio || 0,
+        estado:  'pendiente',
+        origen:  'web',
+        notas:   ''
+      }
     });
 
-    const data = await res.json();
-
-    if (data.ok || (data.data && data.data.length)) {
-      ok.style.display = 'block';
-      // Limpiar form
-      document.getElementById('name').value = '';
-      document.getElementById('phone').value = '';
-      document.getElementById('email').value = '';
-      document.querySelectorAll('.slot').forEach(s => s.classList.remove('active'));
-      selectedSlot = null;
+    if(d.ok){
+      okBox.style.display = 'block';
+      document.getElementById('ok-detail').innerHTML =
+        `📅 ${new Date(fecha_inicio).toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'})}<br>` +
+        `🕐 ${selSlot.hora}<br>` +
+        `✂️ ${esc(selSvc.nombre)}<br>` +
+        `👤 ${prof ? esc(prof.nombre) : 'Cualquier profesional'}`;
+      // Reset
+      document.getElementById('inp-nombre').value='';
+      document.getElementById('inp-tel').value='';
+      document.getElementById('inp-email').value='';
+      selSlot=null; selSvc=null;
+      document.querySelectorAll('.slot').forEach(s=>s.classList.remove('sel'));
+      document.querySelectorAll('.svc-card').forEach(s=>s.classList.remove('active'));
+      btn.disabled=true;
     } else {
-      throw new Error(data.error || 'Error al reservar');
+      errBox.textContent = d.error || (d.conflict ? 'Ese horario ya fue reservado. Elige otro.' : 'No fue posible completar la reserva.');
+      errBox.style.display = 'block';
     }
-  } catch (e) {
+  } catch(e){
     console.error(e);
-    err.textContent = 'No fue posible completar la reserva. Intenta de nuevo o contáctanos por WhatsApp.';
-    err.style.display = 'block';
+    errBox.textContent = 'Error de conexión. Intenta de nuevo.';
+    errBox.style.display = 'block';
   } finally {
     btn.disabled = false;
     loader.classList.remove('on');
   }
-};
+});
 
-// Init
 init();
 </script>
 </body>
