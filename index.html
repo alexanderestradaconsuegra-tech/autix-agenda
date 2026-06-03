@@ -1907,7 +1907,7 @@ async function loadDashboard(){
   const m = d.metricas || {};
   // Sumar ventas de terminal (movimientos tipo ing) a los ingresos del dashboard
   try {
-    const mv = await api('agenda-movimientos', {action:'getAll'});
+    const mv = await api('agenda-movimientos', {action:'getAll', org_id: ORG});
     if(mv?.data){
       const hoy = new Date().toISOString().split('T')[0];
       const semanaMs = Date.now() - 7*24*60*60*1000;
