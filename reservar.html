@@ -483,24 +483,22 @@ document.getElementById('btn-reservar').addEventListener('click', async () => {
   loader.classList.add('on');
 
   try {
-    const d = await api('agenda-reservas', {
-      org_id: ORG_ID,
-      action: 'save',
-      data: {
-        cliente_nombre:    nombre,
-        cliente_tel:       tel,
-        cliente_email:     email,
-        servicio_id:       selSvc.id,
-        servicio_nombre:   selSvc.nombre,
-        profesional_id:    selProf || 0,
-        profesional_nombre: prof?.nombre || '',
-        fecha_inicio,
-        fecha_fin,
-        monto:   selSvc.precio || 0,
-        estado:  'pendiente',
-        origen:  'web',
-        notas:   ''
-      }
+    // Enviar al endpoint público (agenda-public-booking)
+    // que espera campos en el raíz del body
+    const d = await api('agenda-public-booking', {
+      org_id:             ORG_ID,
+      nombre:             nombre,
+      telefono:           tel,
+      email:              email,
+      servicio_id:        selSvc.id,
+      servicio_nombre:    selSvc.nombre,
+      profesional_id:     selProf || 0,
+      profesional_nombre: prof?.nombre || '',
+      fecha:              fecha,
+      hora:               selSlot.hora,
+      duracion_min:       selSvc.duracion_min || 60,
+      monto:              selSvc.precio || 0,
+      notas:              ''
     });
 
     if(d.ok){
