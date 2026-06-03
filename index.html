@@ -1784,13 +1784,24 @@ function showTrialExpired(nombre){
         Tu prueba gratuita de 7 días ha finalizado.<br>
         Activa tu plan para seguir usando AgendaOS.
       </div>
-      <div class="trial-price">
-        <div class="trial-price-label">Plan Pro mensual</div>
-        <div class="trial-price-val">$9.990</div>
-        <div class="trial-price-period">CLP / mes · cancela cuando quieras</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+        <div class="trial-price" style="cursor:pointer;border:2px solid rgba(79,109,245,.4)" onclick="activarPlan('mensual')">
+          <div class="trial-price-label">Mensual</div>
+          <div class="trial-price-val" style="font-size:24px">$9.990</div>
+          <div class="trial-price-period">CLP / mes</div>
+        </div>
+        <div class="trial-price" style="cursor:pointer;border:2px solid rgba(0,212,170,.4);position:relative" onclick="activarPlan('anual')">
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#00d4aa,#4f6df5);color:#fff;font-size:9px;font-weight:900;padding:2px 8px;border-radius:100px;white-space:nowrap">20% DESCUENTO</div>
+          <div class="trial-price-label">Anual</div>
+          <div class="trial-price-val" style="font-size:24px;color:#00d4aa">$7.992</div>
+          <div class="trial-price-period">CLP / mes · $95.904/año</div>
+        </div>
       </div>
-      <button class="trial-btn" onclick="activarPlan()">
-        Activar plan Pro →
+      <button class="trial-btn" onclick="activarPlan('mensual')">
+        Pagar mensual → $9.990
+      </button>
+      <button class="trial-btn" style="background:linear-gradient(135deg,#00d4aa,#4f6df5);margin-top:8px" onclick="activarPlan('anual')">
+        Pagar anual → $95.904 (ahorra $23.976)
       </button>
       <button class="trial-btn-sec" onclick="document.getElementById('trial-overlay').remove()">
         Continuar en modo demo
@@ -1800,10 +1811,24 @@ function showTrialExpired(nombre){
   document.body.appendChild(overlay);
 }
 
-async function activarPlan(){
-  // Por ahora deriva a WhatsApp con Alexander
-  const msg = encodeURIComponent('Hola, quiero activar mi plan Pro de AgendaOS');
-  window.open('https://wa.me/56992103974?text=' + msg, '_blank');
+async function activarPlan(plan='mensual'){
+  const orgId = ORG || (localStorage.getItem('agendaos_session') ? JSON.parse(localStorage.getItem('agendaos_session')).org_id : '');
+  if(!orgId){ toast('⚠','Inicia sesión primero'); return; }
+  try {
+    const r = await fetch(`${N8N}/agenda-crear-pago`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','x-api-key':API_KEY},
+      body: JSON.stringify({org_id: orgId, plan})
+    });
+    const d = await r.json();
+    if(d.ok && d.checkout_url){
+      window.open(d.checkout_url, '_blank');
+    } else {
+      toast('⚠', 'Error al generar el pago. Intenta de nuevo.');
+    }
+  } catch(e){
+    toast('⚠', 'Error de conexión');
+  }
 }
 
 function demoLogin(){
@@ -3597,6 +3622,17 @@ async function enviarCampana(tels){
 document.addEventListener('DOMContentLoaded', () => {
   var savedTh = localStorage.getItem('agendaos_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTh);
+  // Detectar vuelta de MercadoPago
+  var urlP = new URLSearchParams(location.search);
+  if(urlP.get('pago') === 'ok'){
+    history.replaceState({}, '', location.pathname);
+    setTimeout(()=>{
+      toast('✅', '¡Pago exitoso! Tu plan Pro está activo.');
+    }, 1500);
+  } else if(urlP.get('pago') === 'error'){
+    history.replaceState({}, '', location.pathname);
+    setTimeout(()=>{ toast('⚠','El pago no fue procesado. Intenta de nuevo.'); }, 1000);
+  }
   // Restaurar sesión si existe
   try {
     const sess = localStorage.getItem('agendaos_session');
