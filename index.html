@@ -1868,7 +1868,7 @@ let DASH_FINANZAS = {};
 function switchPeriodo(p){
   const IDS = {hoy:'ing-hoy', semana:'ing-sem', mes:'ing-mes', anio:'ing-anio'};
   document.querySelectorAll('.pbtn').forEach(el => el.classList.remove('pbtn-on'));
-  const activeEl = $(IDS[p] || 'ing-mes');
+  const activeEl = document.getElementById(IDS[p] || 'ing-mes');
   if(activeEl) activeEl.classList.add('pbtn-on');
   const valMap = {
     hoy:    DASH_FINANZAS.ingresos_hoy    || 0,
@@ -1877,8 +1877,14 @@ function switchPeriodo(p){
     anio:   DASH_FINANZAS.ingresos_anio   || 0
   };
   const val = valMap[p] !== undefined ? valMap[p] : valMap.mes;
-  if($('m-ing')) $('m-ing').textContent = money(val);
-  if($('hero-ing')) $('hero-ing').textContent = money(val);
+  // Buscar el elemento de ingresos con querySelector robusto
+  const ingEl = document.getElementById('m-ing') || document.querySelector('[id="m-ing"]');
+  if(ingEl) ingEl.textContent = money(val);
+  // También actualizar el hero si existe
+  const heroEl = document.getElementById('hero-ing');
+  if(heroEl) heroEl.textContent = money(val);
+  // Guardar periodo activo
+  window._periodoActivo = p;
 }
 
 async function loadDashboard(){
