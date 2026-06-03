@@ -2426,7 +2426,7 @@ function changeQty(i, delta){
   renderCart();
 }
 
-async async function cobrar(){
+async function cobrar(){
   const total = CART.reduce((a,c) => a + c.precio*c.qty, 0);
   if(!total){ toast('⚠','Agrega productos al carrito'); return; }
   const items = [...CART];
