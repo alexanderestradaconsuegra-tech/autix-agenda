@@ -3240,7 +3240,12 @@ const MODAL_TEMPLATES = {
   }
 };
 
-function openModal(name, data){
+async function openModal(name, data){
+  // Si es nueva-cita y SVC o PROFS están vacíos, cargar primero
+  if(name === 'nueva-cita'){
+    if(!SVC.length) await loadSvc();
+    if(!PROFS.length) await loadProfs();
+  }
   const tpl = MODAL_TEMPLATES[name];
   if(!tpl) return;
   const m = tpl(data);
@@ -3252,7 +3257,6 @@ function openModal(name, data){
   if(name === 'nueva-cita'){
     const banner = $('mc-conflict-banner');
     if(banner) banner.style.display='';
-    // Trigger initial check with small delay (DOM settled)
     setTimeout(checkSlotAndUpdate, 50);
   }
 }
