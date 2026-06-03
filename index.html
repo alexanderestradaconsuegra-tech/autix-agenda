@@ -1454,11 +1454,12 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
         <div class="card">
           <div class="card-h"><div class="card-t">Automatizaciones</div></div>
           <div class="card-b" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
-            <div class="mkt"><div class="mkt-ic">⭐</div><div class="mkt-info"><div class="mkt-t">Encuesta post-cita</div><div class="mkt-d">Tras completar cada cita</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
-            <div class="mkt"><div class="mkt-ic">🔔</div><div class="mkt-info"><div class="mkt-t">Reactivar inactivos</div><div class="mkt-d">Sin visita en 30+ días</div></div><label class="tgl"><input type="checkbox"><div class="tgl-sl"></div></label></div>
-            <div class="mkt"><div class="mkt-ic">⏰</div><div class="mkt-info"><div class="mkt-t">Recordatorio 1 hora</div><div class="mkt-d">1 hora antes de la cita</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
-            <div class="mkt" id="mkt-cumple"><div class="mkt-ic">🎂</div><div class="mkt-info"><div class="mkt-t">Felicitación cumpleaños</div><div class="mkt-d">El día del cumpleaños del cliente</div></div><label class="tgl"><input type="checkbox" onchange="toggleAutomation('cumpleanos',this.checked)"><div class="tgl-sl"></div></label></div>
-            <div style="background:var(--os-l);border:1px solid rgba(0,212,170,.18);border-radius:var(--r-md);padding:10px 12px"><div style="font-size:11px;font-weight:800;color:var(--os);margin-bottom:2px">✓ Evolution API conectada</div><div style="font-size:10px;color:var(--muted)">Mensajes desde tu número</div></div>
+            <div style="font-size:10px;font-weight:700;color:rgba(168,184,216,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Selecciona un cliente y envía</div>
+            <div class="mkt" style="cursor:pointer" onclick="enviarMensajeAutomatico('encuesta')"><div class="mkt-ic">⭐</div><div class="mkt-info"><div class="mkt-t">Encuesta post-cita</div><div class="mkt-d">Pide opinión tras completar cita</div></div><div style="color:rgba(168,184,216,.4);font-size:18px">›</div></div>
+            <div class="mkt" style="cursor:pointer" onclick="enviarMensajeAutomatico('reactivar')"><div class="mkt-ic">🔔</div><div class="mkt-info"><div class="mkt-t">Reactivar inactivos</div><div class="mkt-d">Para clientes sin visita en 30+ días</div></div><div style="color:rgba(168,184,216,.4);font-size:18px">›</div></div>
+            <div class="mkt" style="cursor:pointer" onclick="enviarMensajeAutomatico('recordatorio')"><div class="mkt-ic">⏰</div><div class="mkt-info"><div class="mkt-t">Recordatorio de cita</div><div class="mkt-d">Recuerda al cliente su próxima cita</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
+            <div class="mkt" style="cursor:pointer" onclick="enviarMensajeAutomatico('cumpleanos')"><div class="mkt-ic">🎂</div><div class="mkt-info"><div class="mkt-t">Felicitación cumpleaños</div><div class="mkt-d">El día del cumpleaños del cliente</div></div><div style="color:rgba(168,184,216,.4);font-size:18px">›</div></div>
+            <div style="background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.12);border-radius:12px;padding:10px 12px;font-size:11px;color:rgba(0,212,170,.7)">💬 Abre WhatsApp Web con el mensaje listo para enviar. Puedes editarlo antes de enviarlo.</div>
           </div>
         </div>
       </div>
@@ -1528,6 +1529,15 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
         </div>
         <div style="margin-top:8px;font-size:11px;color:rgba(168,184,216,.4)">También puedes compartirlo por WhatsApp directamente</div>
         <button class="btn btn-s" id="btn-share-wa" style="margin-top:8px;font-size:11px;width:auto;padding:6px 14px">Compartir por WhatsApp</button>
+      </div>
+      <div class="cfg-sec">
+        <div class="cfg-sec-t">Mensajes de WhatsApp</div>
+        <div style="font-size:11px;color:rgba(168,184,216,.4);margin-bottom:12px">Personaliza los mensajes que se envían a tus clientes. Usa {nombre} para el nombre del cliente.</div>
+        <div class="fg"><label>Recordatorio de cita</label><textarea id="cfg-msg-rec" rows="2" style="resize:vertical;font-size:12px">Hola {nombre}, te recordamos tu cita mañana. ¡Te esperamos! 🗓</textarea></div>
+        <div class="fg"><label>Encuesta post-cita</label><textarea id="cfg-msg-enc" rows="2" style="resize:vertical;font-size:12px">Hola {nombre}, ¿cómo estuvo tu visita? Tu opinión nos ayuda a mejorar ⭐</textarea></div>
+        <div class="fg"><label>Reactivar cliente inactivo</label><textarea id="cfg-msg-react" rows="2" style="resize:vertical;font-size:12px">Hola {nombre}, te echamos de menos 👋 ¿Quieres agendar tu próxima cita? {link}</textarea></div>
+        <div class="fg"><label>Felicitación cumpleaños</label><textarea id="cfg-msg-cumple" rows="2" style="resize:vertical;font-size:12px">¡Feliz cumpleaños {nombre}! 🎂 Te regalamos un descuento especial en tu próxima visita.</textarea></div>
+        <button class="btn btn-p" style="margin-top:4px" onclick="saveMensajes()">Guardar mensajes</button>
       </div>
       <div class="cfg-sec">
         <div class="cfg-sec-t">WhatsApp · Evolution API
@@ -1748,6 +1758,10 @@ function initApp(d){
   if($('cfg-evo-url'))  $('cfg-evo-url').value  = CFG.evo_url       || '';
   if($('cfg-evo-key'))  $('cfg-evo-key').value  = CFG.evo_key       || '';
   if($('cfg-evo-inst')) $('cfg-evo-inst').value = CFG.evo_instancia  || '';
+  if($('cfg-msg-rec'))   $('cfg-msg-rec').value   = CFG.msg_recordatorio || 'Hola {nombre}, te recordamos tu cita. ¡Te esperamos! 🗓';
+  if($('cfg-msg-enc'))   $('cfg-msg-enc').value   = CFG.msg_encuesta    || 'Hola {nombre}, ¿cómo estuvo tu visita? Tu opinión nos ayuda a mejorar ⭐';
+  if($('cfg-msg-react')) $('cfg-msg-react').value = CFG.msg_reactivar   || 'Hola {nombre}, te echamos de menos 👋 Agenda en: {link}';
+  if($('cfg-msg-cumple'))$('cfg-msg-cumple').value= CFG.msg_cumpleanos  || '¡Feliz cumpleaños {nombre}! 🎂';
   const _linkEl = $('cfg-public-link');
   if(_linkEl){ _linkEl.textContent = getPublicLink(); }
   const _waBtn = $('btn-share-wa');
@@ -2813,6 +2827,25 @@ const MODAL_TEMPLATES = {
     `,
     foot: `<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveMov()">Registrar</button>`
   }),
+  'enviar-wa-masivo': data => ({
+    title: `💬 Enviar WhatsApp · ${data.clientes.length} cliente${data.clientes.length>1?'s':''}`,
+    body: `
+      <div class="fg">
+        <label>Mensaje (puedes editarlo antes de enviar)</label>
+        <textarea id="wa-msg-edit" rows="4" style="resize:vertical;font-size:13px">${esc(data.template)}</textarea>
+        <div style="font-size:10px;color:rgba(168,184,216,.4);margin-top:4px">Variables: {nombre} {link} {negocio}</div>
+      </div>
+      <div style="font-size:11px;color:rgba(168,184,216,.5);margin-top:8px">
+        Se abrirá WhatsApp Web por cada cliente. Confirma el envío en cada ventana.
+      </div>
+      <div style="margin-top:10px;display:flex;flex-direction:column;gap:4px;max-height:120px;overflow-y:auto">
+        ${data.clientes.map(c=>`<div style="font-size:11px;padding:6px 10px;background:rgba(255,255,255,.04);border-radius:8px;display:flex;justify-content:space-between"><span>${esc(c.nombre)}</span><span style="color:rgba(168,184,216,.4);font-family:var(--mono)">${esc(c.tel)}</span></div>`).join('')}
+      </div>
+    `,
+    foot: `<button class="btn btn-s" onclick="closeM()">Cancelar</button>
+           <button class="btn btn-p" onclick="enviarWAMasivo(${JSON.stringify(data.clientes).replace(/"/g,'&quot;')})">Abrir WhatsApp →</button>`
+  }),
+
   'guia-mp': () => ({
     title: '💳 Conectar MercadoPago',
     body: `
@@ -3183,11 +3216,73 @@ async function toggleAutomation(tipo, activo){
   toast(activo?'✓':'○', activo?`Automatización activada`:`Automatización desactivada`);
 }
 
-async function enviarWA(tel, nombre){
+async function enviarWAMasivo(clientes){
+  const msg = $('wa-msg-edit')?.value || '';
+  if(!msg){ toast('⚠','Escribe un mensaje'); return; }
+  closeM();
+  let i = 0;
+  for(const cli of clientes){
+    const num = cli.tel.replace(/[^0-9]/g,'');
+    if(!num) continue;
+    const txt = encodeURIComponent(formatWAMsg(msg, cli.nombre));
+    setTimeout(() => window.open('https://wa.me/'+num+'?text='+txt, '_blank'), i * 1500);
+    i++;
+  }
+  toast('✓', `Abriendo WhatsApp para ${i} cliente${i>1?'s':''}...`);
+}
+
+function formatWAMsg(template, nombre, extra={}){
+  return (template||'')
+    .replace(/{nombre}/g, nombre||'')
+    .replace(/{link}/g, getPublicLink())
+    .replace(/{negocio}/g, CFG.nombre||'AgendaOS');
+}
+
+function getMsgTemplate(tipo){
+  const defaults = {
+    recordatorio: $('cfg-msg-rec')?.value  || 'Hola {nombre}, te recordamos tu cita. ¡Te esperamos!',
+    encuesta:     $('cfg-msg-enc')?.value  || 'Hola {nombre}, ¿cómo estuvo tu visita? ⭐',
+    reactivar:    $('cfg-msg-react')?.value|| 'Hola {nombre}, te echamos de menos 👋 Agenda en: {link}',
+    cumpleanos:   $('cfg-msg-cumple')?.value|| '¡Feliz cumpleaños {nombre}! 🎂',
+    general:      'Hola {nombre}, te contactamos desde {negocio}.'
+  };
+  return defaults[tipo] || defaults.general;
+}
+
+async function saveMensajes(){
+  const data = {
+    msg_recordatorio: $('cfg-msg-rec')?.value,
+    msg_encuesta:     $('cfg-msg-enc')?.value,
+    msg_reactivar:    $('cfg-msg-react')?.value,
+    msg_cumpleanos:   $('cfg-msg-cumple')?.value
+  };
+  const r = await api('agenda-configuracion',{org_id:ORG, action:'save', data});
+  if(r?.ok) toast('✓','Mensajes guardados');
+}
+
+function enviarWA(tel, nombre, tipo='general'){
   if(!tel){ toast('⚠','Sin número WhatsApp'); return; }
   const num = tel.replace(/[^0-9]/g,'');
-  const msg = encodeURIComponent(`Hola ${nombre || ''}, te contactamos desde AgendaOS.`);
-  window.open(`https://wa.me/${num}?text=${msg}`, '_blank');
+  if(!num){ toast('⚠','Número inválido'); return; }
+  const template = getMsgTemplate(tipo);
+  const msg = encodeURIComponent(formatWAMsg(template, nombre));
+  window.open('https://wa.me/'+num+'?text='+msg, '_blank');
+}
+
+function enviarMensajeAutomatico(tipo){
+  // Mostrar modal para seleccionar cliente y editar mensaje
+  const sel = Array.from($$('.row-chk:checked'));
+  if(!sel.length){
+    toast('⚠','Selecciona clientes en la tabla primero');
+    return;
+  }
+  const clientes = sel.map(el => ({
+    tel: el.dataset.tel,
+    nombre: el.dataset.name || el.dataset.nombre || ''
+  })).filter(c => c.tel);
+  if(!clientes.length){ toast('⚠','Los clientes seleccionados no tienen WhatsApp'); return; }
+  const template = getMsgTemplate(tipo);
+  openModal('enviar-wa-masivo', {tipo, clientes, template});
 }
 
 async function enviarCampana(tels){
