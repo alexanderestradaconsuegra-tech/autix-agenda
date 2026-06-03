@@ -1748,6 +1748,9 @@ function initApp(d){
   loadConfig();
   // Cargar dashboard
   loadDashboard();
+  // Auto-refresh cada 60s cuando la pestaña está visible
+  if(window._dashTimer) clearInterval(window._dashTimer);
+  window._dashTimer = setInterval(()=>{ if(!document.hidden) loadDashboard(); }, 60000);
 }
 
 function getPublicLink(){
@@ -1902,6 +1905,23 @@ async function loadDashboard(){
   const d = await api('agenda-dashboard', {});
   if(!d) return;
   const m = d.metricas || {};
+  // Sumar ventas de terminal (movimientos tipo ing) a los ingresos del dashboard
+  try {
+    const mv = await api('agenda-movimientos', {action:'getAll'});
+    if(mv?.data){
+      const hoy = new Date().toISOString().split('T')[0];
+      const semanaMs = Date.now() - 7*24*60*60*1000;
+      const mesStr = new Date().toISOString().slice(0,7);
+      const anioStr = new Date().getFullYear().toString();
+      const ings = mv.data.filter(x => x.tipo==='ing');
+      const eg   = mv.data.filter(x => x.tipo==='eg');
+      m.ingresos_hoy    = (parseFloat(m.ingresos_hoy)||0)    + ings.filter(x=>x.fecha?.startsWith(hoy)).reduce((a,x)=>a+parseFloat(x.monto||0),0);
+      m.ingresos_semana = (parseFloat(m.ingresos_semana)||0) + ings.filter(x=>new Date(x.fecha).getTime()>=semanaMs).reduce((a,x)=>a+parseFloat(x.monto||0),0);
+      m.ingresos_mes    = (parseFloat(m.ingresos_mes)||0)    + ings.filter(x=>x.fecha?.startsWith(mesStr)).reduce((a,x)=>a+parseFloat(x.monto||0),0);
+      m.ingresos_anio   = (parseFloat(m.ingresos_anio)||0)   + ings.filter(x=>x.fecha?.startsWith(anioStr)).reduce((a,x)=>a+parseFloat(x.monto||0),0);
+      m.egresos_mes     = (parseFloat(m.egresos_mes)||0)     + eg.filter(x=>x.fecha?.startsWith(mesStr)).reduce((a,x)=>a+parseFloat(x.monto||0),0);
+    }
+  } catch(e){}
   // Parsear a número PRIMERO (llegan como strings desde postgres)
   m.ingresos_hoy = parseFloat(m.ingresos_hoy || 0);
   m.ingresos_semana = parseFloat(m.ingresos_semana || 0);
@@ -2446,10 +2466,12 @@ async function cobrar(){
       }
     });
     if(r?.ok){
-      toast('✓', `Cobro de ${money(total)} registrado`);
+      toast('✓', `Cobro de ${money(total)} registrado · ${PAGO}`);
       if($('cfg-print')?.checked) imprimirBoleta(items, total);
       clearCart();
-      loadDashboard();
+      await loadDashboard();
+      // Refrescar finanzas si está visible
+      if(document.querySelector('#p-finanzas:not([style*="none"])')) loadFinanzas();
     } else {
       toast('⚠', 'Error al registrar la venta');
     }
