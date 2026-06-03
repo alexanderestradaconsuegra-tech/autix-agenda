@@ -1444,7 +1444,8 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
           <div class="card-b" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
             <div class="mkt"><div class="mkt-ic">⭐</div><div class="mkt-info"><div class="mkt-t">Encuesta post-cita</div><div class="mkt-d">Tras completar cada cita</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
             <div class="mkt"><div class="mkt-ic">🔔</div><div class="mkt-info"><div class="mkt-t">Reactivar inactivos</div><div class="mkt-d">Sin visita en 30+ días</div></div><label class="tgl"><input type="checkbox"><div class="tgl-sl"></div></label></div>
-            <div class="mkt"><div class="mkt-ic">⏰</div><div class="mkt-info"><div class="mkt-t">Recordatorio 24h</div><div class="mkt-d">Día antes de cita</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
+            <div class="mkt"><div class="mkt-ic">⏰</div><div class="mkt-info"><div class="mkt-t">Recordatorio 1 hora</div><div class="mkt-d">1 hora antes de la cita</div></div><label class="tgl"><input type="checkbox" checked><div class="tgl-sl"></div></label></div>
+            <div class="mkt" id="mkt-cumple"><div class="mkt-ic">🎂</div><div class="mkt-info"><div class="mkt-t">Felicitación cumpleaños</div><div class="mkt-d">El día del cumpleaños del cliente</div></div><label class="tgl"><input type="checkbox" onchange="toggleAutomation('cumpleanos',this.checked)"><div class="tgl-sl"></div></label></div>
             <div style="background:var(--os-l);border:1px solid rgba(0,212,170,.18);border-radius:var(--r-md);padding:10px 12px"><div style="font-size:11px;font-weight:800;color:var(--os);margin-bottom:2px">✓ Evolution API conectada</div><div style="font-size:10px;color:var(--muted)">Mensajes desde tu número</div></div>
           </div>
         </div>
@@ -1515,6 +1516,13 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
         </div>
         <div style="margin-top:8px;font-size:11px;color:rgba(168,184,216,.4)">También puedes compartirlo por WhatsApp directamente</div>
         <button class="btn btn-s" id="btn-share-wa" style="margin-top:8px;font-size:11px;width:auto;padding:6px 14px">Compartir por WhatsApp</button>
+      </div>
+      <div class="cfg-sec">
+        <div class="cfg-sec-t">WhatsApp · Evolution API</div>
+        <div class="fg"><label>URL de Evolution API</label><input id="cfg-evo-url" placeholder="https://evolution.tudominio.com" style="font-family:var(--mono);font-size:11px"></div>
+        <div class="fg"><label>API Key</label><input id="cfg-evo-key" placeholder="tu-api-key" style="font-family:var(--mono);font-size:11px"></div>
+        <div class="fg"><label>Nombre de instancia</label><input id="cfg-evo-inst" placeholder="mi-negocio" style="font-family:var(--mono);font-size:11px"></div>
+        <button class="btn btn-p" style="margin-top:4px" onclick="saveEvoCfg()">Guardar WhatsApp</button>
       </div>
       <div class="cfg-sec">
         <div class="cfg-sec-t">MercadoPago</div>
@@ -1722,6 +1730,9 @@ function initApp(d){
   $('sb-uname').textContent = d.nombre;
   $('sb-uplan').textContent = PLAN;
   if($('cfg-nom')) $('cfg-nom').value = d.nombre || '';
+  if($('cfg-evo-url'))  $('cfg-evo-url').value  = CFG.evo_url       || '';
+  if($('cfg-evo-key'))  $('cfg-evo-key').value  = CFG.evo_key       || '';
+  if($('cfg-evo-inst')) $('cfg-evo-inst').value = CFG.evo_instancia  || '';
   const _linkEl = $('cfg-public-link');
   if(_linkEl){ _linkEl.textContent = getPublicLink(); }
   const _waBtn = $('btn-share-wa');
@@ -2175,7 +2186,12 @@ function renderClis(filter=''){
     const seg = parseInt(c.total_citas||0)>=5?'<span class="tag tag-vip">VIP</span>':parseInt(c.total_citas||0)>=2?'<span class="tag tag-reg">Regular</span>':'<span class="tag tag-new">Nuevo</span>';
     return `<tr>
       <td><div style="display:flex;align-items:center"><div class="av" style="background:${avC(i)}">${ini(c.nombre)}</div>${esc(c.nombre)}</div></td>
-      <td style="font-family:var(--mono);font-size:11px">${esc(c.telefono||'—')}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-family:var(--mono);font-size:11px">${esc(c.telefono||'—')}</span>
+          ${c.telefono?`<button onclick="enviarWA('${esc(c.telefono||'')}','${esc(c.nombre||'')}')" style="background:rgba(0,212,170,.12);border:1px solid rgba(0,212,170,.25);color:#00d4aa;border-radius:6px;padding:2px 7px;font-size:10px;font-weight:700;cursor:pointer">WA</button>`:''}
+        </div>
+      </td>
       <td style="font-size:11px">${esc(c.email||'—')}</td>
       <td style="font-weight:700">${c.total_citas||0}</td>
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(c.gasto_total||0)}</td>
@@ -2709,22 +2725,37 @@ function closeMOut(e){if(e.target.id==='modal-bg')closeM()}
 function handlePhotoUpload(fileInputId, previewId, hiddenId) {
   const file = document.getElementById(fileInputId)?.files?.[0];
   if(!file) return;
-  if(file.size > 600 * 1024){ toast('⚠', 'Imagen demasiado grande (máx 600KB)'); return; }
-  if(!file.type.startsWith('image/')){ toast('⚠', 'Solo imágenes PNG/JPG'); return; }
+  if(file.size > 4 * 1024 * 1024){ toast('⚠', 'Imagen demasiado grande (máx 4MB)'); return; }
+  if(!file.type.startsWith('image/')){ toast('⚠', 'Solo imágenes PNG/JPG/WebP'); return; }
   const reader = new FileReader();
   reader.onload = e => {
-    const b64 = e.target.result;
-    const preview = document.getElementById(previewId);
-    const hidden = document.getElementById(hiddenId);
-    if(preview){
-      preview.style.backgroundImage = 'url(' + b64 + ')';
-      preview.style.backgroundSize = 'cover';
-      preview.style.backgroundPosition = 'center';
-      const ic = preview.querySelector('.photo-placeholder-ic');
-      if(ic) ic.style.display = 'none';
-    }
-    if(hidden) hidden.value = b64;
-    toast('✓', 'Foto lista para guardar');
+    const img = new Image();
+    img.onload = () => {
+      // Comprimir a max 600x600px manteniendo proporción
+      const MAX = 600;
+      let w = img.width, h = img.height;
+      if(w > MAX || h > MAX){
+        if(w > h){ h = Math.round(h * MAX/w); w = MAX; }
+        else { w = Math.round(w * MAX/h); h = MAX; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      const b64 = canvas.toDataURL('image/jpeg', 0.82);
+      const preview = document.getElementById(previewId);
+      const hidden = document.getElementById(hiddenId);
+      if(preview){
+        preview.style.backgroundImage = 'url(' + b64 + ')';
+        preview.style.backgroundSize = 'cover';
+        preview.style.backgroundPosition = 'center';
+        const ic = preview.querySelector('.pu-ic');
+        if(ic) ic.style.display = 'none';
+      }
+      if(hidden) hidden.value = b64;
+      const kb = Math.round(b64.length * 0.75 / 1024);
+      toast('✓', `Foto lista (${kb}KB)`);
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
@@ -2923,12 +2954,54 @@ async function saveMov(){
   if(r?.ok){toast('✓','Movimiento registrado');closeM();loadFinanzas();loadDashboard()}
 }
 
+async async function saveEvoCfg(){
+  const url  = $('cfg-evo-url')?.value.trim();
+  const key  = $('cfg-evo-key')?.value.trim();
+  const inst = $('cfg-evo-inst')?.value.trim();
+  if(!url||!key||!inst){toast('⚠','Completa URL, API Key e instancia');return}
+  const r = await api('agenda-configuracion',{
+    org_id: ORG, action:'save',
+    data:{ evo_url:url, evo_key:key, evo_instancia:inst }
+  });
+  if(r?.ok) toast('✓','WhatsApp guardado');
+}
+
+async function toggleAutomation(tipo, activo){
+  const r = await api('agenda-configuracion', {
+    org_id: ORG,
+    action: 'save',
+    data: { [`auto_${tipo}`]: activo }
+  });
+  toast(activo?'✓':'○', activo?`Automatización activada`:`Automatización desactivada`);
+}
+
+async function enviarWA(tel, nombre){
+  if(!tel){ toast('⚠','Sin número WhatsApp'); return; }
+  const num = tel.replace(/[^0-9]/g,'');
+  const msg = encodeURIComponent(`Hola ${nombre || ''}, te contactamos desde AgendaOS.`);
+  window.open(`https://wa.me/${num}?text=${msg}`, '_blank');
+}
+
 async function enviarCampana(tels){
-  const msg = $('mm-msg').value;
-  if(!msg){toast('⚠','Mensaje vacío');return}
+  const msg = $('mm-msg').value.trim();
+  if(!msg){toast('⚠','Escribe un mensaje');return}
+  if(!tels.length){toast('⚠','Selecciona al menos un cliente');return}
   closeM();
-  toast('✓',`Enviando a ${tels.length} clientes...`);
-  // Aquí podría llamar a un endpoint de campañas en n8n
+  let enviados=0, errores=0;
+  toast('⏳',`Enviando a ${tels.length} clientes...`);
+  for(const tel of tels){
+    try{
+      const r = await api('agenda-whatsapp',{
+        org_id: ORG,
+        action: 'send',
+        telefono: tel,
+        mensaje: msg
+      });
+      if(r?.ok) enviados++; else errores++;
+    } catch(e){ errores++; }
+  }
+  toast('✓',`Enviados: ${enviados}${errores?' · Errores: '+errores:''}`);
+  loadClis();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
