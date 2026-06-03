@@ -405,10 +405,22 @@ async function loadSlots(){
       duracion_min: dur
     });
 
-    const slots = d.data || [];
+    let slots = d.data || [];
     if(!slots.length){
       grid.innerHTML = '<div class="slots-empty">Sin horarios disponibles para esta fecha</div>';
       return;
+    }
+
+    // Filtrar horas pasadas si la fecha es hoy
+    const todayStr = new Date().toISOString().split('T')[0];
+    if(fecha === todayStr){
+      const nowH = new Date().getHours();
+      const nowM = new Date().getMinutes();
+      const nowMins = nowH * 60 + nowM;
+      slots = slots.filter(s => {
+        const [h, m] = s.hora.split(':').map(Number);
+        return (h * 60 + m) >= nowMins + 30; // mínimo 30 min adelante
+      });
     }
 
     const libres = slots.filter(s => s.disponible);
