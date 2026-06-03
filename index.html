@@ -3033,7 +3033,14 @@ function checkConflict(fechaIni, fechaFin, profId, excludeId){
 function renderAvailSlots(fecha, dur, profId, excludeId){
   const wrap = $('mc-avail-wrap'); if(!wrap) return;
   const hours = [];
-  for(let h=8;h<=20;h++) for(let m=0;m<60;m+=30) hours.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
+  const ahora = new Date();
+  const esHoy = fecha === ahora.toISOString().split('T')[0];
+  const minActual = ahora.getHours()*60 + ahora.getMinutes();
+  for(let h=8;h<=20;h++) for(let m=0;m<60;m+=30){
+    // Si es hoy, omitir horas que ya pasaron (+ 30 min de anticipación)
+    if(esHoy && (h*60+m) <= minActual + 29) continue;
+    hours.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
+  }
   const cells = hours.map(t => {
     const ini = `${fecha}T${t}:00`;
     const fin = new Date(new Date(ini).getTime() + dur*60000).toISOString();
