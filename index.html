@@ -989,6 +989,11 @@ tbody tr:hover td { background: rgba(79,109,245,.06) !important; }
 @media(max-width:480px){ .f-row { grid-template-columns: 1fr; } }
 
 
+/* ── DEMO BANNER ── */
+.demo-banner{display:none;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(245,166,35,.15),rgba(245,166,35,.08));border:1px solid rgba(245,166,35,.3);border-radius:10px;padding:6px 12px;font-size:11px;font-weight:700;color:#f5a623}
+.demo-banner.visible{display:flex}
+.demo-badge{background:#f5a623;color:#000;border-radius:4px;padding:1px 6px;font-size:9px;font-weight:900}
+
 /* ── PHOTO UPLOAD COMPONENT ── */
 .pu-row{display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;margin-bottom:12px}
 .pu-prev{width:72px;height:72px;border-radius:12px;background:rgba(255,255,255,.06);border:1.5px dashed rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;background-size:cover;background-position:center;overflow:hidden}
@@ -1642,6 +1647,8 @@ function toast(icon,msg,d=3000){$('t-icon').textContent=icon;$('t-msg').textCont
 // API
 // ═══════════════════════════════════════════════════════════════════════════
 async function api(ep, body){
+  // MODO DEMO — todo en memoria, nada en DB
+  if(ORG === 'demo') return demoApi(ep, body);
   try{
     const res = await fetch(`${N8N}/${ep}`,{
       method:'POST',
@@ -1740,11 +1747,210 @@ async function doRegister(){
 }
 
 function demoLogin(){
-  initApp({ok:true,org_id:'demo',nombre:'Negocio de servicios Demo',slug:'barberia-demo',plan:'pro'});
+  initApp({org_id:'demo', slug:'demo', plan:'demo', nombre:'Negocio Demo'});
+  $$('.auth-panel').forEach(p => p.style.display='none');
+  $('app').style.display='flex';
+  setTimeout(()=>{
+    loadDashboard(); loadResv(); loadSvc(); loadProfs(); loadClis(); loadProds();
+  }, 100);
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// MODO DEMO — datos en memoria, nada se guarda en DB
+// Se resetea al recargar la página
+// ═══════════════════════════════════════════════════════════════════
+const DEMO_STATE = {
+  servicios: [
+    {id:1, org_id:'demo', nombre:'Corte de cabello', descripcion:'Corte clásico', duracion_min:30, precio:12000, requiere_pago:false, activo:true, foto_url:''},
+    {id:2, org_id:'demo', nombre:'Barba completa', descripcion:'Perfilado y arreglo', duracion_min:20, precio:8000, requiere_pago:false, activo:true, foto_url:''},
+    {id:3, org_id:'demo', nombre:'Corte + Barba', descripcion:'Servicio completo', duracion_min:45, precio:18000, requiere_pago:false, activo:true, foto_url:''},
+  ],
+  profesionales: [
+    {id:1, org_id:'demo', nombre:'Carlos Demo', telefono:'+56912345678', email:'carlos@demo.cl', comision_pct:20, foto_url:''},
+    {id:2, org_id:'demo', nombre:'Ana Demo', telefono:'+56987654321', email:'ana@demo.cl', comision_pct:15, foto_url:''},
+  ],
+  clientes: [
+    {id:1, org_id:'demo', nombre:'Cliente Demo', telefono:'+56911111111', email:'cliente@demo.cl', total_citas:3},
+    {id:2, org_id:'demo', nombre:'Juan Ejemplo', telefono:'+56922222222', email:'juan@demo.cl', total_citas:1},
+  ],
+  reservas: [
+    {id:1, org_id:'demo', cliente_nombre:'Cliente Demo', cliente_tel:'+56911111111', servicio_nombre:'Corte de cabello', profesional_nombre:'Carlos Demo', fecha_inicio:new Date().toISOString().split('T')[0]+'T10:00:00', fecha_fin:new Date().toISOString().split('T')[0]+'T10:30:00', estado:'confirmada', monto:12000, origen:'admin'},
+    {id:2, org_id:'demo', cliente_nombre:'Juan Ejemplo', cliente_tel:'+56922222222', servicio_nombre:'Barba completa', profesional_nombre:'Ana Demo', fecha_inicio:new Date().toISOString().split('T')[0]+'T11:00:00', fecha_fin:new Date().toISOString().split('T')[0]+'T11:20:00', estado:'pendiente', monto:8000, origen:'web'},
+  ],
+  productos: [
+    {id:1, org_id:'demo', nombre:'Shampoo Demo', categoria:'Cuidado', precio_compra:3000, precio_venta:6000, stock:10, foto_url:''},
+    {id:2, org_id:'demo', nombre:'Cera para cabello', categoria:'Styling', precio_compra:2500, precio_venta:5000, stock:5, foto_url:''},
+  ],
+  movimientos: [],
+  config: {nombre:'Negocio Demo', slug:'demo', rubro:'Barbería', telefono:'+56912345678', email:'demo@agendaos.pro', direccion:'Av. Demo 123, Santiago'},
+  _nextId: 100
+};
+
+function demoApi(ep, body){
+  const action = body.action || '';
+  const data = body.data || body;
+
+  // ── SERVICIOS ──
+  if(ep === 'agenda-servicios'){
+    if(action === 'getAll') return {ok:true, data:[...DEMO_STATE.servicios]};
+    if(action === 'save' || action === 'update'){
+      if(data.id){
+        const idx = DEMO_STATE.servicios.findIndex(s=>s.id===data.id);
+        if(idx>-1) DEMO_STATE.servicios[idx] = {...DEMO_STATE.servicios[idx],...data};
+      } else {
+        DEMO_STATE.servicios.push({...data, id:++DEMO_STATE._nextId, org_id:'demo'});
+      }
+      return {ok:true};
+    }
+    if(action === 'delete'){
+      DEMO_STATE.servicios = DEMO_STATE.servicios.filter(s=>s.id!==body.id);
+      return {ok:true};
+    }
+    if(action === 'toggle'){
+      const s = DEMO_STATE.servicios.find(x=>x.id===body.id);
+      if(s) s.activo = !s.activo;
+      return {ok:true};
+    }
+  }
+
+  // ── PROFESIONALES ──
+  if(ep === 'agenda-profesionales'){
+    if(action === 'getAll') return {ok:true, data:[...DEMO_STATE.profesionales]};
+    if(action === 'save' || action === 'update'){
+      if(data.id){
+        const idx = DEMO_STATE.profesionales.findIndex(p=>p.id===data.id);
+        if(idx>-1) DEMO_STATE.profesionales[idx] = {...DEMO_STATE.profesionales[idx],...data};
+      } else {
+        DEMO_STATE.profesionales.push({...data, id:++DEMO_STATE._nextId, org_id:'demo'});
+      }
+      return {ok:true};
+    }
+    if(action === 'delete'){
+      DEMO_STATE.profesionales = DEMO_STATE.profesionales.filter(p=>p.id!==body.id);
+      return {ok:true};
+    }
+  }
+
+  // ── CLIENTES ──
+  if(ep === 'agenda-clientes'){
+    if(action === 'getAll') return {ok:true, data:[...DEMO_STATE.clientes]};
+    if(action === 'save' || action === 'update'){
+      if(data.id){
+        const idx = DEMO_STATE.clientes.findIndex(c=>c.id===data.id);
+        if(idx>-1) DEMO_STATE.clientes[idx] = {...DEMO_STATE.clientes[idx],...data};
+      } else {
+        DEMO_STATE.clientes.push({...data, id:++DEMO_STATE._nextId, org_id:'demo', total_citas:0});
+      }
+      return {ok:true};
+    }
+    if(action === 'delete'){
+      DEMO_STATE.clientes = DEMO_STATE.clientes.filter(c=>c.id!==body.id);
+      return {ok:true};
+    }
+  }
+
+  // ── RESERVAS ──
+  if(ep === 'agenda-reservas'){
+    if(action === 'getAll') return {ok:true, data:[...DEMO_STATE.reservas]};
+    if(action === 'save'){
+      const nueva = {...data, id:++DEMO_STATE._nextId, org_id:'demo'};
+      DEMO_STATE.reservas.push(nueva);
+      return {ok:true, id:nueva.id, estado:nueva.estado};
+    }
+    if(action === 'updateEstado'){
+      const r = DEMO_STATE.reservas.find(x=>x.id===body.id);
+      if(r) r.estado = body.estado;
+      return {ok:true, data:[r]};
+    }
+    if(action === 'delete'){
+      DEMO_STATE.reservas = DEMO_STATE.reservas.filter(r=>r.id!==body.id);
+      return {ok:true};
+    }
+  }
+
+  // ── PRODUCTOS ──
+  if(ep === 'agenda-productos'){
+    if(action === 'getAll') return {ok:true, data:[...DEMO_STATE.productos]};
+    if(action === 'save' || action === 'update'){
+      if(data.id){
+        const idx = DEMO_STATE.productos.findIndex(p=>p.id===data.id);
+        if(idx>-1) DEMO_STATE.productos[idx] = {...DEMO_STATE.productos[idx],...data};
+      } else {
+        DEMO_STATE.productos.push({...data, id:++DEMO_STATE._nextId, org_id:'demo'});
+      }
+      return {ok:true};
+    }
+    if(action === 'delete'){
+      DEMO_STATE.productos = DEMO_STATE.productos.filter(p=>p.id!==body.id);
+      return {ok:true};
+    }
+  }
+
+  // ── MOVIMIENTOS ──
+  if(ep === 'agenda-movimientos'){
+    if(action === 'getAll') return {ok:true, data:[...DEMO_STATE.movimientos]};
+    if(action === 'save'){
+      DEMO_STATE.movimientos.push({...data, id:++DEMO_STATE._nextId, org_id:'demo'});
+      return {ok:true};
+    }
+  }
+
+  // ── DASHBOARD ──
+  if(ep === 'agenda-dashboard'){
+    const hoy = new Date().toISOString().split('T')[0];
+    const reservasHoy = DEMO_STATE.reservas.filter(r=>r.fecha_inicio?.startsWith(hoy) && r.estado!=='cancelada');
+    return {ok:true, metricas:{
+      reservas_hoy: reservasHoy.length,
+      reservas_mes: DEMO_STATE.reservas.length,
+      total_reservas: DEMO_STATE.reservas.length,
+      tasa_asistencia: 0,
+      ingresos_hoy: reservasHoy.reduce((a,r)=>a+parseFloat(r.monto||0),0),
+      ingresos_semana: DEMO_STATE.reservas.reduce((a,r)=>a+parseFloat(r.monto||0),0),
+      ingresos_mes: DEMO_STATE.reservas.reduce((a,r)=>a+parseFloat(r.monto||0),0),
+      ingresos_anio: DEMO_STATE.reservas.reduce((a,r)=>a+parseFloat(r.monto||0),0),
+      egresos_mes: 0
+    }, semana:[], hoy: reservasHoy};
+  }
+
+  // ── CONFIGURACION ──
+  if(ep === 'agenda-configuracion'){
+    if(action === 'getAll') return {ok:true, data:[{...DEMO_STATE.config, org_id:'demo', datos:DEMO_STATE.config}]};
+    if(action === 'save'){ Object.assign(DEMO_STATE.config, data); return {ok:true}; }
+  }
+
+  // ── AUTH ──
+  if(ep === 'agenda-auth') return {ok:true, org_id:'demo', nombre:'Demo', slug:'demo', plan:'demo'};
+
+  // ── SLOTS ──
+  if(ep === 'agenda-slots'){
+    const slots = [];
+    for(let h=8;h<=20;h++) for(let m=0;m<60;m+=30){
+      const hora = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+      const ocupado = DEMO_STATE.reservas.some(r=>r.fecha_inicio?.includes(`T${hora}`));
+      slots.push({hora, disponible:!ocupado, fecha_inicio:`${body.fecha}T${hora}:00`, fecha_fin:`${body.fecha}T${hora}:00`});
+    }
+    return {ok:true, data:slots};
+  }
+
+  // Default
+  return {ok:true, data:[]};
 }
 
 function initApp(d){
   ORG = d.org_id; SLUG = d.slug || d.org_id; PLAN = d.plan || 'trial'; NOMBRE = d.nombre;
+  // Modo demo
+  if(ORG === 'demo'){
+    // Crear e inyectar banner demo en toolbar
+    const tb = document.querySelector('.tb');
+    if(tb && !document.getElementById('demo-banner')){
+      const banner = document.createElement('div');
+      banner.id = 'demo-banner';
+      banner.className = 'demo-banner visible';
+      banner.innerHTML = '<span class="demo-badge">DEMO</span><span>Modo demo · datos no se guardan</span>';
+      tb.appendChild(banner);
+    }
+  }
   document.documentElement.setAttribute('data-theme', localStorage.getItem('agendaos_theme') || 'dark');
   // Persistir sesión
   localStorage.setItem('agendaos_session', JSON.stringify({org_id:ORG,slug:SLUG,plan:PLAN,nombre:NOMBRE}));
