@@ -1289,10 +1289,10 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
           <div class="m-top"><div class="m-label">Ingresos</div><div class="m-icon">💰</div></div>
           <div class="m-val" id="m-ing">—</div>
           <div class="m-foot" style="gap:4px;flex-wrap:wrap">
-            <span id="ing-hoy" onclick="switchPeriodo('hoy')" class="pbtn">Hoy</span>
-            <span id="ing-sem" onclick="switchPeriodo('semana')" class="pbtn">Semana</span>
-            <span id="ing-mes" onclick="switchPeriodo('mes')" class="pbtn">Mes</span>
-            <span id="ing-anio" onclick="switchPeriodo('anio')" class="pbtn">Año</span>
+            <span id="ing-hoy" onclick="event.stopPropagation();switchPeriodo('hoy')" class="pbtn">Hoy</span>
+            <span id="ing-sem" onclick="event.stopPropagation();switchPeriodo('semana')" class="pbtn">Semana</span>
+            <span id="ing-mes" onclick="event.stopPropagation();switchPeriodo('mes')" class="pbtn">Mes</span>
+            <span id="ing-anio" onclick="event.stopPropagation();switchPeriodo('anio')" class="pbtn">Año</span>
           </div>
           <div class="m-spark" id="sp-ing"></div>
         </div>
