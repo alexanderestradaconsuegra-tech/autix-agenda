@@ -1507,6 +1507,16 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
         <button class="btn btn-p" id="save-cfg-btn">Guardar cambios</button>
       </div>
       <div class="cfg-sec">
+        <div class="cfg-sec-t">Link de reservas para clientes</div>
+        <div style="margin-bottom:10px;font-size:12px;color:rgba(168,184,216,.6)">Comparte este link con tus clientes para que puedan agendar en línea</div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.15);border-radius:12px;padding:12px 14px">
+          <span id="cfg-public-link" style="flex:1;font-family:var(--mono);font-size:11px;color:#00d4aa;word-break:break-all">—</span>
+          <button class="btn btn-s" style="flex-shrink:0;font-size:11px;padding:6px 12px" onclick="copyPublicLink()">Copiar</button>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:rgba(168,184,216,.4)">También puedes compartirlo por WhatsApp directamente</div>
+        <button class="btn btn-s" id="btn-share-wa" style="margin-top:8px;font-size:11px;width:auto;padding:6px 14px">Compartir por WhatsApp</button>
+      </div>
+      <div class="cfg-sec">
         <div class="cfg-sec-t">MercadoPago</div>
         <div class="cfg-row"><div><div class="cfg-row-l">Activar pagos en línea</div><div class="cfg-row-s">Cobra reservas y servicios online</div></div><label class="tgl"><input type="checkbox" id="cfg-mp"><div class="tgl-sl"></div></label></div>
         <div class="fg" style="margin-top:12px"><label>Access Token MercadoPago</label><input id="cfg-mp-token" placeholder="APP_USR-..." style="font-family:var(--mono);font-size:11px"></div>
@@ -1712,6 +1722,13 @@ function initApp(d){
   $('sb-uname').textContent = d.nombre;
   $('sb-uplan').textContent = PLAN;
   if($('cfg-nom')) $('cfg-nom').value = d.nombre || '';
+  const _linkEl = $('cfg-public-link');
+  if(_linkEl){ _linkEl.textContent = getPublicLink(); }
+  const _waBtn = $('btn-share-wa');
+  if(_waBtn) _waBtn.onclick = () => {
+    const msg = encodeURIComponent('Hola! Agenda tu cita aquí: ' + getPublicLink());
+    window.open('https://wa.me/?text=' + msg, '_blank');
+  };
   if($('cfg-slug')) {$('cfg-slug').value = SLUG; $('cfg-slug-prev').textContent = SLUG;}
   // Cargar logo guardado
   const saved = localStorage.getItem('autix_logo_'+ORG);
@@ -1721,6 +1738,22 @@ function initApp(d){
   // Cargar dashboard
   loadDashboard();
 }
+
+function getPublicLink(){
+  return 'https://app.agendaos.pro/reservar.html?negocio=' + ORG;
+}
+function copyPublicLink(){
+  const link = getPublicLink();
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(link).then(()=>toast('✓','Link copiado'));
+  } else {
+    const ta=document.createElement('textarea');
+    ta.value=link;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    toast('✓','Link copiado');
+  }
+}
+
 
 async function loadConfig(){
   try {
