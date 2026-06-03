@@ -1832,6 +1832,11 @@ async function activarPlan(plan='mensual'){
 }
 
 function demoLogin(){
+  // Limpiar datos del usuario anterior para que no se mezclen
+  localStorage.removeItem('autix_logo');
+  localStorage.removeItem('agendaos_session');
+  // Resetear logo a default
+  applyLogo(null);
   initApp({org_id:'demo', slug:'demo', plan:'demo', nombre:'Negocio Demo'});
   $$('.auth-panel').forEach(p => p.style.display='none');
   $('app').style.display='flex';
@@ -2950,10 +2955,22 @@ async function saveConfig(){
     mp_activo: $('cfg-mp').checked,
     mp_token: $('cfg-mp-token').value,
     print_activo: $('cfg-print').checked,
-    print_msg: $('cfg-print-msg').value
+    print_msg: $('cfg-print-msg').value,
+    evo_url:       $('cfg-evo-url')?.value  || '',
+    evo_key:       $('cfg-evo-key')?.value  || '',
+    evo_instancia: $('cfg-evo-inst')?.value || '',
+    msg_recordatorio: $('cfg-msg-rec')?.value  || '',
+    msg_encuesta:     $('cfg-msg-enc')?.value  || '',
+    msg_reactivar:    $('cfg-msg-react')?.value|| '',
+    msg_cumpleanos:   $('cfg-msg-cumple')?.value|| ''
   };
   const r = await api('agenda-configuracion', {action:'save', data:d});
-  if(r?.ok){toast('✓','Configuración guardada')}
+  if(r?.ok){
+    toast('✓','Configuración guardada');
+    // Actualizar link público
+    const lk = $('cfg-public-link');
+    if(lk) lk.textContent = getPublicLink();
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
