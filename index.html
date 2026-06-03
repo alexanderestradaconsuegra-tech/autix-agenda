@@ -2184,6 +2184,37 @@ function buildCalendar(){
   });
 }
 
+
+function openCitaDetalle(id){
+  const r = RESV.find(x => x.id === id); if(!r) return;
+  const estados = ['pendiente','confirmada','completada','cancelada'];
+  const colores = {pendiente:'#f5a623', confirmada:'#4f6df5', completada:'#00d4aa', cancelada:'#f24a5a'};
+  openModal('cita-detalle', r);
+}
+
+
+async function cambiarEstadoCita(id, estado){
+  const r = await api('agenda-reservas', {action:'updateEstado', id, estado, org_id: ORG});
+  if(r?.ok || r?.data){
+    // Update local
+    const idx = RESV.findIndex(x=>x.id===id);
+    if(idx>-1) RESV[idx].estado = estado;
+    toast('✓', 'Estado actualizado: ' + estado);
+    closeM();
+    buildAgendaDay(SEL_DATE);
+    renderResv();
+    loadDashboard();
+  } else {
+    toast('⚠','Error al cambiar estado');
+  }
+}
+
+function editarCita(id){
+  closeM();
+  const r = RESV.find(x=>x.id===id);
+  if(r) openModal('nueva-cita', r);
+}
+
 function buildAgendaDay(date){
   const el = $('agenda-tl'); if(!el) return;
   const iso = date.toISOString().split('T')[0];
@@ -2191,7 +2222,7 @@ function buildAgendaDay(date){
   const list = RESV.filter(r => r.fecha_inicio?.startsWith(iso));
   if(!list.length){el.innerHTML='<div class="empty" style="padding:20px"><div class="empty-ic">📅</div><div class="empty-tx">Sin citas este día</div></div>';return}
   el.innerHTML = list.sort((a,b)=>a.fecha_inicio.localeCompare(b.fecha_inicio)).map((r,i) => `
-    <div class="t-slot busy">
+    <div class="t-slot busy" onclick="openCitaDetalle(${r.id})" style="cursor:pointer" title="Ver detalle">
       <div class="t-time">${tStr(r.fecha_inicio)}</div>
       <div class="t-bar" style="background:${avC(i)}"></div>
       <div class="t-info">
@@ -2608,6 +2639,50 @@ async function saveConfig(){
 // MODALS
 // ═══════════════════════════════════════════════════════════════════════════
 const MODAL_TEMPLATES = {
+  'cita-detalle': r => ({
+    title: 'Detalle de cita',
+    body: `
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:rgba(255,255,255,.04);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-size:18px;font-weight:800;color:#e8f0ff">${esc(r.cliente_nombre)}</div>
+            ${sts(r.estado)}
+          </div>
+          <div style="font-size:12px;color:rgba(168,184,216,.6)">${r.cliente_tel||'Sin teléfono'} ${r.cliente_email?'· '+esc(r.cliente_email):''}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px">
+            <div style="font-size:10px;color:rgba(168,184,216,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Servicio</div>
+            <div style="font-size:13px;font-weight:700;color:#e8f0ff">${esc(r.servicio_nombre)}</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px">
+            <div style="font-size:10px;color:rgba(168,184,216,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Profesional</div>
+            <div style="font-size:13px;font-weight:700;color:#e8f0ff">${esc(r.profesional_nombre||'Sin asignar')}</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px">
+            <div style="font-size:10px;color:rgba(168,184,216,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Fecha y hora</div>
+            <div style="font-size:13px;font-weight:700;color:#e8f0ff">${dStr(r.fecha_inicio)} · ${tStr(r.fecha_inicio)}</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px">
+            <div style="font-size:10px;color:rgba(168,184,216,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Monto</div>
+            <div style="font-size:13px;font-weight:700;color:#00d4aa">${money(r.monto)}</div>
+          </div>
+        </div>
+        ${r.notas?`<div style="background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.15);border-radius:12px;padding:12px;font-size:12px;color:rgba(245,166,35,.8)">📝 ${esc(r.notas)}</div>`:''}
+        <div>
+          <div style="font-size:10px;color:rgba(168,184,216,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Cambiar estado</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            ${['pendiente','confirmada','completada','cancelada'].map(e =>
+              `<button onclick="cambiarEstadoCita(${r.id},'${e}')" style="padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid ${r.estado===e?'transparent':'rgba(255,255,255,.1)'};background:${r.estado===e?({'pendiente':'rgba(245,166,35,.2)','confirmada':'rgba(79,109,245,.2)','completada':'rgba(0,212,170,.2)','cancelada':'rgba(242,74,90,.2)'})[e]:'rgba(255,255,255,.04)'};color:${({'pendiente':'#f5a623','confirmada':'#a0b8ff','completada':'#00d4aa','cancelada':'#f24a5a'})[e]}">${e.charAt(0).toUpperCase()+e.slice(1)}</button>`
+            ).join('')}
+          </div>
+        </div>
+        ${r.cliente_tel ? `<button onclick="enviarWA('${esc(r.cliente_tel)}','${esc(r.cliente_nombre)}')" style="width:100%;padding:10px;border-radius:12px;background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.2);color:#00d4aa;font-weight:700;cursor:pointer;font-size:13px">💬 Enviar WhatsApp</button>` : ''}
+      </div>
+    `,
+    foot: `<button class="btn btn-s" onclick="closeM()">Cerrar</button><button class="btn btn-p" onclick="editarCita(${r.id})">✏ Editar cita</button>`
+  }),
+
   'nueva-cita': data => {
     window._editingCitaId = data?.id || 0;
     const defFecha = data?.fecha_inicio ? data.fecha_inicio.split('T')[0] : new Date().toISOString().split('T')[0];
