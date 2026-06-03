@@ -1969,18 +1969,8 @@ async function loadDashboard(){
   buildTodaySlots(d.hoy || []);
   DAYS_WITH_CITAS = new Set((d.semana || []).map(s => s.dia));
   
-  // Ring — usar datos reales de RESV
-  setTimeout(() => {
-    const comp = RESV.filter(r => r.estado === 'completada').length;
-    const pend = RESV.filter(r => r.estado === 'pendiente' || r.estado === 'confirmada').length;
-    const canc = RESV.filter(r => r.estado === 'cancelada').length;
-    const tot  = RESV.length || 1;
-    const pct  = Math.round((comp / tot) * 100);
-    buildRing(pct);
-    $('r-comp').textContent = comp;
-    $('r-pend').textContent = pend;
-    $('r-canc').textContent = canc;
-  }, 300);
+  // Ring se actualiza en updateRing() llamado desde loadResv
+  updateRing();
 }
 
 function buildChart(semana){
@@ -2073,6 +2063,20 @@ function buildServiciorkline(id, data, color){
   </svg>`;
 }
 
+
+function updateRing(){
+  if(!RESV.length) return;
+  const comp = RESV.filter(r => r.estado === 'completada').length;
+  const pend = RESV.filter(r => r.estado === 'pendiente' || r.estado === 'confirmada').length;
+  const canc = RESV.filter(r => r.estado === 'cancelada').length;
+  const tot  = RESV.length || 1;
+  const pct  = Math.round((comp / tot) * 100);
+  buildRing(pct);
+  if($('r-comp')) $('r-comp').textContent = comp;
+  if($('r-pend')) $('r-pend').textContent = pend;
+  if($('r-canc')) $('r-canc').textContent = canc;
+}
+
 function buildRing(pct){
   const dash = Math.round(314 * (pct/100));
   const el = $('ring-dash');
@@ -2119,6 +2123,7 @@ async function loadResv(){
   renderResv();
   buildCalendar();
   buildAgendaDay(SEL_DATE);
+  updateRing();
   const pend = RESV.filter(r=>r.estado==='pendiente').length;
   let badge = document.querySelector('[data-page="citas"] .sb-badge');
   if(!badge && pend > 0){
