@@ -1828,6 +1828,15 @@ const PAGE_TITLES = {dashboard:'Dashboard',citas:'Citas',terminal:'Terminal de v
 function nav(page){
   $$('.sb-item').forEach(it => it.classList.remove('active'));
   $$(`[data-page="${page}"]`).forEach(it => it.classList.add('active'));
+  if(page === 'config'){
+    const _lk = $('cfg-public-link');
+    if(_lk && ORG) _lk.textContent = getPublicLink();
+    const _wa = $('btn-share-wa');
+    if(_wa) _wa.onclick = () => {
+      const msg = encodeURIComponent('Hola! Agenda tu cita aquí: ' + getPublicLink());
+      window.open('https://wa.me/?text=' + msg, '_blank');
+    };
+  }
   $$('.panel').forEach(p => p.classList.remove('active'));
   const panel = $(`p-${page}`);
   if(panel) panel.classList.add('active');
