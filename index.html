@@ -2426,27 +2426,40 @@ function changeQty(i, delta){
   renderCart();
 }
 
-async function cobrar(){
+async async function cobrar(){
   const total = CART.reduce((a,c) => a + c.precio*c.qty, 0);
-  if(!total) return;
+  if(!total){ toast('⚠','Agrega productos al carrito'); return; }
   const items = [...CART];
   const btn = $('cobrar-btn');
   btn.disabled = true;
   btn.textContent = 'Procesando...';
-  // Persistir en movimientos
-  await api('agenda-movimientos', {
-    action:'save',
-    data:{
-      tipo:'ing',
-      descripcion:`Venta terminal · ${items.length} ${items.length===1?'item':'items'} · ${PAGO}`,
-      monto:total,
-      fecha:new Date().toISOString().split('T')[0]
+  try {
+    // Guardar en movimientos
+    const r = await api('agenda-movimientos', {
+      org_id: ORG,
+      action: 'save',
+      data: {
+        tipo: 'ing',
+        descripcion: `Venta terminal · ${items.map(i=>i.nombre).join(', ')} · ${PAGO}`,
+        monto: total,
+        fecha: new Date().toISOString().split('T')[0]
+      }
+    });
+    if(r?.ok){
+      toast('✓', `Cobro de ${money(total)} registrado`);
+      if($('cfg-print')?.checked) imprimirBoleta(items, total);
+      clearCart();
+      loadDashboard();
+    } else {
+      toast('⚠', 'Error al registrar la venta');
     }
-  });
-  toast('✓', `Cobro de ${money(total)} · ${PAGO}`);
-  if($('cfg-print')?.checked) imprimirBoleta(items, total);
-  clearCart();
-  btn.disabled = false;
+  } catch(e){
+    console.error(e);
+    toast('⚠', 'Error de conexión');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Cobrar';
+  }
 }
 
 function imprimirBoleta(items, total){
