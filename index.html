@@ -989,6 +989,21 @@ tbody tr:hover td { background: rgba(79,109,245,.06) !important; }
 @media(max-width:480px){ .f-row { grid-template-columns: 1fr; } }
 
 
+
+/* ── TRIAL EXPIRED OVERLAY ── */
+.trial-overlay{position:fixed;inset:0;background:rgba(7,17,31,.96);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+.trial-card{background:linear-gradient(145deg,#0d1e35,#0a1729);border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 32px 80px rgba(0,0,0,.5)}
+.trial-icon{font-size:48px;margin-bottom:16px}
+.trial-title{font-size:22px;font-weight:900;color:#e8f0ff;margin-bottom:8px;letter-spacing:-.5px}
+.trial-sub{font-size:13px;color:rgba(168,184,216,.6);line-height:1.6;margin-bottom:24px}
+.trial-price{background:rgba(79,109,245,.1);border:1px solid rgba(79,109,245,.2);border-radius:16px;padding:16px;margin-bottom:24px}
+.trial-price-label{font-size:11px;color:rgba(168,184,216,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.trial-price-val{font-size:32px;font-weight:900;color:#4f6df5;font-family:'JetBrains Mono',monospace}
+.trial-price-period{font-size:12px;color:rgba(168,184,216,.4)}
+.trial-btn{width:100%;height:52px;border:0;border-radius:16px;font-weight:900;font-size:15px;font-family:inherit;cursor:pointer;background:linear-gradient(135deg,#4f6df5,#00d4aa);color:#fff;box-shadow:0 8px 32px rgba(79,109,245,.3);margin-bottom:10px;transition:.2s}
+.trial-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(79,109,245,.4)}
+.trial-btn-sec{width:100%;padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:transparent;color:rgba(168,184,216,.5);font-size:12px;cursor:pointer;font-family:inherit}
+
 /* ── DEMO BANNER ── */
 .demo-banner{display:none;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(245,166,35,.15),rgba(245,166,35,.08));border:1px solid rgba(245,166,35,.3);border-radius:10px;padding:6px 12px;font-size:11px;font-weight:700;color:#f5a623}
 .demo-banner.visible{display:flex}
@@ -1686,6 +1701,11 @@ async function doLogin(){
       body:JSON.stringify({action:'login',org_id:org,password:pass,nombre:'',slug:'',email:'',telefono:'',contacto:'',rubro:''})
     });
     const d = await res.json();
+    if(d.trial_expired){
+      showTrialExpired(d.nombre || '');
+      btn.disabled = false;
+      return;
+    }
     if(d.ok && d.org_id){
       initApp(d);
     }else{
@@ -1744,6 +1764,46 @@ async function doRegister(){
     err.textContent='Error de conexión';
     btn.disabled=false;btn.textContent='Crear cuenta gratis →';
   }
+}
+
+
+function showTrialExpired(nombre){
+  // Remover si ya existe
+  const existing = document.getElementById('trial-overlay');
+  if(existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'trial-overlay';
+  overlay.className = 'trial-overlay';
+  overlay.innerHTML = `
+    <div class="trial-card">
+      <div class="trial-icon">⏰</div>
+      <div class="trial-title">Tu período de prueba terminó</div>
+      <div class="trial-sub">
+        ${nombre ? '<b style="color:#e8f0ff">'+nombre+'</b><br>' : ''}
+        Tu prueba gratuita de 7 días ha finalizado.<br>
+        Activa tu plan para seguir usando AgendaOS.
+      </div>
+      <div class="trial-price">
+        <div class="trial-price-label">Plan Pro mensual</div>
+        <div class="trial-price-val">$9.990</div>
+        <div class="trial-price-period">CLP / mes · cancela cuando quieras</div>
+      </div>
+      <button class="trial-btn" onclick="activarPlan()">
+        Activar plan Pro →
+      </button>
+      <button class="trial-btn-sec" onclick="document.getElementById('trial-overlay').remove()">
+        Continuar en modo demo
+      </button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+async function activarPlan(){
+  // Por ahora deriva a WhatsApp con Alexander
+  const msg = encodeURIComponent('Hola, quiero activar mi plan Pro de AgendaOS');
+  window.open('https://wa.me/56992103974?text=' + msg, '_blank');
 }
 
 function demoLogin(){
@@ -1940,6 +2000,17 @@ function demoApi(ep, body){
 function initApp(d){
   ORG = d.org_id; SLUG = d.slug || d.org_id; PLAN = d.plan || 'trial'; NOMBRE = d.nombre;
   // Modo demo
+  // Banner días restantes trial
+  if(d.plan === 'trial' && typeof d.dias_restantes === 'number' && d.dias_restantes >= 0 && d.dias_restantes <= 7){
+    const tb = document.querySelector('.tb');
+    if(tb && !document.getElementById('trial-banner')){
+      const b = document.createElement('div');
+      b.id = 'trial-banner';
+      b.style.cssText = 'display:flex;align-items:center;gap:6px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.25);border-radius:10px;padding:5px 10px;font-size:11px;font-weight:700;color:#f5a623';
+      b.innerHTML = `⏳ Trial: <b>${d.dias_restantes} día${d.dias_restantes!==1?'s':''}</b> restante${d.dias_restantes!==1?'s':''}`;
+      tb.appendChild(b);
+    }
+  }
   if(ORG === 'demo'){
     // Crear e inyectar banner demo en toolbar
     const tb = document.querySelector('.tb');
