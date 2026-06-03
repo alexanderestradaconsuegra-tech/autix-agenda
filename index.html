@@ -2954,7 +2954,7 @@ async function saveMov(){
   if(r?.ok){toast('✓','Movimiento registrado');closeM();loadFinanzas();loadDashboard()}
 }
 
-async async function saveEvoCfg(){
+async function saveEvoCfg(){
   const url  = $('cfg-evo-url')?.value.trim();
   const key  = $('cfg-evo-key')?.value.trim();
   const inst = $('cfg-evo-inst')?.value.trim();
