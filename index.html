@@ -1702,6 +1702,8 @@ async function doLogin(){
     });
     const d = await res.json();
     if(d.trial_expired){
+      // Guardar org_id para que activarPlan pueda usarlo
+      window._trialOrgId = d.org_id;
       showTrialExpired(d.nombre || '');
       btn.disabled = false;
       return;
@@ -1812,7 +1814,9 @@ function showTrialExpired(nombre){
 }
 
 async function activarPlan(plan='mensual'){
-  const orgId = ORG || (localStorage.getItem('agendaos_session') ? JSON.parse(localStorage.getItem('agendaos_session')).org_id : '');
+  const orgId = ORG
+    || window._trialOrgId
+    || (localStorage.getItem('agendaos_session') ? JSON.parse(localStorage.getItem('agendaos_session')).org_id : '');
   if(!orgId){ toast('⚠','Inicia sesión primero'); return; }
   try {
     const r = await fetch(`${N8N}/agenda-crear-pago`, {
