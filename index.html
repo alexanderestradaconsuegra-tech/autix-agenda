@@ -1969,18 +1969,18 @@ async function loadDashboard(){
   buildTodaySlots(d.hoy || []);
   DAYS_WITH_CITAS = new Set((d.semana || []).map(s => s.dia));
   
-  // Ring
+  // Ring — usar datos reales de RESV
   setTimeout(() => {
-    const asis = m.tasa_asistencia || 0;
-    buildRing(asis);
-    const tot = parseInt(m.total_reservas || 0);
-    const comp = Math.round(tot * (asis/100));
-    const canc = Math.round(tot * 0.08);
-    const pend = Math.max(tot - comp - canc, 0);
+    const comp = RESV.filter(r => r.estado === 'completada').length;
+    const pend = RESV.filter(r => r.estado === 'pendiente' || r.estado === 'confirmada').length;
+    const canc = RESV.filter(r => r.estado === 'cancelada').length;
+    const tot  = RESV.length || 1;
+    const pct  = Math.round((comp / tot) * 100);
+    buildRing(pct);
     $('r-comp').textContent = comp;
     $('r-pend').textContent = pend;
     $('r-canc').textContent = canc;
-  }, 200);
+  }, 300);
 }
 
 function buildChart(semana){
