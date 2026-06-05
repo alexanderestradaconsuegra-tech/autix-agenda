@@ -183,7 +183,7 @@ button,input,select,textarea{font-family:inherit}
 @media(max-width:560px){.tb-live,.tb-chip{display:none}}
 
 /* ── CONTENT ── */
-.content{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:14px}
+.content{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:14px;padding-bottom:env(safe-area-inset-bottom,16px)}
 .content::-webkit-scrollbar{width:5px}
 .content::-webkit-scrollbar-thumb{background:var(--faint);border-radius:5px}
 @media(max-width:900px){.content{padding:14px}}
@@ -1473,6 +1473,222 @@ html[data-theme="light"] .auth-btn { color:#fff !important; }
   box-shadow: 0 1px 4px rgba(0,0,0,.5);
 }
 
+
+/* ══ MOBILE OPTIMIZATION ══ */
+@media(max-width:900px){
+  .content{padding:12px 14px;gap:10px;padding-bottom:max(env(safe-area-inset-bottom,0px),20px)}
+  .metrics{grid-template-columns:1fr 1fr;gap:10px}
+  .metric{padding:14px 16px;border-radius:18px}
+  .m-val{font-size:24px}
+  .card{border-radius:18px}
+  .tb{padding:0 14px;height:54px}
+  .tb-title{font-size:14px}
+}
+@media(max-width:480px){
+  .content{padding:10px 12px;gap:8px}
+  .metrics{grid-template-columns:1fr 1fr;gap:8px}
+  .m-val{font-size:22px}
+  .qa-grid{grid-template-columns:1fr 1fr}
+}
+
+/* ══ LIGHT THEME — botones con azul claro, fondo blanco limpio ══ */
+html[data-theme="light"] {
+  --blue:#0ea5e9;
+  --blue-l:rgba(14,165,233,.12);
+  --os:#06b6d4;
+}
+
+/* Cards en light — fondo blanco, borde sky */
+html[data-theme="light"] .card {
+  background:#fff !important;
+  border:1px solid rgba(14,165,233,.15) !important;
+  box-shadow:0 4px 16px rgba(14,165,233,.08) !important;
+}
+html[data-theme="light"] .card-h {
+  background:#f8fcff !important;
+  border-color:rgba(14,165,233,.12) !important;
+}
+
+/* Métricas en light */
+html[data-theme="light"] .metric {
+  background:#fff !important;
+  border:1px solid rgba(14,165,233,.15) !important;
+  box-shadow:0 4px 16px rgba(14,165,233,.06) !important;
+}
+html[data-theme="light"] .metric:hover {
+  border-color:rgba(14,165,233,.35) !important;
+  box-shadow:0 8px 28px rgba(14,165,233,.15) !important;
+}
+
+/* Botones en light — azul visible sobre blanco */
+html[data-theme="light"] .btn.btn-p,
+html[data-theme="light"] .btn-p {
+  background:linear-gradient(135deg,#38bdf8,#0ea5e9) !important;
+  color:#fff !important;
+  border:none !important;
+  box-shadow:0 4px 14px rgba(14,165,233,.3) !important;
+}
+html[data-theme="light"] .btn.btn-s,
+html[data-theme="light"] .btn-s {
+  background:#fff !important;
+  border:1.5px solid rgba(14,165,233,.35) !important;
+  color:#0ea5e9 !important;
+  box-shadow:0 2px 8px rgba(14,165,233,.1) !important;
+}
+html[data-theme="light"] .btn.btn-s:hover {
+  background:rgba(14,165,233,.06) !important;
+  border-color:rgba(14,165,233,.5) !important;
+}
+
+/* btn-edit en light */
+html[data-theme="light"] .btn-xs.btn-edit,
+html[data-theme="light"] .btn-edit {
+  background:rgba(14,165,233,.08) !important;
+  color:#0ea5e9 !important;
+  border:1px solid rgba(14,165,233,.25) !important;
+}
+html[data-theme="light"] .btn-xs.btn-edit:hover {
+  background:rgba(14,165,233,.15) !important;
+}
+
+/* btn-del en light */
+html[data-theme="light"] .btn-xs.btn-del,
+html[data-theme="light"] .btn-del {
+  background:rgba(239,68,68,.07) !important;
+  color:#ef4444 !important;
+  border:1px solid rgba(239,68,68,.2) !important;
+}
+
+/* btn-ok en light */
+html[data-theme="light"] .btn-xs.btn-ok,
+html[data-theme="light"] .btn-ok {
+  background:rgba(6,182,212,.08) !important;
+  color:#06b6d4 !important;
+  border:1px solid rgba(6,182,212,.2) !important;
+}
+
+/* Toolbar en light */
+html[data-theme="light"] .tb {
+  background:rgba(255,255,255,.96) !important;
+  border-bottom:1px solid rgba(14,165,233,.12) !important;
+  box-shadow:0 1px 12px rgba(14,165,233,.08) !important;
+}
+
+/* Sidebar en light — azul oscuro */
+html[data-theme="light"] .sidebar {
+  background:linear-gradient(180deg,#0c1a2e,#0f2440) !important;
+}
+html[data-theme="light"] .sb-item { color:rgba(255,255,255,.6) !important; }
+html[data-theme="light"] .sb-item.active {
+  background:rgba(56,189,248,.15) !important;
+  color:#fff !important;
+  border-left-color:#38bdf8 !important;
+}
+html[data-theme="light"] .sb-neg,
+html[data-theme="light"] .sb-uname { color:rgba(255,255,255,.9) !important; }
+
+/* Inputs en light */
+html[data-theme="light"] .fg input,
+html[data-theme="light"] .fg select,
+html[data-theme="light"] .fg textarea {
+  background:#f8fcff !important;
+  border:1.5px solid rgba(14,165,233,.2) !important;
+  color:#0c1a2e !important;
+}
+html[data-theme="light"] .fg input:focus,
+html[data-theme="light"] .fg select:focus,
+html[data-theme="light"] .fg textarea:focus {
+  border-color:rgba(14,165,233,.5) !important;
+  box-shadow:0 0 0 3px rgba(14,165,233,.1) !important;
+  background:#fff !important;
+}
+
+/* Chips en light */
+html[data-theme="light"] .chip {
+  background:#f8fcff !important;
+  border:1px solid rgba(14,165,233,.2) !important;
+  color:#5a7a9a !important;
+}
+html[data-theme="light"] .chip.active {
+  background:rgba(14,165,233,.1) !important;
+  border-color:rgba(14,165,233,.35) !important;
+  color:#0ea5e9 !important;
+}
+
+/* Tabla en light */
+html[data-theme="light"] th {
+  background:#f0f9ff !important;
+  color:#5a7a9a !important;
+  border-color:rgba(14,165,233,.12) !important;
+}
+html[data-theme="light"] td { border-color:rgba(14,165,233,.08) !important; }
+html[data-theme="light"] tbody tr:hover td { background:#f0f9ff !important; }
+
+/* Toggle en light */
+html[data-theme="light"] .tgl input:not(:checked)+.tgl-sl {
+  background:rgba(0,0,0,.1) !important;
+  border:1.5px solid rgba(0,0,0,.15) !important;
+}
+html[data-theme="light"] .tgl input:checked+.tgl-sl {
+  background:linear-gradient(135deg,#38bdf8,#0ea5e9) !important;
+  box-shadow:0 0 10px rgba(14,165,233,.3) !important;
+}
+
+/* Modal en light */
+html[data-theme="light"] .modal {
+  background:#fff !important;
+  border:1px solid rgba(14,165,233,.15) !important;
+  box-shadow:0 20px 60px rgba(14,165,233,.15) !important;
+}
+html[data-theme="light"] .m-h { border-color:rgba(14,165,233,.12) !important; }
+html[data-theme="light"] .m-f { border-color:rgba(14,165,233,.12) !important; background:#f8fcff !important; }
+
+/* Auth en light */
+html[data-theme="light"] .auth-btn {
+  background:linear-gradient(135deg,#38bdf8,#0ea5e9) !important;
+  color:#fff !important;
+}
+html[data-theme="light"] .fl-input,
+html[data-theme="light"] .fl-select {
+  background:#f8fcff !important;
+  border:1.5px solid rgba(14,165,233,.2) !important;
+  color:#0c1a2e !important;
+}
+html[data-theme="light"] .fl-input:focus,
+html[data-theme="light"] .fl-select:focus {
+  border-color:rgba(14,165,233,.5) !important;
+  box-shadow:0 0 0 3px rgba(14,165,233,.1) !important;
+}
+html[data-theme="light"] .auth-tab.active {
+  background:rgba(14,165,233,.1) !important;
+  color:#0ea5e9 !important;
+}
+
+/* Cal en light */
+html[data-theme="light"] .cal-d:hover {
+  background:rgba(14,165,233,.1) !important;
+  color:#0ea5e9 !important;
+}
+html[data-theme="light"] .cal-d.today {
+  background:linear-gradient(135deg,#38bdf8,#22d3ee) !important;
+  color:#fff !important;
+}
+
+/* Prod en light */
+html[data-theme="light"] .prod:hover {
+  background:rgba(14,165,233,.07) !important;
+  border-color:rgba(14,165,233,.25) !important;
+}
+html[data-theme="light"] .cobrar-b {
+  background:linear-gradient(135deg,#38bdf8,#0ea5e9) !important;
+  color:#fff !important;
+}
+html[data-theme="light"] .pago-b.sel {
+  background:rgba(14,165,233,.12) !important;
+  border-color:rgba(14,165,233,.4) !important;
+  color:#0ea5e9 !important;
+}
+
 </style>
 </head>
 <body>
@@ -1561,7 +1777,7 @@ html[data-theme="light"] .auth-btn { color:#fff !important; }
   <div class="sb-top">
     <div class="sb-mark" id="sb-logo"><img src="https://assets.zyrosite.com/tuxlJ9mU9qc7kZnZ/chatgpt-image-17-may-2026-12_46_53-tK0XB1qT5B8aqHTH.png" style="width:100%;height:100%;object-fit:contain" onerror="this.replaceWith(document.createTextNode('A'))"></div>
     <div class="sb-brand">Agenda<span class="accent">OS</span></div>
-    <button class="sb-close" id="sb-close-btn">Eliminar</button>
+    <button class="sb-close" id="sb-close-btn" aria-label="Cerrar menú"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <div class="sb-neg" id="sb-neg">—</div>
   <div class="sb-sec">Día a día</div>
@@ -1903,7 +2119,7 @@ html[data-theme="light"] .auth-btn { color:#fff !important; }
 <div class="modal-bg" id="modal-bg">
   <div class="modal" id="modal">
     <div class="m-handle"></div>
-    <div class="m-h"><div class="m-t" id="m-title">—</div><button class="m-x" id="m-close">Eliminar</button></div>
+    <div class="m-h"><div class="m-t" id="m-title">—</div><button class="m-x" id="m-close" aria-label="Cerrar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
     <div class="m-b" id="m-body"></div>
     <div class="m-f" id="m-foot"></div>
   </div>
