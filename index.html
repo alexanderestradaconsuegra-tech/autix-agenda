@@ -25,29 +25,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --blue:#4f6df5;--blue2:#3451d1;--blue-l:rgba(79,109,245,.12);--blue-glow:rgba(79,109,245,.28);
-  --os:#00d4aa;--os2:#00b894;--os-l:rgba(0,212,170,.1);--os-glow:rgba(0,212,170,.3);
-  --dark:#07111f;--dark2:#0b1627;--dark3:#111e32;--dark4:#0e1929;--dark-bdr:rgba(255,255,255,.06);
-  --bg:#07111f;--off:#0b1627;--white:#0f1e30;
+  /* ── BRAND: Sky/Cyan como la landing ── */
+  --blue:#38bdf8;--blue2:#0ea5e9;--blue-l:rgba(56,189,248,.14);--blue-glow:rgba(56,189,248,.3);
+  --os:#22d3ee;--os2:#06b6d4;--os-l:rgba(34,211,238,.1);--os-glow:rgba(34,211,238,.28);
+  /* ── DARK BASE — más profundo ── */
+  --dark:#060e1a;--dark2:#091422;--dark3:#0d1c2e;--dark4:#081119;--dark-bdr:rgba(255,255,255,.06);
+  --bg:#060e1a;--off:#091422;--white:#0d1c2e;
   --bdr:rgba(255,255,255,.07);--bdr2:rgba(255,255,255,.12);
-  --ink:#e8f0ff;--ink2:#a8b8d8;--muted:#5a7090;--faint:rgba(255,255,255,.08);
-  --red:#f24a5a;--red-g:rgba(242,74,90,.12);
-  --amber:#f5a623;--amber-g:rgba(245,166,35,.12);
-  --green:#00d4aa;--green-g:rgba(0,212,170,.12);
+  --ink:#f0f8ff;--ink2:#b8d4f0;--muted:#5a7a9a;--faint:rgba(255,255,255,.07);
+  /* ── SEMANTIC ── */
+  --red:#f87171;--red-g:rgba(248,113,113,.12);
+  --amber:#fbbf24;--amber-g:rgba(251,191,36,.12);
+  --green:#34d399;--green-g:rgba(52,211,153,.12);
   --purple:#a78bfa;--purple-g:rgba(167,139,250,.12);
   --pink:#f472b6;--pink-g:rgba(244,114,182,.12);
-  --r:8px;--r-md:10px;--r-lg:14px;--r-xl:18px;--r-2xl:22px;
-  --sw:240px;--tb:58px;
+  /* ── LAYOUT ── */
+  --r:10px;--r-md:14px;--r-lg:18px;--r-xl:22px;--r-2xl:28px;
+  --sw:248px;--tb:60px;
   --font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace;
-  --shadow-sm:0 2px 8px rgba(0,0,0,.3);
-  --shadow-md:0 6px 24px rgba(0,0,0,.4);
-  --shadow-lg:0 16px 48px rgba(0,0,0,.5);
-  --shadow-glow:0 0 32px rgba(0,212,170,.25);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.35);
+  --shadow-md:0 8px 28px rgba(0,0,0,.45);
+  --shadow-lg:0 20px 56px rgba(0,0,0,.55);
+  --shadow-glow:0 0 32px rgba(34,211,238,.22);
   --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.07);
   --glass-bdr:1px solid rgba(255,255,255,.07);
 }
 /* ── THEMES ── */
-html[data-theme="dark"]{--bg:#07111f;--off:#0b1627;--white:#0f1e30;--bdr:rgba(255,255,255,.07);--bdr2:rgba(255,255,255,.12);--ink:#e8f0ff;--ink2:#a8b8d8;--muted:#5a7090;--faint:rgba(255,255,255,.08);color-scheme:dark}
+html[data-theme="dark"]{--bg:#060e1a;--off:#091422;--white:#0d1c2e;--bdr:rgba(255,255,255,.07);--bdr2:rgba(255,255,255,.12);--ink:#f0f8ff;--ink2:#b8d4f0;--muted:#5a7a9a;--faint:rgba(255,255,255,.07);color-scheme:dark}
 html[data-theme="light"]{--bg:#f4f7fb;--off:#eef1f8;--white:#ffffff;--bdr:#e2e8f2;--bdr2:#c8d4e8;--ink:#0d1117;--ink2:#374151;--muted:#6b7280;--faint:#e2e8f2;color-scheme:light}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -318,10 +322,10 @@ tbody tr:hover td{background:var(--off)}
 .btn-os:hover{background:var(--os2);transform:translateY(-1px)}
 .btn-s{background:var(--white);color:var(--ink2);border:1.5px solid var(--bdr2)}
 .btn-s:hover{background:var(--blue-l);border-color:rgba(67,97,238,.3);color:var(--blue)}
-.btn-xs{font-size:10px;font-weight:700;padding:4px 9px;border-radius:100px;border:none;cursor:pointer;transition:all .15s;font-family:var(--font);white-space:nowrap}
-.btn-ok{background:var(--green-g);color:var(--green)}.btn-ok:hover{background:var(--green);color:#fff}
+.btn-xs{font-size:11px;font-weight:700;padding:5px 12px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1);font-family:var(--font);white-space:nowrap;display:inline-flex;align-items:center;gap:5px;letter-spacing:.01em}
+.btn-ok-old{background:var(--green-g);color:var(--green)}.btn-ok:hover{background:var(--green);color:#fff}
 .btn-del{background:var(--red-g);color:var(--red)}.btn-del:hover{background:var(--red);color:#fff}
-.btn-edit{background:var(--off);color:var(--muted);border:1px solid var(--bdr)}.btn-edit:hover{color:var(--blue);border-color:var(--blue)}
+.btn-edit-old{background:var(--off);color:var(--muted);border:1px solid var(--bdr)}
 
 /* ── CHIPS ── */
 .chips{display:flex;flex-wrap:wrap;gap:5px}
@@ -361,7 +365,7 @@ tbody tr:hover td{background:var(--off)}
 .prod:active{transform:scale(.97)}
 .prod-em{font-size:36px;flex:1;display:flex;align-items:center;justify-content:center;background:rgba(79,109,245,.06)}
 .prod-n{font-size:11px;font-weight:700;color:var(--ink);line-height:1.3;padding:5px 6px 0;display:flex;align-items:center;justify-content:center;text-align:center}
-.prod-p{font-size:12px;font-weight:800;color:var(--blue);font-family:var(--mono);padding:2px 6px 7px}
+.prod-p{font-size:12px;font-weight:800;color:#38bdf8;font-family:var(--mono);padding:2px 6px 7px}
 
 .cart-h{padding:12px 14px;border-bottom:1px solid var(--bdr);font-size:13px;font-weight:800;color:var(--ink);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .cart-i{flex:1;overflow-y:auto;padding:8px}
@@ -434,10 +438,10 @@ tbody tr:hover td{background:var(--off)}
 .mkt-d{font-size:10px;color:var(--muted)}
 
 /* ── TOGGLE ── */
-.tgl{display:inline-block;position:relative;width:38px;height:22px;cursor:pointer;flex-shrink:0}
+.tgl{display:inline-block;position:relative;width:44px;height:26px;cursor:pointer;flex-shrink:0}
 .tgl input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
-.tgl-sl{position:absolute;inset:0;background:rgba(255,255,255,.12);border-radius:100px;transition:background .2s}
-.tgl input:checked+.tgl-sl{background:linear-gradient(135deg,#00d4aa,#00b894);box-shadow:0 0 10px rgba(0,212,170,.3)}
+.tgl-sl{position:absolute;inset:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:100px;transition:all .25s cubic-bezier(.4,0,.2,1)}
+.tgl input:checked+.tgl-sl{background:linear-gradient(135deg,#22d3ee,#06b6d4);box-shadow:0 0 10px rgba(0,212,170,.3)}
 .tgl-sl::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .tgl input:checked+.tgl-sl::after{transform:translateX(16px)}
 
@@ -503,7 +507,7 @@ tbody tr:hover td{background:var(--off)}
 
 /* ── GRADIENT AVATARS ── */
 .gc0{background:linear-gradient(135deg,#4361ee,#3451d1)}
-.gc1{background:linear-gradient(135deg,#00d4aa,#00b894)}
+.gc1{background:linear-gradient(135deg,#22d3ee,#06b6d4)}
 .gc2{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
 .gc3{background:linear-gradient(135deg,#f59e0b,#d97706)}
 .gc4{background:linear-gradient(135deg,#ef4444,#dc2626)}
@@ -1000,7 +1004,7 @@ tbody tr:hover td { background: rgba(79,109,245,.06) !important; }
 .trial-price-label{font-size:11px;color:rgba(168,184,216,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
 .trial-price-val{font-size:32px;font-weight:900;color:#4f6df5;font-family:'JetBrains Mono',monospace}
 .trial-price-period{font-size:12px;color:rgba(168,184,216,.4)}
-.trial-btn{width:100%;height:52px;border:0;border-radius:16px;font-weight:900;font-size:15px;font-family:inherit;cursor:pointer;background:linear-gradient(135deg,#4f6df5,#00d4aa);color:#fff;box-shadow:0 8px 32px rgba(79,109,245,.3);margin-bottom:10px;transition:.2s}
+.trial-btn{width:100%;height:52px;border:0;border-radius:16px;font-weight:900;font-size:15px;font-family:inherit;cursor:pointer;background:linear-gradient(135deg,#38bdf8,#22d3ee);color:#fff;box-shadow:0 8px 32px rgba(79,109,245,.3);margin-bottom:10px;transition:.2s}
 .trial-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(79,109,245,.4)}
 .trial-btn-sec{width:100%;padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:transparent;color:rgba(168,184,216,.5);font-size:12px;cursor:pointer;font-family:inherit}
 
@@ -1091,7 +1095,7 @@ html[data-theme="light"] .auth-tabs{background:#f0f4ff !important}
 /* ── PERIODO BUTTONS ── */
 .pbtn{cursor:pointer;padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;color:rgba(168,184,216,.4);background:transparent;border:1px solid transparent;transition:all .15s;display:inline-block}
 .pbtn:hover{color:rgba(168,184,216,.7);background:rgba(255,255,255,.05)}
-.pbtn-on{color:#a0b8ff !important;background:rgba(79,109,245,.2) !important;border-color:rgba(79,109,245,.35) !important}
+.pbtn-on{color:#a0b8ff !important;background:rgba(56,189,248,.15) !important;border-color:rgba(56,189,248,.4) !important}
 html[data-theme="light"] .pbtn{color:rgba(107,114,128,.6)}
 html[data-theme="light"] .pbtn:hover{background:rgba(0,0,0,.04)}
 html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97,238,.1) !important;border-color:rgba(67,97,238,.25) !important}
@@ -1165,6 +1169,309 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
 }
 .mc-avail-wrap { display: none; }
 .mc-avail-wrap.visible { display: block; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   AGENDAOS — MODERN APP UI REFRESH
+   Sky/Cyan palette · More rounded · Cleaner surfaces
+   ══════════════════════════════════════════════════════════════ */
+
+/* Body background — subtle gradient like landing */
+body {
+  background:
+    radial-gradient(ellipse 800px 500px at 15% -10%, rgba(56,189,248,.12), transparent 55%),
+    radial-gradient(ellipse 600px 400px at 90% 100%, rgba(34,211,238,.08), transparent 50%),
+    linear-gradient(180deg,#060e1a,#091422) !important;
+}
+
+/* Sidebar — más premium */
+.sidebar {
+  background:linear-gradient(180deg,#060e1a 0%,#091422 100%) !important;
+  border-right:1px solid rgba(56,189,248,.08) !important;
+}
+.sb-item.active {
+  background:rgba(56,189,248,.1) !important;
+  border-left:3px solid #38bdf8 !important;
+  color:#f0f8ff !important;
+}
+.sb-item:hover:not(.active) {
+  background:rgba(56,189,248,.06) !important;
+}
+.sb-logo-wrap { border-bottom:1px solid rgba(56,189,248,.08) !important; }
+
+/* Toolbar */
+.tb {
+  background:rgba(6,14,26,.88) !important;
+  border-bottom:1px solid rgba(56,189,248,.08) !important;
+  backdrop-filter:blur(32px) !important;
+}
+.tb-live {
+  background:rgba(56,189,248,.1) !important;
+  border-color:rgba(56,189,248,.2) !important;
+  color:#38bdf8 !important;
+}
+
+/* Metrics cards */
+.metric {
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.02)) !important;
+  border:1px solid rgba(56,189,248,.1) !important;
+  border-radius:22px !important;
+  box-shadow:0 4px 20px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+.metric:hover {
+  border-color:rgba(56,189,248,.25) !important;
+  box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 30px rgba(56,189,248,.12) !important;
+  transform:translateY(-5px) !important;
+}
+.metric.os:hover { box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 30px rgba(34,211,238,.15) !important; }
+
+/* Cards */
+.card {
+  background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.02)) !important;
+  border:1px solid rgba(56,189,248,.08) !important;
+  border-radius:22px !important;
+  box-shadow:0 4px 20px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+.card-h { border-bottom:1px solid rgba(56,189,248,.07) !important; }
+
+/* Buttons */
+.btn-p {
+  background:linear-gradient(135deg,#38bdf8,#22d3ee) !important;
+  color:#060e1a !important;
+  font-weight:800 !important;
+  box-shadow:0 4px 16px rgba(56,189,248,.3) !important;
+}
+.btn-p:hover { box-shadow:0 8px 28px rgba(56,189,248,.45) !important; }
+
+.btn-s {
+  background:rgba(255,255,255,.06) !important;
+  border-color:rgba(56,189,248,.15) !important;
+  color:#b8d4f0 !important;
+}
+.btn-s:hover {
+  background:rgba(56,189,248,.1) !important;
+  border-color:rgba(56,189,248,.3) !important;
+  color:#f0f8ff !important;
+}
+
+/* Auth */
+.auth-btn {
+  background:linear-gradient(135deg,#38bdf8,#22d3ee) !important;
+  color:#060e1a !important;
+  font-weight:900 !important;
+  box-shadow:0 4px 24px rgba(56,189,248,.35) !important;
+}
+.auth-btn:hover { box-shadow:0 8px 32px rgba(56,189,248,.5) !important; }
+
+/* Tags/Status */
+.s-c { background:rgba(34,211,238,.12) !important; color:#22d3ee !important; border-color:rgba(34,211,238,.2) !important; }
+.s-p { background:rgba(251,191,36,.12) !important; color:#fbbf24 !important; border-color:rgba(251,191,36,.2) !important; }
+.s-x { background:rgba(248,113,113,.12) !important; color:#f87171 !important; border-color:rgba(248,113,113,.2) !important; }
+.s-d { background:rgba(167,139,250,.12) !important; color:#a78bfa !important; border-color:rgba(167,139,250,.2) !important; }
+
+/* Chips active */
+.chip.active { background:rgba(56,189,248,.15) !important; border-color:rgba(56,189,248,.35) !important; color:#38bdf8 !important; }
+.tab.active { background:rgba(56,189,248,.15) !important; color:#38bdf8 !important; }
+.auth-tab.active { background:rgba(56,189,248,.15) !important; color:#38bdf8 !important; }
+
+/* Calendar today */
+.cal-d.today { background:linear-gradient(135deg,#38bdf8,#22d3ee) !important; color:#060e1a !important; font-weight:900 !important; box-shadow:0 4px 20px rgba(56,189,248,.35) !important; }
+.cal-d.sel { background:rgba(56,189,248,.15) !important; border-color:rgba(56,189,248,.4) !important; color:#38bdf8 !important; }
+.cal-d.has-ev { background:rgba(34,211,238,.1) !important; border-color:rgba(34,211,238,.25) !important; color:#22d3ee !important; }
+.t-time { color:#38bdf8 !important; }
+
+/* Sidebar badge */
+.sb-badge {
+  background:linear-gradient(135deg,#38bdf8,#22d3ee) !important;
+  color:#060e1a !important;
+}
+
+/* Quick actions */
+.qa-btn:hover {
+  background:rgba(56,189,248,.08) !important;
+  border-color:rgba(56,189,248,.25) !important;
+}
+
+/* Demo banner */
+.demo-banner { background:rgba(56,189,248,.1) !important; border-color:rgba(56,189,248,.2) !important; color:#38bdf8 !important; }
+.demo-badge { background:#38bdf8 !important; color:#060e1a !important; }
+
+/* Scrollbar */
+::-webkit-scrollbar-thumb:hover { background:rgba(56,189,248,.4) !important; }
+
+/* Modal */
+.modal { background:linear-gradient(145deg,#0a1829,#081221) !important; border-color:rgba(56,189,248,.1) !important; }
+
+/* Cobrar button */
+.cobrar-b {
+  background:linear-gradient(135deg,#38bdf8,#22d3ee) !important;
+  color:#060e1a !important;
+  font-weight:900 !important;
+  box-shadow:0 4px 24px rgba(56,189,248,.25) !important;
+}
+.cobrar-b:hover:not(:disabled) { box-shadow:0 8px 40px rgba(56,189,248,.4) !important; }
+
+/* Pago button selected */
+.pago-b.sel {
+  background:rgba(56,189,248,.15) !important;
+  border-color:rgba(56,189,248,.4) !important;
+  color:#38bdf8 !important;
+  box-shadow:0 0 16px rgba(56,189,248,.15) !important;
+}
+
+/* Prod card hover */
+.prod:hover {
+  background:rgba(56,189,248,.08) !important;
+  border-color:rgba(56,189,248,.25) !important;
+}
+
+/* Trial overlay */
+.trial-btn {
+  background:linear-gradient(135deg,#38bdf8,#22d3ee) !important;
+  color:#060e1a !important;
+}
+
+/* Input focus — sky glow */
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color:rgba(56,189,248,.5) !important;
+  box-shadow:0 0 0 3px rgba(56,189,248,.12) !important;
+  background:rgba(56,189,248,.05) !important;
+}
+.fl-input:focus, .fl-select:focus {
+  border-color:rgba(56,189,248,.6) !important;
+  box-shadow:0 0 0 3px rgba(56,189,248,.15) !important;
+}
+
+/* Auth tab active */
+.auth-tab.active { box-shadow:0 0 12px rgba(56,189,248,.15) !important; }
+
+/* Periodo active */
+.pbtn-on { color:#38bdf8 !important; background:rgba(56,189,248,.15) !important; border-color:rgba(56,189,248,.3) !important; }
+
+/* Public link */
+#cfg-public-link { color:#38bdf8 !important; }
+
+/* Availability slots */
+.avail-slot.free { background:rgba(34,211,238,.1) !important; border-color:rgba(34,211,238,.25) !important; color:#22d3ee !important; }
+.avail-slot.sel { background:rgba(56,189,248,.2) !important; border-color:#38bdf8 !important; color:#38bdf8 !important; box-shadow:0 0 12px rgba(56,189,248,.2) !important; }
+.slot-ok-banner { background:rgba(34,211,238,.1) !important; border-color:rgba(34,211,238,.25) !important; color:#22d3ee !important; }
+
+/* CRM WA button */
+.btn-xs.btn-ok { background:rgba(56,189,248,.12) !important; color:#38bdf8 !important; }
+
+/* Light mode adaptations */
+html[data-theme="light"] .btn-p { color:#fff !important; }
+html[data-theme="light"] .cobrar-b { color:#fff !important; }
+html[data-theme="light"] .auth-btn { color:#fff !important; }
+
+
+/* ══ BOTONES REDISEÑADOS — Modern App Style ══ */
+
+/* btn-edit — visible con borde */
+.btn-xs.btn-edit,
+.btn-edit {
+  background: rgba(56,189,248,.08) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56,189,248,.2) !important;
+  padding: 5px 12px !important;
+  border-radius: 8px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+.btn-xs.btn-edit:hover,
+.btn-edit:hover {
+  background: rgba(56,189,248,.18) !important;
+  border-color: rgba(56,189,248,.4) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(56,189,248,.15) !important;
+}
+
+/* btn-ok — verde/cyan claro */
+.btn-xs.btn-ok,
+.btn-ok {
+  background: rgba(34,211,238,.1) !important;
+  color: #22d3ee !important;
+  border: 1px solid rgba(34,211,238,.2) !important;
+  padding: 5px 12px !important;
+  border-radius: 8px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+.btn-xs.btn-ok:hover,
+.btn-ok:hover {
+  background: rgba(34,211,238,.2) !important;
+  border-color: rgba(34,211,238,.4) !important;
+}
+
+/* btn-del — rojo claro */
+.btn-xs.btn-del,
+.btn-del {
+  background: rgba(248,113,113,.08) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(248,113,113,.2) !important;
+  padding: 5px 12px !important;
+  border-radius: 8px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+.btn-xs.btn-del:hover,
+.btn-del:hover {
+  background: rgba(248,113,113,.18) !important;
+  border-color: rgba(248,113,113,.4) !important;
+}
+
+/* Toggle OFF state — gris oscuro con label implícito */
+.tgl input:not(:checked)+.tgl-sl {
+  background: rgba(255,255,255,.08) !important;
+  border: 1.5px solid rgba(255,255,255,.15) !important;
+}
+/* Toggle ON state — sky gradient */
+.tgl input:checked+.tgl-sl {
+  background: linear-gradient(135deg,#38bdf8,#22d3ee) !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 12px rgba(56,189,248,.3) !important;
+}
+
+/* Tabla action buttons — alinear en fila */
+.row-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* btn-p más redondeado y con más peso */
+.btn.btn-p {
+  border-radius: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: -.2px !important;
+}
+.btn.btn-s {
+  border-radius: 12px !important;
+}
+
+/* Hover lift en botones principales */
+.btn-p:hover { transform: translateY(-2px) !important; }
+.btn-s:hover { transform: translateY(-1px) !important; }
+
+
+/* Toggle knob */
+.tgl-sl::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  box-shadow: 0 1px 4px rgba(0,0,0,.4);
+  transition: all .25s cubic-bezier(.4,0,.2,1);
+}
+.tgl input:checked + .tgl-sl::after {
+  transform: translateX(18px);
+  background: #060e1a;
+  box-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
 
 </style>
 </head>
@@ -1254,7 +1561,7 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
   <div class="sb-top">
     <div class="sb-mark" id="sb-logo"><img src="https://assets.zyrosite.com/tuxlJ9mU9qc7kZnZ/chatgpt-image-17-may-2026-12_46_53-tK0XB1qT5B8aqHTH.png" style="width:100%;height:100%;object-fit:contain" onerror="this.replaceWith(document.createTextNode('A'))"></div>
     <div class="sb-brand">Agenda<span class="accent">OS</span></div>
-    <button class="sb-close" id="sb-close-btn">✕</button>
+    <button class="sb-close" id="sb-close-btn">Eliminar</button>
   </div>
   <div class="sb-neg" id="sb-neg">—</div>
   <div class="sb-sec">Día a día</div>
@@ -1544,7 +1851,7 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
         <div class="cfg-sec-t">Link de reservas para clientes</div>
         <div style="margin-bottom:10px;font-size:12px;color:rgba(168,184,216,.6)">Comparte este link con tus clientes para que puedan agendar en línea</div>
         <div style="display:flex;align-items:center;gap:8px;background:rgba(0,212,170,.06);border:1px solid rgba(0,212,170,.15);border-radius:12px;padding:12px 14px">
-          <span id="cfg-public-link" style="flex:1;font-family:var(--mono);font-size:11px;color:#00d4aa;word-break:break-all">—</span>
+          <span id="cfg-public-link" style="flex:1;font-family:var(--mono);font-size:11px;color:#38bdf8;word-break:break-all">—</span>
           <button class="btn btn-s" style="flex-shrink:0;font-size:11px;padding:6px 12px" onclick="copyPublicLink()">Copiar</button>
         </div>
         <div style="margin-top:8px;font-size:11px;color:rgba(168,184,216,.4)">También puedes compartirlo por WhatsApp directamente</div>
@@ -1596,7 +1903,7 @@ html[data-theme="light"] .pbtn-on{color:#4361ee !important;background:rgba(67,97
 <div class="modal-bg" id="modal-bg">
   <div class="modal" id="modal">
     <div class="m-handle"></div>
-    <div class="m-h"><div class="m-t" id="m-title">—</div><button class="m-x" id="m-close">✕</button></div>
+    <div class="m-h"><div class="m-t" id="m-title">—</div><button class="m-x" id="m-close">Eliminar</button></div>
     <div class="m-b" id="m-body"></div>
     <div class="m-f" id="m-foot"></div>
   </div>
@@ -1793,7 +2100,7 @@ function showTrialExpired(nombre){
           <div class="trial-price-period">CLP / mes</div>
         </div>
         <div class="trial-price" style="cursor:pointer;border:2px solid rgba(0,212,170,.4);position:relative" onclick="activarPlan('anual')">
-          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#00d4aa,#4f6df5);color:#fff;font-size:9px;font-weight:900;padding:2px 8px;border-radius:100px;white-space:nowrap">20% DESCUENTO</div>
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22d3ee,#38bdf8);color:#fff;font-size:9px;font-weight:900;padding:2px 8px;border-radius:100px;white-space:nowrap">20% DESCUENTO</div>
           <div class="trial-price-label">Anual</div>
           <div class="trial-price-val" style="font-size:24px;color:#00d4aa">$7.992</div>
           <div class="trial-price-period">CLP / mes · $95.904/año</div>
@@ -1802,7 +2109,7 @@ function showTrialExpired(nombre){
       <button class="trial-btn" onclick="activarPlan('mensual')">
         Pagar mensual → $9.990
       </button>
-      <button class="trial-btn" style="background:linear-gradient(135deg,#00d4aa,#4f6df5);margin-top:8px" onclick="activarPlan('anual')">
+      <button class="trial-btn" style="background:linear-gradient(135deg,#22d3ee,#38bdf8);margin-top:8px" onclick="activarPlan('anual')">
         Pagar anual → $95.904 (ahorra $23.976)
       </button>
       <button class="trial-btn-sec" onclick="document.getElementById('trial-overlay').remove()">
@@ -2349,7 +2656,7 @@ function buildChart(semana){
     ${bars}
     <path d="${areaSmooth}" fill="url(#cgrad)"/>
     <path d="${smooth}" fill="none" stroke="url(#linegrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
-    <defs><linearGradient id="linegrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4f6df5"/><stop offset="100%" stop-color="#00d4aa"/></linearGradient></defs>
+    <defs><linearGradient id="linegrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient></defs>
     ${pts.map((p,i) => `
       <circle cx="${p[0]}" cy="${p[1]}" r="5" fill="#07111f" stroke="${vals[i]===max?'#00d4aa':'rgba(79,109,245,.7)'}" stroke-width="2" filter="${vals[i]===max?'url(#glow)':''}">
         <animate attributeName="r" from="0" to="5" dur="0.5s" begin="${i*0.06+0.6}s" fill="freeze"/>
@@ -2472,7 +2779,7 @@ function renderResv(){
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(r.monto)}</td>
       <td style="text-align:right">
         ${r.estado==='pendiente'?`<button class="btn-xs btn-ok" onclick="cambiarEstado(${r.id},'confirmada')">✓</button> `:''}
-        ${r.estado!=='cancelada'&&r.estado!=='completada'?`<button class="btn-xs btn-del" onclick="cambiarEstado(${r.id},'cancelada')">✕</button>`:''}
+        ${r.estado!=='cancelada'&&r.estado!=='completada'?`<button class="btn-xs btn-del" onclick="cambiarEstado(${r.id},'cancelada')">Eliminar</button>`:''}
       </td>
     </tr>`).join('');
 }
@@ -2592,7 +2899,7 @@ function renderClis(filter=''){
       <td style="font-weight:700">${c.total_citas||0}</td>
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(c.gasto_total||0)}</td>
       <td>${seg}</td>
-      <td style="text-align:right"><button class="btn-xs btn-edit" onclick="editCli(${c.id})">✏</button> <button class="btn-xs btn-del" onclick="deleteCli(${c.id})">✕</button></td>
+      <td style="text-align:right"><button class="btn-xs btn-edit" onclick="editCli(${c.id})">Editar</button> <button class="btn-xs btn-del" onclick="deleteCli(${c.id})">Eliminar</button></td>
     </tr>`;
   }).join('');
 }
@@ -2664,7 +2971,7 @@ function renderSvc(){
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(s.precio)}</td>
       <td>${s.requiere_pago?'<span class="tag tag-vip">Sí</span>':'<span class="tag tag-new">No</span>'}</td>
       <td><label class="tgl"><input type="checkbox" ${s.activo!==false?'checked':''} onchange="toggleSvc(${s.id})"><div class="tgl-sl"></div></label></td>
-      <td style="text-align:right"><button class="btn-xs btn-edit" onclick="editSvc(${s.id})">✏</button> <button class="btn-xs btn-del" onclick="deleteSvc(${s.id})">✕</button></td>
+      <td style="text-align:right"><button class="btn-xs btn-edit" onclick="editSvc(${s.id})">Editar</button> <button class="btn-xs btn-del" onclick="deleteSvc(${s.id})">Eliminar</button></td>
     </tr>`).join('');
 }
 
@@ -2720,8 +3027,8 @@ function renderProfs(){
       <div class="pcard-f">
         <div class="pcard-cont">📞 <b>${esc(p.telefono||'—')}</b></div>
         <div class="pcard-act">
-          <button class="btn-xs btn-edit" onclick="editProf(${p.id})">✏</button>
-          <button class="btn-xs btn-del" onclick="deleteProf(${p.id})">✕</button>
+          <button class="btn-xs btn-edit" onclick="editProf(${p.id})">Editar</button>
+          <button class="btn-xs btn-del" onclick="deleteProf(${p.id})">Eliminar</button>
         </div>
       </div>
     </div>`;
@@ -2754,7 +3061,7 @@ function renderProds(){
       <td style="font-weight:700">${p.stock||0}</td>
       <td><span style="color:${margen>30?'var(--green)':margen>15?'var(--amber)':'var(--red)'};font-weight:700;font-family:var(--mono)">${margen}%</span></td>
       <td><label class="tgl"><input type="checkbox" ${p.activo!==false?'checked':''} onchange="toggleProd(${p.id})"><div class="tgl-sl"></div></label></td>
-      <td style="text-align:right"><button class="btn-xs btn-edit" onclick="editProd(${p.id})">✏</button> <button class="btn-xs btn-del" onclick="deleteProd(${p.id})">✕</button></td>
+      <td style="text-align:right"><button class="btn-xs btn-edit" onclick="editProd(${p.id})">Editar</button> <button class="btn-xs btn-del" onclick="deleteProd(${p.id})">Eliminar</button></td>
     </tr>`;
   }).join('');
 }
@@ -3041,7 +3348,7 @@ const MODAL_TEMPLATES = {
         <div class="fg"><label>Profesional</label><select id="mc-prof" onchange="checkSlotAndUpdate()"><option value="0">Cualquiera / Sin asignar</option>${PROFS.map(p => `<option value="${p.id}" data-nombre="${esc(p.nombre)}" ${data?.profesional_id==p.id?'selected':''}>${esc(p.nombre)}</option>`).join('')}</select></div>
         <div class="fg"><label>Fecha</label><input id="mc-fecha" type="date" value="${defFecha}" oninput="checkSlotAndUpdate()"></div>
       </div>
-      <div class="fg"><label>Hora</label><input id="mc-hora" type="time" value="${defHora}" oninput="checkSlotAndUpdate()"></div>
+      <div class="fg"><label>Hora</label><select id="mc-hora" onchange="checkSlotAndUpdate()" style="font-family:var(--mono);font-size:13px">${(()=>{const slots=[];const ahora=new Date();const esHoy=(defFecha===ahora.toISOString().split('T')[0]);const nowMins=ahora.getHours()*60+ahora.getMinutes();for(let h=8;h<=20;h++)for(let m=0;m<60;m+=30){if(esHoy&&(h*60+m)<=nowMins+29)continue;const t=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');slots.push('<option value="'+t+'"'+(t===defHora?' selected':'')+'>'+t+'</option>');}return slots.join('');})()}</select></div>
       <div id="mc-conflict-banner" style="display:none"></div>
       <div class="mc-avail-wrap" id="mc-avail-wrap"></div>
       <div class="fg"><label>Notas</label><textarea id="mc-notas" rows="2">${esc(data?.notas||'')}</textarea></div>
@@ -3073,7 +3380,7 @@ const MODAL_TEMPLATES = {
           <input type="hidden" id="ms-fb" value="${esc(data?.foto_url||'')}">
           <div style="display:flex;gap:6px;margin-top:6px">
             <button type="button" class="btn btn-s" style="font-size:10px;padding:5px 10px" onclick="$('ms-ff').click()">Subir foto</button>
-            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="svc-prev" data-hid="ms-fb">✕</button>':''}
+            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="svc-prev" data-hid="ms-fb">Eliminar</button>':''}
           </div>
         </div>
       </div>
@@ -3099,7 +3406,7 @@ const MODAL_TEMPLATES = {
           <input type="hidden" id="prof-fb" value="${esc(data?.foto_url||'')}">
           <div style="display:flex;gap:6px;margin-top:6px">
             <button type="button" class="btn btn-s" style="font-size:10px;padding:5px 10px" onclick="$('prof-ff').click()">Subir foto</button>
-            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="prof-prev" data-hid="prof-fb">✕</button>':''}
+            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="prof-prev" data-hid="prof-fb">Eliminar</button>':''}
           </div>
         </div>
       </div>
@@ -3124,7 +3431,7 @@ const MODAL_TEMPLATES = {
           <input type="hidden" id="prod-fb" value="${esc(data?.foto_url||'')}">
           <div style="display:flex;gap:6px;margin-top:6px">
             <button type="button" class="btn btn-s" style="font-size:10px;padding:5px 10px" onclick="$('prod-ff').click()">Subir foto</button>
-            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="prod-prev" data-hid="prod-fb">✕</button>':''}
+            ${data?.foto_url?'<button type="button" class="btn-xs btn-del" onclick="clearPhoto(this)" data-prev="prod-prev" data-hid="prod-fb">Eliminar</button>':''}
           </div>
         </div>
       </div>
@@ -3179,22 +3486,22 @@ const MODAL_TEMPLATES = {
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
           <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f6df5,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">1</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">1</div>
             <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Crear cuenta en MercadoPago</div>
             Entra a <a href="https://www.mercadopago.cl" target="_blank" style="color:#4f6df5">mercadopago.cl</a> y crea tu cuenta si no tienes una.</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f6df5,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">2</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">2</div>
             <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Ir a tus credenciales</div>
             Entra a <a href="https://www.mercadopago.cl/developers/panel" target="_blank" style="color:#4f6df5">mercadopago.cl/developers/panel</a> → Tu aplicación → Credenciales de producción</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f6df5,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">3</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">3</div>
             <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Copiar el Access Token</div>
             Copia el token que empieza con <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-size:11px">APP_USR-</code> y pégalo en AgendaOS</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f6df5,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">4</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">4</div>
             <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Activar pagos y guardar</div>
             Activa el toggle "Activar pagos en línea" → pega el token → Guardar cambios</div>
           </div>
@@ -3217,22 +3524,22 @@ const MODAL_TEMPLATES = {
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
           <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f6df5,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">1</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">1</div>
             <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Instalar Evolution API</div>
             En EasyPanel → New App → Docker Image: <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-size:11px">atendai/evolution-api:latest</code></div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f6df5,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">2</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">2</div>
             <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Crear una instancia</div>
             Abre la URL de Evolution API → Create Instance → ponle el nombre de tu negocio (ej: <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-size:11px">mi-negocio</code>)</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f6df5,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">3</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">3</div>
             <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Escanear QR con WhatsApp</div>
             En la instancia creada → Connect → escanea el QR desde WhatsApp → Dispositivos vinculados</div>
           </div>
           <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4f6df5,#00d4aa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">4</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">4</div>
             <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Copiar datos en AgendaOS</div>
             URL → la dirección de tu Evolution API<br>
             API Key → la encontras en Settings de Evolution API<br>
