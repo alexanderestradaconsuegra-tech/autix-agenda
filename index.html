@@ -1720,6 +1720,19 @@ html, body { height: 100%; }
   }
 }
 
+
+/* ══ SIDEBAR MÓVIL — scroll completo ══ */
+@media(max-width:900px){
+  .sidebar {
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .sidebar::-webkit-scrollbar { display: none; }
+}
+
 </style>
 </head>
 <body>
