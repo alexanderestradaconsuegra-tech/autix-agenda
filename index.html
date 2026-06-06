@@ -3682,7 +3682,7 @@ const MODAL_TEMPLATES = {
         <div class="fg"><label>Profesional</label><select id="mc-prof" onchange="checkSlotAndUpdate()"><option value="0">Cualquiera / Sin asignar</option>${PROFS.map(p => `<option value="${p.id}" data-nombre="${esc(p.nombre)}" ${data?.profesional_id==p.id?'selected':''}>${esc(p.nombre)}</option>`).join('')}</select></div>
         <div class="fg"><label>Fecha</label><input id="mc-fecha" type="date" value="${defFecha}" oninput="checkSlotAndUpdate()"></div>
       </div>
-      <div class="fg"><label>Hora</label><select id="mc-hora" onchange="checkSlotAndUpdate()" style="font-family:var(--mono);font-size:13px">${(()=>{const slots=[];const ahora=new Date();const esHoy=(defFecha===ahora.toISOString().split('T')[0]);const nowMins=ahora.getHours()*60+ahora.getMinutes();for(let h=8;h<=20;h++)for(let m=0;m<60;m+=30){if(esHoy&&(h*60+m)<=nowMins+29)continue;const t=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');slots.push('<option value="'+t+'"'+(t===defHora?' selected':'')+'>'+t+'</option>');}return slots.join('');})()}</select></div>
+      <div class="fg"><label>Hora</label><select id="mc-hora" onchange="checkSlotAndUpdate()" style="font-family:var(--mono);font-size:13px">${(()=>{const slots=[];const ahora=new Date();const _mcf=$('mc-fecha');const fechaSeleccionada=(_mcf&&_mcf.value?_mcf.value:defFecha);const hoyStr=ahora.toISOString().split('T')[0];const esHoy=(fechaSeleccionada===hoyStr);const nowMins=ahora.getHours()*60+ahora.getMinutes();for(let h=8;h<=20;h++)for(let m=0;m<60;m+=30){if(esHoy&&(h*60+m)<=nowMins+29)continue;const t=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');slots.push('<option value="'+t+'"'+(t===defHora?' selected':'')+'>'+t+'</option>');}return slots.join('');})()}</select></div>
       <div id="mc-conflict-banner" style="display:none"></div>
       <div class="mc-avail-wrap" id="mc-avail-wrap"></div>
       <div class="fg"><label>Notas</label><textarea id="mc-notas" rows="2">${esc(data?.notas||'')}</textarea></div>
@@ -4002,10 +4002,11 @@ function renderAvailSlots(fecha, dur, profId, excludeId){
   const wrap = $('mc-avail-wrap'); if(!wrap) return;
   const hours = [];
   const ahora = new Date();
-  const esHoy = fecha === ahora.toISOString().split('T')[0];
+  const hoyStr = ahora.toISOString().split('T')[0];
+  const esHoy = fecha === hoyStr;
   const minActual = ahora.getHours()*60 + ahora.getMinutes();
   for(let h=8;h<=20;h++) for(let m=0;m<60;m+=30){
-    // Si es hoy, omitir horas que ya pasaron (+ 30 min de anticipación)
+    // Solo filtrar horas pasadas si la fecha es HOY — días futuros muestran todo
     if(esHoy && (h*60+m) <= minActual + 29) continue;
     hours.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
   }
