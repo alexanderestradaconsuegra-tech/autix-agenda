@@ -355,7 +355,7 @@ tbody tr:hover td{background:var(--off)}
 .terminal{display:grid;grid-template-columns:1fr 320px;gap:12px;height:calc(100vh - var(--tb) - 32px)}
 @media(max-width:1000px){.terminal{grid-template-columns:1fr;height:auto}}
 .term-l{display:flex;flex-direction:column;gap:10px;overflow:hidden;min-height:0}
-.term-r{background:var(--white);border:1px solid var(--bdr);border-radius:var(--r-lg);display:flex;flex-direction:column;overflow:hidden}
+.term-r{background:rgba(6,14,26,.95);border:1px solid rgba(56,189,248,.12);border-radius:var(--r-lg);display:flex;flex-direction:column;overflow:hidden;backdrop-filter:blur(12px)}
 
 .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;overflow-y:auto;padding:12px;flex:1}
 @media(max-width:1100px){.prod-grid{grid-template-columns:repeat(3,1fr)}}
@@ -382,7 +382,7 @@ tbody tr:hover td{background:var(--off)}
 .cart-tot-v{font-size:28px;font-weight:900;color:var(--ink);letter-spacing:-1px;font-family:var(--font)}
 
 .pago-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
-.pago-b{padding:8px;border-radius:var(--r-md);border:1.5px solid var(--bdr2);background:var(--white);cursor:pointer;font-size:11px;font-weight:700;color:var(--ink2);transition:all .12s;display:flex;align-items:center;justify-content:center;gap:4px}
+.pago-b{padding:8px;border-radius:var(--r-md);border:1.5px solid rgba(56,189,248,.15);background:rgba(255,255,255,.06);cursor:pointer;font-size:11px;font-weight:700;color:var(--ink2);transition:all .12s;display:flex;align-items:center;justify-content:center;gap:4px}
 .pago-b:hover,.pago-b.sel{border-color:var(--blue);background:var(--blue-l);color:var(--blue)}
 .cobrar-b{width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:var(--r-md);font-size:14px;font-weight:800;cursor:pointer;transition:all .18s;box-shadow:0 4px 14px var(--blue-glow);letter-spacing:-.2px}
 .cobrar-b:hover{background:var(--blue2);transform:translateY(-1px);box-shadow:0 8px 24px var(--blue-glow)}
@@ -1731,6 +1731,80 @@ html, body { height: 100%; }
     padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
   }
   .sidebar::-webkit-scrollbar { display: none; }
+}
+
+
+/* ══ MOBILE FIX DEFINITIVO — todo visible ══ */
+@media(max-width:900px){
+  /* App container usa todo el viewport dinámico */
+  html, body, #app {
+    height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  /* Layout principal */
+  #app {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Toolbar fijo arriba */
+  .tb {
+    flex-shrink: 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+  }
+
+  /* Área de contenido ocupa el resto y hace scroll */
+  .main {
+    flex: 1 !important;
+    overflow: hidden !important;
+    display: flex !important;
+  }
+
+  /* Cada panel hace scroll internamente */
+  .content {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 12px 14px !important;
+    padding-bottom: calc(32px + env(safe-area-inset-bottom, 16px)) !important;
+    height: 100% !important;
+  }
+
+  /* Sidebar scroll con dedo */
+  .sidebar {
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+  .sidebar::-webkit-scrollbar { display: none; }
+
+  /* Terminal en móvil — columna única, scroll */
+  .term-wrap {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .term-l, .term-r {
+    width: 100% !important;
+    max-height: none !important;
+  }
+  .term-r {
+    order: -1 !important;
+  }
+}
+
+@media(max-width:480px){
+  .content {
+    padding: 10px 10px !important;
+    padding-bottom: calc(36px + env(safe-area-inset-bottom, 20px)) !important;
+  }
+  /* Grilla de productos 2 columnas en pantalla pequeña */
+  .prod-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 </style>
