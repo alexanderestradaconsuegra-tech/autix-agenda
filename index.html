@@ -4286,6 +4286,15 @@ async function enviarCampana(tels){
 // ═══════════════════════════════════════════════════════════════════════════
 // EVENT LISTENERS - todo al final, después de definir todas las funciones
 // ═══════════════════════════════════════════════════════════════════════════
+
+function togglePw(inputId, btn){
+  const inp = document.getElementById(inputId);
+  if(!inp) return;
+  const isText = inp.type === 'text';
+  inp.type = isText ? 'password' : 'text';
+  btn.style.opacity = isText ? '0.5' : '1';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   var savedTh = localStorage.getItem('agendaos_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTh);
