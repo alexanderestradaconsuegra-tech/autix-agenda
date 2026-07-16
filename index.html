@@ -3310,7 +3310,7 @@ function renderSvc(){
 }
 
 async function toggleSvc(id){const r=await api('agenda-servicios',{action:'toggle',id});if(r?.ok){loadSvc()}}
-async function deleteSvc(id){if(!confirm('¿Eliminar servicio?'))return;const r=await api('agenda-servicios',{action:'delete',id});if(r?.ok){toast('✓','Eliminado');loadSvc()}}
+async async function deleteSvc(id){if(!confirm('¿Eliminar servicio?'))return;const r=await api('agenda-servicios',{action:'delete',id});if(r?.ok){toast('✓','Eliminado');loadSvc()}}
 function editSvc(id){const s=SVC.find(x=>x.id===id);if(s)openModal('nuevo-servicio',s)}
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -3369,7 +3369,7 @@ function renderProfs(){
   }).join('');
 }
 
-async function deleteProf(id){if(!confirm('¿Eliminar profesional?'))return;const r=await api('agenda-profesionales',{action:'delete',id});if(r?.ok){toast('✓','Eliminado');loadProfs()}}
+async async function deleteProf(id){if(!confirm('¿Eliminar profesional?'))return;const r=await api('agenda-profesionales',{action:'delete',id});if(r?.ok){toast('✓','Eliminado');loadProfs()}}
 function editProf(id){const p=PROFS.find(x=>x.id===id);if(p)openModal('nuevo-prof',p)}
 
 // ═══════════════════════════════════════════════════════════════════════════
