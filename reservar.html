@@ -272,7 +272,7 @@ const params = new URLSearchParams(location.search);
 const ORG_ID = params.get('negocio') || params.get('org') || 'demo';
 
 let SERVICIOS = [], PROFESIONALES = [];
-let selSvc = null, selProf = 0, selSlot = null;
+let selSvc = null, selProf = 0, selSlot = null, slotsVerificados = false;
 
 // ── HELPERS ──
 function money(n){ return '$' + Math.round(n||0).toLocaleString('es-CL') }
@@ -310,6 +310,12 @@ async function init(){
   document.getElementById('inp-fecha').min = today;
   document.getElementById('inp-fecha').value = today;
   document.getElementById('inp-fecha').addEventListener('change', loadSlots);
+
+  // Nombre real del negocio (endpoint público de solo lectura — ver n8n/agenda-configuracion-publica.md)
+  try {
+    const d = await api('agenda-configuracion', {org_id: ORG_ID, action:'getPublic'});
+    if(d?.nombre) document.getElementById('hdr-negocio').textContent = d.nombre;
+  } catch(e){ /* mantiene el nombre genérico por defecto */ }
 
   // Cargar servicios
   try {
@@ -395,6 +401,7 @@ async function loadSlots(){
   const grid = document.getElementById('slots-grid');
   grid.innerHTML = '<div class="slots-loading"><span class="spin"></span>Cargando horarios...</div>';
   selSlot = null;
+  slotsVerificados = false;
   updateBtn();
 
   try {
@@ -438,15 +445,15 @@ async function loadSlots(){
         ${s.hora}
       </div>
     `).join('');
+    slotsVerificados = true;
     setStep(3);
   } catch(e){
     console.error(e);
-    // Fallback: slots fijos si el endpoint no responde
-    const horas = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','14:00','14:30','15:00','15:30','16:00','17:00','17:30','18:00'];
-    grid.innerHTML = horas.map(h => `
-      <div class="slot" data-hora="${h}" onclick="selectSlot(this)">${h}</div>
-    `).join('');
+    // No inventar horarios: sin confirmación real de disponibilidad del servidor, no se puede reservar
+    slotsVerificados = false;
+    grid.innerHTML = '<div class="slots-empty">No se pudo cargar la disponibilidad. <button type="button" onclick="loadSlots()" style="text-decoration:underline;background:none;border:none;color:inherit;cursor:pointer;font:inherit">Reintentar</button></div>';
   }
+  updateBtn();
 }
 
 function selectSlot(el){
@@ -462,7 +469,7 @@ function selectSlot(el){
 }
 
 function updateBtn(){
-  document.getElementById('btn-reservar').disabled = !selSlot;
+  document.getElementById('btn-reservar').disabled = !selSlot || !slotsVerificados;
 }
 
 // ── RESERVAR ──
