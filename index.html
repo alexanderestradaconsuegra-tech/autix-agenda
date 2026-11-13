@@ -1295,6 +1295,26 @@ body {
 .demo-banner { background:rgba(255,106,69,.1) !important; border-color:rgba(255,106,69,.2) !important; color:#FF6A45 !important; }
 .demo-badge { background:#FF6A45 !important; color:#060e1a !important; }
 
+/* Demo/trial banners en móvil — no deben desbordar la toolbar */
+@media(max-width:560px){
+  .tb { flex-wrap:nowrap !important; }
+  .tb-title { min-width:0 !important; overflow:hidden !important; text-overflow:ellipsis !important; white-space:nowrap !important; }
+  .demo-banner, #trial-banner {
+    flex-shrink:0 !important;
+    max-width:104px !important;
+    padding:4px 8px !important;
+    gap:4px !important;
+    overflow:hidden !important;
+    white-space:nowrap !important;
+  }
+  .demo-banner span:last-child,
+  #trial-banner { font-size:10px !important; }
+  .demo-banner span:not(.demo-badge) { display:none !important; }
+}
+@media(max-width:360px){
+  .demo-banner, #trial-banner { display:none !important; }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar-thumb:hover { background:rgba(255,106,69,.4) !important; }
 
