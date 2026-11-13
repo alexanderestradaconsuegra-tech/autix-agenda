@@ -226,6 +226,20 @@ button,input,select,textarea{font-family:inherit}
 .dash-grid-bot{display:grid;grid-template-columns:3fr 2fr;gap:12px}
 @media(max-width:900px){.dash-grid-bot{grid-template-columns:1fr}}
 
+.dash-grid-insights{display:grid;grid-template-columns:1.3fr 1fr;gap:12px}
+@media(max-width:1100px){.dash-grid-insights{grid-template-columns:1fr}}
+.mod-bars{display:flex;gap:10px;align-items:flex-end;height:190px}
+.mod-bar{flex:1;border-radius:16px;display:flex;flex-direction:column;justify-content:space-between;padding:10px 12px;color:#fff;min-height:54px;transition:flex-grow .3s cubic-bezier(.4,0,.2,1)}
+.mod-bar-pill{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;background:rgba(255,255,255,.22);padding:3px 8px;border-radius:100px;align-self:flex-start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.mod-bar-dot{width:5px;height:5px;border-radius:50%;background:#fff;flex-shrink:0}
+.mod-bar-amt{font-size:16px;font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mod-bar-pct{font-size:9px;font-weight:800;background:rgba(0,0,0,.25);padding:2px 6px;border-radius:100px;align-self:flex-start;margin-top:4px}
+@media(max-width:600px){
+  .mod-bars{flex-direction:column;align-items:stretch;height:auto;gap:8px}
+  .mod-bar{flex-grow:0 !important;flex-direction:row;align-items:center;justify-content:space-between;min-height:0;padding:10px 14px}
+  .mod-bar-pct{margin-top:0}
+}
+
 /* ── CARD ── */
 .card{background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.07);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 4px 24px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(16px)}
 .card-h{padding:14px 18px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
@@ -2027,19 +2041,35 @@ html, body { height: 100%; }
           </div>
         </div>
         <div class="card">
-          <div class="card-h"><div class="card-t">Cumplimiento</div></div>
-          <div class="card-b ring-wrap">
-            <svg width="120" height="120" viewBox="0 0 120 120" class="ring-svg">
-              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--faint)" stroke-width="10"/>
-              <circle cx="60" cy="60" r="50" fill="none" stroke="url(#ring-grad)" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" id="ring-dash" stroke-dashoffset="314" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1)"/>
-              <text x="60" y="65" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="20" font-weight="900" fill="var(--ink)" id="ring-tx">—</text>
-              <defs><linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22B37E"/><stop offset="100%" stop-color="#FF6A45"/></linearGradient></defs>
-            </svg>
-            <div style="width:100%;display:flex;flex-direction:column;gap:7px">
-              <div class="ring-stat-row"><span class="ring-dot" style="background:var(--os)"></span><span class="ring-stat-label">Completadas</span><span class="ring-stat-val" id="r-comp">—</span></div>
-              <div class="ring-stat-row"><span class="ring-dot" style="background:var(--amber)"></span><span class="ring-stat-label">Pendientes</span><span class="ring-stat-val" id="r-pend">—</span></div>
-              <div class="ring-stat-row"><span class="ring-dot" style="background:var(--red)"></span><span class="ring-stat-label">Canceladas</span><span class="ring-stat-val" id="r-canc">—</span></div>
+          <div class="card-h">
+            <div><div class="card-t">Citas por estado</div><div class="card-s">Últimos 7 días</div></div>
+          </div>
+          <div class="card-b" style="padding:16px 18px">
+            <div class="chart-wrap" style="height:110px"><svg id="estado-svg" viewBox="0 0 300 110" preserveAspectRatio="none"></svg></div>
+            <div style="display:flex;flex-direction:column;gap:7px;margin-top:12px">
+              <div class="ring-stat-row"><span class="ring-dot" style="background:#1C9468"></span><span class="ring-stat-label">Completadas</span><span class="ring-stat-val" id="r-comp">—</span></div>
+              <div class="ring-stat-row"><span class="ring-dot" style="background:#3A3F7A"></span><span class="ring-stat-label">Pendientes</span><span class="ring-stat-val" id="r-pend">—</span></div>
+              <div class="ring-stat-row"><span class="ring-dot" style="background:#C2654B"></span><span class="ring-stat-label">Canceladas</span><span class="ring-stat-val" id="r-canc">—</span></div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-grid-insights">
+        <div class="card">
+          <div class="card-h">
+            <div><div class="card-t">Por módulo</div><div class="card-s">Top servicios por ingreso</div></div>
+          </div>
+          <div class="card-b" style="padding:16px 18px">
+            <div class="mod-bars" id="mod-bars"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h">
+            <div><div class="card-t">Ocupación semanal</div><div class="card-s" id="radar-info">—</div></div>
+          </div>
+          <div class="card-b" style="padding:16px 18px;display:flex;justify-content:center;align-items:center">
+            <svg id="radar-svg" width="210" height="210" viewBox="0 0 210 210"></svg>
           </div>
         </div>
       </div>
@@ -2543,10 +2573,37 @@ const DEMO_STATE = {
     {id:1, org_id:'demo', nombre:'Cliente Demo', telefono:'+56911111111', email:'cliente@demo.cl', total_citas:3},
     {id:2, org_id:'demo', nombre:'Juan Ejemplo', telefono:'+56922222222', email:'juan@demo.cl', total_citas:1},
   ],
-  reservas: [
-    {id:1, org_id:'demo', cliente_nombre:'Cliente Demo', cliente_tel:'+56911111111', servicio_nombre:'Corte de cabello', profesional_nombre:'Carlos Demo', fecha_inicio:new Date().toISOString().split('T')[0]+'T10:00:00', fecha_fin:new Date().toISOString().split('T')[0]+'T10:30:00', estado:'confirmada', monto:12000, origen:'admin'},
-    {id:2, org_id:'demo', cliente_nombre:'Juan Ejemplo', cliente_tel:'+56922222222', servicio_nombre:'Barba completa', profesional_nombre:'Ana Demo', fecha_inicio:new Date().toISOString().split('T')[0]+'T11:00:00', fecha_fin:new Date().toISOString().split('T')[0]+'T11:20:00', estado:'pendiente', monto:8000, origen:'web'},
-  ],
+  // Historial de ~14 días con servicios/estados variados, para poblar de forma
+  // creíble el desglose por módulo, el radar de ocupación y la línea por estado.
+  reservas: (function(){
+    const svcs = [['Corte de cabello',12000],['Barba completa',8000],['Corte + Barba',18000]];
+    const profs = ['Carlos Demo','Ana Demo'];
+    const clientes = ['Cliente Demo','Juan Ejemplo','María Soto','Pedro Rojas','Lucía Fernández'];
+    const estados = ['completada','completada','completada','confirmada','pendiente','cancelada'];
+    const out = [];
+    let id = 1;
+    for(let dback=13; dback>=0; dback--){
+      const d = new Date(); d.setDate(d.getDate()-dback);
+      const dia = d.toISOString().split('T')[0];
+      const n = dback===0 ? 2 : (1 + (dback%3));
+      for(let k=0;k<n;k++){
+        const [svc,precio] = svcs[(dback+k)%svcs.length];
+        const hora = 9 + ((k*2+dback)%9);
+        out.push({
+          id:id++, org_id:'demo',
+          cliente_nombre: clientes[(dback+k)%clientes.length],
+          cliente_tel:'+56911110'+String(100+id).slice(-3),
+          servicio_nombre: svc,
+          profesional_nombre: profs[(dback+k)%profs.length],
+          fecha_inicio: dia+'T'+String(hora).padStart(2,'0')+':00:00',
+          fecha_fin: dia+'T'+String(hora).padStart(2,'0')+':30:00',
+          estado: dback===0 ? (k===0?'confirmada':'pendiente') : estados[(dback+k)%estados.length],
+          monto: precio, origen: k%2===0?'admin':'web'
+        });
+      }
+    }
+    return out;
+  })(),
   productos: [
     {id:1, org_id:'demo', nombre:'Shampoo Demo', categoria:'Cuidado', precio_compra:3000, precio_venta:6000, stock:10, foto_url:''},
     {id:2, org_id:'demo', nombre:'Cera para cabello', categoria:'Styling', precio_compra:2500, precio_venta:5000, stock:5, foto_url:''},
@@ -2669,17 +2726,25 @@ function demoApi(ep, body){
   if(ep === 'agenda-dashboard'){
     const hoy = new Date().toISOString().split('T')[0];
     const reservasHoy = DEMO_STATE.reservas.filter(r=>r.fecha_inicio?.startsWith(hoy) && r.estado!=='cancelada');
+    const noCanc = DEMO_STATE.reservas.filter(r=>r.estado!=='cancelada');
+    const completadas = DEMO_STATE.reservas.filter(r=>r.estado==='completada').length;
+    const semana = [...Array(7)].map((_,i)=>{
+      const d = new Date(); d.setDate(d.getDate()-(6-i));
+      const dia = d.toISOString().split('T')[0];
+      const total = DEMO_STATE.reservas.filter(r=>r.fecha_inicio?.startsWith(dia) && r.estado!=='cancelada').length;
+      return {dia, total};
+    });
     return {ok:true, metricas:{
       reservas_hoy: reservasHoy.length,
       reservas_mes: DEMO_STATE.reservas.length,
       total_reservas: DEMO_STATE.reservas.length,
-      tasa_asistencia: 0,
+      tasa_asistencia: DEMO_STATE.reservas.length ? Math.round(completadas/DEMO_STATE.reservas.length*100) : 0,
       ingresos_hoy: reservasHoy.reduce((a,r)=>a+parseFloat(r.monto||0),0),
-      ingresos_semana: DEMO_STATE.reservas.reduce((a,r)=>a+parseFloat(r.monto||0),0),
-      ingresos_mes: DEMO_STATE.reservas.reduce((a,r)=>a+parseFloat(r.monto||0),0),
-      ingresos_anio: DEMO_STATE.reservas.reduce((a,r)=>a+parseFloat(r.monto||0),0),
+      ingresos_semana: noCanc.reduce((a,r)=>a+parseFloat(r.monto||0),0),
+      ingresos_mes: noCanc.reduce((a,r)=>a+parseFloat(r.monto||0),0),
+      ingresos_anio: noCanc.reduce((a,r)=>a+parseFloat(r.monto||0),0),
       egresos_mes: 0
-    }, semana:[], hoy: reservasHoy};
+    }, semana, hoy: reservasHoy};
   }
 
   // ── CONFIGURACION ──
@@ -3086,19 +3151,103 @@ function updateRing(){
   const comp = RESV.filter(r => r.estado === 'completada').length;
   const pend = RESV.filter(r => r.estado === 'pendiente' || r.estado === 'confirmada').length;
   const canc = RESV.filter(r => r.estado === 'cancelada').length;
-  const tot  = RESV.length || 1;
-  const pct  = Math.round((comp / tot) * 100);
-  buildRing(pct);
   if($('r-comp')) $('r-comp').textContent = comp;
   if($('r-pend')) $('r-pend').textContent = pend;
   if($('r-canc')) $('r-canc').textContent = canc;
+  buildEstadoLines();
+  buildModuleBreakdown();
+  buildRadarOcupacion();
 }
 
-function buildRing(pct){
-  const dash = Math.round(314 * (pct/100));
-  const el = $('ring-dash');
-  if(el) setTimeout(() => { el.style.strokeDashoffset = 314 - dash; }, 200);
-  const tx = $('ring-tx'); if(tx) tx.textContent = pct + '%';
+// Serie diaria (últimos 7 días) de completadas/pendientes-confirmadas/canceladas
+function buildEstadoLines(){
+  const svg = $('estado-svg'); if(!svg) return;
+  const days = [...Array(7)].map((_,i)=>{
+    const d = new Date(); d.setDate(d.getDate()-(6-i));
+    return d.toISOString().split('T')[0];
+  });
+  const series = {comp:[], pend:[], canc:[]};
+  days.forEach(day=>{
+    const deldia = RESV.filter(r => (r.fecha_inicio||'').startsWith(day));
+    series.comp.push(deldia.filter(r=>r.estado==='completada').length);
+    series.pend.push(deldia.filter(r=>r.estado==='pendiente'||r.estado==='confirmada').length);
+    series.canc.push(deldia.filter(r=>r.estado==='cancelada').length);
+  });
+  const max = Math.max(...series.comp, ...series.pend, ...series.canc, 1);
+  const w=300, h=110, pad=8;
+  const step = w / 6;
+  const lineFor = (vals, color) => {
+    const pts = vals.map((v,i)=>[i*step, h-pad-(v/max)*(h-pad*2)]);
+    const d = pts.map((p,i)=> (i===0?'M':'L')+p.join(',')).join(' ');
+    return `<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+  };
+  svg.innerHTML = lineFor(series.pend,'#3A3F7A') + lineFor(series.canc,'#C2654B') + lineFor(series.comp,'#1C9468');
+}
+
+// Top servicios por ingreso (últimos 30 días, excluye canceladas) → barras sólidas
+function buildModuleBreakdown(){
+  const el = $('mod-bars'); if(!el) return;
+  const desde = Date.now() - 30*24*60*60*1000;
+  const porServicio = {};
+  RESV.filter(r => r.estado !== 'cancelada' && new Date(r.fecha_inicio).getTime() >= desde).forEach(r=>{
+    const k = r.servicio_nombre || 'Otro';
+    porServicio[k] = (porServicio[k]||0) + parseFloat(r.monto||0);
+  });
+  const entries = Object.entries(porServicio).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  if(!entries.length){ el.innerHTML = '<div class="empty" style="width:100%"><div class="empty-ic">◎</div><div class="empty-tx">Sin ingresos en los últimos 30 días</div></div>'; return; }
+  const total = entries.reduce((a,[,v])=>a+v, 0) || 1;
+  const colors = ['#1C9468','#3A3F7A','#FF6A45','#7A68C9'];
+  const max = Math.max(...entries.map(([,v])=>v));
+  el.innerHTML = entries.map(([nombre,val],i)=>{
+    const pct = Math.round(val/total*100);
+    const grow = Math.max(val/max, .22);
+    return `<div class="mod-bar" style="background:${colors[i%colors.length]};flex-grow:${grow}">
+      <div class="mod-bar-pill"><span class="mod-bar-dot"></span>${esc(nombre)}</div>
+      <div><div class="mod-bar-amt">${money(val)}</div><div class="mod-bar-pct">${pct}%</div></div>
+    </div>`;
+  }).join('');
+}
+
+// Ocupación por día de la semana (todas las citas no canceladas) → radar de 7 ejes
+function buildRadarOcupacion(){
+  const svg = $('radar-svg'); if(!svg) return;
+  const nombres = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+  const counts = [0,0,0,0,0,0,0];
+  RESV.filter(r=>r.estado!=='cancelada').forEach(r=>{
+    const dow = new Date(r.fecha_inicio).getDay(); // 0=Dom..6=Sáb
+    counts[(dow+6)%7]++; // reindexar a Lun=0..Dom=6
+  });
+  const max = Math.max(...counts, 1);
+  const cx=105, cy=105, R=78, N=7;
+  const axisPts = nombres.map((_,i)=>{
+    const ang = -Math.PI/2 + i*(2*Math.PI/N);
+    return [cx+R*Math.cos(ang), cy+R*Math.sin(ang)];
+  });
+  const dataPts = counts.map((v,i)=>{
+    const ang = -Math.PI/2 + i*(2*Math.PI/N);
+    const r = R * (v/max) * 0.92;
+    return [cx+r*Math.cos(ang), cy+r*Math.sin(ang)];
+  });
+  const axisLines = axisPts.map(p=>`<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}" stroke="rgba(0,0,0,.08)" stroke-width="1"/>`).join('');
+  const rings = [.33,.66,1].map(f=>{
+    const pts = nombres.map((_,i)=>{
+      const ang = -Math.PI/2 + i*(2*Math.PI/N);
+      return [cx+R*f*Math.cos(ang), cy+R*f*Math.sin(ang)].join(',');
+    });
+    return `<polygon points="${pts.join(' ')}" fill="none" stroke="rgba(0,0,0,.06)" stroke-width="1"/>`;
+  }).join('');
+  const dataPoly = dataPts.map(p=>p.join(',')).join(' ');
+  const labels = axisPts.map((p,i)=>{
+    const lx = cx + (R+16)*Math.cos(-Math.PI/2 + i*(2*Math.PI/N));
+    const ly = cy + (R+16)*Math.sin(-Math.PI/2 + i*(2*Math.PI/N));
+    return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="10" font-weight="700" fill="var(--muted)">${nombres[i]}</text>`;
+  }).join('');
+  svg.innerHTML = `${rings}${axisLines}
+    <polygon points="${dataPoly}" fill="#FF6A45" fill-opacity=".22" stroke="#FF6A45" stroke-width="2" stroke-linejoin="round"/>
+    ${dataPts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#FF6A45"/>`).join('')}
+    ${labels}`;
+  const peak = counts.indexOf(Math.max(...counts));
+  if($('radar-info')) $('radar-info').textContent = counts.some(c=>c>0) ? `Día más fuerte: ${nombres[peak]}` : 'Sin datos suficientes';
 }
 
 function buildFeed(hoy){
