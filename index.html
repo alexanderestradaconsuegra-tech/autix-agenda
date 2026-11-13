@@ -931,7 +931,6 @@ tbody tr:hover td { background: rgba(79,109,245,.06) !important; }
 .cfg-row-l { color: #e8f0ff !important; }
 .cfg-row-s { color: rgba(168,184,216,.45) !important; }
 .cfg-row { border-color: rgba(255,255,255,.06) !important; }
-#cfg-mp-token { color: #00d4aa !important; }
 
 /* Profesionales */
 .pcard { background: rgba(255,255,255,.04) !important; border-color: rgba(255,255,255,.07) !important; }
@@ -2135,7 +2134,7 @@ html, body { height: 100%; }
     <!-- SERVICIOS -->
     <div class="panel" id="p-servicios">
       <div class="sec-h"><div></div><button class="btn btn-p" data-modal="nuevo-servicio">+ Servicio</button></div>
-      <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Servicio</th><th>Duración</th><th>Precio</th><th>Cobro al reservar</th><th>Activo</th><th></th></tr></thead><tbody id="t-svc"></tbody></table></div></div>
+      <div class="card"><div class="tbl-wrap"><table><thead><tr><th>Servicio</th><th>Duración</th><th>Precio</th><th>Activo</th><th></th></tr></thead><tbody id="t-svc"></tbody></table></div></div>
     </div>
 
     <!-- PROFESIONALES -->
@@ -2208,12 +2207,6 @@ html, body { height: 100%; }
         <div class="fg"><label>API Key</label><input id="cfg-evo-key" placeholder="tu-api-key" style="font-family:var(--mono);font-size:11px"></div>
         <div class="fg"><label>Nombre de instancia</label><input id="cfg-evo-inst" placeholder="mi-negocio" style="font-family:var(--mono);font-size:11px"></div>
         <button class="btn btn-p" style="margin-top:4px" onclick="saveEvoCfg()">Guardar WhatsApp</button>
-      </div>
-      <div class="cfg-sec">
-        <div class="cfg-sec-t">MercadoPago</div>
-        <div class="cfg-row"><div><div class="cfg-row-l">Activar pagos en línea</div><div class="cfg-row-s">Cobra al reservar via MercadoPago</div></div><label class="tgl"><input type="checkbox" id="cfg-mp"><div class="tgl-sl"></div></label></div>
-        <div class="fg" style="margin-top:12px"><label>Access Token MercadoPago</label><input id="cfg-mp-token" placeholder="APP_USR-..." style="font-family:var(--mono);font-size:11px"></div>
-        <button onclick="openModal('guia-mp')" style="margin-top:8px;font-size:11px;padding:6px 14px;border-radius:100px;background:rgba(79,109,245,.12);border:1px solid rgba(79,109,245,.25);color:#a0b8ff;cursor:pointer;font-weight:700">? Cómo obtener el Access Token</button>
       </div>
       <div class="cfg-sec">
         <div class="cfg-sec-t">Boleta</div>
@@ -2510,9 +2503,9 @@ function demoLogin(){
 // ═══════════════════════════════════════════════════════════════════
 const DEMO_STATE = {
   servicios: [
-    {id:1, org_id:'demo', nombre:'Corte de cabello', descripcion:'Corte clásico', duracion_min:30, precio:12000, requiere_pago:false, activo:true, foto_url:''},
-    {id:2, org_id:'demo', nombre:'Barba completa', descripcion:'Perfilado y arreglo', duracion_min:20, precio:8000, requiere_pago:false, activo:true, foto_url:''},
-    {id:3, org_id:'demo', nombre:'Corte + Barba', descripcion:'Servicio completo', duracion_min:45, precio:18000, requiere_pago:false, activo:true, foto_url:''},
+    {id:1, org_id:'demo', nombre:'Corte de cabello', descripcion:'Corte clásico', duracion_min:30, precio:12000, activo:true, foto_url:''},
+    {id:2, org_id:'demo', nombre:'Barba completa', descripcion:'Perfilado y arreglo', duracion_min:20, precio:8000, activo:true, foto_url:''},
+    {id:3, org_id:'demo', nombre:'Corte + Barba', descripcion:'Servicio completo', duracion_min:45, precio:18000, activo:true, foto_url:''},
   ],
   profesionales: [
     {id:1, org_id:'demo', nombre:'Carlos Demo', telefono:'+56912345678', email:'carlos@demo.cl', comision_pct:20, foto_url:''},
@@ -2777,8 +2770,6 @@ async function loadConfig(){
     if($('cfg-email') && cfg.email) $('cfg-email').value = cfg.email;
     if($('cfg-dir') && cfg.direccion) $('cfg-dir').value = cfg.direccion;
     if($('cfg-slug') && cfg.slug) { $('cfg-slug').value = cfg.slug; $('cfg-slug-prev').textContent = cfg.slug; }
-    if($('cfg-mp') && cfg.mp_activo) $('cfg-mp').checked = cfg.mp_activo;
-    if($('cfg-mp-token') && cfg.mp_token) $('cfg-mp-token').value = cfg.mp_token;
     if($('cfg-print') && cfg.print_activo !== undefined) $('cfg-print').checked = cfg.print_activo;
     if($('cfg-print-msg') && cfg.print_msg) $('cfg-print-msg').value = cfg.print_msg;
     if($('cfg-notif-confirm') && cfg.notif_confirmacion !== undefined) $('cfg-notif-confirm').checked = cfg.notif_confirmacion;
@@ -3314,13 +3305,12 @@ async function loadSvc(){
 
 function renderSvc(){
   const tbody = $('t-svc'); if(!tbody) return;
-  if(!SVC.length){tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="empty-ic">◎</div><div class="empty-tx">Sin servicios. Agrega el primero.</div></div></td></tr>';return}
+  if(!SVC.length){tbody.innerHTML='<tr><td colspan="5"><div class="empty"><div class="empty-ic">◎</div><div class="empty-tx">Sin servicios. Agrega el primero.</div></div></td></tr>';return}
   tbody.innerHTML = SVC.map(s => `
     <tr>
       <td><div style="display:flex;align-items:center;gap:10px">${s.foto_url?`<img src="${s.foto_url}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;flex-shrink:0">`:'<div style="width:32px;height:32px;border-radius:8px;background:rgba(79,109,245,.12);display:flex;align-items:center;justify-content:center;color:#4f6df5;font-size:14px;flex-shrink:0">◈</div>'}<span style="font-weight:600">${esc(s.nombre)}</span></div></td>
       <td>${s.duracion_min} min</td>
       <td style="font-weight:700;color:var(--blue);font-family:var(--mono)">${money(s.precio)}</td>
-      <td>${s.requiere_pago?'<span class="tag tag-vip">Sí</span>':'<span class="tag tag-new">No</span>'}</td>
       <td><label class="tgl"><input type="checkbox" ${s.activo!==false?'checked':''} onchange="toggleSvc(${s.id})"><div class="tgl-sl"></div></label></td>
       <td style="text-align:right"><button class="btn-xs btn-edit" onclick="editSvc(${s.id})">Editar</button> <button class="btn-xs btn-del" onclick="deleteSvc(${s.id})">Eliminar</button></td>
     </tr>`).join('');
@@ -3653,8 +3643,6 @@ async function saveConfig(){
     email: $('cfg-email').value,
     direccion: $('cfg-dir').value,
     slug: $('cfg-slug').value,
-    mp_activo: $('cfg-mp').checked,
-    mp_token: $('cfg-mp-token').value,
     print_activo: $('cfg-print').checked,
     print_msg: $('cfg-print-msg').value,
     evo_url:       $('cfg-evo-url')?.value  || '',
@@ -3783,7 +3771,6 @@ const MODAL_TEMPLATES = {
         <div class="fg"><label>Duración (min)</label><input id="ms-dur" type="number" value="${data?.duracion_min||60}"></div>
         <div class="fg"><label>Precio (CLP)</label><input id="ms-precio" type="number" value="${data?.precio||0}"></div>
       </div>
-      <div class="cfg-row" style="border:1px solid var(--bdr);border-radius:var(--r-md);padding:12px;margin-top:8px"><div><div class="cfg-row-l">Cobrar al reservar</div><div class="cfg-row-s">Pago anticipado vía MercadoPago</div></div><label class="tgl"><input type="checkbox" id="ms-pago" ${data?.requiere_pago?'checked':''}><div class="tgl-sl"></div></label></div>
     `,
     foot: `<button class="btn btn-s" onclick="closeM()">Cancelar</button><button class="btn btn-p" onclick="saveSvc(${data?.id||0})">${data?.id?'Guardar':'Agregar'}</button>`
   }),
@@ -3867,44 +3854,6 @@ const MODAL_TEMPLATES = {
     `,
     foot: (() => { WA_MASIVO_CLIENTES = data.clientes; return `<button class="btn btn-s" onclick="closeM()">Cancelar</button>
            <button class="btn btn-p" onclick="enviarWAMasivo(WA_MASIVO_CLIENTES)">Abrir WhatsApp →</button>`; })()
-  }),
-
-  'guia-mp': () => ({
-    title: '💳 Conectar MercadoPago',
-    body: `
-      <div style="line-height:1.8;font-size:13px;color:rgba(168,184,216,.85)">
-        <div style="background:rgba(79,109,245,.08);border:1px solid rgba(79,109,245,.2);border-radius:12px;padding:14px;margin-bottom:16px">
-          <div style="font-weight:800;color:#a0b8ff;margin-bottom:4px">¿Para qué sirve?</div>
-          Con tu Access Token de MercadoPago, tus clientes pueden pagar al momento de reservar en línea. El dinero entra directo a tu cuenta de MercadoPago.
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">1</div>
-            <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Crear cuenta en MercadoPago</div>
-            Entra a <a href="https://www.mercadopago.cl" target="_blank" style="color:#4f6df5">mercadopago.cl</a> y crea tu cuenta si no tienes una.</div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">2</div>
-            <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Ir a tus credenciales</div>
-            Entra a <a href="https://www.mercadopago.cl/developers/panel" target="_blank" style="color:#4f6df5">mercadopago.cl/developers/panel</a> → Tu aplicación → Credenciales de producción</div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">3</div>
-            <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Copiar el Access Token</div>
-            Copia el token que empieza con <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-size:11px">APP_USR-</code> y pégalo en AgendaOS</div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0">4</div>
-            <div><div style="font-weight:700;color:#e8f0ff;margin-bottom:2px">Activar pagos y guardar</div>
-            Activa el toggle "Activar pagos en línea" → pega el token → Guardar cambios</div>
-          </div>
-        </div>
-        <div style="margin-top:16px;padding:12px;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);border-radius:10px;font-size:11px;color:rgba(0,212,170,.8)">
-          ✓ MercadoPago cobra una comisión del 3.49% por transacción. No hay costo fijo mensual.
-        </div>
-      </div>
-    `,
-    foot: '<button class="btn btn-s" onclick="closeM()">Cerrar</button><button class="btn btn-p" onclick="window.open(&quot;https://www.mercadopago.cl/developers/panel&quot;,&quot;_blank&quot;);closeM()">Ir a MercadoPago →</button>'
   }),
 
   'guia-whatsapp': () => ({
@@ -4180,7 +4129,6 @@ async function saveSvc(id){
     descripcion: $('ms-desc').value,
     duracion_min: parseInt($('ms-dur').value)||60,
     precio: parseFloat($('ms-precio').value)||0,
-    requiere_pago: $('ms-pago').checked,
     foto_url: $('ms-fb')?.value || ''
   };
   if(!data.nombre){toast('⚠','Nombre requerido');return}
