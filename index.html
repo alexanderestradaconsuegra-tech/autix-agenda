@@ -613,12 +613,12 @@ html[data-theme="dark"] .tb{background:rgba(7,17,31,.54)}
 .theme-toggle{border:1px solid var(--bdr);background:var(--white);color:var(--ink2);padding:0 13px;display:inline-flex;align-items:center;gap:8px;font-size:11px;box-shadow:var(--shadow-sm)}
 .theme-toggle:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
 .content{padding:22px;gap:16px}.panel.active{gap:16px}
-.client-hero{position:relative;overflow:hidden;border:1px solid var(--bdr);border-radius:30px;padding:24px;min-height:188px;background:linear-gradient(135deg,rgba(255,106,69,.96),rgba(20,118,220,.90) 48%,rgba(34,179,126,.86));box-shadow:var(--shadow-lg);color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:end}
-.client-hero::before{content:"";position:absolute;right:-80px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.36),transparent 62%)}
-.client-hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(90deg,transparent,black 20%,black 80%,transparent);opacity:.26;pointer-events:none}
-.client-hero > *{position:relative;z-index:1}.client-kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.13);border-radius:999px;padding:7px 11px;font:800 10px var(--mono);text-transform:uppercase;letter-spacing:.12em}.client-kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:#22B37E;box-shadow:0 0 0 6px rgba(34,179,126,.13)}
-.client-hero h2{margin:14px 0 8px;font-size:34px;line-height:1.03;letter-spacing:-.07em;max-width:620px}.client-hero p{margin:0;color:rgba(255,255,255,.78);font-size:14px;line-height:1.6;max-width:640px}.client-hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.client-hero .hero-btn{border:0;border-radius:15px;padding:11px 15px;font-weight:900;background:#fff;color:#18336a;box-shadow:0 16px 34px rgba(0,0,0,.14)}.client-hero .hero-btn.secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.24)}
-.client-hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hero-stat{border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:15px;background:rgba(255,255,255,.12);backdrop-filter:blur(12px)}.hero-stat b{font-size:26px;letter-spacing:-.06em}.hero-stat span{display:block;margin-top:4px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.70);font-weight:900}
+.dash-greet{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:6px 2px 4px;flex-wrap:wrap}
+.dash-greet-date{display:inline-flex;align-items:center;gap:6px;font:800 10px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:8px}
+.dash-greet-date::before{content:"";width:6px;height:6px;border-radius:50%;background:#22B37E;box-shadow:0 0 0 5px rgba(34,179,126,.14)}
+.dash-greet h2{margin:0 0 6px;font-size:30px;font-weight:800;line-height:1.1;letter-spacing:-.04em;color:var(--ink)}
+.dash-greet h2 em{font-style:italic;font-weight:600;color:#FF6A45}
+.dash-greet-sub{margin:0;font-size:14px;color:var(--muted);max-width:480px}
 .metrics-row{gap:14px}.metric{border-radius:24px;padding:19px;background:linear-gradient(180deg,var(--white),rgba(255,255,255,.86));box-shadow:var(--shadow-md);border:1px solid var(--bdr)}
 html[data-theme="dark"] .metric{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035))}
 .metric::before{height:100%;width:4px;right:auto;bottom:0;transform:scaleY(.35);transform-origin:bottom}.metric:hover::before{transform:scaleY(1)}.metric:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
@@ -633,9 +633,9 @@ table{border-collapse:separate;border-spacing:0}th{background:var(--off);padding
 .prod,.pcard,.crmstat,.pstat,.mkt,.cfg-sec,.term-r{border-radius:23px;background:var(--white);box-shadow:var(--shadow-sm);border:1px solid var(--bdr)}.prod:hover,.pcard:hover,.crmstat:hover,.mkt:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}.prod-em{font-size:28px}.prod-n{font-size:12px}.prod-p{font-size:13px}.pcard-av{width:58px;height:58px;border-radius:20px}.pcard-h{padding:20px}.pcard-f{background:var(--off)}
 .modal{border-radius:28px;box-shadow:var(--shadow-lg)}.m-h{padding:18px 22px}.m-b{padding:22px}.m-f{padding:16px 22px}.toast{border-radius:18px;box-shadow:var(--shadow-lg)}
 .service-photo-field,.product-photo-field,.team-photo-field{border:1px dashed var(--bdr2);border-radius:18px;background:var(--off);padding:13px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px}.photo-thumb{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,var(--blue-l),var(--os-l));display:grid;place-items:center;color:var(--blue);font-size:22px;flex-shrink:0}.photo-help{line-height:1.45}.photo-help b{display:block;color:var(--ink);font-size:12px;margin-bottom:2px}
-@media(max-width:1100px){.dash-grid-main{grid-template-columns:1fr}.client-hero{grid-template-columns:1fr}.client-hero-stats{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:900px){.sidebar{padding:12px 8px}.tb{padding:0 14px}.content{padding:14px}.client-hero{padding:20px;border-radius:24px}.client-hero h2{font-size:27px}.client-hero-stats{grid-template-columns:1fr 1fr}.metrics-row{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.client-hero h2{font-size:24px}.client-hero-actions{display:grid}.client-hero .hero-btn{width:100%;justify-content:center}.metrics-row{grid-template-columns:1fr}.qa-grid{grid-template-columns:1fr 1fr}.theme-toggle{display:inline-flex}.m-val{font-size:32px}.dash-grid-bot{grid-template-columns:1fr}}
+@media(max-width:1100px){.dash-grid-main{grid-template-columns:1fr}}
+@media(max-width:900px){.sidebar{padding:12px 8px}.tb{padding:0 14px}.content{padding:14px}.dash-greet h2{font-size:25px}.metrics-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.dash-greet h2{font-size:22px}.metrics-row{grid-template-columns:1fr}.qa-grid{grid-template-columns:1fr 1fr}.theme-toggle{display:inline-flex}.m-val{font-size:32px}.dash-grid-bot{grid-template-columns:1fr}}
 
 
 
@@ -1971,22 +1971,11 @@ html, body { height: 100%; }
     <!-- DASHBOARD -->
     <div class="panel active" id="p-dashboard">
 
-      <div class="client-hero" id="client-hero">
+      <div class="dash-greet" id="dash-greet">
         <div>
-          <div class="client-kicker">Panel del negocio</div>
-          <h2>Todo tu negocio en una vista clara.</h2>
-          <p>Revisa tus citas del día, ventas, clientes y próximos movimientos sin entrar a configuraciones técnicas.</p>
-          <div class="client-hero-actions">
-            <button class="hero-btn" data-modal="nueva-cita">+ Crear cita</button>
-            <button class="hero-btn secondary" data-go="servicios">Gestionar servicios</button>
-            <button class="hero-btn secondary" data-go="productos">Ver productos</button>
-          </div>
-        </div>
-        <div class="client-hero-stats">
-          <div class="hero-stat"><b id="hero-hoy">—</b><span>Citas hoy</span></div>
-          <div class="hero-stat"><b id="hero-ing">—</b><span>Ingresos mes</span></div>
-          <div class="hero-stat"><b id="hero-cli">—</b><span>Clientes</span></div>
-          <div class="hero-stat"><b id="hero-ok">—</b><span>Asistencia</span></div>
+          <div class="dash-greet-date" id="dash-greet-date"></div>
+          <h2 id="dash-greet-title">Hola —</h2>
+          <p class="dash-greet-sub" id="dash-greet-sub">Cargando tu resumen del día…</p>
         </div>
       </div>
       <div class="metrics-row">
@@ -2717,9 +2706,20 @@ function demoApi(ep, body){
   return {ok:true, data:[]};
 }
 
+function renderGreeting(){
+  const h = new Date().getHours();
+  const momento = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
+  const dias = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const now = new Date();
+  if($('dash-greet-date')) $('dash-greet-date').textContent = `${dias[now.getDay()]} ${now.getDate()} de ${meses[now.getMonth()]}`;
+  if($('dash-greet-title')) $('dash-greet-title').innerHTML = `${momento}, ${esc(NOMBRE || 'bienvenido')} — <em>así va tu negocio hoy</em>`;
+}
+
 function initApp(d){
   ORG = d.org_id; SLUG = d.slug || d.org_id; PLAN = d.plan || 'trial'; NOMBRE = d.nombre;
   SESSION_TOKEN = d.token || '';
+  renderGreeting();
   // Modo demo
   // Banner días restantes trial
   if(d.plan === 'trial' && typeof d.dias_restantes === 'number' && d.dias_restantes >= 0 && d.dias_restantes <= 7){
@@ -2965,10 +2965,14 @@ async function loadDashboard(){
   $('m-hoy-t').textContent = m.reservas_hoy + ' agendadas';
   // Mostrar ingresos del mes por defecto
   switchPeriodo('mes');
-  if($('hero-ing')) $('hero-ing').textContent = money(m.ingresos_mes);
   $('m-tot').textContent = m.total_reservas || 0;
   $('m-asis').textContent = (m.tasa_asistencia || 0) + '%';
-  
+  if($('dash-greet-sub')){
+    $('dash-greet-sub').textContent = m.reservas_hoy > 0
+      ? `Tienes ${m.reservas_hoy} cita${m.reservas_hoy!==1?'s':''} agendada${m.reservas_hoy!==1?'s':''} para hoy.`
+      : 'No tienes citas agendadas para hoy.';
+  }
+
   // Fecha hoy
   const now = new Date();
   const dias = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
