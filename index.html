@@ -1054,7 +1054,7 @@ html[data-theme="light"] .tb-live{background:rgba(184,169,255,.1) !important;col
 html[data-theme="light"] .tb-chip{background:#EAF6FA !important;color:#7BBBFF !important;border-color:rgba(123,187,255,.2) !important}
 html[data-theme="light"] .tb-ham{color:#374151 !important}
 html[data-theme="light"] .sec-h{background:#fff !important;border-color:#D9E8F0 !important}
-html[data-theme="light"] .content{background:#F2FDFF}
+html[data-theme="light"] .content{background:transparent}
 html[data-theme="light"] th{background:#F7F2E8 !important;color:#6b7280 !important;border-color:#D9E8F0 !important}
 html[data-theme="light"] td{border-color:#D9E8F0 !important;color:#0d1117 !important}
 html[data-theme="light"] tbody tr:hover td{background:#EAF6FA !important}
@@ -1867,25 +1867,37 @@ html, body { height: 100%; }
    ══════════════════════════════════════════════════ */
 body{
   background:
-    radial-gradient(900px 600px at 18% -14%,rgba(123,187,255,.30),transparent 62%),
-    radial-gradient(760px 560px at 102% 0%,rgba(184,169,255,.22),transparent 62%),
-    radial-gradient(640px 480px at 50% 100%,rgba(123,187,255,.10),transparent 60%),
+    radial-gradient(760px 560px at 10% 0%,rgba(123,187,255,.46),transparent 55%),
+    radial-gradient(680px 520px at 92% -4%,rgba(184,169,255,.4),transparent 55%),
+    radial-gradient(620px 460px at 50% 100%,rgba(123,187,255,.22),transparent 55%),
+    linear-gradient(180deg,var(--bg),var(--off)) !important;
+  background-attachment:fixed !important;
+}
+html[data-theme="dark"] body{
+  background:
+    radial-gradient(760px 560px at 10% 0%,rgba(123,187,255,.26),transparent 55%),
+    radial-gradient(680px 520px at 92% -4%,rgba(184,169,255,.22),transparent 55%),
+    radial-gradient(620px 460px at 50% 100%,rgba(123,187,255,.14),transparent 55%),
     linear-gradient(180deg,var(--bg),var(--off)) !important;
 }
+html[data-theme="light"] .card,html[data-theme="light"] .sec-h,html[data-theme="light"] .prod,
+html[data-theme="light"] .pcard,html[data-theme="light"] .crmstat,html[data-theme="light"] .pstat,
+html[data-theme="light"] .mkt,html[data-theme="light"] .cfg-sec,html[data-theme="light"] .term-r,
+html[data-theme="light"] .qa-btn,
 .card,.sec-h,.prod,.pcard,.crmstat,.pstat,.mkt,.cfg-sec,.term-r,.qa-btn{
-  background:linear-gradient(144deg,rgba(255,255,255,.6),rgba(255,255,255,.22) 66%),rgba(255,255,255,.4) !important;
-  -webkit-backdrop-filter:blur(18px) saturate(1.3) !important;
-  backdrop-filter:blur(18px) saturate(1.3) !important;
+  background:linear-gradient(144deg,rgba(255,255,255,.38),rgba(255,255,255,.08) 66%),rgba(255,255,255,.2) !important;
+  -webkit-backdrop-filter:blur(22px) saturate(1.5) !important;
+  backdrop-filter:blur(22px) saturate(1.5) !important;
   box-shadow:
     inset 1px 1px 1px rgba(255,255,255,.8),
     inset -1px -1px 1px rgba(7,19,47,.08),
     inset 0 -2px 5px rgba(255,255,255,.3),
     0 10px 28px rgba(7,19,47,.08) !important;
 }
-.metric{
-  background:linear-gradient(144deg,rgba(255,255,255,.55),rgba(255,255,255,.18) 66%),rgba(255,255,255,.34) !important;
-  -webkit-backdrop-filter:blur(16px) saturate(1.25) !important;
-  backdrop-filter:blur(16px) saturate(1.25) !important;
+html[data-theme="light"] .metric,.metric{
+  background:linear-gradient(144deg,rgba(255,255,255,.34),rgba(255,255,255,.06) 66%),rgba(255,255,255,.16) !important;
+  -webkit-backdrop-filter:blur(20px) saturate(1.45) !important;
+  backdrop-filter:blur(20px) saturate(1.45) !important;
   box-shadow:
     inset 1px 1px 1px rgba(255,255,255,.75),
     inset -1px -1px 1px rgba(7,19,47,.07),
