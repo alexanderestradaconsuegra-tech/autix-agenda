@@ -1861,6 +1861,113 @@ html, body { height: 100%; }
 .metric.os::before,.metric.blue::before,.metric.amber::before,.metric.purple::before,.metric.pink::before{display:none}
 .metric.os .m-foot,.metric.blue .m-foot,.metric.amber .m-foot,.metric.purple .m-foot,.metric.pink .m-foot{color:inherit;opacity:.65}
 
+/* ══════════════════════════════════════════════════
+   GLASS LAYER — vidrio esmerilado real sobre la paleta
+   azul/navy/lavanda ya establecida. Solo capa visual.
+   ══════════════════════════════════════════════════ */
+body{
+  background:
+    radial-gradient(900px 600px at 18% -14%,rgba(123,187,255,.30),transparent 62%),
+    radial-gradient(760px 560px at 102% 0%,rgba(184,169,255,.22),transparent 62%),
+    radial-gradient(640px 480px at 50% 100%,rgba(123,187,255,.10),transparent 60%),
+    linear-gradient(180deg,var(--bg),var(--off)) !important;
+}
+.card,.sec-h,.prod,.pcard,.crmstat,.pstat,.mkt,.cfg-sec,.term-r,.qa-btn{
+  background:linear-gradient(144deg,rgba(255,255,255,.6),rgba(255,255,255,.22) 66%),rgba(255,255,255,.4) !important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.3) !important;
+  backdrop-filter:blur(18px) saturate(1.3) !important;
+  box-shadow:
+    inset 1px 1px 1px rgba(255,255,255,.8),
+    inset -1px -1px 1px rgba(7,19,47,.08),
+    inset 0 -2px 5px rgba(255,255,255,.3),
+    0 10px 28px rgba(7,19,47,.08) !important;
+}
+.metric{
+  background:linear-gradient(144deg,rgba(255,255,255,.55),rgba(255,255,255,.18) 66%),rgba(255,255,255,.34) !important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.25) !important;
+  backdrop-filter:blur(16px) saturate(1.25) !important;
+  box-shadow:
+    inset 1px 1px 1px rgba(255,255,255,.75),
+    inset -1px -1px 1px rgba(7,19,47,.07),
+    0 8px 22px rgba(7,19,47,.08) !important;
+}
+html[data-theme="dark"] .card,html[data-theme="dark"] .sec-h,html[data-theme="dark"] .prod,
+html[data-theme="dark"] .pcard,html[data-theme="dark"] .crmstat,html[data-theme="dark"] .pstat,
+html[data-theme="dark"] .mkt,html[data-theme="dark"] .cfg-sec,html[data-theme="dark"] .term-r,
+html[data-theme="dark"] .qa-btn{
+  background:linear-gradient(144deg,rgba(255,255,255,.09),rgba(255,255,255,.02) 66%),rgba(20,30,55,.4) !important;
+  box-shadow:
+    inset 1px 1px 1px rgba(255,255,255,.1),
+    inset -1px -1px 1px rgba(0,0,0,.35),
+    inset 0 -2px 5px rgba(255,255,255,.04),
+    0 10px 28px rgba(0,0,0,.28) !important;
+}
+html[data-theme="dark"] .metric{
+  background:linear-gradient(144deg,rgba(255,255,255,.08),rgba(255,255,255,.015) 66%),rgba(20,30,55,.36) !important;
+  box-shadow:
+    inset 1px 1px 1px rgba(255,255,255,.09),
+    inset -1px -1px 1px rgba(0,0,0,.3),
+    0 8px 22px rgba(0,0,0,.24) !important;
+}
+
+/* Deltas con flecha — sin tocar el texto que llena el JS */
+.m-trend.up::before{content:"↑";margin-right:2px;font-weight:900}
+.m-trend.dn::before{content:"↓";margin-right:2px;font-weight:900}
+
+/* Indicador deslizante del sidebar */
+@media(min-width:901px){.sidebar{position:relative}}
+.sb-glide{
+  position:absolute;left:9px;right:9px;top:0;height:0;opacity:0;
+  border-radius:13px;pointer-events:none;z-index:0;
+  background:linear-gradient(135deg,rgba(123,187,255,.30),rgba(184,169,255,.16));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 10px 24px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.1);
+  transition:top .32s cubic-bezier(.22,1,.36,1),height .32s cubic-bezier(.22,1,.36,1),opacity .2s ease;
+}
+.sb-item{position:relative;z-index:1}
+.sb-item.active{background:transparent !important;box-shadow:none !important}
+.sb-item.active::before{display:none !important}
+
+/* Barra "Buscar / ir a…" en el topbar */
+.tb-search{
+  display:flex;align-items:center;gap:10px;flex:1;min-width:0;
+  background:var(--off);border:1px solid var(--bdr);border-radius:999px;
+  padding:4px 14px 4px 6px;cursor:pointer;text-align:left;font:inherit;color:var(--ink);
+  transition:background .15s,border-color .15s;
+}
+.tb-search:hover{background:var(--white);border-color:rgba(123,187,255,.35)}
+.tb-search-orb{
+  flex:none;width:22px;height:22px;border-radius:50%;
+  background:radial-gradient(ellipse at 32% 24%,#fff 5%,#B8A9FF 45%,transparent 70%),
+             radial-gradient(ellipse at 67% 60%,#7BBBFF,#4A8CE0 70%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 3px rgba(123,187,255,.12);
+}
+.tb-search span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:700}
+.tb-search kbd{
+  flex:none;font-family:var(--mono);font-size:10px;font-weight:800;color:var(--muted);
+  background:var(--white);border:1px solid var(--bdr);border-radius:6px;padding:2px 6px;
+}
+
+/* Command palette */
+.cmdk{
+  margin:auto;max-width:min(calc(100vw - 32px),560px);width:100%;border:0;padding:0;
+  border-radius:22px;background:var(--white);box-shadow:0 30px 90px rgba(7,19,47,.35);
+  color:var(--ink);
+}
+.cmdk::backdrop{background:rgba(7,19,47,.45);backdrop-filter:blur(3px)}
+.cmdk-inner{padding:14px}
+.cmdk-input-wrap{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--bdr);border-radius:14px;background:var(--off);margin-bottom:8px}
+.cmdk-input-wrap svg{flex:none;width:16px;height:16px;color:var(--muted)}
+.cmdk-input-wrap input{flex:1;border:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);outline:none}
+.cmdk-list{display:grid;gap:3px;max-height:360px;overflow:auto}
+.cmdk-item{
+  display:flex;align-items:center;gap:11px;width:100%;border:0;background:transparent;
+  padding:10px 10px;border-radius:12px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;font-size:13px;font-weight:700;
+}
+.cmdk-item .sb-icon{width:26px;height:26px;background:var(--off);border-radius:9px;color:var(--ink2)}
+.cmdk-item[data-active="true"],.cmdk-item:hover{background:var(--blue-l)}
+.cmdk-empty{padding:14px 10px;color:var(--muted);font-size:12px}
+@media(max-width:560px){.tb-search span{display:none}.tb-search kbd{display:none}.tb-search{flex:0;padding:8px;width:40px;height:40px;justify-content:center}}
 </style>
 </head>
 <body>
@@ -1945,6 +2052,16 @@ html, body { height: 100%; }
 <div id="app">
 <div class="app-layout">
 <div class="sb-overlay" id="sb-overlay"></div>
+
+<dialog class="cmdk" id="cmdk-dialog">
+  <div class="cmdk-inner">
+    <label class="cmdk-input-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="cmdk-input" placeholder="Buscar una sección…" autocomplete="off">
+    </label>
+    <div class="cmdk-list" id="cmdk-list"></div>
+  </div>
+</dialog>
 <aside class="sidebar" id="sidebar">
   <div class="sb-top">
     <div class="sb-mark" id="sb-logo"><img src="https://assets.zyrosite.com/tuxlJ9mU9qc7kZnZ/chatgpt-image-17-may-2026-12_46_53-tK0XB1qT5B8aqHTH.png" style="width:100%;height:100%;object-fit:contain" onerror="this.replaceWith(document.createTextNode('A'))"></div>
@@ -1952,6 +2069,7 @@ html, body { height: 100%; }
     <button class="sb-close" id="sb-close-btn" aria-label="Cerrar menú"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
   <div class="sb-neg" id="sb-neg">—</div>
+  <span class="sb-glide" id="sb-glide" aria-hidden="true"></span>
   <div class="sb-sec">Día a día</div>
   <div class="sb-item active" data-page="dashboard"><i class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></i>Inicio</div>
   <div class="sb-item" data-page="citas"><i class="sb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></i>Agenda</div>
@@ -1977,7 +2095,11 @@ html, body { height: 100%; }
 <div class="main">
   <div class="tb">
     <button class="tb-ham" id="ham-btn">☰</button>
-    <div class="tb-title" id="tb-title">Inicio</div>
+    <button type="button" class="tb-search" id="tb-search-btn" aria-label="Buscar o ir a una sección">
+      <span class="tb-search-orb" aria-hidden="true"></span>
+      <span id="tb-title">Inicio</span>
+      <kbd aria-hidden="true">Ctrl K</kbd>
+    </button>
     <div class="tb-live"><div class="live-dot"></div>En vivo</div>
     <div class="tb-chip" id="copy-link-btn">↗ Link público</div>
   </div>
@@ -2951,6 +3073,7 @@ function nav(page){
   if(panel) panel.classList.add('active');
   $('tb-title').textContent = PAGE_TITLES[page] || page;
   closeSidebar();
+  moveSbGlide();
   // Lazy load data
   switch(page){
     case 'dashboard': loadDashboard(); break;
@@ -4728,6 +4851,102 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
   else bind();
+})();
+</script>
+
+<script>
+(function(){
+  // ── Indicador deslizante del sidebar ──
+  function moveSbGlide(){
+    var glide = document.getElementById('sb-glide');
+    var active = document.querySelector('.sb-item.active');
+    if(!glide || !active) return;
+    glide.style.top = active.offsetTop + 'px';
+    glide.style.height = active.offsetHeight + 'px';
+    glide.style.opacity = '1';
+  }
+  window.moveSbGlide = moveSbGlide;
+  window.addEventListener('resize', moveSbGlide);
+  window.addEventListener('DOMContentLoaded', function(){ setTimeout(moveSbGlide, 60); });
+  setTimeout(moveSbGlide, 300);
+
+  // ── Command palette (Ctrl/Cmd+K) ──
+  var dialog = document.getElementById('cmdk-dialog');
+  var input = document.getElementById('cmdk-input');
+  var list = document.getElementById('cmdk-list');
+  var items = [];
+  var activeIndex = 0;
+
+  function buildItems(){
+    items = Array.prototype.map.call(document.querySelectorAll('.sidebar .sb-item[data-page]'), function(el){
+      return { page: el.dataset.page, label: el.textContent.trim(), icon: el.querySelector('.sb-icon') ? el.querySelector('.sb-icon').innerHTML : '' };
+    });
+  }
+
+  function renderList(query){
+    var q = (query || '').toLowerCase().trim();
+    var filtered = items.filter(function(it){ return it.label.toLowerCase().indexOf(q) > -1; });
+    if(!filtered.length){
+      list.innerHTML = '<div class="cmdk-empty">Sin resultados.</div>';
+      return;
+    }
+    activeIndex = 0;
+    list.innerHTML = filtered.map(function(it, i){
+      return '<button type="button" class="cmdk-item" data-page="' + it.page + '" data-active="' + (i === 0) + '">' +
+        '<i class="sb-icon">' + it.icon + '</i>' + it.label + '</button>';
+    }).join('');
+    Array.prototype.forEach.call(list.querySelectorAll('.cmdk-item'), function(btn){
+      btn.addEventListener('click', function(){ goToPage(btn.dataset.page); });
+    });
+  }
+
+  function setActive(i){
+    var buttons = list.querySelectorAll('.cmdk-item');
+    if(!buttons.length) return;
+    activeIndex = (i + buttons.length) % buttons.length;
+    buttons.forEach(function(b, idx){ b.dataset.active = (idx === activeIndex); });
+    buttons[activeIndex].scrollIntoView({ block: 'nearest' });
+  }
+
+  function goToPage(page){
+    closeCmdk();
+    if(typeof nav === 'function') nav(page);
+  }
+
+  function openCmdk(){
+    if(!dialog || typeof dialog.showModal !== 'function') return;
+    buildItems();
+    input.value = '';
+    renderList('');
+    dialog.showModal();
+    setTimeout(function(){ input.focus(); }, 0);
+  }
+  function closeCmdk(){
+    if(dialog && dialog.open) dialog.close();
+  }
+  window.openCmdk = openCmdk;
+
+  if(input) input.addEventListener('input', function(){ renderList(input.value); });
+  if(input) input.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown'){ e.preventDefault(); setActive(activeIndex + 1); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); setActive(activeIndex - 1); }
+    else if(e.key === 'Enter'){
+      e.preventDefault();
+      var btn = list.querySelectorAll('.cmdk-item')[activeIndex];
+      if(btn) goToPage(btn.dataset.page);
+    }
+  });
+  if(dialog) dialog.addEventListener('click', function(e){ if(e.target === dialog) closeCmdk(); });
+
+  var searchBtn = document.getElementById('tb-search-btn');
+  if(searchBtn) searchBtn.addEventListener('click', openCmdk);
+
+  document.addEventListener('keydown', function(e){
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){
+      e.preventDefault();
+      openCmdk();
+    }
+  });
 })();
 </script>
 
